@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurisme Saveurs et Services</title>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root { --primary: #800000; --gold: #D4AF37; --light: #f9f9f9; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #333; background: var(--light); scroll-behavior: smooth; }
         
+        /* Meni ki kole anlè a */
         nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-weight: bold; color: var(--primary); font-size: 22px; text-transform: uppercase; }
+        .logo { font-weight: bold; color: var(--primary); font-size: 20px; text-transform: uppercase; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 14px; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 13px; }
 
-        section { padding: 60px 20px; max-width: 1000px; margin: auto; text-align: center; }
+        section { padding: 80px 20px; max-width: 1000px; margin: auto; text-align: center; min-height: 40vh; }
         h2 { color: var(--primary); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; margin-bottom: 30px; }
 
+        /* Seksyon Sèvis */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); transition: 0.3s; }
-        .card h3 { color: var(--primary); margin-top: 0; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); }
+        .card h3 { color: var(--primary); margin-top: 0; font-size: 18px; }
 
+        /* Fòm Kòmand */
         .form-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #a00000; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 17px; cursor: pointer; }
 
-        footer { background: var(--primary); color: white; padding: 40px 20px; margin-top: 50px; text-align: center; }
+        footer { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
@@ -34,128 +35,86 @@
     <nav>
         <div class="logo">Aurisme Saveurs</div>
         <ul class="nav-links">
-            <li><a href="#propos">Istwa</a></li>
-            <li><a href="#services">Sèvis</a></li>
-            <li><a href="#kòmand">Kòmand</a></li>
+            <li><a href="#propos">ISTWA</a></li>
+            <li><a href="#services">SÈVIS</a></li>
+            <li><a href="#kòmand">KÒMAND</a></li>
         </ul>
     </nav>
 
     <section id="propos">
         <h2>À Propos de Nous</h2>
-        <p style="line-height: 1.8; font-size: 17px; max-width: 750px; margin: auto;">
-            <strong>Aurisme Saveurs et Services</strong> se patnè ou pou tout bezwen nan gastronomi ak lojistik. Nou ofri yon sèvis livrezon rapid pou boutik, restoran, ak famasi, pandan n ap kenbe ekselans nou nan pâtisserie ak dekorasyon.
+        <p style="line-height: 1.8; font-size: 18px; max-width: 750px; margin: auto;">
+            <strong>Aurisme Saveurs et Services</strong> se patnè pwofesyonèl ou nan Pòtoprens. Nou espesyalize nan <strong>Livrezon rapid</strong> pou boutik, restoran ak famasi, san nou pa bliye bèl <strong>Gato Maryaj ak Anivèsè</strong> ak sèvis gastronomi konplè nou yo.
         </p>
     </section>
 
     <section id="services">
         <h2>Nou 8 Sèvis Yo</h2>
         <div class="grid">
-            <div class="card"><h3>Livrezon Pwofesyonèl</h3><p>Sèvis rapid pou Boutik, Restoran, ak Famasi.</p></div>
-            <div class="card"><h3>Gato Anivèsè</h3><p>Gou ak dekorasyon pèsonalize pou fèt ou.</p></div>
-            <div class="card"><h3>Gato Maryaj</h3><p>Yon gato espesyal pou yon jou inoubliyab.</p></div>
-            <div class="card"><h3>Sèvis Gastronomi</h3><p>Bon jan plat cho ak buffet pwofesyonèl.</p></div>
-            <div class="card"><h3>Dekorasyon Espas</h3><p>Bèl dekorasyon pou tout kalite seremoni.</p></div>
-            <div class="card"><h3>Kòmand Espesyal</h3><p>Nou prepare manje pou reyinyon ak ti fèt.</p></div>
-            <div class="card"><h3>Sèvis Traiteur</h3><p>Jesyon konplè manje ak bwason nan evènman ou.</p></div>
-            <div class="card"><h3>Konsiltasyon Kilinè</h3><p>Èd pwofesyonèl pou pwojè gastronomik ou.</p></div>
+            <div class="card"><h3>Livrezon Pwofesyonèl</h3><p>Boutik, Restoran, ak Famasi.</p></div>
+            <div class="card"><h3>Gato Maryaj</h3><p>Dekorasyon liks pou gwo jou a.</p></div>
+            <div class="card"><h3>Gato Anivèsè</h3><p>Gou ak bèl desen pou tout laj.</p></div>
+            <div class="card"><h3>Sèvis Gastronomi</h3><p>Plat cho ak buffet pwofesyonèl.</p></div>
+            <div class="card"><h3>Dekorasyon Espas</h3><p>Nou transfòme tout lokal seremoni.</p></div>
+            <div class="card"><h3>Kòmand Espesyal</h3><p>Reyinyon, ti fèt ak kolasyon.</p></div>
+            <div class="card"><h3>Sèvis Traiteur</h3><p>Jesyon manje pou tout evènman ou.</p></div>
+            <div class="card"><h3>Konsiltasyon Kilinè</h3><p>Ekspètiz gastronomik pou pwojè ou.</p></div>
         </div>
     </section>
 
     <section id="kòmand">
-        <h2>Pase Kòmand / Kontak</h2>
+        <h2>Pase Kòmand sou WhatsApp</h2>
         <div class="form-container">
             <form id="orderForm">
-                <input type="text" name="name" placeholder="Non Konplè" required>
-                <input type="tel" name="phone" placeholder="WhatsApp / Telefòn" required>
-                <select name="service" required>
-                    <option value="">Chwazi sèvis ou bezwen an...</option>
-                    <option value="Livrezon">Livrezon (Boutik, Restoran, Famasi)</option>
-                    <option value="Gato Anivèsè">Gato Anivèsè</option>
+                <input type="text" id="name" placeholder="Non Konplè" required>
+                <input type="tel" id="phone" placeholder="Nimewo WhatsApp ou" required>
+                <select id="service" required>
+                    <option value="">Chwazi yon sèvis...</option>
+                    <option value="Livrezon (Boutik/Famasi)">Livrezon (Boutik/Restoran/Famasi)</option>
                     <option value="Gato Maryaj">Gato Maryaj</option>
+                    <option value="Gato Anivèsè">Gato Anivèsè</option>
                     <option value="Gastronomi">Sèvis Gastronomi</option>
                     <option value="Dekorasyon">Dekorasyon Espas</option>
-                    <option value="Espesyal">Kòmand Espesyal</option>
+                    <option value="Kòmand Espesyal">Kòmand Espesyal</option>
                     <option value="Traiteur">Sèvis Traiteur</option>
-                    <option value="Konsiltasyon">Konsiltasyon Kilinè</option>
+                    <option value="Konsiltasyon">Konsiltasyon</option>
                 </select>
-                <textarea name="message" rows="4" placeholder="Ekri detay sou kòmand lan oswa kote pou n livre a..."></textarea>
-                <button type="submit" id="btn">VOYE KÒMAND LAN</button>
+                <textarea id="message" rows="4" placeholder="Ekri kisa ou bezwen an oswa kote pou n livre a..."></textarea>
+                <button type="submit">VOYE SOU WHATSAPP</button>
             </form>
         </div>
     </section>
 
     <footer>
         <p>📍 Pòtoprens, Ayiti | 📧 gateaux.friandise@gmail.com</p>
+        <p>WhatsApp: +509 4201 7744</p>
         <p>&copy; 2026 Aurisme Saveurs - Tout dwa rezève.</p>
     </footer>
 
     <script>
-        (function() {
-            emailjs.init("EV2Oz34hgFeq5CXYo");
-        })();
-
         document.getElementById("orderForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            const btn = document.getElementById("btn");
-            btn.disabled = true;
-            btn.innerText = "Ap voye...";
+            
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const service = document.getElementById("service").value;
+            const message = document.getElementById("message").value;
 
-            const data = {
-                name: this.name.value,
-                phone: this.phone.value,
-                service: this.service.value,
-                message: this.message.value
-            };
+            // Nimewo ou bay la: +50942017744
+            const whatsappNumber = "50942017744";
 
-            emailjs.send("Aurisme-Saveurs", "Aurismesaveurs", data)
-            .then(() => {
-                alert("Siksè! Nou resevwa mesaj ou a.");
-                this.reset();
-                btn.disabled = false;
-                btn.innerText = "VOYE KÒMAND LAN";
-            })
-            .catch((err) => {
-                alert("Gen yon erè. Tcheke entènèt ou.");
-                btn.disabled = false;
-                btn.innerText = "VOYE KÒMAND LAN";
-            });
+            const text = "*NOUVO KÒMAND - AURISME SAVEURS*\n\n" +
+                         "👤 *Kliyan:* " + name + "\n" +
+                         "📞 *Telefòn:* " + phone + "\n" +
+                         "🎂 *Sèvis:* " + service + "\n" +
+                         "📝 *Detay:* " + message;
+
+            const whatsappUrl = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(text);
+
+            // Ouvri WhatsApp
+            window.open(whatsappUrl, '_blank');
+            this.reset();
         });
     </script>
 </body>
 </html>
-<script>
-    (function() {
-        // Public Key ou a ki soti nan kont EmailJS ou
-        emailjs.init("EV2Oz34hgFeq5CXYo");
-    })();
-
-    document.getElementById("orderForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        const btn = document.getElementById("btn");
-        btn.disabled = true;
-        btn.innerText = "Ap voye kòmand lan...";
-
-        // Done k ap soti nan fòm lan
-        const data = {
-            name: this.name.value,
-            phone: this.phone.value,
-            service: this.service.value,
-            message: this.message.value
-        };
-
-        // Voye mesaj la ak Service ID ak Template ID ki kòrèk yo
-        emailjs.send("Aurisme-Saveurs", "Aurismesaveurs", data)
-        .then(() => {
-            alert("Siksè! Aurisme Saveurs resevwa kòmand ou an. N ap kontakte w talè.");
-            this.reset();
-            btn.disabled = false;
-            btn.innerText = "VOYE KÒMAND LAN";
-        })
-        .catch((err) => {
-            // Si gen yon erè, n ap afiche l pou n ka konnen sa k pase
-            alert("Gen yon erè: " + JSON.stringify(err));
-            btn.disabled = false;
-            btn.innerText = "VOYE KÒMAND LAN";
-        });
-    });
-</script>
