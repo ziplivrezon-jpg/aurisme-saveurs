@@ -1,141 +1,139 @@
 <!DOCTYPE html>
-<html lang="ht">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Aurisme">
-    <link rel="apple-touch-icon" href="https://via.placeholder.com/192">
-    <meta name="theme-color" content="#800000">
-
-    <title>Aurisme Saveurs et Services</title>
+    <title>Aurisme Services & Saveurs</title>
     <style>
-        :root { --primary: #800000; --gold: #D4AF37; --light: #f9f9f9; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #333; background: var(--light); scroll-behavior: smooth; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --whatsapp: #25D366; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; color: #333; }
         
-        nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-weight: bold; color: var(--primary); font-size: 18px; text-transform: uppercase; }
-        .nav-links { list-style: none; display: flex; gap: 10px; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 12px; }
+        header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
+        .logo-container img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; }
+        header h1 { margin: 0; font-size: 22px; text-transform: uppercase; }
 
-        section { padding: 60px 20px; max-width: 1000px; margin: auto; text-align: center; }
-        h2 { color: var(--primary); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; margin-bottom: 30px; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        
+        /* Sèvis k ap glise */
+        .service-list { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 15px; scrollbar-width: none; }
+        .service-item { background: white; padding: 10px 15px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid var(--gold); white-space: nowrap; font-size: 13px; font-weight: bold; }
+        
+        /* Formulaire */
+        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); text-align: left; }
+        label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+        
+        /* Seksyon Peman */
+        .payment-methods { display: flex; gap: 10px; margin-bottom: 15px; }
+        .pay-option { flex: 1; text-align: center; border: 1px solid #ddd; padding: 10px; border-radius: 10px; font-size: 12px; cursor: pointer; background: #f9f9f9; }
+        .pay-option.active { border-color: var(--gold); background: #fff9f0; font-weight: bold; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { color: var(--primary); margin-top: 0; font-size: 18px; }
-        .card p { font-size: 14px; color: #666; }
-
-        .form-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #600000; }
-
-        footer { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
+        /* Bouton */
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
+        
+        footer { margin-top: 40px; padding: 20px; font-size: 12px; color: #888; background: #eee; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">Aurisme Services</div>
-        <ul class="nav-links">
-            <li><a href="#services">SÈVIS</a></li>
-            <li><a href="#language">LANG</a></li>
-            <li><a href="#kòmand">KÒMAND</a></li>
-        </ul>
-    </nav>
-
-    <section id="services">
-        <h2>Saveurs & Gastronomie</h2>
-        <div class="grid">
-            <div class="card"><h3>Livrezon Pwofesyonèl</h3><p>Boutik, Restoran, ak Famasi.</p></div>
-            <div class="card"><h3>Gato Maryaj & Anivèsè</h3><p>Dekorasyon liks ak gou pèsonalize.</p></div>
-            <div class="card"><h3>Sèvis Gastronomi</h3><p>Plat cho, Buffet, ak Sèvis Traiteur.</p></div>
-            <div class="card"><h3>Dekorasyon Espas</h3><p>Transfòmasyon lokal pou seremoni.</p></div>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Aurisme">
         </div>
-    </section>
+        <h1>Aurisme Services & Saveurs</h1>
+    </header>
 
-    <section id="language" style="background: #fff8f0; border-radius: 20px;">
-        <h2>Aurisme Language Learning</h2>
-        <p style="font-size: 18px; margin-bottom: 20px;">Aprann pale byen rapid ak pwofesè kalifye!</p>
-        <div class="grid">
-            <div class="card" style="border-top-color: var(--gold);">
-                <h3>Anglè (English)</h3>
-                <p>Kou konplè pou tout nivo.</p>
-            </div>
-            <div class="card" style="border-top-color: var(--gold);">
-                <h3>Panyòl (Español)</h3>
-                <p>Aprann pale panyòl san pèdi tan.</p>
-            </div>
-            <div class="card" style="border-top-color: var(--gold);">
-                <h3>Potigè (Português)</h3>
-                <p>Kou espesyal pou moun ki vle vwayaje oswa travay.</p>
-            </div>
+    <div class="container">
+        <div class="service-list">
+            <div class="service-item">🛒 Makèt</div>
+            <div class="service-item">🎂 Gâteaux</div>
+            <div class="service-item">🛵 Livraison</div>
+            <div class="service-item">📚 Langues</div>
+            <div class="service-item">🍽️ Traiteur</div>
         </div>
-    </section>
 
-    <section id="kòmand">
-        <h2>Inskripsyon & Kòmand</h2>
         <div class="form-container">
             <form id="orderForm">
-                <input type="text" id="name" placeholder="Non Konplè" required>
-                <input type="tel" id="phone" placeholder="Nimewo Telefòn" required>
-                <select id="service" required>
-                    <option value="">Chwazi sa ou bezwen an...</option>
-                    <option value="Kou Anglè">Aurisme Language: Kou Anglè</option>
-                    <option value="Kou Panyòl">Aurisme Language: Kou Panyòl</option>
-                    <option value="Kou Potigè">Aurisme Language: Kou Potigè</option>
-                    <option value="Livrezon">Sèvis Livrezon</option>
-                    <option value="Gato">Gato (Maryaj/Anivèsè)</option>
-                    <option value="Gastronomi">Sèvis Gastronomi / Traiteur</option>
-                    <option value="Dekorasyon">Dekorasyon Espas</option>
+                <label>Non konplè w</label>
+                <input type="text" id="name" placeholder="Egz: Jean Philippe" required>
+
+                <label>Sèvis w ap chwazi a</label>
+                <select id="service" onchange="toggleMarketFields()" required>
+                    <option value="">-- Chwazi yon sèvis --</option>
+                    <option value="Makèt">🛒 Fè Makèt pou mwen</option>
+                    <option value="Gateau">🎂 Gâteaux & Pâtisserie</option>
+                    <option value="Livraison">🛵 Livraison Rapide</option>
+                    <option value="Langue">📚 Cours de Langues</option>
+                    <option value="Traiteur">🍽️ Service Traiteur</option>
                 </select>
-                <textarea id="message" rows="4" placeholder="Ekri plis detay si ou vle..."></textarea>
-                <button type="submit" id="submitBtn">VOYE KÒMAND LAN</button>
+
+                <div id="market-details" style="display:none;">
+                    <label>Non Makèt la (Egz: Giant, Eagle, elatriye)</label>
+                    <input type="text" id="market_name" placeholder="Ki kote n ap achte a?">
+                </div>
+
+                <label>Detay sou kòmand lan / Lis makèt la</label>
+                <textarea id="message" rows="4" placeholder="Ekri tout sa w bezwen an detay..."></textarea>
+
+                <label>Mwayen Peman prefere</label>
+                <select id="payment">
+                    <option value="MonCash">MonCash</option>
+                    <option value="Natcash">Natcash</option>
+                    <option value="Cash">Lajan Kach (Lè w livre)</option>
+                    <option value="Virement">Virement Bank</option>
+                </select>
+                
+                <button type="button" class="btn-order" onclick="sendOrder()">VOYE KÒMAND SOU WHATSAPP</button>
+                
+                <a href="https://wa.me/50942017744?text=Bonjour%20Aurisme%20Services,%20mwen%20ta%20renmen%20swiv%20koli%20m%20nan." class="btn-track">
+                    📍 SWIV KOLI OU AN (MAP)
+                </a>
             </form>
         </div>
-    </section>
+    </div>
 
     <footer>
-        <p>📍 Pòtoprens, Ayiti | 📧 gateaux.friandise@gmail.com</p>
-        <p>Kontak WhatsApp: +509 4201 7744</p>
-        <p>&copy; 2026 Aurisme Saveurs & Language - Tout dwa rezève.</p>
+        &copy; 2026 Aurisme Services & Saveurs | +509 4201 7744 <br>
+        <a href="privacy.html" style="color: #888; text-decoration: none;">Politique de Confidentialité</a>
     </footer>
 
     <script>
-        document.getElementById("orderForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const btn = document.getElementById("submitBtn");
-            const name = document.getElementById("name").value;
-            const phone = document.getElementById("phone").value;
-            const service = document.getElementById("service").value;
-            const message = document.getElementById("message").value;
+        // Fonksyon pou montre bwat makèt la sèlman lè sa nesesè
+        function toggleMarketFields() {
+            const service = document.getElementById('service').value;
+            const marketDiv = document.getElementById('market-details');
+            if(service === "Makèt") {
+                marketDiv.style.display = "block";
+            } else {
+                marketDiv.style.display = "none";
+            }
+        }
 
-            btn.innerText = "Ap voye...";
-            btn.style.opacity = "0.7";
+        function sendOrder() {
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const market = document.getElementById('market_name').value;
+            const message = document.getElementById('message').value;
+            const payment = document.getElementById('payment').value;
 
-            const whatsappNumber = "50942017744";
+            if(name === "" || service === "") {
+                alert("Tanpri mete non w ak sèvis ou chwazi a.");
+                return;
+            }
 
-            const text = "*NOUVO KONTAK - AURISME SERVICES*\n\n" +
-                         "👤 *Kliyan:* " + name + "\n" +
-                         "📞 *Telefòn:* " + phone + "\n" +
-                         "📚 *Sèvis/Kou:* " + service + "\n" +
-                         "📝 *Detay:* " + message;
+            let text = `*NOUVO KÒMAND AURISME*\n\n`;
+            text += `👤 *Kliyan:* ${name}\n`;
+            text += `🛠️ *Sèvis:* ${service}\n`;
+            if(service === "Makèt" && market !== "") {
+                text += `🏢 *Makèt:* ${market}\n`;
+            }
+            text += `📝 *Detay:* ${message}\n`;
+            text += `💰 *Peman:* ${payment}`;
 
-            const whatsappUrl = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(text);
-
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-                btn.innerText = "VOYE KÒMAND LAN";
-                btn.style.opacity = "1";
-                this.reset();
-            }, 800);
-        });
+            window.open(`https://wa.me/50942017744?text=${encodeURIComponent(text)}`, '_blank');
+        }
     </script>
+
 </body>
-                    </html>
-                    
+</html>
