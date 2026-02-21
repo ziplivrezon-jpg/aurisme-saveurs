@@ -1,139 +1,79 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Services & Saveurs</title>
-    <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --whatsapp: #25D366; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; color: #333; }
-        
-        header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
-        .logo-container img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; }
-        header h1 { margin: 0; font-size: 22px; text-transform: uppercase; }
+<div class="form-container">
+    <h3 style="color: var(--bordeaux); margin-bottom: 15px;">Kòmand ak Sèvis</h3>
+    
+    <form id="orderForm">
+        <label>Non Makèt oswa Non Kliyan</label>
+        <input type="text" id="user_name" placeholder="Egz: Supermarché Eagle oswa Jean" required>
 
-        .container { padding: 20px; max-width: 500px; margin: auto; }
-        
-        /* Sèvis k ap glise */
-        .service-list { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 15px; scrollbar-width: none; }
-        .service-item { background: white; padding: 10px 15px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid var(--gold); white-space: nowrap; font-size: 13px; font-weight: bold; }
-        
-        /* Formulaire */
-        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); text-align: left; }
-        label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
-        
-        /* Seksyon Peman */
-        .payment-methods { display: flex; gap: 10px; margin-bottom: 15px; }
-        .pay-option { flex: 1; text-align: center; border: 1px solid #ddd; padding: 10px; border-radius: 10px; font-size: 12px; cursor: pointer; background: #f9f9f9; }
-        .pay-option.active { border-color: var(--gold); background: #fff9f0; font-weight: bold; }
+        <label>Chwazi yon Sèvis</label>
+        <select id="service" onchange="toggleExtraFields()" required>
+            <option value="">-- Chwazi --</option>
+            <option value="Livraison_Magasin">🛵 Livrezon pou Makèt (B2B)</option>
+            <option value="Cours_Langue">📚 Cours de Langues</option>
+            <option value="Gateau">🎂 Gâteaux & Pâtisserie</option>
+            <option value="Traiteur">🍽️ Service Traiteur</option>
+        </select>
 
-        /* Bouton */
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
-        
-        footer { margin-top: 40px; padding: 20px; font-size: 12px; color: #888; background: #eee; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo Aurisme">
-        </div>
-        <h1>Aurisme Services & Saveurs</h1>
-    </header>
-
-    <div class="container">
-        <div class="service-list">
-            <div class="service-item">🛒 Makèt</div>
-            <div class="service-item">🎂 Gâteaux</div>
-            <div class="service-item">🛵 Livraison</div>
-            <div class="service-item">📚 Langues</div>
-            <div class="service-item">🍽️ Traiteur</div>
+        <div id="langue-fields" style="display:none;">
+            <label>Chwazi Lang lan</label>
+            <select id="langue_choice">
+                <option value="Anglais">Anglais 🇺🇸</option>
+                <option value="Espagnol">Espagnol 🇪🇸</option>
+                <option value="Portugais">Portugais 🇧🇷</option>
+            </select>
         </div>
 
-        <div class="form-container">
-            <form id="orderForm">
-                <label>Non konplè w</label>
-                <input type="text" id="name" placeholder="Egz: Jean Philippe" required>
-
-                <label>Sèvis w ap chwazi a</label>
-                <select id="service" onchange="toggleMarketFields()" required>
-                    <option value="">-- Chwazi yon sèvis --</option>
-                    <option value="Makèt">🛒 Fè Makèt pou mwen</option>
-                    <option value="Gateau">🎂 Gâteaux & Pâtisserie</option>
-                    <option value="Livraison">🛵 Livraison Rapide</option>
-                    <option value="Langue">📚 Cours de Langues</option>
-                    <option value="Traiteur">🍽️ Service Traiteur</option>
-                </select>
-
-                <div id="market-details" style="display:none;">
-                    <label>Non Makèt la (Egz: Giant, Eagle, elatriye)</label>
-                    <input type="text" id="market_name" placeholder="Ki kote n ap achte a?">
-                </div>
-
-                <label>Detay sou kòmand lan / Lis makèt la</label>
-                <textarea id="message" rows="4" placeholder="Ekri tout sa w bezwen an detay..."></textarea>
-
-                <label>Mwayen Peman prefere</label>
-                <select id="payment">
-                    <option value="MonCash">MonCash</option>
-                    <option value="Natcash">Natcash</option>
-                    <option value="Cash">Lajan Kach (Lè w livre)</option>
-                    <option value="Virement">Virement Bank</option>
-                </select>
-                
-                <button type="button" class="btn-order" onclick="sendOrder()">VOYE KÒMAND SOU WHATSAPP</button>
-                
-                <a href="https://wa.me/50942017744?text=Bonjour%20Aurisme%20Services,%20mwen%20ta%20renmen%20swiv%20koli%20m%20nan." class="btn-track">
-                    📍 SWIV KOLI OU AN (MAP)
-                </a>
-            </form>
+        <div id="livraison-fields" style="display:none;">
+            <label>Adrès kote n ap pran koli a</label>
+            <input type="text" id="pickup_addr" placeholder="Ri, Nimewo, Zòn...">
+            <label>Adrès livrezon (Destinasyon)</label>
+            <input type="text" id="dest_addr" placeholder="Kote l prale a...">
         </div>
-    </div>
 
-    <footer>
-        &copy; 2026 Aurisme Services & Saveurs | +509 4201 7744 <br>
-        <a href="privacy.html" style="color: #888; text-decoration: none;">Politique de Confidentialité</a>
-    </footer>
+        <label>Lòt Detay (Lis pwodwi oswa kesyon)</label>
+        <textarea id="details" rows="3" placeholder="Ekri plis detay isit la..."></textarea>
 
-    <script>
-        // Fonksyon pou montre bwat makèt la sèlman lè sa nesesè
-        function toggleMarketFields() {
-            const service = document.getElementById('service').value;
-            const marketDiv = document.getElementById('market-details');
-            if(service === "Makèt") {
-                marketDiv.style.display = "block";
-            } else {
-                marketDiv.style.display = "none";
-            }
-        }
+        <button type="button" class="btn-order" onclick="sendOrderFinal()">VOYE KÒMAND LAN</button>
+        
+        <a href="https://wa.me/50942017744?text=Bonjour%20Aurisme%20Services,%20mwen%20ta%20renmen%20swiv%20yon%20kòmand." class="btn-track">
+            📍 SWIV KÒMAND OU
+        </a>
+    </form>
+</div>
 
-        function sendOrder() {
-            const name = document.getElementById('name').value;
-            const service = document.getElementById('service').value;
-            const market = document.getElementById('market_name').value;
-            const message = document.getElementById('message').value;
-            const payment = document.getElementById('payment').value;
+<script>
+function toggleExtraFields() {
+    const service = document.getElementById('service').value;
+    document.getElementById('langue-fields').style.display = (service === "Cours_Langue") ? "block" : "none";
+    document.getElementById('livraison-fields').style.display = (service === "Livraison_Magasin") ? "block" : "none";
+}
 
-            if(name === "" || service === "") {
-                alert("Tanpri mete non w ak sèvis ou chwazi a.");
-                return;
-            }
+function sendOrderFinal() {
+    const name = document.getElementById('user_name').value;
+    const service = document.getElementById('service').value;
+    const details = document.getElementById('details').value;
+    const lang = document.getElementById('langue_choice').value;
+    const pickup = document.getElementById('pickup_addr').value;
+    const dest = document.getElementById('dest_addr').value;
 
-            let text = `*NOUVO KÒMAND AURISME*\n\n`;
-            text += `👤 *Kliyan:* ${name}\n`;
-            text += `🛠️ *Sèvis:* ${service}\n`;
-            if(service === "Makèt" && market !== "") {
-                text += `🏢 *Makèt:* ${market}\n`;
-            }
-            text += `📝 *Detay:* ${message}\n`;
-            text += `💰 *Peman:* ${payment}`;
+    if(name === "" || service === "") {
+        alert("Ranpli non w ak sèvis la");
+        return;
+    }
 
-            window.open(`https://wa.me/50942017744?text=${encodeURIComponent(text)}`, '_blank');
-        }
-    </script>
+    let msg = `*AURISME SERVICES - NOUVO KÒMAND*\n\n`;
+    msg += `👤 *Kliyan/Magasin:* ${name}\n`;
+    msg += `🛠️ *Sèvis:* ${service}\n`;
 
-</body>
-</html>
+    if(service === "Cours_Langue") {
+        msg += `🌐 *Lang:* ${lang}\n`;
+    } else if(service === "Livraison_Magasin") {
+        msg += `📍 *Pickup:* ${pickup}\n`;
+        msg += `🏁 *Dest:* ${dest}\n`;
+    }
+
+    msg += `📝 *Detay:* ${details}`;
+
+    window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
