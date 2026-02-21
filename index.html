@@ -1,82 +1,161 @@
 <!DOCTYPE html>
-<html lang="hc">
+<html lang="ht">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurisme Saveurs et Services</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
-        .card { background: white; max-width: 400px; margin: auto; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h2 { color: #b71c1c; text-align: center; }
-        label { font-weight: bold; display: block; margin-top: 10px; }
-        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; background-color: #b71c1c; color: white; padding: 15px; border: none; border-radius: 8px; margin-top: 20px; font-weight: bold; cursor: pointer; }
-        button:disabled { background-color: #ccc; }
+        :root { --primary: #800000; --gold: #D4AF37; --light: #f9f9f9; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #333; background: var(--light); scroll-behavior: smooth; }
+        
+        nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { font-weight: bold; color: var(--primary); font-size: 22px; text-transform: uppercase; }
+        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 14px; }
+
+        section { padding: 60px 20px; max-width: 1000px; margin: auto; text-align: center; }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; margin-bottom: 30px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); transition: 0.3s; }
+        .card h3 { color: var(--primary); margin-top: 0; }
+
+        .form-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #a00000; }
+
+        footer { background: var(--primary); color: white; padding: 40px 20px; margin-top: 50px; text-align: center; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Aurisme Saveurs</h2>
-    <form id="orderForm">
-        <label>Non Konplè:</label>
-        <input type="text" id="name" placeholder="Egz: Jean Philippe" required>
+    <nav>
+        <div class="logo">Aurisme Saveurs</div>
+        <ul class="nav-links">
+            <li><a href="#propos">Istwa</a></li>
+            <li><a href="#services">Sèvis</a></li>
+            <li><a href="#kòmand">Kòmand</a></li>
+        </ul>
+    </nav>
 
-        <label>WhatsApp / Telefòn:</label>
-        <input type="tel" id="phone" placeholder="+509..." required>
+    <section id="propos">
+        <h2>À Propos de Nous</h2>
+        <p style="line-height: 1.8; font-size: 17px; max-width: 750px; margin: auto;">
+            <strong>Aurisme Saveurs et Services</strong> se patnè ou pou tout bezwen nan gastronomi ak lojistik. Nou ofri yon sèvis livrezon rapid pou boutik, restoran, ak famasi, pandan n ap kenbe ekselans nou nan pâtisserie ak dekorasyon.
+        </p>
+    </section>
 
-        <label>Chwazi Sèvis:</label>
-        <select id="service">
-            <option value="Aurisme Express">Aurisme Express</option>
-            <option value="Aurisme Saveurs">Aurisme Saveurs</option>
-            <option value="Aurisme Académie">Aurisme Académie</option>
-        </select>
+    <section id="services">
+        <h2>Nou 8 Sèvis Yo</h2>
+        <div class="grid">
+            <div class="card"><h3>Livrezon Pwofesyonèl</h3><p>Sèvis rapid pou Boutik, Restoran, ak Famasi.</p></div>
+            <div class="card"><h3>Gato Anivèsè</h3><p>Gou ak dekorasyon pèsonalize pou fèt ou.</p></div>
+            <div class="card"><h3>Gato Maryaj</h3><p>Yon gato espesyal pou yon jou inoubliyab.</p></div>
+            <div class="card"><h3>Sèvis Gastronomi</h3><p>Bon jan plat cho ak buffet pwofesyonèl.</p></div>
+            <div class="card"><h3>Dekorasyon Espas</h3><p>Bèl dekorasyon pou tout kalite seremoni.</p></div>
+            <div class="card"><h3>Kòmand Espesyal</h3><p>Nou prepare manje pou reyinyon ak ti fèt.</p></div>
+            <div class="card"><h3>Sèvis Traiteur</h3><p>Jesyon konplè manje ak bwason nan evènman ou.</p></div>
+            <div class="card"><h3>Konsiltasyon Kilinè</h3><p>Èd pwofesyonèl pou pwojè gastronomik ou.</p></div>
+        </div>
+    </section>
 
-        <label>Detay kòmand lan:</label>
-        <textarea id="details" rows="4" placeholder="Kisa ou ta renmen kòmande?"></textarea>
+    <section id="kòmand">
+        <h2>Pase Kòmand / Kontak</h2>
+        <div class="form-container">
+            <form id="orderForm">
+                <input type="text" name="name" placeholder="Non Konplè" required>
+                <input type="tel" name="phone" placeholder="WhatsApp / Telefòn" required>
+                <select name="service" required>
+                    <option value="">Chwazi sèvis ou bezwen an...</option>
+                    <option value="Livrezon">Livrezon (Boutik, Restoran, Famasi)</option>
+                    <option value="Gato Anivèsè">Gato Anivèsè</option>
+                    <option value="Gato Maryaj">Gato Maryaj</option>
+                    <option value="Gastronomi">Sèvis Gastronomi</option>
+                    <option value="Dekorasyon">Dekorasyon Espas</option>
+                    <option value="Espesyal">Kòmand Espesyal</option>
+                    <option value="Traiteur">Sèvis Traiteur</option>
+                    <option value="Konsiltasyon">Konsiltasyon Kilinè</option>
+                </select>
+                <textarea name="message" rows="4" placeholder="Ekri detay sou kòmand lan oswa kote pou n livre a..."></textarea>
+                <button type="submit" id="btn">VOYE KÒMAND LAN</button>
+            </form>
+        </div>
+    </section>
 
-        <button type="button" id="sendBtn" onclick="handleSend()">VOYE KÒMAND</button>
-    </form>
-</div>
+    <footer>
+        <p>📍 Pòtoprens, Ayiti | 📧 gateaux.friandise@gmail.com</p>
+        <p>&copy; 2026 Aurisme Saveurs - Tout dwa rezève.</p>
+    </footer>
 
+    <script>
+        (function() {
+            emailjs.init("EV2Oz34hgFeq5CXYo");
+        })();
+
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const btn = document.getElementById("btn");
+            btn.disabled = true;
+            btn.innerText = "Ap voye...";
+
+            const data = {
+                name: this.name.value,
+                phone: this.phone.value,
+                service: this.service.value,
+                message: this.message.value
+            };
+
+            emailjs.send("Aurisme-Saveurs", "Aurismesaveurs", data)
+            .then(() => {
+                alert("Siksè! Nou resevwa mesaj ou a.");
+                this.reset();
+                btn.disabled = false;
+                btn.innerText = "VOYE KÒMAND LAN";
+            })
+            .catch((err) => {
+                alert("Gen yon erè. Tcheke entènèt ou.");
+                btn.disabled = false;
+                btn.innerText = "VOYE KÒMAND LAN";
+            });
+        });
+    </script>
+</body>
+</html>
 <script>
-    // Inisyalizasyon ak Public Key ou a
-    emailjs.init("EV2Oz34hgFeq5CXYo");
+    (function() {
+        // Public Key ou a ki soti nan kont EmailJS ou
+        emailjs.init("EV2Oz34hgFeq5CXYo");
+    })();
 
-    function handleSend() {
-        const btn = document.getElementById("sendBtn");
-        
-        const data = {
-            name: document.getElementById("name").value,
-            phone: document.getElementById("phone").value,
-            service: document.getElementById("service").value,
-            details: document.getElementById("details").value
-        };
-
-        if(!data.name || !data.phone) {
-            alert("Tanpri ranpli Non ak Telefòn ou!");
-            return;
-        }
-
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const btn = document.getElementById("btn");
         btn.disabled = true;
         btn.innerText = "Ap voye kòmand lan...";
 
-        // Voye ak Service ID ak Template ID ou yo
-        emailjs.send("Aurisme-Saveurs", "Aurismesaveurs", data)
-            .then(() => {
-                alert("Mesaj ou a ale avèk siksè! Yon ajan ap kontakte ou.");
-                document.getElementById("orderForm").reset();
-                btn.disabled = false;
-                btn.innerText = "VOYE KÒMAND";
-            })
-            .catch((err) => {
-                alert("Gen yon erè. Tcheke si entènèt ou ap mache.");
-                btn.disabled = false;
-                btn.innerText = "VOYE KÒMAND";
-            });
-    }
-</script>
+        // Done k ap soti nan fòm lan
+        const data = {
+            name: this.name.value,
+            phone: this.phone.value,
+            service: this.service.value,
+            message: this.message.value
+        };
 
-</body>
-</html>
+        // Voye mesaj la ak Service ID ak Template ID ki kòrèk yo
+        emailjs.send("Aurisme-Saveurs", "Aurismesaveurs", data)
+        .then(() => {
+            alert("Siksè! Aurisme Saveurs resevwa kòmand ou an. N ap kontakte w talè.");
+            this.reset();
+            btn.disabled = false;
+            btn.innerText = "VOYE KÒMAND LAN";
+        })
+        .catch((err) => {
+            // Si gen yon erè, n ap afiche l pou n ka konnen sa k pase
+            alert("Gen yon erè: " + JSON.stringify(err));
+            btn.disabled = false;
+            btn.innerText = "VOYE KÒMAND LAN";
+        });
+    });
+</script>
