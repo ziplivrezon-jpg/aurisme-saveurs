@@ -6,25 +6,25 @@
     <title>Aurisme Services & Saveurs</title>
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
-        
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; }
-        header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; }
-
+        header h1 { margin: 0; font-size: 22px; }
         .container { padding: 20px; max-width: 500px; margin: auto; }
-        
-        .service-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
-        .service-item { background: white; padding: 12px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 3px solid var(--gold); font-weight: bold; font-size: 14px; }
-        
-        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; }
+        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
-        
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
         .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         
+        /* Temwayaj */
+        .ranking-section { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .stars { color: var(--gold); font-size: 20px; }
+        .reviews-container { display: flex; overflow-x: auto; gap: 15px; padding: 10px; scrollbar-width: none; }
+        .review-card { min-width: 200px; background: #fffbf2; padding: 10px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--bordeaux); }
+
         footer { margin-top: 40px; padding: 20px; font-size: 12px; color: #888; background: #eee; }
+        h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; }
     </style>
 </head>
 <body>
@@ -37,83 +37,102 @@
     </header>
 
     <div class="container">
-        <div class="service-list">
-            <div class="service-item">🛵 Livrezon Makèt</div>
-            <div class="service-item">📚 Langues</div>
-            <div class="service-item">🎂 Pâtisserie</div>
-            <div class="service-item">🍽️ Traiteur</div>
+
+        <div class="form-container">
+            <h2>🛒 Sèvis Makèt</h2>
+            <label>Nom du Supermarché</label>
+            <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
+            <label>Lis Pwodwi & Detay</label>
+            <textarea id="m_details" rows="2" placeholder="Sa w bezwen nou pran pou ou..."></textarea>
+            <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
         </div>
 
         <div class="form-container">
-            <form id="orderForm">
-                <label>Non Makèt oswa Non Kliyan</label>
-                <input type="text" id="user_name" placeholder="Egz: Supermarché Eagle" required>
-
-                <label>Chwazi yon Sèvis</label>
-                <select id="service" onchange="toggleExtraFields()" required>
-                    <option value="">-- Chwazi --</option>
-                    <option value="Livraison_Magasin">🛵 Livrezon pou Makèt (B2B)</option>
-                    <option value="Cours_Langue">📚 Cours de Langues</option>
-                    <option value="Gateau">🎂 Gâteaux & Pâtisserie</option>
-                    <option value="Traiteur">🍽️ Service Traiteur</option>
-                </select>
-
-                <div id="langue-fields" style="display:none;">
-                    <label>Chwazi Lang lan</label>
-                    <select id="langue_choice">
-                        <option value="Anglais">Anglais 🇺🇸</option>
-                        <option value="Espagnol">Espagnol 🇪🇸</option>
-                        <option value="Portugais">Portugais 🇧🇷</option>
-                    </select>
-                </div>
-
-                <div id="livraison-fields" style="display:none;">
-                    <label>Adrès kote n ap pran koli a</label>
-                    <input type="text" id="pickup_addr" placeholder="Ri, Nimewo, Zòn...">
-                    <label>Adrès livrezon (Destinasyon)</label>
-                    <input type="text" id="dest_addr" placeholder="Kote l prale a...">
-                </div>
-
-                <label>Lòt Detay (Lis pwodwi oswa nòt)</label>
-                <textarea id="details" rows="3" placeholder="Ekri plis detay isit la..."></textarea>
-
-                <button type="button" class="btn-order" onclick="sendOrderFinal()">VOYE KÒMAND LAN</button>
-                
-                <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU</a>
-            </form>
+            <h2>🛵 Sèvis Livrezon</h2>
+            <label>Point de Ramassage</label>
+            <input type="text" id="d_pickup" placeholder="Kote n ap pran koli a...">
+            <label>Destination</label>
+            <input type="text" id="d_dest" placeholder="Kote l prale a...">
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendDelivery()">MANDE YON LIVRÈ</button>
         </div>
+
+        <div class="form-container">
+            <h2>🥐 Patisri</h2>
+            <label>Chwazi sa w vle</label>
+            <select id="p_type">
+                <option value="Gâteau">Gâteau 🎂</option>
+                <option value="Bonbon">Bonbon 🍪</option>
+                <option value="Viennoiserie">Viennoiserie 🥐</option>
+            </select>
+            <label>Detay (Kantite, Gou...)</label>
+            <textarea id="p_details" rows="2"></textarea>
+            <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE</button>
+        </div>
+
+        <div class="form-container">
+            <h2>🍽️ Traiteur & Déco</h2>
+            <label>Sèvis</label>
+            <select id="td_type">
+                <option value="Traiteur">Traiteur 🍽️</option>
+                <option value="Decoration">Décoration 🎈</option>
+            </select>
+            <label>Detay Evènman</label>
+            <textarea id="td_details" rows="2"></textarea>
+            <button type="button" class="btn-order" onclick="sendTraiteurDeco()">VREYE DEMANN</button>
+        </div>
+
+        <div class="form-container">
+            <h2>📚 Cours de Langues</h2>
+            <select id="l_choice">
+                <option value="Anglais">Anglais 🇺🇸</option>
+                <option value="Espagnol">Espagnol 🇪🇸</option>
+                <option value="Portugais">Portugais 🇧🇷</option>
+            </select>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendLang()">ENFÒMASYON</button>
+        </div>
+
+        <div class="ranking-section">
+            <div class="stars">★★★★★</div>
+            <p><strong>Nòt: 4.9/5</strong></p>
+            <div class="reviews-container">
+                <div class="review-card">"Ekselan sèvis!"<br><strong>- Jean R.</strong></div>
+                <div class="review-card">"Livrezon rapid."<br><strong>- Marie L.</strong></div>
+            </div>
+        </div>
+
+        <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU (MAP)</a>
+
     </div>
 
     <footer>
-        &copy; 2026 Aurisme Services & Saveurs | <a href="privacy.html" style="color: #888; text-decoration: none;">Privacy Policy</a>
+        &copy; 2026 Aurisme Services & Saveurs | <a href="privacy.html" style="color:#888;">Privacy Policy</a>
     </footer>
 
     <script>
-        function toggleExtraFields() {
-            const service = document.getElementById('service').value;
-            document.getElementById('langue-fields').style.display = (service === "Cours_Langue") ? "block" : "none";
-            document.getElementById('livraison-fields').style.display = (service === "Livraison_Magasin") ? "block" : "none";
+        const phone = "50942017744";
+        function sendMarket() {
+            const n = document.getElementById('m_name').value;
+            const d = document.getElementById('m_details').value;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*MAKÈT*\nMakèt: '+n+'\nDetay: '+d)}`, '_blank');
         }
-
-        function sendOrderFinal() {
-            const name = document.getElementById('user_name').value;
-            const service = document.getElementById('service').value;
-            const details = document.getElementById('details').value;
-            const lang = document.getElementById('langue_choice').value;
-            const pickup = document.getElementById('pickup_addr').value;
-            const dest = document.getElementById('dest_addr').value;
-
-            if(name === "" || service === "") {
-                alert("Ranpli non w ak sèvis la");
-                return;
-            }
-
-            let msg = `*AURISME SERVICES*\n\n👤 *Kliyan:* ${name}\n🛠️ *Sèvis:* ${service}\n`;
-            if(service === "Cours_Langue") msg += `🌐 *Lang:* ${lang}\n`;
-            if(service === "Livraison_Magasin") msg += `📍 *Pickup:* ${pickup}\n🏁 *Dest:* ${dest}\n`;
-            msg += `📝 *Detay:* ${details}`;
-
-            window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`, '_blank');
+        function sendDelivery() {
+            const p = document.getElementById('d_pickup').value;
+            const d = document.getElementById('d_dest').value;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*LIVREZON*\nDepa: '+p+'\nDest: '+d)}`, '_blank');
+        }
+        function sendPatisri() {
+            const t = document.getElementById('p_type').value;
+            const d = document.getElementById('p_details').value;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*PATISRI*\nTip: '+t+'\nDetay: '+d)}`, '_blank');
+        }
+        function sendTraiteurDeco() {
+            const t = document.getElementById('td_type').value;
+            const d = document.getElementById('td_details').value;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*EVENT*\nSèvis: '+t+'\nDetay: '+d)}`, '_blank');
+        }
+        function sendLang() {
+            const l = document.getElementById('l_choice').value;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*LANG*\nLang: '+l)}`, '_blank');
         }
     </script>
 </body>
