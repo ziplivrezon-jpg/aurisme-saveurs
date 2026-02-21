@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hc">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurisme Saveurs et Services</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .card { background: white; max-width: 400px; margin: auto; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { color: #b71c1c; text-align: center; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; background-color: #b71c1c; color: white; padding: 15px; border: none; border-radius: 8px; margin-top: 20px; font-weight: bold; cursor: pointer; }
+        button:disabled { background-color: #ccc; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Aurisme Saveurs</h2>
+    <form id="orderForm">
+        <label>Non Konplè:</label>
+        <input type="text" id="name" placeholder="Egz: Jean Philippe" required>
+
+        <label>WhatsApp / Telefòn:</label>
+        <input type="tel" id="phone" placeholder="+509..." required>
+
+        <label>Chwazi Sèvis:</label>
+        <select id="service">
+            <option value="Aurisme Express">Aurisme Express</option>
+            <option value="Aurisme Saveurs">Aurisme Saveurs</option>
+            <option value="Aurisme Académie">Aurisme Académie</option>
+        </select>
+
+        <label>Detay kòmand lan:</label>
+        <textarea id="details" rows="4" placeholder="Kisa ou ta renmen kòmande?"></textarea>
+
+        <button type="button" id="sendBtn" onclick="handleSend()">VOYE KÒMAND</button>
+    </form>
+</div>
+
+<script>
+    // Inisyalizasyon ak Public Key ou a
+    emailjs.init("EV2Oz34hgFeq5CXYo");
+
+    function handleSend() {
+        const btn = document.getElementById("sendBtn");
+        
+        const data = {
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            service: document.getElementById("service").value,
+            details: document.getElementById("details").value
+        };
+
+        if(!data.name || !data.phone) {
+            alert("Tanpri ranpli Non ak Telefòn ou!");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "Ap voye kòmand lan...";
+
+        // Voye ak Service ID ak Template ID ou yo
+        emailjs.send("Aurisme-Saveurs", "Aurismesaveurs", data)
+            .then(() => {
+                alert("Mesaj ou a ale avèk siksè! Yon ajan ap kontakte ou.");
+                document.getElementById("orderForm").reset();
+                btn.disabled = false;
+                btn.innerText = "VOYE KÒMAND";
+            })
+            .catch((err) => {
+                alert("Gen yon erè. Tcheke si entènèt ou ap mache.");
+                btn.disabled = false;
+                btn.innerText = "VOYE KÒMAND";
+            });
+    }
+</script>
+
+</body>
+</html>
