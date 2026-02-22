@@ -14,10 +14,17 @@
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        
+        /* Style pou lis pwodwi a */
+        .product-list { margin-top: 10px; background: #fffaf0; padding: 10px; border-radius: 10px; border: 1px solid #eee; }
+        .product-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .product-item:last-child { border-bottom: none; }
+        .product-name { font-size: 14px; color: #333; font-weight: 500; }
+        .qty-input { width: 65px !important; padding: 8px !important; margin: 0 !important; text-align: center; border: 1px solid var(--gold) !important; font-weight: bold; }
+
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         
-        /* Temwayaj */
         .ranking-section { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .stars { color: var(--gold); font-size: 20px; }
         .reviews-container { display: flex; overflow-x: auto; gap: 15px; padding: 10px; scrollbar-width: none; }
@@ -42,8 +49,46 @@
             <h2>🛒 Sèvis Makèt</h2>
             <label>Nom du Supermarché</label>
             <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
-            <label>Lis Pwodwi & Detay</label>
-            <textarea id="m_details" rows="2" placeholder="Sa w bezwen nou pran pou ou..."></textarea>
+
+            <label>Lis Pwodwi & Kantite</label>
+            <div class="product-list">
+                <div class="product-item">
+                    <span class="product-name">Sable</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Sable">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Palmier</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Palmier">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Sacristain Coconuts</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Sacristain Coconuts">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Cookies</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Cookies">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Langue de boeufs</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Langue de boeufs">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Cupcakes</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Cupcakes">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Gâteau ti bol</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Gâteau ti bol">
+                </div>
+                <div class="product-item">
+                    <span class="product-name">Gwo gato</span>
+                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Gwo gato">
+                </div>
+            </div>
+
+            <label>Lòt detay (si genyen)</label>
+            <textarea id="m_details" rows="2" placeholder="Sa w bezwen anplis..."></textarea>
+            
             <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
         </div>
 
@@ -110,11 +155,30 @@
 
     <script>
         const phone = "50942017744";
+
         function sendMarket() {
-            const n = document.getElementById('m_name').value;
-            const d = document.getElementById('m_details').value;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*MAKÈT*\nMakèt: '+n+'\nDetay: '+d)}`, '_blank');
+            const maket = document.getElementById('m_name').value;
+            const lòtDetay = document.getElementById('m_details').value;
+            
+            let lisPwodwi = "";
+            const inputs = document.querySelectorAll('.qty-input');
+            inputs.forEach(input => {
+                if (input.value > 0) {
+                    lisPwodwi += `\n- ${input.getAttribute('data-name')}: ${input.value}`;
+                }
+            });
+
+            if (maket === "" && lisPwodwi === "") {
+                alert("Tanpri antre non makèt la oswa chwazi kantite pwodwi.");
+                return;
+            }
+
+            let mesaj = `*KÒMANDE MAKÈT*\n*Makèt:* ${maket || 'Pa espesifye'}${lisPwodwi}`;
+            if (lòtDetay) mesaj += `\n*Lòt detay:* ${lòtDetay}`;
+
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(mesaj)}`, '_blank');
         }
+
         function sendDelivery() {
             const p = document.getElementById('d_pickup').value;
             const d = document.getElementById('d_dest').value;
@@ -136,4 +200,5 @@
         }
     </script>
 </body>
-</html>
+                                                     </html>
+                                                     
