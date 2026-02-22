@@ -8,7 +8,7 @@
         :root { --bordeaux: #800000; --gold: #DAA520; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
-        /* RECLAME */
+        /* BANDEAU PUBLICITAIRE */
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
         .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
@@ -18,7 +18,7 @@
         .skiptranslate { display: none !important; }
         body { top: 0 !important; }
 
-        /* DRAPEAUX POUR TRADUCTION */
+        /* SÉLECTEUR DE LANGUE */
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
         .lang-btn:hover { transform: scale(1.2); }
@@ -46,7 +46,7 @@
     <div id="google_translate_element"></div>
 
     <div class="reklam-ticker">
-        <p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
+        <p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
     </div>
 
     <div class="lang-switcher">
@@ -92,6 +92,7 @@
                 <option value="Cupcakes">Cupcakes</option>
                 <option value="Gâteau ti bòl">Gâteau ti bòl</option>
                 <option value="Sacristains">Sacristains</option>
+                <option value="Gâteau Carré">Gâteau Carré</option>
             </select>
             <label>Quantité</label>
             <input type="number" id="m_qty" value="1" min="1">
@@ -106,13 +107,78 @@
                 <option value="Bonbons en Boîte">Bonbons en Boîte (250 HTG)</option>
                 <option value="Bonbons en Sachet">Bonbons en Sachet (150 HTG)</option>
             </select>
-            <label>Détails (Thème, Couleur, Saveur...)</label>
-            <textarea id="p_style" rows="2" placeholder="Détails de votre commande..."></textarea>
+            <label>Détails (Thème, Couleur, Écriture...)</label>
+            <textarea id="p_style" rows="2" placeholder="Ex: Thème Spider-man, Couleur Bleu/Rouge..."></textarea>
             <button type="button" class="btn-order" onclick="sendPatisri()">COMMANDER</button>
         </div>
 
         <div class="form-container">
             <h2>🍽️ Traiteur & Décoration</h2>
             <label>Détails de l'événement</label>
-            <textarea id="td_details" rows="2" placeholder="Date, type d'événement, nombre de personnes..."></textarea>
-            <button type="button" class="btn-order" style="background-color
+            <textarea id="td_details" rows="2" placeholder="Date, type d'événement, nombre de convives..."></textarea>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendOther()">DEMANDER UN DEVIS</button>
+        </div>
+
+        <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
+            <h2>🛵 Livraison & Taxi Moto</h2>
+            <a href="livrezon.html" class="btn-order btn-delivery-footer">ACCÉDER À LA PAGE LIVRAISON</a>
+        </div>
+
+        <div class="footer-info">
+            <div class="slogan">"Le goût allié à l'excellence, à votre porte !"</div>
+            <div class="contact-detail">📧 <strong>Email :</strong> <a href="mailto:gâteaux.friandise@gmail.com" style="color: var(--bordeaux); text-decoration: none;">gâteaux.friandise@gmail.com</a></div>
+            <div class="contact-detail">📍 <strong>Adresse :</strong> Péguy-ville, rue A Qualo, Haïti</div>
+            <br>
+            <a href="https://wa.me/50942017744" class="btn-order" style="background-color: #25D366;">CONTACTER SUR WHATSAPP</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
+        }
+        function translatePage(lang) {
+            var selectField = document.querySelector("select.goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        const phone = "50942017744";
+
+        function sendLang() {
+            const l = document.getElementById('l_choice').value;
+            const s = document.getElementById('l_student').value;
+            if(!s) return alert("Veuillez entrer votre nom");
+            let msg = `*AURISME - INSCRIPTION COURS*\n📚 Langue: ${l}\n👤 Étudiant: ${s}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendMarket() {
+            const n = document.getElementById('m_name').value;
+            const p = document.getElementById('m_product').value;
+            const q = document.getElementById('m_qty').value;
+            if(!n || !p) return alert("Veuillez remplir tous les champs");
+            let msg = `*AURISME - SUPERMARCHÉ*\n🏢 Magasin: ${n}\n📦 Produit: ${p}\n🔢 Quantité: ${q}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendPatisri() {
+            const t = document.getElementById('p_type').value;
+            const s = document.getElementById('p_style').value;
+            let msg = `*AURISME - PÂTISSERIE*\n🥮 Article: ${t}\n🎨 Détails: ${s}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendOther() {
+            const d = document.getElementById('td_details').value;
+            let msg = `*AURISME - DEVIS TRAITEUR/DÉCO*\n🍽️ Détails: ${d}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
