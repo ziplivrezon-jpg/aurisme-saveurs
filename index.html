@@ -15,21 +15,18 @@
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         
-        /* Style pou lis pwodwi a */
-        .product-list { margin-top: 10px; background: #fffaf0; padding: 10px; border-radius: 10px; border: 1px solid #eee; }
-        .product-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        /* Estil pou Lis Pwodwi ak Kantite */
+        .product-list { margin: 10px 0; border: 1px solid #eee; border-radius: 10px; overflow: hidden; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px 15px; border-bottom: 1px solid #eee; }
         .product-item:last-child { border-bottom: none; }
-        .product-name { font-size: 14px; color: #333; font-weight: 500; }
-        .qty-input { width: 65px !important; padding: 8px !important; margin: 0 !important; text-align: center; border: 1px solid var(--gold) !important; font-weight: bold; }
+        .product-item label { margin: 0; color: #333; flex: 1; font-weight: normal; }
+        .qty-input { width: 60px !important; margin: 0 !important; padding: 5px !important; text-align: center; border: 1px solid var(--gold) !important; }
 
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
         .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         
         .ranking-section { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .stars { color: var(--gold); font-size: 20px; }
-        .reviews-container { display: flex; overflow-x: auto; gap: 15px; padding: 10px; scrollbar-width: none; }
-        .review-card { min-width: 200px; background: #fffbf2; padding: 10px; border-radius: 8px; font-size: 13px; border-left: 4px solid var(--bordeaux); }
-
         footer { margin-top: 40px; padding: 20px; font-size: 12px; color: #888; background: #eee; }
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; }
     </style>
@@ -38,7 +35,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="Logo.png" alt="Logo Aurisme">
+            <img src="logo.png" alt="Logo Aurisme">
         </div>
         <h1>Aurisme Services & Saveurs</h1>
     </header>
@@ -49,46 +46,45 @@
             <h2>🛒 Sèvis Makèt</h2>
             <label>Nom du Supermarché</label>
             <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
-
+            
             <label>Lis Pwodwi & Kantite</label>
             <div class="product-list">
                 <div class="product-item">
-                    <span class="product-name">Sable</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Sable">
+                    <label>Sable</label>
+                    <input type="number" class="qty-input" data-name="Sable" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Palmier</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Palmier">
+                    <label>Palmier</label>
+                    <input type="number" class="qty-input" data-name="Palmier" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Sacristain Coconuts</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Sacristain Coconuts">
+                    <label>Sacristain Coconuts</label>
+                    <input type="number" class="qty-input" data-name="Sacristain Coconuts" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Cookies</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Cookies">
+                    <label>Cookies</label>
+                    <input type="number" class="qty-input" data-name="Cookies" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Langue de boeufs</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Langue de boeufs">
+                    <label>Langue de boeufs</label>
+                    <input type="number" class="qty-input" data-name="Langue de boeufs" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Cupcakes</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Cupcakes">
+                    <label>Cupcakes</label>
+                    <input type="number" class="qty-input" data-name="Cupcakes" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Gâteau ti bol</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Gâteau ti bol">
+                    <label>Gâteau ti bòl</label>
+                    <input type="number" class="qty-input" data-name="Gâteau ti bòl" min="0" value="0">
                 </div>
                 <div class="product-item">
-                    <span class="product-name">Gwo gato</span>
-                    <input type="number" class="qty-input" min="0" max="999" placeholder="0" data-name="Gwo gato">
+                    <label>Gwo gato</label>
+                    <input type="number" class="qty-input" data-name="Gwo gato" min="0" value="0">
                 </div>
             </div>
 
             <label>Lòt detay (si genyen)</label>
             <textarea id="m_details" rows="2" placeholder="Sa w bezwen anplis..."></textarea>
-            
             <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
         </div>
 
@@ -103,7 +99,6 @@
 
         <div class="form-container">
             <h2>🥐 Patisri</h2>
-            <label>Chwazi sa w vle</label>
             <select id="p_type">
                 <option value="Gâteau">Gâteau 🎂</option>
                 <option value="Bonbon">Bonbon 🍪</option>
@@ -116,7 +111,6 @@
 
         <div class="form-container">
             <h2>🍽️ Traiteur & Déco</h2>
-            <label>Sèvis</label>
             <select id="td_type">
                 <option value="Traiteur">Traiteur 🍽️</option>
                 <option value="Decoration">Décoration 🎈</option>
@@ -139,44 +133,32 @@
         <div class="ranking-section">
             <div class="stars">★★★★★</div>
             <p><strong>Nòt: 4.9/5</strong></p>
-            <div class="reviews-container">
-                <div class="review-card">"Ekselan sèvis!"<br><strong>- Jean R.</strong></div>
-                <div class="review-card">"Livrezon rapid."<br><strong>- Marie L.</strong></div>
-            </div>
         </div>
-
         <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU (MAP)</a>
-
     </div>
 
-    <footer>
-        &copy; 2026 Aurisme Services & Saveurs | <a href="privacy.html" style="color:#888;">Privacy Policy</a>
-    </footer>
+    <footer>&copy; 2026 Aurisme Services | <a href="privacy.html">Privacy</a></footer>
 
     <script>
         const phone = "50942017744";
 
         function sendMarket() {
-            const maket = document.getElementById('m_name').value;
-            const lòtDetay = document.getElementById('m_details').value;
+            const n = document.getElementById('m_name').value;
+            const qtys = document.querySelectorAll('.qty-input');
+            let orderList = [];
             
-            let lisPwodwi = "";
-            const inputs = document.querySelectorAll('.qty-input');
-            inputs.forEach(input => {
-                if (input.value > 0) {
-                    lisPwodwi += `\n- ${input.getAttribute('data-name')}: ${input.value}`;
+            qtys.forEach(input => {
+                if(parseInt(input.value) > 0) {
+                    orderList.push(`${input.getAttribute('data-name')}: ${input.value}`);
                 }
             });
 
-            if (maket === "" && lisPwodwi === "") {
-                alert("Tanpri antre non makèt la oswa chwazi kantite pwodwi.");
-                return;
-            }
+            const d = document.getElementById('m_details').value;
+            if(!n) return alert("Mete non makèt la");
+            if(orderList.length === 0 && !d) return alert("Chwazi omwen yon pwodwi");
 
-            let mesaj = `*KÒMANDE MAKÈT*\n*Makèt:* ${maket || 'Pa espesifye'}${lisPwodwi}`;
-            if (lòtDetay) mesaj += `\n*Lòt detay:* ${lòtDetay}`;
-
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(mesaj)}`, '_blank');
+            let msg = `*AURISME - MAKÈT*\n🏢 *Makèt:* ${n}\n📦 *Kòmand:* \n- ${orderList.join('\n- ')}\n📝 *Detay:* ${d}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function sendDelivery() {
@@ -184,21 +166,23 @@
             const d = document.getElementById('d_dest').value;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*LIVREZON*\nDepa: '+p+'\nDest: '+d)}`, '_blank');
         }
+
         function sendPatisri() {
             const t = document.getElementById('p_type').value;
             const d = document.getElementById('p_details').value;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*PATISRI*\nTip: '+t+'\nDetay: '+d)}`, '_blank');
         }
+
         function sendTraiteurDeco() {
             const t = document.getElementById('td_type').value;
             const d = document.getElementById('td_details').value;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*EVENT*\nSèvis: '+t+'\nDetay: '+d)}`, '_blank');
         }
+
         function sendLang() {
             const l = document.getElementById('l_choice').value;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*LANG*\nLang: '+l)}`, '_blank');
         }
     </script>
 </body>
-                                                     </html>
-                                                     
+</html>
