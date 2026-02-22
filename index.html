@@ -8,7 +8,7 @@
         :root { --bordeaux: #800000; --gold: #DAA520; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
-        /* REKLAM VETIHKAM */
+        /* RECLAME */
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
         .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
@@ -18,14 +18,14 @@
         .skiptranslate { display: none !important; }
         body { top: 0 !important; }
 
-        /* DRAPO POU CHANGER LANG PAJ LA */
+        /* DRAPEAUX POUR TRADUCTION */
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
         .lang-btn:hover { transform: scale(1.2); }
 
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
-        header h1 { margin: 0; font-size: 20px; }
+        header h1 { margin: 0; font-size: 22px; }
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
@@ -46,14 +46,14 @@
     <div id="google_translate_element"></div>
 
     <div class="reklam-ticker">
-        <p>🌟 VETIHKAM BON PARFUN VETIVER — DISPONIB KOUNYE A! 🌟</p>
+        <p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
     </div>
 
     <div class="lang-switcher">
-        <button class="lang-btn" onclick="translatePage('en')" title="Translate to English">🇺🇸</button>
-        <button class="lang-btn" onclick="translatePage('es')" title="Traducir al Español">🇪🇸</button>
-        <button class="lang-btn" onclick="translatePage('pt')" title="Traduzir para o Português">🇧🇷</button>
-        <button class="lang-btn" onclick="translatePage('fr')" title="Tradwi an Kreyòl">🇭🇹</button>
+        <button class="lang-btn" onclick="translatePage('en')">🇺🇸</button>
+        <button class="lang-btn" onclick="translatePage('es')">🇪🇸</button>
+        <button class="lang-btn" onclick="translatePage('pt')">🇧🇷</button>
+        <button class="lang-btn" onclick="translatePage('fr')">🇫🇷</button>
     </div>
 
     <header>
@@ -66,108 +66,53 @@
     <div class="container">
 
         <div class="form-container" style="border-left: 5px solid #0056b3;">
-            <h2>📚 Kou Lang (Online/Kay)</h2>
-            <label>Ki lang ou vle aprann?</label>
+            <h2>📚 Cours de Langues (En ligne/Privé)</h2>
+            <label>Quelle langue souhaitez-vous apprendre ?</label>
             <select id="l_choice">
                 <option value="Anglais">Anglais 🇺🇸</option>
                 <option value="Espagnol">Espagnol 🇪🇸</option>
                 <option value="Portugais">Portugais 🇧🇷</option>
             </select>
-            <label>Non ou konplè</label>
-            <input type="text" id="l_student" placeholder="Non ak Siyati ou...">
-            <button type="button" class="btn-order" style="background-color: #0056b3;" onclick="sendLang()">ENSRKI KOUNYE A</button>
+            <label>Votre Nom Complet</label>
+            <input type="text" id="l_student" placeholder="Nom et Prénom...">
+            <button type="button" class="btn-order" style="background-color: #0056b3;" onclick="sendLang()">S'INSCRIRE MAINTENANT</button>
         </div>
 
         <div class="form-container">
-            <h2>🛒 Sèvis Makèt</h2>
+            <h2>🛒 Service Supermarché</h2>
             <label>Nom du Supermarché</label>
-            <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
-            <label>Pwodwi (250 HTG chak)</label>
+            <input type="text" id="m_name" placeholder="Ex: Eagle, Giant, etc.">
+            <label>Produits (250 HTG l'unité)</label>
             <select id="m_product">
-                <option value="">-- Chwazi --</option>
+                <option value="">-- Choisir --</option>
                 <option value="Sable">Sable</option>
                 <option value="Palmier">Palmier</option>
                 <option value="Cookies">Cookies</option>
                 <option value="Langue de boeufs">Langue de boeufs</option>
                 <option value="Cupcakes">Cupcakes</option>
                 <option value="Gâteau ti bòl">Gâteau ti bòl</option>
+                <option value="Sacristains">Sacristains</option>
             </select>
-            <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE</button>
+            <label>Quantité</label>
+            <input type="number" id="m_qty" value="1" min="1">
+            <button type="button" class="btn-order" onclick="sendMarket()">COMMANDER</button>
         </div>
 
         <div class="form-container">
-            <h2>🥐 Patisri & Gâteaux</h2>
-            <label>Chwazi Atik</label>
+            <h2>🥐 Pâtisserie & Gâteaux</h2>
+            <label>Choisir un Article</label>
             <select id="p_type">
-                <option value="Gâteau">Gâteau</option>
-                <option value="Bonbon Boîte">Bonbon Boîte</option>
+                <option value="Gâteau">Gâteau (À partir de 2500 HTG)</option>
+                <option value="Bonbons en Boîte">Bonbons en Boîte (250 HTG)</option>
+                <option value="Bonbons en Sachet">Bonbons en Sachet (150 HTG)</option>
             </select>
-            <textarea id="p_style" rows="2" placeholder="Detay..."></textarea>
-            <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE</button>
+            <label>Détails (Thème, Couleur, Saveur...)</label>
+            <textarea id="p_style" rows="2" placeholder="Détails de votre commande..."></textarea>
+            <button type="button" class="btn-order" onclick="sendPatisri()">COMMANDER</button>
         </div>
 
         <div class="form-container">
-            <h2>🍽️ Traiteur & Dekorasyon</h2>
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendOther()">MANDE KOTASYON</button>
-        </div>
-
-        <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
-            <h2>🛵 Livrezon & Taxi Moto</h2>
-            <a href="livrezon.html" class="btn-order btn-delivery-footer">AL SOU PAJ LIVREZON</a>
-        </div>
-
-        <div class="footer-info">
-            <div class="slogan">"Gou ki makonnen ak Ekselans, nan papòt ou!"</div>
-            <div class="contact-detail">📧 <strong>Email:</strong> gâteaux.friandise@gmail.com</div>
-            <div class="contact-detail">📍 <strong>Adrès:</strong> Péguy-ville, rue A Qualo, Haïti</div>
-            <br>
-            <a href="https://wa.me/50942017744" class="btn-order" style="background-color: #25D366;">KONTAKTE NOU SOU WHATSAPP</a>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
-        }
-        function translatePage(lang) {
-            var selectField = document.querySelector("select.goog-te-combo");
-            if (selectField) {
-                selectField.value = lang;
-                selectField.dispatchEvent(new Event('change'));
-            }
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-    <script>
-        const phone = "50942017744";
-
-        function sendLang() {
-            const l = document.getElementById('l_choice').value;
-            const s = document.getElementById('l_student').value;
-            if(!s) return alert("Tanpri antre non ou");
-            let msg = `*AURISME - ENSKRIPSYON KOULANG*\n📚 Lang: ${l}\n👤 Non Etidyan: ${s}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendMarket() {
-            const n = document.getElementById('m_name').value;
-            const p = document.getElementById('m_product').value;
-            if(!n || !p) return alert("Ranpli enfòmasyon yo");
-            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendPatisri() {
-            const t = document.getElementById('p_type').value;
-            const s = document.getElementById('p_style').value;
-            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Detay: ${s}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendOther() {
-            window.open(`https://wa.me/${phone}?text=Mwen bezwen yon kotasyon pou Traiteur/Dekorasyon`, '_blank');
-        }
-    </script>
-</body>
-</html>
+            <h2>🍽️ Traiteur & Décoration</h2>
+            <label>Détails de l'événement</label>
+            <textarea id="td_details" rows="2" placeholder="Date, type d'événement, nombre de personnes..."></textarea>
+            <button type="button" class="btn-order" style="background-color
