@@ -16,6 +16,12 @@
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
         .payment-info { margin-top: 15px; padding: 12px; background: #fffcf0; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; color: #444; text-align: center; }
+        
+        /* Styl pou Temwayaj / Ranking */
+        .ranking-section { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .stars { color: var(--gold); font-size: 22px; margin-bottom: 5px; }
+        .review-text { font-style: italic; color: #555; font-size: 14px; }
+
         .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
     </style>
@@ -32,101 +38,104 @@
     <div class="container">
 
         <div class="form-container">
-            <h2>🥐 Patisri & Gâteaux</h2>
-            <label>Atik</label>
-            <select id="p_type">
-                <option value="Gâteau">Gâteau (Aparti 2500 HTG)</option>
-                <option value="Bonbon Boîte">Bonbon Boîte (250 HTG)</option>
-                <option value="Bonbon Sachet">Bonbon Sachet (150 HTG)</option>
-                <option value="Viennoiserie">Viennoiserie</option>
+            <h2>🛒 Sèvis Makèt</h2>
+            <label>Nom du Supermarché</label>
+            <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
+            <label>Pwodwi (250 HTG chak)</label>
+            <select id="m_product">
+                <option value="">-- Chwazi --</option>
+                <option value="Sable (250 HTG)">Sable - 250 HTG</option>
+                <option value="Palmier (250 HTG)">Palmier - 250 HTG</option>
+                <option value="Sacristain Coconuts (250 HTG)">Sacristain Coconuts - 250 HTG</option>
+                <option value="Cookies (250 HTG)">Cookies - 250 HTG</option>
+                <option value="Langue de boeufs (250 HTG)">Langue de boeufs - 250 HTG</option>
+                <option value="Cupcakes (250 HTG)">Cupcakes - 250 HTG</option>
+                <option value="Gâteau ti bòl (250 HTG)">Gâteau ti bòl - 250 HTG</option>
+                <option value="Gwo gato (250 HTG)">Gwo gato - 250 HTG</option>
             </select>
-            
-            <label>Detay pou Gato (Tèm, Koulè, Ekriti...)</label>
-            <textarea id="p_style" rows="2" placeholder="Ex: Tèm Spider-man, Koulè ble ak wouj, ekri 'Happy Birthday'"></textarea>
-            
-            <label>Gou & Kantite</label>
-            <input type="text" id="p_flavor" placeholder="Ex: Gou Chokola, 2 sachet bonbon...">
-            
+            <label>Kantite</label>
+            <input type="number" id="m_qty" value="1" min="1">
+            <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
+            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
+        </div>
+
+        <div class="form-container">
+            <h2>🥐 Patisri & Gâteaux</h2>
+            <label>Chwazi Atik</label>
+            <select id="p_type">
+                <option value="">-- Chwazi --</option>
+                <option value="Gâteau (Aparti 2500 HTG)">Gâteau - Aparti 2500 HTG</option>
+                <option value="Bonbon Boîte (250 HTG)">Bonbon Boîte - 250 HTG</option>
+                <option value="Bonbon Sachet (150 HTG)">Bonbon Sachet - 150 HTG</option>
+                <option value="Viennoiserie">Viennoiserie (Detay anba)</option>
+            </select>
+            <label>Detay Gato (Tèm, Koulè, Ekriti...)</label>
+            <textarea id="p_style" rows="2" placeholder="Ex: Tèm Spider-man, Koulè Ble/Wouj..."></textarea>
+            <label>Gou & Lòt Detay</label>
+            <input type="text" id="p_flavor" placeholder="Ex: Gou Vanille, 3 sachet bonbon...">
             <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE PATISRI</button>
             <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
         </div>
 
         <div class="form-container">
             <h2>🍽️ Sèvis Traiteur</h2>
-            <label>Kalite Evènman</label>
-            <input type="text" id="t_event" placeholder="Ex: Maryaj, Batèm, Graduasyon...">
-            <label>Kantite Moun</label>
-            <input type="number" id="t_guests" placeholder="Konbe moun k ap la?">
+            <label>Kalite Evènman & Kantite Moun</label>
+            <input type="text" id="t_event" placeholder="Ex: Maryaj, 50 moun...">
             <label>Menu ou swete a</label>
-            <textarea id="t_menu" rows="2" placeholder="Ex: Diri kole, Legim, Sos poul, salad..."></textarea>
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTraiteur()">MANDE KOTASYON TRAITEUR</button>
-            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
+            <textarea id="t_menu" rows="2" placeholder="Diri, sos poul, salad..."></textarea>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTraiteur()">MANDE KOTASYON</button>
         </div>
 
         <div class="form-container">
             <h2>🎈 Dekorasyon</h2>
-            <label>Tèm Dekorasyon an</label>
-            <input type="text" id="d_theme" placeholder="Ex: Tèm Wayal, Safari, Disney...">
-            <label>Koulè ou vle yo</label>
-            <input type="text" id="d_colors" placeholder="Ex: Gold ak Bordeaux, Blan ak Rose...">
-            <label>Espas pou dekouvri (Kote l ap fèt?)</label>
-            <textarea id="d_place" rows="2" placeholder="Ex: Salon kay, Hotel, Lakou..."></textarea>
-            <button type="button" class="btn-order" onclick="sendDecoration()">MANDE KOTASYON DEKO</button>
-            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
+            <label>Tèm & Koulè</label>
+            <input type="text" id="d_theme" placeholder="Ex: Safari, Gold & Bordeaux...">
+            <label>Kote l ap fèt</label>
+            <textarea id="d_place" rows="2" placeholder="Ex: Salon kay, Hotel X..."></textarea>
+            <button type="button" class="btn-order" onclick="sendDecoration()">MANDE KOTASYON</button>
         </div>
 
-        <div class="form-container">
-            <h2>🛒 Sèvis Makèt</h2>
-            <label>Nom du Supermarché</label>
-            <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
-            <label>Pwodwi (250 HTG)</label>
-            <select id="m_product">
-                <option value="Sable">Sable</option>
-                <option value="Palmier">Palmier</option>
-                <option value="Cookies">Cookies</option>
-                <option value="Cupcakes">Cupcakes</option>
-            </select>
-            <label>Kantite</label>
-            <input type="number" id="m_qty" value="1" min="1">
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendMarket()">KÒMANDE MAKÈT</button>
+        <div class="ranking-section">
+            <div class="stars">★★★★★</div>
+            <p><strong>Nòt: 4.9/5</strong></p>
+            <p class="review-text">"Sèvis rapid ak bon kalite gato!"</p>
         </div>
 
         <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU</a>
-
     </div>
 
     <script>
         const phone = "50942017744";
 
+        function sendMarket() {
+            const n = document.getElementById('m_name').value;
+            const p = document.getElementById('m_product').value;
+            const q = document.getElementById('m_qty').value;
+            if(!n || !p) return alert("Ranpli enfòmasyon yo");
+            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}\n🔢 Kantite: ${q}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
         function sendPatisri() {
             const t = document.getElementById('p_type').value;
             const s = document.getElementById('p_style').value;
             const f = document.getElementById('p_flavor').value;
-            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Style/Tèm: ${s}\n😋 Gou/Kantite: ${f}\n💳 Pèyman: Natcash/Moncash/Cash`;
+            if(!t) return alert("Chwazi yon atik");
+            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Tèm/Style: ${s}\n😋 Gou/Detay: ${f}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function sendTraiteur() {
             const e = document.getElementById('t_event').value;
-            const g = document.getElementById('t_guests').value;
             const m = document.getElementById('t_menu').value;
-            let msg = `*AURISME - TRAITEUR*\n🍽️ Evènman: ${e}\n👥 Moun: ${g}\n📜 Menu: ${m}\n💳 Pèyman: Natcash/Moncash/Cash`;
+            let msg = `*AURISME - TRAITEUR*\n🍽️ Event: ${e}\n📜 Menu: ${m}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function sendDecoration() {
             const t = document.getElementById('d_theme').value;
-            const c = document.getElementById('d_colors').value;
             const p = document.getElementById('d_place').value;
-            let msg = `*AURISME - DEKORASYON*\n🎈 Tèm: ${t}\n🎨 Koulè: ${c}\n📍 Kote: ${p}\n💳 Pèyman: Natcash/Moncash/Cash`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendMarket() {
-            const n = document.getElementById('m_name').value;
-            const p = document.getElementById('m_product').value;
-            const q = document.getElementById('m_qty').value;
-            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}\n🔢 Kantite: ${q}`;
+            let msg = `*AURISME - DEKO*\n🎈 Tèm: ${t}\n📍 Kote: ${p}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
