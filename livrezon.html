@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livrezon & Taxi - Aurisme</title>
+    <style>
+        :root { --bordeaux: #800000; --gold: #DAA520; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
+        
+        /* REKLAM VETIHKAM */
+        .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; }
+        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 15s linear infinite; margin: 0; font-size: 16px; }
+        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
+        label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .btn-back { display: inline-block; margin-top: 10px; color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 10px; border: 1px solid var(--bordeaux); border-radius: 10px; }
+        h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <div class="reklam-ticker">
+        <p>🌟 VETIHKAM BON PARFUN VETIVER — DISPONIB KOUNYE A! 🌟 VETIHKAM BON PARFUN VETIVER — DISPONIB KOUNYE A! 🌟</p>
+    </div>
+
+    <header>
+        <h1>Sèvis Livrezon & Taxi</h1>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>📦 Livrezon Koli</h2>
+            <label>Nati Koli a</label>
+            <input type="text" id="k_type" placeholder="Ex: Manje, Dokiman, Rad...">
+            <label>Pwen Ramassage (Kote n ap pran l)</label>
+            <input type="text" id="k_pickup" placeholder="Adrès kote n ap pran l">
+            <label>Destinasyon (Kote l prale)</label>
+            <input type="text" id="k_dest" placeholder="Adrès kote l prale">
+            <label>Moun k ap resevwa a (Non & Nimewo)</label>
+            <input type="text" id="k_receiver" placeholder="Non ak telefòn moun nan">
+            <button type="button" class="btn-order" onclick="sendKoli()">MANDE LIVREZON</button>
+        </div>
+
+        <div class="form-container">
+            <h2>🏍️ Taxi Moto (Deplasman)</h2>
+            <label>Kote w ye a</label>
+            <input type="text" id="t_pickup" placeholder="Depa">
+            <label>Kote w prale a</label>
+            <input type="text" id="t_dest" placeholder="Arrivée">
+            <label>Lè w vle pati?</label>
+            <input type="time" id="t_time">
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTaxi()">MANDE TAXI MOTO</button>
+        </div>
+
+        <a href="index.html" class="btn-back">⬅️ Tounen nan Paj Prensipal</a>
+    </div>
+
+    <script>
+        const phone = "50942017744";
+        function sendKoli() {
+            const t = document.getElementById('k_type').value;
+            const p = document.getElementById('k_pickup').value;
+            const d = document.getElementById('k_dest').value;
+            const r = document.getElementById('k_receiver').value;
+            let msg = `*AURISME - LIVREZON KOLI*\n📦 Koli: ${t}\n📍 Depa: ${p}\n🏁 Dest: ${d}\n👤 Resevwa: ${r}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+        function sendTaxi() {
+            const p = document.getElementById('t_pickup').value;
+            const d = document.getElementById('t_dest').value;
+            const t = document.getElementById('t_time').value;
+            let msg = `*AURISME - TAXI MOTO*\n🏍️ Depa: ${p}\n🏁 Dest: ${d}\n⏰ Lè: ${t}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
