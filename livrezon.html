@@ -3,63 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livrezon & Taxi - Aurisme</title>
+    <title>Livraison & Taxi - Aurisme</title>
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
-        /* REKLAM VETIHKAM */
+        /* BANDEAU PUBLICITAIRE */
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; }
-        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 15s linear infinite; margin: 0; font-size: 16px; }
+        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 15s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* GOOGLE TRANSLATE HIDE */
+        #google_translate_element { display: none; }
+        .skiptranslate { display: none !important; }
+        body { top: 0 !important; }
+
+        /* SÉLECTEUR DE LANGUE */
+        .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
+        .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
+        .lang-btn:hover { transform: scale(1.2); }
 
         header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); }
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .btn-back { display: inline-block; margin-top: 10px; color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 10px; border: 1px solid var(--bordeaux); border-radius: 10px; }
+        
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
+        .btn-back { display: inline-block; margin: 10px 0 20px 0; color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 12px; border: 2px solid var(--bordeaux); border-radius: 10px; width: 100%; box-sizing: border-box; }
+        
+        .footer-info { background: #f0f0f0; padding: 20px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); text-align: center; }
+        .slogan { font-size: 16px; font-weight: bold; color: var(--bordeaux); margin-bottom: 10px; font-style: italic; }
+        .contact-detail { font-size: 13px; color: #333; margin: 5px 0; }
+        
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
     </style>
 </head>
 <body>
 
+    <div id="google_translate_element"></div>
+
     <div class="reklam-ticker">
-        <p>🌟 VETIHKAM BON PARFUN VETIVER — DISPONIB KOUNYE A! 🌟 VETIHKAM BON PARFUN VETIVER — DISPONIB KOUNYE A! 🌟</p>
+        <p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
+    </div>
+
+    <div class="lang-switcher">
+        <button class="lang-btn" onclick="translatePage('en')">🇺🇸</button>
+        <button class="lang-btn" onclick="translatePage('es')">🇪🇸</button>
+        <button class="lang-btn" onclick="translatePage('pt')">🇧🇷</button>
+        <button class="lang-btn" onclick="translatePage('fr')">🇫🇷</button>
     </div>
 
     <header>
-        <h1>Sèvis Livrezon & Taxi</h1>
+        <h1>Service de Livraison & Taxi</h1>
     </header>
 
     <div class="container">
         <div class="form-container">
-            <h2>📦 Livrezon Koli</h2>
-            <label>Nati Koli a</label>
-            <input type="text" id="k_type" placeholder="Ex: Manje, Dokiman, Rad...">
-            <label>Pwen Ramassage (Kote n ap pran l)</label>
-            <input type="text" id="k_pickup" placeholder="Adrès kote n ap pran l">
-            <label>Destinasyon (Kote l prale)</label>
-            <input type="text" id="k_dest" placeholder="Adrès kote l prale">
-            <label>Moun k ap resevwa a (Non & Nimewo)</label>
-            <input type="text" id="k_receiver" placeholder="Non ak telefòn moun nan">
-            <button type="button" class="btn-order" onclick="sendKoli()">MANDE LIVREZON</button>
+            <h2>📦 Livraison de Colis</h2>
+            <label>Nature du Colis</label>
+            <input type="text" id="k_type" placeholder="Ex: Nourriture, Documents, Vêtements...">
+            <label>Lieu de Ramassage (Départ)</label>
+            <input type="text" id="k_pickup" placeholder="Adresse complète du départ">
+            <label>Destination (Arrivée)</label>
+            <input type="text" id="k_dest" placeholder="Adresse complète de destination">
+            <label>Destinataire (Nom & Numéro)</label>
+            <input type="text" id="k_receiver" placeholder="Qui va recevoir le colis ?">
+            <button type="button" class="btn-order" onclick="sendKoli()">DEMANDER LA LIVRAISON</button>
         </div>
 
         <div class="form-container">
-            <h2>🏍️ Taxi Moto (Deplasman)</h2>
-            <label>Kote w ye a</label>
-            <input type="text" id="t_pickup" placeholder="Depa">
-            <label>Kote w prale a</label>
-            <input type="text" id="t_dest" placeholder="Arrivée">
-            <label>Lè w vle pati?</label>
+            <h2>🏍️ Taxi Moto (Déplacement)</h2>
+            <label>Votre position actuelle</label>
+            <input type="text" id="t_pickup" placeholder="Point de départ">
+            <label>Votre destination</label>
+            <input type="text" id="t_dest" placeholder="Où allez-vous ?">
+            <label>Heure de départ souhaitée</label>
             <input type="time" id="t_time">
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTaxi()">MANDE TAXI MOTO</button>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTaxi()">RÉSERVER LE TAXI</button>
         </div>
 
-        <a href="index.html" class="btn-back">⬅️ Tounen nan Paj Prensipal</a>
+        <a href="index.html" class="btn-back">⬅️ Retour à la Page d'Accueil</a>
+
+        <div class="footer-info">
+            <div class="slogan">"Le goût allié à l'excellence, à votre porte !"</div>
+            <div class="contact-detail">📧 <strong>Email :</strong> gâteaux.friandise@gmail.com</div>
+            <div class="contact-detail">📍 <strong>Adresse :</strong> Péguy-ville, rue A Qualo, Haïti</div>
+            <br>
+            <a href="https://wa.me/50942017744" class="btn-order" style="background-color: #25D366;">CONTACTER SUR WHATSAPP</a>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
+        }
+        function translatePage(lang) {
+            var selectField = document.querySelector("select.goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
         const phone = "50942017744";
@@ -68,14 +115,16 @@
             const p = document.getElementById('k_pickup').value;
             const d = document.getElementById('k_dest').value;
             const r = document.getElementById('k_receiver').value;
-            let msg = `*AURISME - LIVREZON KOLI*\n📦 Koli: ${t}\n📍 Depa: ${p}\n🏁 Dest: ${d}\n👤 Resevwa: ${r}`;
+            if(!t || !p || !d) return alert("Veuillez remplir les champs obligatoires");
+            let msg = `*AURISME - LIVRAISON COLIS*\n📦 Colis: ${t}\n📍 Départ: ${p}\n🏁 Dest: ${d}\n👤 Destinataire: ${r}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
         function sendTaxi() {
             const p = document.getElementById('t_pickup').value;
             const d = document.getElementById('t_dest').value;
             const t = document.getElementById('t_time').value;
-            let msg = `*AURISME - TAXI MOTO*\n🏍️ Depa: ${p}\n🏁 Dest: ${d}\n⏰ Lè: ${t}`;
+            if(!p || !d) return alert("Veuillez indiquer le trajet");
+            let msg = `*AURISME - TAXI MOTO*\n🏍️ Départ: ${p}\n🏁 Dest: ${d}\n⏰ Heure: ${t}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
