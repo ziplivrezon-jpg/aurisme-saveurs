@@ -32,13 +32,18 @@
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
+        /* BOUTON STYLE */
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; box-sizing: border-box; }
         .btn-delivery-footer { background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-top: 10px; }
         
-        .footer-info { background: #f0f0f0; padding: 20px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); }
+        /* FOOTER CENTERED */
+        .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; }
-        .contact-detail { font-size: 14px; color: #333; margin: 5px 0; }
+        .contact-detail { font-size: 14px; color: #333; margin: 5px 0; text-align: center; }
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
+
+        /* WHATSAPP CENTERED BUTTON */
+        .btn-whatsapp { background-color: #25D366; color: white; border: none; padding: 16px; width: 100%; max-width: 300px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; margin: 15px auto; }
     </style>
 </head>
 <body>
@@ -128,12 +133,10 @@
             <div class="slogan">"Le goût allié à l'excellence, à votre porte !"</div>
             <div class="contact-detail">📧 <strong>Email :</strong> <a href="mailto:gâteaux.friandise@gmail.com" style="color: var(--bordeaux); text-decoration: none;">gâteaux.friandise@gmail.com</a></div>
             <div class="contact-detail">📍 <strong>Adresse :</strong> Péguy-ville, rue A Qualo, Haïti</div>
-            <br>
-            <a href="https://wa.me/50942017744" class="btn-order" style="background-color: #25D366;">CONTACTER SUR WHATSAPP</a>
             
-            <div style="margin-top: 15px; text-align: center;">
-                <a href="privacy.html" style="color: var(--bordeaux); font-size: 13px; text-decoration: underline;">Politique de Confidentialité</a>
-            </div>
+            <a href="https://wa.me/50942017744" class="btn-whatsapp">CONTACTER SUR WHATSAPP</a>
+            
+            <a href="privacy.html" style="color: var(--bordeaux); font-size: 13px; text-decoration: underline; margin-top: 10px;">Politique de Confidentialité</a>
         </div>
     </div>
 
@@ -153,7 +156,6 @@
 
     <script>
         const phone = "50942017744";
-
         function sendLang() {
             const l = document.getElementById('l_choice').value;
             const s = document.getElementById('l_student').value;
@@ -161,7 +163,6 @@
             let msg = `*AURISME - INSCRIPTION COURS*\n📚 Langue: ${l}\n👤 Étudiant: ${s}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
         function sendMarket() {
             const n = document.getElementById('m_name').value;
             const p = document.getElementById('m_product').value;
@@ -170,14 +171,12 @@
             let msg = `*AURISME - SUPERMARCHÉ*\n🏢 Magasin: ${n}\n📦 Produit: ${p}\n🔢 Quantité: ${q}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
         function sendPatisri() {
             const t = document.getElementById('p_type').value;
             const s = document.getElementById('p_style').value;
             let msg = `*AURISME - PÂTISSERIE*\n🥮 Article: ${t}\n🎨 Détails: ${s}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
         function sendOther() {
             const d = document.getElementById('td_details').value;
             let msg = `*AURISME - DEVIS TRAITEUR/DÉCO*\n🍽️ Détails: ${d}`;
@@ -185,4 +184,4 @@
         }
     </script>
 </body>
-    </html>
+</html>
