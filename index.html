@@ -9,23 +9,23 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
-        header h1 { margin: 0; font-size: 22px; }
+        header h1 { margin: 0; font-size: 20px; }
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .payment-info { margin-top: 15px; padding: 12px; background: #fffcf0; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; color: #444; }
+        .payment-info strong { color: var(--bordeaux); display: block; margin-bottom: 5px; text-align: center; }
         .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
-        .ranking-section { background: white; padding: 15px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .stars { color: var(--gold); font-size: 18px; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-container">
-            <img src="Logo li ye avèk "Logo.png" alt="Logo Aurisme">
+            <img src="Logo%20li%20ye%20av%C3%A8k%20L.png" alt="Logo Aurisme">
         </div>
         <h1>Aurisme Services & Saveurs</h1>
     </header>
@@ -36,75 +36,65 @@
             <h2>🛒 Sèvis Makèt</h2>
             <label>Nom du Supermarché</label>
             <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
-
-            <label>Chwazi Pwodwi a</label>
+            <label>Pwodwi (250 HTG)</label>
             <select id="m_product">
-                <option value="">-- Chwazi yon pwodwi --</option>
-                <option value="Sable">Sable</option>
-                <option value="Palmier">Palmier</option>
-                <option value="Sacristain Coconuts">Sacristain Coconuts</option>
-                <option value="Cookies">Cookies</option>
-                <option value="Langue de boeufs">Langue de boeufs</option>
-                <option value="Cupcakes">Cupcakes</option>
-                <option value="Gâteau ti bòl">Gâteau ti bòl</option>
-                <option value="Gwo gato">Gwo gato</option>
+                <option value="">-- Chwazi --</option>
+                <option value="Sable (250 HTG)">Sable - 250 HTG</option>
+                <option value="Palmier (250 HTG)">Palmier - 250 HTG</option>
+                <option value="Sacristain Coconuts (250 HTG)">Sacristain Coconuts - 250 HTG</option>
+                <option value="Cookies (250 HTG)">Cookies - 250 HTG</option>
+                <option value="Langue de boeufs (250 HTG)">Langue de boeufs - 250 HTG</option>
+                <option value="Cupcakes (250 HTG)">Cupcakes - 250 HTG</option>
             </select>
-
-            <label>Kantite ou bezwen</label>
+            <label>Kantite</label>
             <input type="number" id="m_qty" value="1" min="1">
-
-            <label>Lòt detay (opsyonèl)</label>
-            <textarea id="m_details" rows="2" placeholder="Si gen lòt bagay ankò..."></textarea>
-            
             <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
-        </div>
-
-        <div class="form-container">
-            <h2>🛵 Sèvis Livrezon</h2>
-            <label>Point de Ramassage</label>
-            <input type="text" id="d_pickup" placeholder="Kote n ap pran koli a...">
-            <label>Destination</label>
-            <input type="text" id="d_dest" placeholder="Kote l prale a...">
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendDelivery()">MANDE YON LIVRÈ</button>
+            <div class="payment-info">
+                <strong>💳 Mwayen Pèyman:</strong>
+                Natcash / Moncash / Cash / Kat Kredi
+            </div>
         </div>
 
         <div class="form-container">
             <h2>🥐 Patisri</h2>
+            <label>Chwazi Atik la</label>
             <select id="p_type">
-                <option value="Gâteau">Gâteau 🎂</option>
-                <option value="Bonbon">Bonbon 🍪</option>
-                <option value="Viennoiserie">Viennoiserie 🥐</option>
+                <option value="">-- Chwazi --</option>
+                <option value="Gâteau (Aparti 2500 HTG)">Gâteau - Aparti 2500 HTG</option>
+                <option value="Bonbon Boîte (250 HTG)">Bonbon Boîte - 250 HTG</option>
+                <option value="Bonbon Sachet (150 HTG)">Bonbon Sachet - 150 HTG</option>
+                <option value="Viennoiserie">Viennoiserie (Detay anba a)</option>
             </select>
-            <textarea id="p_details" rows="2" placeholder="Kantite, gou, elatriye..."></textarea>
-            <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE</button>
+            <label>Kantite & Detay (Gou, elatriye)</label>
+            <textarea id="p_details" rows="2" placeholder="Egz: 2 sachet, gou chokola..."></textarea>
+            <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE PATISRI</button>
+            <div class="payment-info">
+                <strong>💳 Mwayen Pèyman:</strong>
+                Natcash / Moncash / Cash / Kat Kredi
+            </div>
         </div>
 
         <div class="form-container">
-            <h2>🍽️ Traiteur & Déco</h2>
+            <h2>🛵 Sèvis Livrezon</h2>
+            <label>Ramassage (Depa)</label>
+            <input type="text" id="d_pickup" placeholder="Kote n ap pran koli a...">
+            <label>Destination (Arrivée)</label>
+            <input type="text" id="d_dest" placeholder="Kote koli a prale...">
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendDelivery()">MANDE YON LIVRÈ</button>
+        </div>
+
+        <div class="form-container">
+            <h2>✨ Traiteur & Décoration</h2>
             <select id="td_type">
                 <option value="Traiteur">Traiteur 🍽️</option>
                 <option value="Decoration">Décoration 🎈</option>
             </select>
-            <textarea id="td_details" rows="2" placeholder="Dat, kantite moun..."></textarea>
-            <button type="button" class="btn-order" onclick="sendTraiteurDeco()">VREYE DEMANN</button>
+            <textarea id="td_details" rows="2" placeholder="Dat, kantite moun, elatriye..."></textarea>
+            <button type="button" class="btn-order" onclick="sendTD()">VREYE DEMANN</button>
         </div>
 
-        <div class="form-container">
-            <h2>📚 Cours de Langues</h2>
-            <select id="l_choice">
-                <option value="Anglais">Anglais 🇺🇸</option>
-                <option value="Espagnol">Espagnol 🇪🇸</option>
-                <option value="Portugais">Portugais 🇧🇷</option>
-            </select>
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendLang()">ENFÒMASYON</button>
-        </div>
+        <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU</a>
 
-        <div class="ranking-section">
-            <div class="stars">★★★★★</div>
-            <p><strong>Nòt: 4.9/5</strong></p>
-        </div>
-
-        <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU (MAP)</a>
     </div>
 
     <script>
@@ -114,9 +104,16 @@
             const n = document.getElementById('m_name').value;
             const p = document.getElementById('m_product').value;
             const q = document.getElementById('m_qty').value;
-            const d = document.getElementById('m_details').value;
-            if(!n || !p) return alert("Mete non makèt la ak pwodwi a");
-            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}\n🔢 Kantite: ${q}\n📝 Detay: ${d}`;
+            if(!n || !p) return alert("Ranpli enfòmasyon yo");
+            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}\n🔢 Kantite: ${q}\n💳 Pèyman: Natcash/Moncash/Cash/Kat`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendPatisri() {
+            const t = document.getElementById('p_type').value;
+            const d = document.getElementById('p_details').value;
+            if(!t) return alert("Chwazi yon atik");
+            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n📝 Detay: ${d}\n💳 Pèyman: Natcash/Moncash/Cash/Kat`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -128,21 +125,11 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function sendPatisri() {
-            const t = document.getElementById('p_type').value;
-            const d = document.getElementById('p_details').value;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*PATISRI*\nTip: '+t+'\nDetay: '+d)}`, '_blank');
-        }
-
-        function sendTraiteurDeco() {
+        function sendTD() {
             const t = document.getElementById('td_type').value;
             const d = document.getElementById('td_details').value;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*EVENT*\nSèvis: '+t+'\nDetay: '+d)}`, '_blank');
-        }
-
-        function sendLang() {
-            const l = document.getElementById('l_choice').value;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('*LANG*\nLang: '+l)}`, '_blank');
+            let msg = `*AURISME - EVENT*\n✨ Sèvis: ${t}\n📝 Detay: ${d}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
 </body>
