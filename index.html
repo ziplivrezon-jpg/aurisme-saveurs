@@ -24,11 +24,14 @@
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
         .btn-delivery-footer { background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-top: 10px; }
         
-        .payment-info { margin-top: 15px; padding: 12px; background: #fffcf0; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; color: #444; text-align: center; }
+        /* Styl pou footer enfòmasyon */
+        .footer-info { background: #f0f0f0; padding: 20px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); }
+        .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; }
+        .contact-detail { font-size: 14px; color: #333; margin: 5px 0; }
+        .contact-detail strong { color: var(--bordeaux); }
+
         .ranking-section { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .stars { color: var(--gold); font-size: 22px; margin-bottom: 5px; }
-        .review-text { font-style: italic; color: #555; font-size: 14px; }
-        .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
     </style>
 </head>
@@ -40,7 +43,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="Logo.png" alt="Logo Aurisme">
+            <img src="Logo%20li%20ye%20av%C3%A8k%20L.png" alt="Logo Aurisme">
         </div>
         <h1>Aurisme Services & Saveurs</h1>
     </header>
@@ -66,7 +69,6 @@
             <label>Kantite</label>
             <input type="number" id="m_qty" value="1" min="1">
             <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
-            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
         </div>
 
         <div class="form-container">
@@ -77,22 +79,10 @@
                 <option value="Gâteau (Aparti 2500 HTG)">Gâteau - Aparti 2500 HTG</option>
                 <option value="Bonbon Boîte (250 HTG)">Bonbon Boîte - 250 HTG</option>
                 <option value="Bonbon Sachet (150 HTG)">Bonbon Sachet - 150 HTG</option>
-                <option value="Viennoiserie">Viennoiserie</option>
             </select>
             <label>Detay Gato (Tèm, Koulè, Ekriti...)</label>
-            <textarea id="p_style" rows="2" placeholder="Ex: Tèm Spider-man, Koulè Ble/Wouj..."></textarea>
+            <textarea id="p_style" rows="2" placeholder="Ex: Tèm Spider-man, Koulè Ble..."></textarea>
             <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE PATISRI</button>
-        </div>
-
-        <div class="form-container">
-            <h2>🍽️ Traiteur & Dekorasyon</h2>
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendOther()">MANDE KOTASYON</button>
-        </div>
-
-        <div class="ranking-section">
-            <div class="stars">★★★★★</div>
-            <p><strong>Nòt: 4.9/5</strong></p>
-            <p class="review-text">"Sèvis rapid ak bon kalite gato!"</p>
         </div>
 
         <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
@@ -100,7 +90,19 @@
             <a href="livrezon.html" class="btn-order btn-delivery-footer">AL SOU PAJ LIVREZON / TAXI</a>
         </div>
 
-        <a href="https://wa.me/50942017744" class="btn-track">📍 KONTAKTE NOU SOU WHATSAPP</a>
+        <div class="ranking-section">
+            <div class="stars">★★★★★</div>
+            <p><strong>Nòt: 4.9/5</strong></p>
+        </div>
+
+        <div class="footer-info">
+            <div class="slogan">"Gou ki makonnen ak Ekselans, nan papòt ou!"</div>
+            <div class="contact-detail">📧 <strong>Email:</strong> gâteaux.friandise@gmail.com</div>
+            <div class="contact-detail">📍 <strong>Adrès:</strong> Péguy-ville, rue A Qualo, Haïti</div>
+            <br>
+            <a href="https://wa.me/50942017744" class="btn-order" style="background-color: #25D366;">KONTAKTE NOU SOU WHATSAPP</a>
+        </div>
+
     </div>
 
     <script>
@@ -121,10 +123,6 @@
             if(!t) return alert("Chwazi yon atik");
             let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Tèm/Style: ${s}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendOther() {
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('Mwen ta renmen yon kotasyon pou Traiteur/Dekorasyon')}`, '_blank');
         }
     </script>
 </body>
