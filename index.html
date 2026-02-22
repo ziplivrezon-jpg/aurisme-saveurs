@@ -22,7 +22,9 @@
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
-        .btn-delivery-main { background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-bottom: 10px; }
+        
+        /* Bouton Livrezon anba a */
+        .btn-delivery-footer { background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-top: 10px; }
         
         .payment-info { margin-top: 15px; padding: 12px; background: #fffcf0; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; color: #444; text-align: center; }
         .ranking-section { background: white; padding: 20px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -47,12 +49,6 @@
 
     <div class="container">
 
-        <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
-            <h2>🛵 Livrezon & Taxi Moto</h2>
-            <p style="font-size: 14px; color: #555;">Bezwen voye koli oswa mande yon taxi rapid?</p>
-            <a href="livrezon.html" class="btn-order btn-delivery-main">AL SOU PAJ LIVREZON / TAXI</a>
-        </div>
-
         <div class="form-container">
             <h2>🛒 Sèvis Makèt</h2>
             <label>Nom du Supermarché</label>
@@ -62,12 +58,8 @@
                 <option value="">-- Chwazi --</option>
                 <option value="Sable (250 HTG)">Sable - 250 HTG</option>
                 <option value="Palmier (250 HTG)">Palmier - 250 HTG</option>
-                <option value="Sacristain Coconuts (250 HTG)">Sacristain Coconuts - 250 HTG</option>
                 <option value="Cookies (250 HTG)">Cookies - 250 HTG</option>
-                <option value="Langue de boeufs (250 HTG)">Langue de boeufs - 250 HTG</option>
-                <option value="Cupcakes (250 HTG)">Cupcakes - 250 HTG</option>
                 <option value="Gâteau ti bòl (250 HTG)">Gâteau ti bòl - 250 HTG</option>
-                <option value="Gwo gato (250 HTG)">Gwo gato - 250 HTG</option>
             </select>
             <label>Kantite</label>
             <input type="number" id="m_qty" value="1" min="1">
@@ -83,32 +75,16 @@
                 <option value="Gâteau (Aparti 2500 HTG)">Gâteau - Aparti 2500 HTG</option>
                 <option value="Bonbon Boîte (250 HTG)">Bonbon Boîte - 250 HTG</option>
                 <option value="Bonbon Sachet (150 HTG)">Bonbon Sachet - 150 HTG</option>
-                <option value="Viennoiserie">Viennoiserie (Detay anba)</option>
             </select>
             <label>Detay Gato (Tèm, Koulè, Ekriti...)</label>
             <textarea id="p_style" rows="2" placeholder="Ex: Tèm Spider-man, Koulè Ble/Wouj..."></textarea>
-            <label>Gou & Lòt Detay</label>
-            <input type="text" id="p_flavor" placeholder="Ex: Gou Vanille, 3 sachet bonbon...">
             <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE PATISRI</button>
             <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
         </div>
 
         <div class="form-container">
-            <h2>🍽️ Sèvis Traiteur</h2>
-            <label>Kalite Evènman & Kantite Moun</label>
-            <input type="text" id="t_event" placeholder="Ex: Maryaj, 50 moun...">
-            <label>Menu ou swete a</label>
-            <textarea id="t_menu" rows="2" placeholder="Diri, sos poul, salad..."></textarea>
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTraiteur()">MANDE KOTASYON</button>
-        </div>
-
-        <div class="form-container">
-            <h2>🎈 Dekorasyon</h2>
-            <label>Tèm & Koulè</label>
-            <input type="text" id="d_theme" placeholder="Ex: Safari, Gold & Bordeaux...">
-            <label>Kote l ap fèt</label>
-            <textarea id="d_place" rows="2" placeholder="Ex: Salon kay, Hotel X..."></textarea>
-            <button type="button" class="btn-order" onclick="sendDecoration()">MANDE KOTASYON</button>
+            <h2>🍽️ Traiteur & Dekorasyon</h2>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendOther()">MANDE KOTASYON</button>
         </div>
 
         <div class="ranking-section">
@@ -117,7 +93,12 @@
             <p class="review-text">"Sèvis rapid ak bon kalite gato!"</p>
         </div>
 
-        <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU</a>
+        <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
+            <h2>🛵 Livrezon & Taxi Moto</h2>
+            <a href="livrezon.html" class="btn-order btn-delivery-footer">AL SOU PAJ LIVREZON / TAXI</a>
+        </div>
+
+        <a href="https://wa.me/50942017744" class="btn-track">📍 KONTAKTE NOU SOU WHATSAPP</a>
     </div>
 
     <script>
@@ -135,24 +116,13 @@
         function sendPatisri() {
             const t = document.getElementById('p_type').value;
             const s = document.getElementById('p_style').value;
-            const f = document.getElementById('p_flavor').value;
             if(!t) return alert("Chwazi yon atik");
-            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Tèm/Style: ${s}\n😋 Gou/Detay: ${f}`;
+            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Tèm/Style: ${s}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function sendTraiteur() {
-            const e = document.getElementById('t_event').value;
-            const m = document.getElementById('t_menu').value;
-            let msg = `*AURISME - TRAITEUR*\n🍽️ Event: ${e}\n📜 Menu: ${m}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendDecoration() {
-            const t = document.getElementById('d_theme').value;
-            const p = document.getElementById('d_place').value;
-            let msg = `*AURISME - DEKO*\n🎈 Tèm: ${t}\n📍 Kote: ${p}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        function sendOther() {
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent('Mwen ta renmen yon kotasyon pou Traiteur/Dekorasyon')}`, '_blank');
         }
     </script>
 </body>
