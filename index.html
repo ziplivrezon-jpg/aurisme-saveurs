@@ -15,8 +15,7 @@
         label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .payment-info { margin-top: 15px; padding: 12px; background: #fffcf0; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; color: #444; }
-        .payment-info strong { color: var(--bordeaux); display: block; margin-bottom: 5px; text-align: center; }
+        .payment-info { margin-top: 15px; padding: 12px; background: #fffcf0; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; color: #444; text-align: center; }
         .btn-track { background-color: #222; color: var(--gold); text-decoration: none; padding: 14px; display: block; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px solid var(--gold); }
         h2 { color: var(--bordeaux); border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-top: 0; font-size: 18px; }
     </style>
@@ -33,64 +32,63 @@
     <div class="container">
 
         <div class="form-container">
+            <h2>🥐 Patisri & Gâteaux</h2>
+            <label>Atik</label>
+            <select id="p_type">
+                <option value="Gâteau">Gâteau (Aparti 2500 HTG)</option>
+                <option value="Bonbon Boîte">Bonbon Boîte (250 HTG)</option>
+                <option value="Bonbon Sachet">Bonbon Sachet (150 HTG)</option>
+                <option value="Viennoiserie">Viennoiserie</option>
+            </select>
+            
+            <label>Detay pou Gato (Tèm, Koulè, Ekriti...)</label>
+            <textarea id="p_style" rows="2" placeholder="Ex: Tèm Spider-man, Koulè ble ak wouj, ekri 'Happy Birthday'"></textarea>
+            
+            <label>Gou & Kantite</label>
+            <input type="text" id="p_flavor" placeholder="Ex: Gou Chokola, 2 sachet bonbon...">
+            
+            <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE PATISRI</button>
+            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
+        </div>
+
+        <div class="form-container">
+            <h2>🍽️ Sèvis Traiteur</h2>
+            <label>Kalite Evènman</label>
+            <input type="text" id="t_event" placeholder="Ex: Maryaj, Batèm, Graduasyon...">
+            <label>Kantite Moun</label>
+            <input type="number" id="t_guests" placeholder="Konbe moun k ap la?">
+            <label>Menu ou swete a</label>
+            <textarea id="t_menu" rows="2" placeholder="Ex: Diri kole, Legim, Sos poul, salad..."></textarea>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendTraiteur()">MANDE KOTASYON TRAITEUR</button>
+            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
+        </div>
+
+        <div class="form-container">
+            <h2>🎈 Dekorasyon</h2>
+            <label>Tèm Dekorasyon an</label>
+            <input type="text" id="d_theme" placeholder="Ex: Tèm Wayal, Safari, Disney...">
+            <label>Koulè ou vle yo</label>
+            <input type="text" id="d_colors" placeholder="Ex: Gold ak Bordeaux, Blan ak Rose...">
+            <label>Espas pou dekouvri (Kote l ap fèt?)</label>
+            <textarea id="d_place" rows="2" placeholder="Ex: Salon kay, Hotel, Lakou..."></textarea>
+            <button type="button" class="btn-order" onclick="sendDecoration()">MANDE KOTASYON DEKO</button>
+            <div class="payment-info"><strong>💳 Pèyman:</strong> Natcash / Moncash / Cash / Kat</div>
+        </div>
+
+        <div class="form-container">
             <h2>🛒 Sèvis Makèt</h2>
             <label>Nom du Supermarché</label>
             <input type="text" id="m_name" placeholder="Egz: Eagle, Giant, etc.">
             <label>Pwodwi (250 HTG)</label>
             <select id="m_product">
-                <option value="">-- Chwazi --</option>
-                <option value="Sable (250 HTG)">Sable - 250 HTG</option>
-                <option value="Palmier (250 HTG)">Palmier - 250 HTG</option>
-                <option value="Sacristain Coconuts (250 HTG)">Sacristain Coconuts - 250 HTG</option>
-                <option value="Cookies (250 HTG)">Cookies - 250 HTG</option>
-                <option value="Langue de boeufs (250 HTG)">Langue de boeufs - 250 HTG</option>
-                <option value="Cupcakes (250 HTG)">Cupcakes - 250 HTG</option>
+                <option value="Sable">Sable</option>
+                <option value="Palmier">Palmier</option>
+                <option value="Cookies">Cookies</option>
+                <option value="Cupcakes">Cupcakes</option>
             </select>
             <label>Kantite</label>
             <input type="number" id="m_qty" value="1" min="1">
-            <button type="button" class="btn-order" onclick="sendMarket()">KÒMANDE MAKÈT</button>
-            <div class="payment-info">
-                <strong>💳 Mwayen Pèyman:</strong>
-                Natcash / Moncash / Cash / Kat Kredi
-            </div>
-        </div>
-
-        <div class="form-container">
-            <h2>🥐 Patisri</h2>
-            <label>Chwazi Atik la</label>
-            <select id="p_type">
-                <option value="">-- Chwazi --</option>
-                <option value="Gâteau (Aparti 2500 HTG)">Gâteau - Aparti 2500 HTG</option>
-                <option value="Bonbon Boîte (250 HTG)">Bonbon Boîte - 250 HTG</option>
-                <option value="Bonbon Sachet (150 HTG)">Bonbon Sachet - 150 HTG</option>
-                <option value="Viennoiserie">Viennoiserie (Detay anba a)</option>
-            </select>
-            <label>Kantite & Detay (Gou, elatriye)</label>
-            <textarea id="p_details" rows="2" placeholder="Egz: 2 sachet, gou chokola..."></textarea>
-            <button type="button" class="btn-order" onclick="sendPatisri()">KÒMANDE PATISRI</button>
-            <div class="payment-info">
-                <strong>💳 Mwayen Pèyman:</strong>
-                Natcash / Moncash / Cash / Kat Kredi
-            </div>
-        </div>
-
-        <div class="form-container">
-            <h2>🛵 Sèvis Livrezon</h2>
-            <label>Ramassage (Depa)</label>
-            <input type="text" id="d_pickup" placeholder="Kote n ap pran koli a...">
-            <label>Destination (Arrivée)</label>
-            <input type="text" id="d_dest" placeholder="Kote koli a prale...">
-            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendDelivery()">MANDE YON LIVRÈ</button>
-        </div>
-
-        <div class="form-container">
-            <h2>✨ Traiteur & Décoration</h2>
-            <select id="td_type">
-                <option value="Traiteur">Traiteur 🍽️</option>
-                <option value="Decoration">Décoration 🎈</option>
-            </select>
-            <textarea id="td_details" rows="2" placeholder="Dat, kantite moun, elatriye..."></textarea>
-            <button type="button" class="btn-order" onclick="sendTD()">VREYE DEMANN</button>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendMarket()">KÒMANDE MAKÈT</button>
         </div>
 
         <a href="https://wa.me/50942017744" class="btn-track">📍 SWIV KÒMAND OU</a>
@@ -100,35 +98,35 @@
     <script>
         const phone = "50942017744";
 
+        function sendPatisri() {
+            const t = document.getElementById('p_type').value;
+            const s = document.getElementById('p_style').value;
+            const f = document.getElementById('p_flavor').value;
+            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n🎨 Style/Tèm: ${s}\n😋 Gou/Kantite: ${f}\n💳 Pèyman: Natcash/Moncash/Cash`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendTraiteur() {
+            const e = document.getElementById('t_event').value;
+            const g = document.getElementById('t_guests').value;
+            const m = document.getElementById('t_menu').value;
+            let msg = `*AURISME - TRAITEUR*\n🍽️ Evènman: ${e}\n👥 Moun: ${g}\n📜 Menu: ${m}\n💳 Pèyman: Natcash/Moncash/Cash`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendDecoration() {
+            const t = document.getElementById('d_theme').value;
+            const c = document.getElementById('d_colors').value;
+            const p = document.getElementById('d_place').value;
+            let msg = `*AURISME - DEKORASYON*\n🎈 Tèm: ${t}\n🎨 Koulè: ${c}\n📍 Kote: ${p}\n💳 Pèyman: Natcash/Moncash/Cash`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
         function sendMarket() {
             const n = document.getElementById('m_name').value;
             const p = document.getElementById('m_product').value;
             const q = document.getElementById('m_qty').value;
-            if(!n || !p) return alert("Ranpli enfòmasyon yo");
-            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}\n🔢 Kantite: ${q}\n💳 Pèyman: Natcash/Moncash/Cash/Kat`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendPatisri() {
-            const t = document.getElementById('p_type').value;
-            const d = document.getElementById('p_details').value;
-            if(!t) return alert("Chwazi yon atik");
-            let msg = `*AURISME - PATISRI*\n🥮 Atik: ${t}\n📝 Detay: ${d}\n💳 Pèyman: Natcash/Moncash/Cash/Kat`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendDelivery() {
-            const p = document.getElementById('d_pickup').value;
-            const d = document.getElementById('d_dest').value;
-            if(!p || !d) return alert("Ranpli adrès yo");
-            let msg = `*AURISME - LIVREZON*\n📍 Depa: ${p}\n🏁 Dest: ${d}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function sendTD() {
-            const t = document.getElementById('td_type').value;
-            const d = document.getElementById('td_details').value;
-            let msg = `*AURISME - EVENT*\n✨ Sèvis: ${t}\n📝 Detay: ${d}`;
+            let msg = `*AURISME - MAKÈT*\n🏢 Makèt: ${n}\n📦 Pwodwi: ${p}\n🔢 Kantite: ${q}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
