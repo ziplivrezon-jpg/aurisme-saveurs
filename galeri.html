@@ -8,16 +8,14 @@
         :root { --bordeaux: #800000; --gold: #DAA520; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #fdfdfd; color: #333; }
         
-        header { 
-            background: var(--bordeaux); 
-            color: white; 
-            padding: 20px; 
-            text-align: center; 
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        <header>
+    <h1 style="margin:0; font-size: 20px;">NOS RÉALISATIONS</h1>
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+        <a href="#" class="btn-back" onclick="window.history.back(); return false;">⬅ RETOUR</a>
+        <a href="https://wa.me/50942017744" class="btn-whatsapp">WhatsApp</a>
+    </div>
+</header>
+        
 
         .btn-back { 
             display: inline-block; 
