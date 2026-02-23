@@ -18,6 +18,23 @@
         .skiptranslate { display: none !important; }
         body { top: 0 !important; }
 
+        /* POP-UP BYENVENI */
+        .welcome-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 9999;
+        }
+        .welcome-box {
+            background: white; width: 85%; max-width: 400px; padding: 25px;
+            border-radius: 20px; text-align: center; border-top: 6px solid var(--bordeaux);
+        }
+        .welcome-box h2 { color: var(--bordeaux); margin-top: 0; font-size: 20px; }
+        .welcome-box p { font-size: 15px; color: #444; margin-bottom: 15px; line-height: 1.4; }
+        .tiraj-alert { background: #fff3cd; color: #856404; padding: 10px; border-radius: 10px; font-weight: bold; font-size: 14px; border: 1px solid #ffeeba; margin-bottom: 20px; }
+        .btn-start {
+            background: var(--bordeaux); color: white; padding: 12px 25px;
+            border-radius: 10px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; width: 100%;
+        }
+
         /* SÉLECTEUR DE LANGUE */
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
@@ -33,11 +50,11 @@
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; box-sizing: border-box; }
-        .btn-delivery-footer { background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-top: 10px; }
         
         /* FOOTER */
         .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); display: flex; flex-direction: column; align-items: center; }
         .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; text-align: center; }
+        .tiraj-footer { background: var(--gold); color: var(--bordeaux); padding: 10px; border-radius: 10px; font-weight: bold; font-size: 13px; margin-bottom: 15px; width: 100%; box-sizing: border-box; }
         .contact-detail { font-size: 14px; color: #333; margin: 5px 0; text-align: center; line-height: 1.6; }
         .contact-detail a { color: var(--bordeaux); text-decoration: none; font-weight: bold; }
         
@@ -49,6 +66,18 @@
     </style>
 </head>
 <body>
+
+    <div id="welcomeModal" class="welcome-overlay">
+        <div class="welcome-box">
+            <h2>Bienvenue chez Aurisme! 🍰</h2>
+            <p>Merci de tester notre application <strong>Aurisme Saveurs et Services</strong>.</p>
+            <div class="tiraj-alert">
+                📢 IMPORTANT : Gardez précieusement vos reçus de commande pour notre grand tirage de fin d'année !
+            </div>
+            <p style="font-size: 13px; color: #666;">🎁 Chaque commande est une chance de gagner un cadeau exceptionnel en décembre.</p>
+            <button class="btn-start" onclick="closeWelcome()">DÉCOUVRIR NOS SERVICES</button>
+        </div>
+    </div>
 
     <div id="google_translate_element"></div>
 
@@ -128,12 +157,16 @@
 
         <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
             <h2>🛵 Livraison & Taxi Moto</h2>
-            <a href="livrezon.html" class="btn-order btn-delivery-footer">ACCÉDER À LA PAGE LIVRAISON</a>
+            <a href="livrezon.html" class="btn-order" style="background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-top: 10px;">ACCÉDER À LA PAGE LIVRAISON</a>
         </div>
 
         <div class="footer-info">
             <div class="slogan">"Le goût allié à l'excellence, à votre porte !"</div>
             
+            <div class="tiraj-footer">
+                🎁 GARDEZ VOS FICHES POUR LE GRAND TIRAGE DE FIN D'ANNÉE !
+            </div>
+
             <div class="contact-detail">
                 📧 <strong>Email :</strong> gâteaux.friandise@gmail.com<br>
                 📍 <strong>Adresse :</strong> Péguy-ville, rue A Qualo, Haïti<br>
@@ -150,6 +183,9 @@
     </div>
 
     <script type="text/javascript">
+        function closeWelcome() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
         }
@@ -164,7 +200,7 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        const phone = "50942017744"; 
+        const phone = "50942017744";
         function sendLang() {
             const l = document.getElementById('l_choice').value;
             const s = document.getElementById('l_student').value;
@@ -193,4 +229,4 @@
         }
     </script>
 </body>
-</html>
+    </html>
