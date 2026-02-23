@@ -18,13 +18,11 @@
         .title-fancy::after { content: ''; display: block; width: 50%; height: 3px; background: var(--gold); margin: 5px auto; border-radius: 2px; }
 
         /* BOUTON YO NAN HEADER A */
-        .nav-buttons { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
-
-        .btn-nav { display: inline-block; padding: 8px 15px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 12px; text-transform: uppercase; transition: 0.3s; border: 2px solid transparent; }
+        .nav-buttons { display: flex; gap: 10px; justify-content: center; align-items: center; }
+        .btn-nav { display: inline-block; padding: 10px 25px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 13px; text-transform: uppercase; transition: 0.3s; border: 2px solid transparent; }
         
         .btn-back { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--bordeaux); border-color: var(--bordeaux); }
         .btn-fb-top { background-color: #1877F2; color: white; }
-        .btn-wa-top { background-color: #25D366; color: white; }
 
         .btn-nav:hover { transform: translateY(-2px); opacity: 0.9; }
 
@@ -35,9 +33,9 @@
         .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
         .card img:hover { transform: scale(1.1); }
 
-        /* WHATSAPP FLOTE */
-        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #25d366; color: #fff; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; justify-content: center; text-decoration: none; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        /* BOUTON SMS FLOTE */
+        .sms-float { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #007AFF; color: white; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 4px 12px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid white; animation: sms-pulse 2s infinite; }
+        @keyframes sms-pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(0, 122, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); } }
 
         /* LIGHTBOX STYLE */
         #lightbox { position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; cursor: pointer; }
@@ -57,7 +55,6 @@
     <div class="nav-buttons">
         <a href="index.html" class="btn-nav btn-back">⬅ ACCUEIL</a>
         <a href="https://www.facebook.com/share/1Ngqr24E86/" target="_blank" class="btn-nav btn-fb-top">Facebook</a>
-        <a href="https://wa.me/50942017744" class="btn-nav btn-wa-top">WhatsApp</a>
     </div>
 </header>
 
@@ -100,7 +97,7 @@
 
 <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src=""></div>
 
-<a href="https://wa.me/50942017744" class="whatsapp-float" target="_blank">💬</a>
+<a href="sms:+50942017744?body=Bonjour Aurisme Saveurs, je souhaite avoir des informations sur vos services." class="sms-float">✉️</a>
 
 <footer><p>&copy; 2026 Aurisme Saveurs et Services</p></footer>
 
