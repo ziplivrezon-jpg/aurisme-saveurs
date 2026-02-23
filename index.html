@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurisme Saveurs et Services</title>
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
-        /* GOOGLE TRANSLATE HIDE */
         #google_translate_element { display: none; }
         .skiptranslate { display: none !important; }
         body { top: 0 !important; }
@@ -17,7 +16,6 @@
         .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* SÉLECTEUR DE LANGUE / DRAPO */
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
         .lang-btn:hover { transform: scale(1.2); }
@@ -38,7 +36,6 @@
             cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: 0.3s;
         }
-        .promo-btn:hover { background: var(--bordeaux); color: white; }
 
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
@@ -51,6 +48,9 @@
         
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
         
+        /* STYLE POU BOUTON NATCASH */
+        .btn-natcash { background-color: var(--natcash); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
         .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); display: flex; flex-direction: column; align-items: center; }
         .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; text-align: center; }
         .tiraj-footer { background: var(--gold); color: var(--bordeaux); padding: 10px; border-radius: 10px; font-weight: bold; font-size: 13px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; }
@@ -96,9 +96,7 @@
             <h2>📚 Cours de Langues (En ligne/Privé)</h2>
             <label>Quelle langue souhaitez-vous apprendre ?</label>
             <select id="l_choice">
-                <option value="Anglais">Anglais 🇺🇸</option>
-                <option value="Espagnol">Espagnol 🇪🇸</option>
-                <option value="Portugais">Portugais 🇧🇷</option>
+                <option value="Anglais">Anglais 🇺🇸</option><option value="Espagnol">Espagnol 🇪🇸</option><option value="Portugais">Portugais 🇧🇷</option>
             </select>
             <label>Votre Nom Complet</label>
             <input type="text" id="l_student" placeholder="Nom et Prénom...">
@@ -126,7 +124,7 @@
             <h2>🥐 Pâtisserie & Gâteaux</h2>
             <label>Choisir un Article</label>
             <select id="p_type">
-                <option value="Gâteau d'Anniversaire">Gâteau d'Anniversaire (À partir de 2500 HTG)</option>
+                <option value="Gâteau d'Anniversaire">Gâteau d'Anniversaire (À partir de 5000 HTG)</option>
                 <option value="Gâteau de Mariage">Gâteau de Mariage (Sur Devis)</option>
                 <option value="Bonbons en Boîte">Bonbons en Boîte (250 HTG)</option>
                 <option value="Bonbons en Sachet">Bonbons en Sachet (150 HTG)</option>
@@ -149,6 +147,12 @@
             <a href="livrezon.html" class="btn-order" style="background-color: #222; color: var(--gold); border: 2px solid var(--gold); margin-top: 10px;">ACCÉDER À LA PAGE LIVRAISON</a>
         </div>
 
+        <div class="form-container" style="border-top: 4px solid var(--natcash);">
+            <h2>💳 Paiement Rapide</h2>
+            <p style="font-size: 13px; color: #666;">Pou akselere kòmand ou a, ou ka peye dirèkteman isit la :</p>
+            <button class="btn-natcash" onclick="payNatcash()">💰 PAYER VIA NATCASH</button>
+        </div>
+
         <div class="footer-info">
             <div class="slogan">"Le goût allié à l'excellence, à votre porte !"</div>
             <div class="tiraj-footer">🎁 GARDEZ VOS FICHES POUR LE GRAND TIRAGE DE FIN D'ANNÉE !</div>
@@ -166,57 +170,45 @@
     </div>
 
     <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
-        }
+        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
         function translatePage(lang) {
             var selectField = document.querySelector("select.goog-te-combo");
-            if (selectField) {
-                selectField.value = lang;
-                selectField.dispatchEvent(new Event('change'));
-            }
+            if (selectField) { selectField.value = lang; selectField.dispatchEvent(new Event('change')); }
         }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    <script>
         function showPromo() {
             alert("🌟 OFFRE SPÉCIALE AURISME 🌟\n\n✅ Pour l'achat d'un gâteau d'anniversaire (5000 HTG), vous recevrez une demi-douzaine de cupcakes GRATUITEMENT !\n\n✅ Pour un grand gâteau de mariage, vous recevrez une douzaine de cupcakes en CADEAU !");
         }
 
-        const phone = "50942017744";
+        // FONKSYON NATCASH LA
+        function payNatcash() {
+            alert("📢 PAIEMENT NATCASH\n\nNimewo Natcash nou an se: +509 4201-7744\n\nEnstriksyon:\n1. Fè transfè a sou nimewo sa a.\n2. Pran yon foto (Screenshot) resi a.\n3. Voye l ban nou sou WhatsApp ak non ou pou n valide kòmand lan.");
+        }
 
+        const phone = "50942017744";
         function sendLang() {
             const l = document.getElementById('l_choice').value;
             const s = document.getElementById('l_student').value;
-            if(!s) return alert("Veuillez entrer votre nom");
-            let msg = `*AURISME - COURS*\n📚 Langue: ${l}\n👤 Nom: ${s}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+            if(!s) return alert("Nom?");
+            window.open(`https://wa.me/${phone}?text=*AURISME - COURS*%0A📚 Langue: ${l}%0A👤 Nom: ${s}`);
         }
-
         function sendMarket() {
             const n = document.getElementById('m_name').value;
             const p = document.getElementById('m_product').value;
             const q = document.getElementById('m_qty').value;
-            if(!n || !p) return alert("Veuillez remplir les champs");
-            let msg = `*AURISME - SUPERMARCHÉ*\n🏢 Magasin: ${n}\n📦 Produit: ${p}\n🔢 Quantité: ${q}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+            if(!n || !p) return alert("Champs vides");
+            window.open(`https://wa.me/${phone}?text=*AURISME - MARKET*%0A🏢 Magasin: ${n}%0A📦 Produit: ${p}%0A🔢 Quantité: ${q}`);
         }
-
         function sendPatisri() {
             const t = document.getElementById('p_type').value;
             const s = document.getElementById('p_style').value;
-            if(!s) return alert("Veuillez donner des détails");
-            let msg = `*AURISME - PÂTISSERIE*\n🥮 Article: ${t}\n🎨 Détails: ${s}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/${phone}?text=*AURISME - PÂTISSERIE*%0A🥮 Article: ${t}%0A🎨 Détails: ${s}`);
         }
-
         function sendOther() {
             const d = document.getElementById('td_details').value;
-            if(!d) return alert("Veuillez entrer des détails");
-            let msg = `*AURISME - DEVIS*\n🍽️ Détails: ${d}`;
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/${phone}?text=*AURISME - DEVIS*%0A🍽️ Détails: ${d}`);
         }
     </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-                </html>
+</html>
