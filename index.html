@@ -3,33 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri Réalisations - Aurisme</title>
+    <title>Aurisme Saveurs et Services</title>
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; }
-        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; background-color: #f8f8f8; }
-        header { 
-            background-color: var(--bordeaux); color: white; 
-            padding: 15px; text-align: center; border-bottom: 4px solid var(--gold);
-            display: flex; justify-content: space-between; align-items: center;
+        :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
+        
+        #google_translate_element { display: none; }
+        .skiptranslate { display: none !important; }
+        body { top: 0 !important; }
+
+        .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
+        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
+        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
+        .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #fff 0%, #fff9e6 100%);
+            margin: 15px auto; padding: 20px; max-width: 460px;
+            border-radius: 15px; border-left: 5px solid var(--gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left;
         }
-        .btn-back { 
-            color: white; text-decoration: none; font-weight: bold; 
-            background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 5px; 
+        .welcome-card h3 { color: var(--bordeaux); margin: 0 0 10px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        
+        header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
+        .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
+        header h1 { margin: 0; font-size: 22px; }
+
+        .container { padding: 10px 20px 20px 20px; max-width: 500px; margin: auto; }
+        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; overflow: hidden; }
+        label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+        
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
+        
+        /* BOUTON LIVRAISON AJUSTÉ POU L SANTRE */
+        .btn-delivery { 
+            background-color: #000000; color: var(--gold); 
+            border: 2px solid var(--gold); padding: 12px; 
+            width: 100%; border-radius: 10px; font-size: 15px; 
+            font-weight: bold; text-transform: uppercase;
+            text-decoration: none; display: block; text-align: center; 
+            margin: 15px 0 5px 0; box-sizing: border-box;
         }
-        .iframe-container { width: 100%; height: calc(100% - 70px); border: none; }
-        iframe { width: 100%; height: 100%; border: none; }
+
+        .btn-natcash { background-color: var(--natcash); color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); display: flex; flex-direction: column; align-items: center; }
+        .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; text-align: center; }
+        .tiraj-footer { background: var(--gold); color: var(--bordeaux); padding: 12px; border-radius: 10px; font-weight: bold; font-size: 13px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; }
+        .contact-detail { font-size: 14px; color: #333; margin: 5px 0; text-align: center; line-height: 1.6; }
+        .contact-detail a { color: var(--bordeaux); text-decoration: none; font-weight: bold; }
+        
+        .social-buttons { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+        .btn-social { padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; color: white; display: block; text-align: center; }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-facebook { background-color: #1877F2; }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="btn-back">⬅ RETOUR</a>
-        <h2 style="margin:0; font-size: 18px;">NOS RÉALISATIONS</h2>
-        <div style="width: 60px;"></div> </header>
+    <div id="google_translate_element"></div>
 
-    <div class="iframe-container">
-        <iframe src="https://photos.app.goo.gl/inkq8dFT613VTp6t5"></iframe>
+    <div class="reklam-ticker">
+        <p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
     </div>
 
+    <div class="lang-switcher">
+        <button class="lang-btn" onclick="translatePage('en')">🇺🇸</button>
+        <button class="lang-btn" onclick="translatePage('es')">🇪🇸</button>
+        <button class="lang-btn" onclick="translatePage('pt')">🇧🇷</button>
+        <button class="lang-btn" onclick="translatePage('fr')">🇫🇷</button>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <img src="Logo.png" alt="Logo Aurisme">
+        </div>
+        <h1>Aurisme Saveurs et Services</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="welcome-card">
+            <h3>Bienvenue ! <button style="background:var(--gold); color:var(--bordeaux); border:none; padding:5px 10px; border-radius:5px; font-size:11px; font-weight:bold; cursor:pointer;" onclick="showPromo()">🎁 Offre Spéciale</button></h3>
+            <p>Heureux de vous compter parmi nous. Gardez vos reçus pour notre <strong>Grand Tirage de Fin d'Année</strong> ! 🎁✨</p>
+        </div>
+
+        <div class="form-container" style="border-left: 5px solid #0056b3;">
+            <h2>📚 Cours de Langues</h2>
+            <select id="l_choice"><option value="Anglais">Anglais 🇺🇸</option><option value="Espagnol">Espagnol 🇪🇸</option><option value="Portugais">Portugais 🇧🇷</option></select>
+            <input type="text" id="l_student" placeholder="Votre Nom Complet...">
+            <button type="button" class="btn-order" style="background-color: #0056b3;" onclick="sendLang()">S'INSCRIRE</button>
+        </div>
+
+        <div class="form-container">
+            <h2>🛒 Service Supermarché</h2>
+            <input type="text" id="m_name" placeholder="Nom du Supermarché...">
+            <select id="m_product">
+                <option value="">-- Choisir un produit --</option>
+                <option value="Sable">Sable</option><option value="Palmier">Palmier</option><option value="Cookies">Cookies</option>
+                <option value="Langue de boeufs">Langue de boeufs</option><option value="Cupcakes">Cupcakes</option>
+                <option value="Gâteau ti bòl">Gâteau ti bòl</option><option value="Sacristains">Sacristains</option>
+                <option value="Gâteau Carré">Gâteau Carré</option>
+            </select>
+            <input type="number" id="m_qty" value="1" min="1">
+            <button type="button" class="btn-order" onclick="sendMarket()">COMMANDER</button>
+        </div>
+
+        <div class="form-container">
+            <h2>🥐 Pâtisserie & Gâteaux</h2>
+            <select id="p_type">
+                <option value="Gâteau d'Anniversaire">Gâteau d'Anniversaire (5000 HTG)</option>
+                <option value="Gâteau de Mariage">Gâteau de Mariage (Sur Devis)</option>
+                <option value="Bonbons en Boîte">Bonbons en Boîte (250 HTG)</option>
+                <option value="Bonbons en Sachet">Bonbons en Sachet (150 HTG)</option>
+            </select>
+            <textarea id="p_style" rows="2" placeholder="Thème, Couleur..."></textarea>
+            <button type="button" class="btn-order" onclick="sendPatisri()">COMMANDER</button>
+        </div>
+
+        <div class="form-container">
+            <h2>🍽️ Traiteur & Décoration</h2>
+            <textarea id="td_details" rows="2" placeholder="Date, type d'événement..."></textarea>
+            <button type="button" class="btn-order" style="background-color: #222;" onclick="sendOther()">DEVIS</button>
+        </div>
+
+        <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold); padding: 20px;">
+            <h2 style="margin-top: 0;">🛵 Livraison & Taxi Moto</h2>
+            <a href="livrezon.html" class="btn-delivery">ACCÉDER À LA PAGE LIVRAISON</a>
+        </div>
+
+        <div class="form-container" style="border-top: 4px solid var(--natcash);">
+            <h2>💳 Paiement Rapide</h2>
+            <button class="btn-natcash" onclick="payNatcash()">💰 PAYER VIA NATCASH</button>
+        </div>
+
+        <div class="footer-info">
+            <div class="slogan">"Le goût allié à l'excellence, à votre porte !"</div>
+            <div class="tiraj-footer">🎁 GARDEZ VOS FICHES POUR LE GRAND TIRAGE DE FIN D'ANNÉE !</div>
+            <div class="contact-detail">
+                📧 <strong>Email :</strong> gâteaux.friandise@gmail.com<br>
+                📍 <strong>Adresse :</strong> Péguy-ville, rue A Qualo, Haïti<br>
+                📞 <strong>Appel direct :</strong> <a href="tel:+50937832098">+509 3783-2098</a>
+            </div>
+            <div class="social-buttons">
+                <a href="https://wa.me/50942017744" class="btn-social btn-whatsapp">WHATSAPP</a>
+                <a href="https://www.facebook.com/share/1Ngqr24E86/" target="_blank" class="btn-social btn-facebook">FACEBOOK</a>
+            </div>
+            <a href="privacy.html" style="color: var(--bordeaux); font-size: 11px; text-decoration: underline;">Confidentialité</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
+        function translatePage(lang) {
+            var selectField = document.querySelector("select.goog-te-combo");
+            if (selectField) { selectField.value = lang; selectField.dispatchEvent(new Event('change')); }
+        }
+        function showPromo() {
+            alert("🌟 OFFRE SPÉCIALE 🌟\n\n✅ Gâteau d'anniversaire (5000 HTG) = 1/2 douzaine cupcakes GRATUITS !\n✅ Gâteau mariage = 1 douzaine cupcakes CADEAU !");
+        }
+        function payNatcash() {
+            alert("📢 PAIEMENT NATCASH\n\nNimewo: +509 4201-7744\n1. Fè transfè a.\n2. Screenshot resi a.\n3. Voye l sou WhatsApp nou.");
+        }
+        const phone = "50942017744";
+        function sendLang() {
+            const l = document.getElementById('l_choice').value;
+            const s = document.getElementById('l_student').value;
+            if(!s) return alert("Nom?");
+            window.open(`https://wa.me/${phone}?text=*AURISME - COURS*%0A📚 Langue: ${l}%0A👤 Nom: ${s}`);
+        }
+        function sendMarket() {
+            const n = document.getElementById('m_name').value;
+            const p = document.getElementById('m_product').value;
+            const q = document.getElementById('m_qty').value;
+            if(!n || !p) return alert("Champs vides");
+            window.open(`https://wa.me/${phone}?text=*AURISME - MARKET*%0A🏢 Magasin: ${n}%0A📦 Produit: ${p}%0A🔢 Quantité: ${q}`);
+        }
+        function sendPatisri() {
+            const t = document.getElementById('p_type').value;
+            const s = document.getElementById('p_style').value;
+            window.open(`https://wa.me/${phone}?text=*AURISME - PÂTISSERIE*%0A🥮 Article: ${t}%0A🎨 Détails: ${s}`);
+        }
+        function sendOther() {
+            const d = document.getElementById('td_details').value;
+            window.open(`https://wa.me/${phone}?text=*AURISME - DEVIS*%0A🍽️ Détails: ${d}`);
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
