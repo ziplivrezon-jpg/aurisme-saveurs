@@ -27,7 +27,6 @@
         }
         .welcome-card h3 { color: var(--bordeaux); margin: 0 0 10px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         
-        /* STYLE BOUTON GALERI A */
         .btn-galeri-home {
             display: block;
             background-color: var(--gold);
@@ -73,8 +72,10 @@
         
         .social-buttons { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
         .btn-social { padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; color: white; display: block; text-align: center; }
-        .btn-whatsapp { background-color: #25D366; }
         .btn-facebook { background-color: #1877F2; }
+
+        .sms-float { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #007AFF; color: white; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 4px 12px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid white; animation: sms-pulse 2s infinite; }
+        @keyframes sms-pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(0, 122, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); } }
     </style>
 </head>
 <body>
@@ -166,12 +167,13 @@
                 📞 <strong>Appel direct :</strong> <a href="tel:+50937832098">+509 3783-2098</a>
             </div>
             <div class="social-buttons">
-                <a href="https://wa.me/50942017744" class="btn-social btn-whatsapp">WHATSAPP</a>
                 <a href="https://www.facebook.com/share/1Ngqr24E86/" target="_blank" class="btn-social btn-facebook">FACEBOOK</a>
             </div>
             <a href="privacy.html" style="color: var(--bordeaux); font-size: 11px; text-decoration: underline;">Confidentialité</a>
         </div>
     </div>
+
+    <a href="sms:+50947969439?body=Bonjour, je vous contacte depuis la page d'accueil d'Aurisme Saveurs." class="sms-float">✉️</a>
 
     <script type="text/javascript">
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
@@ -211,4 +213,5 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-</html>
+                    </html>
+                    
