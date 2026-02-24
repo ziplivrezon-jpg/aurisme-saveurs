@@ -58,11 +58,20 @@
         <button onclick="hideLogin()" style="margin-top: 25px; background: none; border: none; color: gray; cursor: pointer; text-decoration: underline;">Anile</button>
     </div>
 
-    <div id="academy-content">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="color: var(--navy);">Mes Leçons</h2>
-            <button onclick="logout()" style="background: none; border: none; color: red; cursor: pointer;">Soti</button>
+       <div id="academy-content">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
+            <h2 style="color: var(--navy); margin: 0;">Mes Leçons</h2>
+            <button onclick="logout()" style="background: #800000; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                DEKONEKTE
+            </button>
         </div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterLessons('Tout', event)">Tout</button>
+            </div>
+        
+        <div id="lesson-list"></div>
+       </div>
         
         <div class="filter-container">
             <button class="filter-btn active" onclick="filterLessons('Tout', event)">Tout</button>
