@@ -9,25 +9,20 @@
             --gold: #D4AF37;
             --navy: #003366;
             --light: #f4f4f4;
+            --bordeaux: #800000;
         }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light); margin: 0; padding: 0; }
         
+        /* Bouton Tounen */
+        .btn-back-home { padding: 15px; text-align: left; background: white; border-bottom: 1px solid #ddd; }
+        .btn-back-home a { text-decoration: none; color: var(--bordeaux); font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 5px; }
+
         /* Landing Page Style */
         #landing-page { text-align: center; padding: 50px 20px; display: block; }
         .logo { width: 120px; margin-bottom: 20px; border-radius: 50%; }
         h1 { color: var(--navy); margin-bottom: 10px; }
         .btn-inscrit { display: block; background: #25D366; color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px auto; max-width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px; }
         .btn-login { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; border: none; font-weight: bold; width: 100%; max-width: 335px; margin: 0 auto; cursor: pointer; font-size: 16px; }
-        <body>
-    <div style="padding: 15px; text-align: left;">
-        <a href="index.html" style="text-decoration: none; color: #800000; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px;">
-            ⬅️ Tounen sou Paj Akèy
-        </a>
-    </div>
-
-    <div id="landing-page">
-        ...
-        
         
         /* Login Screen Style */
         #login-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
@@ -45,8 +40,12 @@
 </head>
 <body>
 
+    <div class="btn-back-home">
+        <a href="index.html">⬅️ Tounen sou Paj Akèy</a>
+    </div>
+
     <div id="landing-page">
-        <img src="https://via.placeholder.com/120?text=Aurisme" alt="Aurisme Logo" class="logo">
+        <img src="Logo.png" alt="Aurisme Logo" class="logo">
         <h1>Aurisme Academy</h1>
         <p>Devni poliglòt! Aprann 3 lang nan 6 mwa.</p>
         
@@ -68,20 +67,13 @@
         <button onclick="hideLogin()" style="margin-top: 25px; background: none; border: none; color: gray; cursor: pointer; text-decoration: underline;">Anile</button>
     </div>
 
-       <div id="academy-content">
-        
+    <div id="academy-content">
         <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
             <h2 style="color: var(--navy); margin: 0;">Mes Leçons</h2>
-            <button onclick="logout()" style="background: #800000; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            <button onclick="logout()" style="background: var(--bordeaux); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
                 DEKONEKTE
             </button>
         </div>
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterLessons('Tout', event)">Tout</button>
-            </div>
-        
-        <div id="lesson-list"></div>
-       </div>
         
         <div class="filter-container">
             <button class="filter-btn active" onclick="filterLessons('Tout', event)">Tout</button>
@@ -90,15 +82,13 @@
             <button class="filter-btn" onclick="filterLessons('Portugais', event)">Portugais</button>
         </div>
         
-        <div id="lesson-list">
-            </div>
+        <div id="lesson-list"></div>
     </div>
 
     <script>
         let allLessons = [];
         const MASTER_CODE = "AURISME2026"; 
 
-        // Tcheke si elèv la te deja konekte
         window.onload = () => {
             if (localStorage.getItem('aurisme_access') === 'true') {
                 showAcademy();
@@ -134,24 +124,20 @@
                 })
                 .catch(err => {
                     console.error("Erè rale JSON:", err);
-                    document.getElementById('lesson-list').innerHTML = "<p>Poko gen leson ki disponib. Tanpri tounen pita.</p>";
+                    document.getElementById('lesson-list').innerHTML = "<p>Poko gen leson ki disponib.</p>";
                 });
         }
 
         function displayLessons(lessons) {
             const list = document.getElementById('lesson-list');
             list.innerHTML = '';
-            if(lessons.length === 0) {
-                list.innerHTML = "<p style='text-align:center;'>Poko gen leson pou lang sa a.</p>";
-                return;
-            }
             lessons.forEach(l => {
                 list.innerHTML += `
                     <div class="lesson-card">
                         <span class="lesson-tag">${l.language} - Semèn ${l.week}</span>
                         <h3 style="margin:10px 0;">${l.title}</h3>
                         <p style="white-space:pre-wrap; font-size:14px; color:#444;">${l.content}</p>
-                        ${l.videoUrl && l.videoUrl !== "" ? `<iframe src="${l.videoUrl}" frameborder="0" allowfullscreen></iframe>` : ''}
+                        ${l.videoUrl ? `<iframe src="${l.videoUrl}" frameborder="0" allowfullscreen></iframe>` : ''}
                     </div>
                 `;
             });
