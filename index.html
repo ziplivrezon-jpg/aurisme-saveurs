@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurisme Saveurs et Services</title>
     <style>
+        /* Tout style ou yo rete menm jan an */
         :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
@@ -110,10 +111,9 @@
         <a href="galeri.html" class="btn-galeri-home">🍰 VOIR NOS RÉALISATIONS (GALERIE)</a>
 
         <div class="form-container" style="border-left: 5px solid #0056b3;">
-            <h2>📚 Cours de Langues</h2>
-            <select id="l_choice"><option value="Anglais">Anglais 🇺🇸</option><option value="Espagnol">Espagnol 🇪🇸</option><option value="Portugais">Portugais 🇧🇷</option></select>
-            <input type="text" id="l_student" placeholder="Votre Nom Complet...">
-            <button type="button" class="btn-order" style="background-color: #0056b3;" onclick="sendLang()">S'INSCRIRE</button>
+            <h2>📚 Aurisme Academy</h2>
+            <p style="font-size: 13px; color: #555;">Apprenez l'Anglais, l'Espagnol et le Portugais en 6 mois.</p>
+            <button type="button" class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">VOIR LES COURS / S'INSCRIRE</button>
         </div>
 
         <div class="form-container">
@@ -188,12 +188,12 @@
             alert("📢 PAIEMENT NATCASH\n\nNimewo: +509 4201-7744\n1. Fè transfè a.\n2. Screenshot resi a.\n3. Voye l sou WhatsApp nou.");
         }
         const phone = "50942017744";
+
+        // FONKSYON MODIFYE POU ACADEMY
         function sendLang() {
-            const l = document.getElementById('l_choice').value;
-            const s = document.getElementById('l_student').value;
-            if(!s) return alert("Nom?");
-            window.open(`https://wa.me/${phone}?text=*AURISME - COURS*%0A📚 Langue: ${l}%0A👤 Nom: ${s}`);
+            window.location.href = "academy.html";
         }
+
         function sendMarket() {
             const n = document.getElementById('m_name').value;
             const p = document.getElementById('m_product').value;
@@ -213,5 +213,4 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-                    </html>
-                    
+</html>
