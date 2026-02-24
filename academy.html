@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurisme Academy | Aprann Lang yo</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --navy: #003366;
+            --light: #f4f4f4;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light); margin: 0; padding: 0; }
+        
+        /* Landing Page Style */
+        #landing-page { text-align: center; padding: 50px 20px; display: block; }
+        .logo { width: 120px; margin-bottom: 20px; border-radius: 50%; }
+        h1 { color: var(--navy); margin-bottom: 10px; }
+        .btn-inscrit { display: block; background: #25D366; color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px auto; max-width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px; }
+        .btn-login { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; border: none; font-weight: bold; width: 100%; max-width: 335px; margin: 0 auto; cursor: pointer; font-size: 16px; }
+        
+        /* Login Screen Style */
+        #login-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        input { padding: 15px; width: 80%; max-width: 300px; border: 2px solid var(--navy); border-radius: 8px; margin-bottom: 15px; font-size: 16px; outline: none; }
+
+        /* Lesson Area Style */
+        #academy-content { display: none; padding: 20px; }
+        .filter-container { text-align: center; margin-bottom: 25px; position: sticky; top: 0; background: var(--light); padding: 10px 0; z-index: 10; }
+        .filter-btn { padding: 10px 18px; margin: 5px; border-radius: 20px; border: 1px solid var(--navy); background: white; cursor: pointer; transition: 0.3s; }
+        .filter-btn.active { background: var(--navy); color: white; }
+        .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); }
+        .lesson-tag { color: var(--gold); font-weight: bold; font-size: 12px; text-transform: uppercase; }
+        iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="landing-page">
+        <img src="https://via.placeholder.com/120?text=Aurisme" alt="Aurisme Logo" class="logo">
+        <h1>Aurisme Academy</h1>
+        <p>Devni poliglòt! Aprann 3 lang nan 6 mwa.</p>
+        
+        <div style="margin-top: 40px;">
+            <a href="https://wa.me/50942017744?text=Bonjou%20Aurisme,%20mwen%20vle%20enskri%20nan%20Academy%20a.%20Kijan%20pou%20m%20peye?" class="btn-inscrit">
+                📝 ENSRI SOU WHATSAPP
+            </a>
+            <button onclick="showLogin()" class="btn-login">
+                🎓 ANTRE NAN KLAS LA
+            </button>
+        </div>
+    </div>
+
+    <div id="login-screen">
+        <h2>Aksè Elèv</h2>
+        <p>Antre kòd sekirite Aurisme te voye ba ou a.</p>
+        <input type="password" id="access-code" placeholder="Kòd Aksè">
+        <button onclick="verifyCode()" class="btn-login" style="background: #28a745;">VERIFYE KÒD</button>
+        <button onclick="hideLogin()" style="margin-top: 25px; background: none; border: none; color: gray; cursor: pointer; text-decoration: underline;">Anile</button>
+    </div>
+
+    <div id="academy-content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: var(--navy);">Mes Leçons</h2>
+            <button onclick="logout()" style="background: none; border: none; color: red; cursor: pointer;">Soti</button>
+        </div>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterLessons('Tout', event)">Tout</button>
+            <button class="filter-btn" onclick="filterLessons('Anglais', event)">Anglais</button>
+            <button class="filter-btn" onclick="filterLessons('Espagnol', event)">Espagnol</button>
+            <button class="filter-btn" onclick="filterLessons('Portugais', event)">Portugais</button>
+        </div>
+        
+        <div id="lesson-list">
+            </div>
+    </div>
+
+    <script>
+        let allLessons = [];
+        const MASTER_CODE = "AURISME2026"; 
+
+        // Tcheke si elèv la te deja konekte
+        window.onload = () => {
+            if (localStorage.getItem('aurisme_access') === 'true') {
+                showAcademy();
+            }
+        };
+
+        function showLogin() { document.getElementById('login-screen').style.display = 'flex'; }
+        function hideLogin() { document.getElementById('login-screen').style.display = 'none'; }
+
+        function verifyCode() {
+            const codeInput = document.getElementById('access-code').value;
+            if (codeInput === MASTER_CODE) {
+                localStorage.setItem('aurisme_access', 'true');
+                showAcademy();
+            } else {
+                alert("Kòd sa a pa bon! Kontakte nou nan +509 4201 7744.");
+            }
+        }
+
+        function showAcademy() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('academy-content').style.display = 'block';
+            loadLessons();
+        }
+
+        function loadLessons() {
+            fetch('./academy.json')
+                .then(res => res.json())
+                .then(data => {
+                    allLessons = data.courses;
+                    displayLessons(allLessons);
+                })
+                .catch(err => {
+                    console.error("Erè rale JSON:", err);
+                    document.getElementById('lesson-list').innerHTML = "<p>Poko gen leson ki disponib. Tanpri tounen pita.</p>";
+                });
+        }
+
+        function displayLessons(lessons) {
+            const list = document.getElementById('lesson-list');
+            list.innerHTML = '';
+            if(lessons.length === 0) {
+                list.innerHTML = "<p style='text-align:center;'>Poko gen leson pou lang sa a.</p>";
+                return;
+            }
+            lessons.forEach(l => {
+                list.innerHTML += `
+                    <div class="lesson-card">
+                        <span class="lesson-tag">${l.language} - Semèn ${l.week}</span>
+                        <h3 style="margin:10px 0;">${l.title}</h3>
+                        <p style="white-space:pre-wrap; font-size:14px; color:#444;">${l.content}</p>
+                        ${l.videoUrl && l.videoUrl !== "" ? `<iframe src="${l.videoUrl}" frameborder="0" allowfullscreen></iframe>` : ''}
+                    </div>
+                `;
+            });
+        }
+
+        function filterLessons(lang, e) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            const filtered = lang === 'Tout' ? allLessons : allLessons.filter(l => l.language === lang);
+            displayLessons(filtered);
+        }
+
+        function logout() {
+            localStorage.removeItem('aurisme_access');
+            location.reload();
+        }
+    </script>
+</body>
+</html>
