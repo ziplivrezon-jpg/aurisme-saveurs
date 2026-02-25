@@ -28,14 +28,13 @@
         .btn-inscrit { display: block; background: #25D366; color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px auto; max-width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px; }
         .btn-login { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; border: none; font-weight: bold; width: 100%; max-width: 335px; margin: 0 auto; cursor: pointer; font-size: 16px; }
         
-        #login-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        input { padding: 15px; width: 80%; max-width: 300px; border: 2px solid var(--navy); border-radius: 8px; margin-bottom: 15px; font-size: 16px; outline: none; }
+        #login-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .login-card { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 350px; }
+        input, select { padding: 15px; width: 100%; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 15px; font-size: 16px; outline: none; box-sizing: border-box; }
+        input:focus, select:focus { border-color: var(--navy); }
 
         #academy-content { display: none; padding: 20px; }
         .header-academy { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .filter-container { text-align: center; margin-bottom: 25px; position: sticky; top: 0; background: var(--light); padding: 10px 0; z-index: 10; }
-        .filter-btn { padding: 10px 18px; margin: 5px; border-radius: 20px; border: 1px solid var(--navy); background: white; cursor: pointer; transition: 0.3s; font-size: 14px; }
-        .filter-btn.active { background: var(--navy); color: white; }
         
         .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); text-align: left; }
         iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; border: none; }
@@ -45,7 +44,8 @@
         #forum-feed { max-height: 400px; overflow-y: auto; margin-bottom: 20px; border-radius: 10px; background: #f8f9fa; padding: 10px; }
         .comment { background: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .bot-comment { border-left: 5px solid #25D366; background: #f0fff4; }
-        .user-name { font-weight: bold; color: var(--navy); font-size: 14px; }
+        .user-name { font-weight: bold; color: var(--navy); font-size: 14px; margin-bottom: 3px; }
+        .comment-text { margin: 0; font-size: 15px; }
         .forum-input-group { display: flex; flex-direction: column; gap: 10px; }
         #forum-message { padding: 12px; border-radius: 8px; border: 1px solid #ccc; resize: none; font-family: inherit; }
     </style>
@@ -74,23 +74,33 @@
     </div>
 
     <div id="login-screen">
-        <h2>Accès Étudiant</h2>
-        <input type="password" id="access-code" placeholder="Code d'accès">
-        <button onclick="verifyCode()" class="btn-login" style="background: #28a745;">VÉRIFIER LE CODE</button>
-        <button onclick="hideLogin()" style="margin-top: 10px; border: none; background: none; color: gray; cursor: pointer;">Annuler</button>
+        <div class="login-card">
+            <h2 style="color: var(--navy); margin-top: 0;">Accès Étudiant</h2>
+            <p style="font-size: 14px; color: #666;">Entrez vos informations pour accéder à vos cours.</p>
+            
+            <input type="text" id="student-name" placeholder="Votre Nom complet">
+            
+            <select id="course-select">
+                <option value="" disabled selected>Choisissez votre cours</option>
+                <option value="Anglais">Cours d'Anglais</option>
+                <option value="Espagnol">Cours d'Espagnol</option>
+                <option value="Portugais">Cours de Portugais</option>
+            </select>
+
+            <input type="password" id="access-code" placeholder="Code d'accès secret">
+            
+            <button onclick="verifyAccess()" class="btn-login" style="background: #28a745; width: 100%;">ENTRER EN CLASSE</button>
+            <button onclick="hideLogin()" style="margin-top: 15px; border: none; background: none; color: gray; cursor: pointer; text-decoration: underline;">Annuler</button>
+        </div>
     </div>
 
     <div id="academy-content">
         <div class="header-academy">
-            <h2 style="color: var(--navy); margin: 0;">Mes Leçons</h2>
+            <div>
+                <h2 style="color: var(--navy); margin: 0;">Mes Leçons</h2>
+                <p id="welcome-msg" style="margin: 5px 0 0 0; font-size: 14px; color: var(--gold); font-weight: bold;"></p>
+            </div>
             <button onclick="logout()" style="background: var(--bordeaux); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer;">DÉCONNEXION</button>
-        </div>
-        
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterLessons('Tout', event)">Tout</button>
-            <button class="filter-btn" onclick="filterLessons('Anglais', event)">Anglais</button>
-            <button class="filter-btn" onclick="filterLessons('Espagnol', event)">Espagnol</button>
-            <button class="filter-btn" onclick="filterLessons('Portugais', event)">Portugais</button>
         </div>
         
         <div id="lesson-list"></div>
@@ -99,8 +109,8 @@
             <h3 style="color: var(--navy);">💬 Forum & Aide IA</h3>
             <div id="forum-feed"></div>
             <div class="forum-input-group">
-                <textarea id="forum-message" rows="2" placeholder="Posez une question... (Tapez 'IA' pour l'aide)"></textarea>
-                <button id="btn-post-forum" class="btn-login" style="max-width: 100%;">ENVOYER</button>
+                <textarea id="forum-message" rows="2" placeholder="Posez une question à la communauté ou à l'IA..."></textarea>
+                <button id="btn-post-forum" class="btn-login" style="max-width: 100%;">PUBLIER DANS LE FORUM</button>
             </div>
         </div>
     </div>
@@ -125,15 +135,21 @@
         document.getElementById('btn-post-forum').addEventListener('click', async () => {
             const msgInput = document.getElementById('forum-message');
             const text = msgInput.value.trim();
+            const studentName = localStorage.getItem('aurisme_student_name') || "Étudiant";
+            
             if (text !== "") {
-                await addDoc(forumRef, { user: "Étudiant", text: text, timestamp: serverTimestamp() });
+                await addDoc(forumRef, { 
+                    user: studentName, 
+                    text: text, 
+                    timestamp: serverTimestamp() 
+                });
                 
-                // LOGIQUE BOT IA
-                if (text.toLowerCase().includes("ia") || text.toLowerCase().includes("aide") || text.toLowerCase().includes("kesyon")) {
+                // IA LOGIQUE PÈSONALIZE
+                if (text.toLowerCase().includes("ia") || text.toLowerCase().includes("aide") || text.toLowerCase().includes("kesyon") || text.toLowerCase().includes("pwofesè")) {
                     setTimeout(async () => {
                         await addDoc(forumRef, {
                             user: "🤖 Aurisme Bot",
-                            text: "Bonjour! Je suis l'IA d'Aurisme. Comment puis-je vous aider avec vos leçons aujourd'hui ?",
+                            text: `Bonjour ${studentName}! Je suis l'IA de l'Academy. J'ai bien reçu votre question. Un instructeur ou moi-même allons vous répondre très bientôt !`,
                             timestamp: serverTimestamp(),
                             isBot: true
                         });
@@ -150,7 +166,11 @@
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 const botClass = data.isBot ? 'bot-comment' : '';
-                feed.innerHTML += `<div class="comment ${botClass}"><p class="user-name">${data.user}</p><p>${data.text}</p></div>`;
+                feed.innerHTML += `
+                    <div class="comment ${botClass}">
+                        <p class="user-name">👤 ${data.user}</p>
+                        <p class="comment-text">${data.text}</p>
+                    </div>`;
             });
             feed.scrollTop = feed.scrollHeight;
         });
@@ -158,46 +178,85 @@
 
     <script>
         let allLessons = [];
-        const MASTER_CODE = "AURISME2026"; 
+        // KÒD DIFEREN POU CHAK LANG
+        const CODES = {
+            "Anglais": "AUR-ANG-26",
+            "Espagnol": "AUR-ESP-26",
+            "Portugais": "AUR-POR-26"
+        };
 
-        window.onload = () => { if (localStorage.getItem('aurisme_access') === 'true') showAcademy(); };
+        window.onload = () => { 
+            if (localStorage.getItem('aurisme_access') === 'true') {
+                showAcademy();
+            } 
+        };
+
         function showLogin() { document.getElementById('login-screen').style.display = 'flex'; }
         function hideLogin() { document.getElementById('login-screen').style.display = 'none'; }
-        function logout() { localStorage.removeItem('aurisme_access'); location.reload(); }
+        
+        function logout() { 
+            localStorage.clear(); 
+            location.reload(); 
+        }
 
-        function verifyCode() {
-            if (document.getElementById('access-code').value === MASTER_CODE) {
+        function verifyAccess() {
+            const name = document.getElementById('student-name').value.trim();
+            const course = document.getElementById('course-select').value;
+            const code = document.getElementById('access-code').value.trim();
+
+            if (!name || !course || !code) {
+                alert("Tanpri ranpli tout bwat yo!");
+                return;
+            }
+
+            if (code === CODES[course]) {
                 localStorage.setItem('aurisme_access', 'true');
+                localStorage.setItem('aurisme_student_name', name);
+                localStorage.setItem('aurisme_selected_course', course);
                 showAcademy();
-            } else { alert("Code incorrect !"); }
+            } else {
+                alert("Kòd aksè sa a pa bon pou kou " + course + " la!");
+            }
         }
 
         function showAcademy() {
+            const name = localStorage.getItem('aurisme_student_name');
+            const course = localStorage.getItem('aurisme_selected_course');
+            
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('academy-content').style.display = 'block';
-            loadLessons();
+            
+            document.getElementById('welcome-msg').innerText = "Bienvenue, " + name + " (" + course + ")";
+            loadLessons(course);
         }
 
-        function loadLessons() {
+        function loadLessons(course) {
             fetch('./academy.json').then(res => res.json()).then(data => {
-                allLessons = data.courses;
+                // Sèlman montre leson lang elèv la te chwazi a
+                allLessons = data.courses.filter(l => l.language === course);
                 displayLessons(allLessons);
-            }).catch(() => { document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon.</p>"; });
+            }).catch(() => { 
+                document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon disponible.</p>"; 
+            });
         }
 
         function displayLessons(lessons) {
             const list = document.getElementById('lesson-list');
             list.innerHTML = '';
+            if(lessons.length === 0) {
+                list.innerHTML = "<p>Bientôt disponible pour votre section.</p>";
+                return;
+            }
             lessons.forEach(l => {
-                list.innerHTML += `<div class="lesson-card"><h3>${l.title}</h3><p>${l.content}</p>${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}</div>`;
+                list.innerHTML += `
+                    <div class="lesson-card">
+                        <span style="color:var(--gold); font-weight:bold; font-size:12px;">SEMAINE ${l.week}</span>
+                        <h3>${l.title}</h3>
+                        <p style="font-size:14px; color:#444;">${l.content}</p>
+                        ${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}
+                    </div>`;
             });
-        }
-
-        function filterLessons(lang, e) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
-            displayLessons(lang === 'Tout' ? allLessons : allLessons.filter(l => l.language === lang));
         }
 
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
