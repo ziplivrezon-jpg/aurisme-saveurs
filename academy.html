@@ -39,6 +39,13 @@
         .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); text-align: left; }
         iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; border: none; }
 
+        /* QUIZ STYLES */
+        .quiz-container { background: #fdf9ea; padding: 20px; border-radius: 12px; margin-top: 20px; border: 2px dashed var(--gold); }
+        .quiz-option { display: block; background: white; padding: 12px; margin: 10px 0; border-radius: 8px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
+        .quiz-option:hover { background: #f1f1f1; border-color: var(--navy); }
+        .correct { background: #d4edda !important; color: #155724; border-color: #c3e6cb !important; font-weight: bold; }
+        .wrong { background: #f8d7da !important; color: #721c24; border-color: #f5c6cb !important; }
+
         /* FORUM STYLE */
         .forum-section { background: #e9ecef; padding: 20px; border-radius: 15px; margin-top: 40px; border-top: 4px solid var(--navy); }
         #forum-feed { max-height: 400px; overflow-y: auto; margin-bottom: 20px; border-radius: 10px; background: #f8f9fa; padding: 10px; }
@@ -138,14 +145,8 @@
             const studentName = localStorage.getItem('aurisme_student_name') || "Étudiant";
             
             if (text !== "") {
-                await addDoc(forumRef, { 
-                    user: studentName, 
-                    text: text, 
-                    timestamp: serverTimestamp() 
-                });
-                
-                // IA LOGIQUE PÈSONALIZE
-                if (text.toLowerCase().includes("ia") || text.toLowerCase().includes("aide") || text.toLowerCase().includes("kesyon") || text.toLowerCase().includes("pwofesè")) {
+                await addDoc(forumRef, { user: studentName, text: text, timestamp: serverTimestamp() });
+                if (text.toLowerCase().includes("ia") || text.toLowerCase().includes("aide") || text.toLowerCase().includes("kesyon")) {
                     setTimeout(async () => {
                         await addDoc(forumRef, {
                             user: "🤖 Aurisme Bot",
@@ -166,11 +167,7 @@
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 const botClass = data.isBot ? 'bot-comment' : '';
-                feed.innerHTML += `
-                    <div class="comment ${botClass}">
-                        <p class="user-name">👤 ${data.user}</p>
-                        <p class="comment-text">${data.text}</p>
-                    </div>`;
+                feed.innerHTML += `<div class="comment ${botClass}"><p class="user-name">👤 ${data.user}</p><p class="comment-text">${data.text}</p></div>`;
             });
             feed.scrollTop = feed.scrollHeight;
         });
@@ -178,85 +175,81 @@
 
     <script>
         let allLessons = [];
-        // KÒD DIFEREN POU CHAK LANG
-        const CODES = {
-            "Anglais": "AUR-ANG-26",
-            "Espagnol": "AUR-ESP-26",
-            "Portugais": "AUR-POR-26"
-        };
+        const CODES = { "Anglais": "AUR-ANG-26", "Espagnol": "AUR-ESP-26", "Portugais": "AUR-POR-26" };
 
-        window.onload = () => { 
-            if (localStorage.getItem('aurisme_access') === 'true') {
-                showAcademy();
-            } 
-        };
-
+        window.onload = () => { if (localStorage.getItem('aurisme_access') === 'true') showAcademy(); };
         function showLogin() { document.getElementById('login-screen').style.display = 'flex'; }
         function hideLogin() { document.getElementById('login-screen').style.display = 'none'; }
-        
-        function logout() { 
-            localStorage.clear(); 
-            location.reload(); 
-        }
+        function logout() { localStorage.clear(); location.reload(); }
 
         function verifyAccess() {
             const name = document.getElementById('student-name').value.trim();
             const course = document.getElementById('course-select').value;
             const code = document.getElementById('access-code').value.trim();
-
-            if (!name || !course || !code) {
-                alert("Tanpri ranpli tout bwat yo!");
-                return;
-            }
-
+            if (!name || !course || !code) { alert("Tanpri ranpli tout bwat yo!"); return; }
             if (code === CODES[course]) {
                 localStorage.setItem('aurisme_access', 'true');
                 localStorage.setItem('aurisme_student_name', name);
                 localStorage.setItem('aurisme_selected_course', course);
                 showAcademy();
-            } else {
-                alert("Kòd aksè sa a pa bon pou kou " + course + " la!");
-            }
+            } else { alert("Kòd aksè sa a pa bon pou kou " + course + " la!"); }
         }
 
         function showAcademy() {
             const name = localStorage.getItem('aurisme_student_name');
             const course = localStorage.getItem('aurisme_selected_course');
-            
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('landing-page').style.display = 'none';
             document.getElementById('academy-content').style.display = 'block';
-            
             document.getElementById('welcome-msg').innerText = "Bienvenue, " + name + " (" + course + ")";
             loadLessons(course);
         }
 
         function loadLessons(course) {
             fetch('./academy.json').then(res => res.json()).then(data => {
-                // Sèlman montre leson lang elèv la te chwazi a
                 allLessons = data.courses.filter(l => l.language === course);
                 displayLessons(allLessons);
-            }).catch(() => { 
-                document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon disponible.</p>"; 
-            });
+            }).catch(() => { document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon disponible.</p>"; });
         }
 
         function displayLessons(lessons) {
             const list = document.getElementById('lesson-list');
             list.innerHTML = '';
-            if(lessons.length === 0) {
-                list.innerHTML = "<p>Bientôt disponible pour votre section.</p>";
-                return;
-            }
-            lessons.forEach(l => {
+            if(lessons.length === 0) { list.innerHTML = "<p>Bientôt disponible.</p>"; return; }
+            lessons.forEach((l, index) => {
                 list.innerHTML += `
                     <div class="lesson-card">
                         <span style="color:var(--gold); font-weight:bold; font-size:12px;">SEMAINE ${l.week}</span>
                         <h3>${l.title}</h3>
                         <p style="font-size:14px; color:#444;">${l.content}</p>
                         ${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}
+                        <div id="quiz-area-${index}">
+                            <button onclick="startQuiz(${index}, '${l.language}')" class="btn-login" style="margin-top:15px; background:var(--gold); font-size:14px; width:auto; padding:10px 20px;">📝 PRAN TI EGZAMEN SA A</button>
+                        </div>
                     </div>`;
             });
+        }
+
+        // SISTÈM QUIZ OTO-JENERE
+        function startQuiz(index, lang) {
+            const quizArea = document.getElementById(`quiz-area-${index}`);
+            let question = "Quel est le but principal de cette leçon ?";
+            let options = ["Apprendre du vocabulaire", "Dormir", "Manger"];
+            let correctIndex = 0;
+
+            if(lang === "Anglais") { question = "Comment dit-on 'Bonjour' en anglais ?"; options = ["Goodbye", "Hello", "Thank you"]; correctIndex = 1; }
+            if(lang === "Espagnol") { question = "Comment dit-on 'Merci' en espagnol ?"; options = ["Hola", "Gracias", "Por favor"]; correctIndex = 1; }
+
+            quizArea.innerHTML = `
+                <div class="quiz-container">
+                    <p><strong>Quiz:</strong> ${question}</p>
+                    ${options.map((opt, i) => `<div class="quiz-option" onclick="checkAnswer(this, ${i === correctIndex})">${opt}</div>`).join('')}
+                </div>`;
+        }
+
+        function checkAnswer(element, isCorrect) {
+            if(isCorrect) { element.classList.add('correct'); alert("🎉 Bravo! Ou jwenn li."); }
+            else { element.classList.add('wrong'); alert("❌ Oups! Refè l ankò."); }
         }
 
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
