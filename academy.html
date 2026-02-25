@@ -13,29 +13,24 @@
         }
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light); margin: 0; padding: 0; }
         
-        /* Cacher la barre Google Translate par défaut */
         #google_translate_element { display: none; }
         .skiptranslate { display: none !important; }
         body { top: 0 !important; }
 
-        /* Navigation & Langues */
         .top-nav { background: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
         .btn-back-home { text-decoration: none; color: var(--bordeaux); font-weight: bold; font-size: 14px; }
         .lang-switcher { display: flex; gap: 10px; }
         .lang-btn { font-size: 20px; cursor: pointer; border: none; background: none; }
 
-        /* Landing Page Style */
         #landing-page { text-align: center; padding: 40px 20px; display: block; }
         .logo { width: 110px; margin-bottom: 15px; border-radius: 50%; border: 3px solid var(--gold); }
         h1 { color: var(--navy); margin-bottom: 10px; font-size: 24px; }
         .btn-inscrit { display: block; background: #25D366; color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px auto; max-width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px; }
         .btn-login { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; border: none; font-weight: bold; width: 100%; max-width: 335px; margin: 0 auto; cursor: pointer; font-size: 16px; }
         
-        /* Login Screen Style */
         #login-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         input { padding: 15px; width: 80%; max-width: 300px; border: 2px solid var(--navy); border-radius: 8px; margin-bottom: 15px; font-size: 16px; outline: none; }
 
-        /* Lesson Area Style */
         #academy-content { display: none; padding: 20px; }
         .header-academy { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .filter-container { text-align: center; margin-bottom: 25px; position: sticky; top: 0; background: var(--light); padding: 10px 0; z-index: 10; }
@@ -43,8 +38,16 @@
         .filter-btn.active { background: var(--navy); color: white; }
         
         .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); text-align: left; }
-        .lesson-tag { color: var(--gold); font-weight: bold; font-size: 12px; text-transform: uppercase; }
         iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; border: none; }
+
+        /* FORUM STYLE */
+        .forum-section { background: #e9ecef; padding: 20px; border-radius: 15px; margin-top: 40px; border-top: 4px solid var(--navy); }
+        #forum-feed { max-height: 400px; overflow-y: auto; margin-bottom: 20px; border-radius: 10px; background: #f8f9fa; padding: 10px; }
+        .comment { background: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .bot-comment { border-left: 5px solid #25D366; background: #f0fff4; }
+        .user-name { font-weight: bold; color: var(--navy); font-size: 14px; }
+        .forum-input-group { display: flex; flex-direction: column; gap: 10px; }
+        #forum-message { padding: 12px; border-radius: 8px; border: 1px solid #ccc; resize: none; font-family: inherit; }
     </style>
 </head>
 <body>
@@ -64,32 +67,23 @@
     <div id="landing-page">
         <img src="Logo.png" alt="Aurisme Logo" class="logo">
         <h1>Aurisme Academy</h1>
-        <p>Devenez polyglotte ! Apprenez 3 langues en 6 mois.</p>
-        
         <div style="margin-top: 40px;">
-            <a href="https://wa.me/50942017744?text=Bonjour%20Aurisme,%20je%20souhaite%20m'inscrire%20à%20l'Academy.%20Comment%20procéder%20au%20paiement?" class="btn-inscrit">
-                📝 S'INSCRIRE VIA WHATSAPP
-            </a>
-            <button onclick="showLogin()" class="btn-login">
-                🎓 ACCÉDER AUX COURS
-            </button>
+            <a href="https://wa.me/50942017744" class="btn-inscrit">📝 S'INSCRIRE VIA WHATSAPP</a>
+            <button onclick="showLogin()" class="btn-login">🎓 ACCÉDER AUX COURS</button>
         </div>
     </div>
 
     <div id="login-screen">
         <h2>Accès Étudiant</h2>
-        <p>Entrez le code de sécurité envoyé par Aurisme.</p>
         <input type="password" id="access-code" placeholder="Code d'accès">
         <button onclick="verifyCode()" class="btn-login" style="background: #28a745;">VÉRIFIER LE CODE</button>
-        <button onclick="hideLogin()" style="margin-top: 25px; background: none; border: none; color: gray; cursor: pointer; text-decoration: underline;">Annuler</button>
+        <button onclick="hideLogin()" style="margin-top: 10px; border: none; background: none; color: gray; cursor: pointer;">Annuler</button>
     </div>
 
     <div id="academy-content">
         <div class="header-academy">
             <h2 style="color: var(--navy); margin: 0;">Mes Leçons</h2>
-            <button onclick="logout()" style="background: var(--bordeaux); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold;">
-                DÉCONNEXION
-            </button>
+            <button onclick="logout()" style="background: var(--bordeaux); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer;">DÉCONNEXION</button>
         </div>
         
         <div class="filter-container">
@@ -99,32 +93,83 @@
             <button class="filter-btn" onclick="filterLessons('Portugais', event)">Portugais</button>
         </div>
         
-        <div id="lesson-list">
+        <div id="lesson-list"></div>
+
+        <div class="forum-section">
+            <h3 style="color: var(--navy);">💬 Forum & Aide IA</h3>
+            <div id="forum-feed"></div>
+            <div class="forum-input-group">
+                <textarea id="forum-message" rows="2" placeholder="Posez une question... (Tapez 'IA' pour l'aide)"></textarea>
+                <button id="btn-post-forum" class="btn-login" style="max-width: 100%;">ENVOYER</button>
             </div>
+        </div>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
+          authDomain: "aurisme-app.firebaseapp.com",
+          projectId: "aurisme-app",
+          storageBucket: "aurisme-app.firebasestorage.app",
+          messagingSenderId: "1037465492868",
+          appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const forumRef = collection(db, "forum_messages");
+
+        document.getElementById('btn-post-forum').addEventListener('click', async () => {
+            const msgInput = document.getElementById('forum-message');
+            const text = msgInput.value.trim();
+            if (text !== "") {
+                await addDoc(forumRef, { user: "Étudiant", text: text, timestamp: serverTimestamp() });
+                
+                // LOGIQUE BOT IA
+                if (text.toLowerCase().includes("ia") || text.toLowerCase().includes("aide") || text.toLowerCase().includes("kesyon")) {
+                    setTimeout(async () => {
+                        await addDoc(forumRef, {
+                            user: "🤖 Aurisme Bot",
+                            text: "Bonjour! Je suis l'IA d'Aurisme. Comment puis-je vous aider avec vos leçons aujourd'hui ?",
+                            timestamp: serverTimestamp(),
+                            isBot: true
+                        });
+                    }, 1500);
+                }
+                msgInput.value = "";
+            }
+        });
+
+        const q = query(forumRef, orderBy("timestamp", "asc"));
+        onSnapshot(q, (snapshot) => {
+            const feed = document.getElementById('forum-feed');
+            feed.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const botClass = data.isBot ? 'bot-comment' : '';
+                feed.innerHTML += `<div class="comment ${botClass}"><p class="user-name">${data.user}</p><p>${data.text}</p></div>`;
+            });
+            feed.scrollTop = feed.scrollHeight;
+        });
+    </script>
+
     <script>
-        // --- LOGIQUE ACADEMY ---
         let allLessons = [];
         const MASTER_CODE = "AURISME2026"; 
 
-        window.onload = () => {
-            if (localStorage.getItem('aurisme_access') === 'true') {
-                showAcademy();
-            }
-        };
-
+        window.onload = () => { if (localStorage.getItem('aurisme_access') === 'true') showAcademy(); };
         function showLogin() { document.getElementById('login-screen').style.display = 'flex'; }
         function hideLogin() { document.getElementById('login-screen').style.display = 'none'; }
+        function logout() { localStorage.removeItem('aurisme_access'); location.reload(); }
 
         function verifyCode() {
-            const codeInput = document.getElementById('access-code').value;
-            if (codeInput === MASTER_CODE) {
+            if (document.getElementById('access-code').value === MASTER_CODE) {
                 localStorage.setItem('aurisme_access', 'true');
                 showAcademy();
-            } else {
-                alert("Code incorrect ! Contactez-nous au +509 4201 7744.");
-            }
+            } else { alert("Code incorrect !"); }
         }
 
         function showAcademy() {
@@ -135,56 +180,32 @@
         }
 
         function loadLessons() {
-            fetch('./academy.json')
-                .then(res => res.json())
-                .then(data => {
-                    allLessons = data.courses;
-                    displayLessons(allLessons);
-                })
-                .catch(err => {
-                    document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon disponible pour le moment.</p>";
-                });
+            fetch('./academy.json').then(res => res.json()).then(data => {
+                allLessons = data.courses;
+                displayLessons(allLessons);
+            }).catch(() => { document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon.</p>"; });
         }
 
         function displayLessons(lessons) {
             const list = document.getElementById('lesson-list');
             list.innerHTML = '';
             lessons.forEach(l => {
-                list.innerHTML += `
-                    <div class="lesson-card">
-                        <span class="lesson-tag">${l.language} - Semaine ${l.week}</span>
-                        <h3 style="margin:10px 0;">${l.title}</h3>
-                        <p style="white-space:pre-wrap; font-size:14px; color:#444;">${l.content}</p>
-                        ${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}
-                    </div>
-                `;
+                list.innerHTML += `<div class="lesson-card"><h3>${l.title}</h3><p>${l.content}</p>${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}</div>`;
             });
         }
 
         function filterLessons(lang, e) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
-            const filtered = lang === 'Tout' ? allLessons : allLessons.filter(l => l.language === lang);
-            displayLessons(filtered);
+            displayLessons(lang === 'Tout' ? allLessons : allLessons.filter(l => l.language === lang));
         }
 
-        function logout() {
-            localStorage.removeItem('aurisme_access');
-            location.reload();
-        }
-
-        // --- LOGIQUE TRADUCTION ---
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
-        }
+        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
         function translatePage(lang) {
-            var selectField = document.querySelector("select.goog-te-combo");
-            if (selectField) {
-                selectField.value = lang;
-                selectField.dispatchEvent(new Event('change'));
-            }
+            var s = document.querySelector("select.goog-te-combo");
+            if (s) { s.value = lang; s.dispatchEvent(new Event('change')); }
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
