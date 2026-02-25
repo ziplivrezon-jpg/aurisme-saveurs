@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurisme Saveurs et Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Styles originaux conservés */
         :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; }
@@ -57,13 +58,12 @@
         .contact-detail { font-size: 14px; color: #333; margin: 5px 0; text-align: center; line-height: 1.6; }
         .contact-detail a { color: var(--bordeaux); text-decoration: none; font-weight: bold; }
         
-        /* SECTION SOCIALE AMÉLIORÉE */
-        .social-buttons { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+        /* SECTION SOCIALE AMÉLIORÉE AVEC ICÔNES */
+        .social-buttons { width: 100%; max-width: 320px; display: flex; flex-direction: row; gap: 15px; justify-content: center; margin: 20px 0; }
         .btn-social { 
-            padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; text-decoration: none; color: white; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.2); 
+            width: 60px; height: 60px; border-radius: 50%; font-size: 24px; color: white; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none;
         }
-        .btn-social:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); filter: brightness(1.1); }
-        .btn-social:active { transform: translateY(0); }
+        .btn-social:hover { transform: scale(1.1); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
         
         .btn-facebook { background: #1877F2; }
         .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
@@ -160,11 +160,11 @@
             </div>
             
             <div class="social-buttons">
-                <a href="https://www.facebook.com/Zipservices?mibextid=ZbWKwL" target="_blank" class="btn-social btn-facebook">
-                    <span>FACEBOOK</span>
+                <a href="https://www.facebook.com/Zipservices?mibextid=ZbWKwL" target="_blank" class="btn-social btn-facebook" title="Facebook Zipservices">
+                    <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=otweix8" target="_blank" class="btn-social btn-instagram">
-                    <span>INSTAGRAM</span>
+                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=otweix8" target="_blank" class="btn-social btn-instagram" title="Instagram">
+                    <i class="fab fa-instagram"></i>
                 </a>
             </div>
             
