@@ -8,7 +8,6 @@
     <title>Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Styles originaux conservés */
         :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
@@ -23,62 +22,40 @@
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
 
-        .welcome-card {
-            background: linear-gradient(135deg, #fff 0%, #fff9e6 100%);
-            margin: 15px auto; padding: 20px; max-width: 460px;
-            border-radius: 15px; border-left: 5px solid var(--gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left;
-        }
-        .welcome-card h3 { color: var(--bordeaux); margin: 0 0 10px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .welcome-card { background: linear-gradient(135deg, #fff 0%, #fff9e6 100%); margin: 15px auto; padding: 20px; max-width: 460px; border-radius: 15px; border-left: 5px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; }
+        .welcome-card h3 { color: var(--bordeaux); margin: 0 0 10px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
         
-        .btn-galeri-home {
-            display: block; background-color: var(--gold); color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 15px; border-radius: 12px; margin: 10px auto 20px auto; max-width: 460px; border: 2px solid var(--bordeaux); font-size: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+        .btn-galeri-home { display: block; background-color: var(--gold); color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 15px; border-radius: 12px; margin: 10px auto 20px auto; max-width: 460px; border: 2px solid var(--bordeaux); font-size: 16px; }
 
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
         header h1 { margin: 0; font-size: 22px; }
 
         .container { padding: 10px 20px 20px 20px; max-width: 500px; margin: auto; }
-        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; overflow: hidden; }
-        label { font-weight: bold; font-size: 14px; color: var(--bordeaux); display: block; margin-top: 10px; }
+        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
+        
+        /* Liste Checkbox Style */
+        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+        .checkbox-item { display: flex; align-items: center; font-size: 14px; gap: 8px; }
+        .checkbox-item input { width: auto; margin: 0; }
+
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; text-align: center; }
         
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
-        
-        .btn-delivery { 
-            background-color: #000000; color: var(--gold); border: 2px solid var(--gold); padding: 12px; width: 100%; border-radius: 10px; font-size: 15px; font-weight: bold; text-transform: uppercase; text-decoration: none; display: block; text-align: center; margin: 15px 0 5px 0; box-sizing: border-box;
-        }
+        .btn-delivery { background-color: #000; color: var(--gold); border: 2px solid var(--gold); padding: 12px; width: 100%; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; display: block; text-align: center; margin-top: 15px; box-sizing: border-box; }
+        .btn-natcash { background-color: var(--natcash); color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-size: 14px; font-weight: bold; margin-top: 10px; cursor: pointer; }
 
-        .btn-natcash { background-color: var(--natcash); color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-
-        .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); display: flex; flex-direction: column; align-items: center; }
-        .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; text-align: center; }
-        .tiraj-footer { background: var(--gold); color: var(--bordeaux); padding: 12px; border-radius: 10px; font-weight: bold; font-size: 13px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; }
-        .contact-detail { font-size: 14px; color: #333; margin: 5px 0; text-align: center; line-height: 1.6; }
-        .contact-detail a { color: var(--bordeaux); text-decoration: none; font-weight: bold; }
-        
-        /* SECTION SOCIALE AMÉLIORÉE AVEC ICÔNES */
-        .social-buttons { width: 100%; max-width: 320px; display: flex; flex-direction: row; gap: 15px; justify-content: center; margin: 20px 0; }
-        .btn-social { 
-            width: 60px; height: 60px; border-radius: 50%; font-size: 24px; color: white; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none;
-        }
-        .btn-social:hover { transform: scale(1.1); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
-        
+        .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); }
+        .social-buttons { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
+        .btn-social { width: 50px; height: 50px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 20px; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         .btn-facebook { background: #1877F2; }
-        .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-
-        .sms-float { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #007AFF; color: white; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 4px 12px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid white; animation: sms-pulse 2s infinite; }
-        @keyframes sms-pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(0, 122, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); } }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #bc1888); }
     </style>
 </head>
 <body>
 
     <div id="google_translate_element"></div>
-
-    <div class="reklam-ticker">
-        <p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
-    </div>
+    <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
     <div class="lang-switcher">
         <button class="lang-btn" onclick="translatePage('en')">🇺🇸</button>
@@ -88,51 +65,125 @@
     </div>
 
     <header>
-        <div class="logo-container">
-            <img src="Logo.png" alt="Logo Aurisme">
-        </div>
+        <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
         <h1>Aurisme Saveurs et Services</h1>
     </header>
 
     <div class="container">
         <div class="welcome-card">
-            <h3>Bienvenue ! <button style="background:var(--gold); color:var(--bordeaux); border:none; padding:5px 10px; border-radius:5px; font-size:11px; font-weight:bold; cursor:pointer;" onclick="showPromo()">🎁 Offre Spéciale</button></h3>
-            <p>Heureux de vous compter parmi nous. Gardez vos reçus pour notre <strong>Grand Tirage de Fin d'Année</strong> ! 🎁✨</p>
+            <h3>Bienvenue ! <button style="background:var(--gold); color:var(--bordeaux); border:none; padding:5px 10px; border-radius:5px; font-size:11px; cursor:pointer;" onclick="showPromo()">🎁 Offre</button></h3>
+            <p>Heureux de vous compter parmi nous. Gardez vos reçus pour le <strong>Tirage</strong> !</p>
         </div>
 
-        <a href="galeri.html" class="btn-galeri-home">🍰 VOIR NOS RÉALISATIONS (GALERIE)</a>
+        <a href="galeri.html" class="btn-galeri-home">🍰 VOIR LA GALERIE</a>
 
         <div class="form-container" style="border-left: 5px solid #0056b3;">
             <h2>📚 Aurisme Academy</h2>
-            <p style="font-size: 13px; color: #555;">Apprenez l'Anglais, l'Espagnol et le Portugais en 6 mois.</p>
-            <button type="button" class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">VOIR LES COURS / S'INSCRIRE</button>
+            <p style="font-size: 13px;">Anglais, Espagnol, Portugais en 6 mois.</p>
+            <button class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">ACCÉDER AUX COURS</button>
         </div>
 
         <div class="form-container">
             <h2>🛒 Service Supermarché</h2>
             <input type="text" id="m_name" placeholder="Nom du Supermarché...">
-            <select id="m_product">
-                <option value="">-- Choisir un produit --</option>
-                <option value="Sable">Sable</option><option value="Palmier">Palmier</option><option value="Cookies">Cookies</option>
-                <option value="Langue de boeufs">Langue de boeufs</option><option value="Cupcakes">Cupcakes</option>
-                <option value="Gâteau ti bòl">Gâteau ti bòl</option><option value="Sacristains">Sacristains</option>
-                <option value="Gâteau Carré">Gâteau Carré</option>
-            </select>
-            <input type="number" id="m_qty" value="1" min="1">
-            <button type="button" class="btn-order" onclick="sendMarket()">COMMANDER</button>
+            <label>Choisissez vos produits :</label>
+            <div class="checkbox-group" id="market-list">
+                <label class="checkbox-item"><input type="checkbox" value="Sable"> Sable</label>
+                <label class="checkbox-item"><input type="checkbox" value="Palmier"> Palmier</label>
+                <label class="checkbox-item"><input type="checkbox" value="Cookies"> Cookies</label>
+                <label class="checkbox-item"><input type="checkbox" value="Langue de boeufs"> Langue de boeuf</label>
+                <label class="checkbox-item"><input type="checkbox" value="Cupcakes"> Cupcakes</label>
+                <label class="checkbox-item"><input type="checkbox" value="Gâteau ti bòl"> Gâteau ti bòl</label>
+                <label class="checkbox-item"><input type="checkbox" value="Sacristains"> Sacristains</label>
+                <label class="checkbox-item"><input type="checkbox" value="Gâteau Carré"> Gâteau Carré</label>
+            </div>
+            <input type="number" id="m_qty" value="1" min="1" placeholder="Quantité totale">
+            <button class="btn-order" onclick="sendMarket()">COMMANDER</button>
         </div>
 
         <div class="form-container">
             <h2>🥐 Pâtisserie & Gâteaux</h2>
             <select id="p_type">
-                <option value="Gâteau d'Anniversaire">Gâteau d'Anniversaire (Sur Devis)</option>
-                <option value="Gâteau de Mariage">Gâteau de Mariage (Sur Devis)</option>
-                <option value="Bonbons en Boîte">Bonbons en Boîte (250 HTG)</option>
-                <option value="Bonbons en Sachet">Bonbons en Sachet (150 HTG)</option>
+                <option value="Gâteau d'Anniversaire">Gâteau d'Anniversaire</option>
+                <option value="Gâteau de Mariage">Gâteau de Mariage</option>
+                <option value="Bonbons en Boîte">Bonbons en Boîte</option>
+                <option value="Bonbons en Sachet">Bonbons en Sachet</option>
             </select>
-            <textarea id="p_style" rows="2" placeholder="Thème, Couleur..."></textarea>
-            <button type="button" class="btn-order" onclick="sendPatisri()">COMMANDER</button>
+            <textarea id="p_style" rows="2" placeholder="Thème, Couleur, etc..."></textarea>
+            <button class="btn-order" onclick="sendPatisri()">COMMANDER</button>
         </div>
+
+        <div class="form-container">
+            <h2>🍽️ Traiteur & Décoration</h2>
+            <textarea id="td_details" rows="2" placeholder="Date, type d'événement..."></textarea>
+            <button class="btn-order" style="background-color: #222;" onclick="sendOther()">DEMANDER UN DEVIS</button>
+        </div>
+
+        <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
+            <h2 style="margin:0;">🛵 Livraison</h2>
+            <a href="livrezon.html" class="btn-delivery">PAGE LIVRAISON</a>
+        </div>
+
+        <div class="form-container" style="border-top: 4px solid var(--natcash);">
+            <button class="btn-natcash" onclick="payNatcash()">💰 PAYER VIA NATCASH</button>
+        </div>
+
+        <div class="footer-info">
+            <div class="tiraj-footer">🎁 GARDEZ VOS FICHES !</div>
+            <div class="contact-detail">
+                📞 <strong>Appel :</strong> <a href="tel:+50937832098">+509 3783-2098</a>
+            </div>
+            <div class="social-buttons">
+                <a href="https://www.facebook.com/Zipservices?mibextid=ZbWKwL" target="_blank" class="btn-social btn-facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=otweix8" target="_blank" class="btn-social btn-instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const phone = "50942017744";
+
+        function sendMarket() {
+            const mag = document.getElementById('m_name').value;
+            const qty = document.getElementById('m_qty').value;
+            let items = [];
+            document.querySelectorAll('#market-list input:checked').forEach(i => items.push(i.value));
+
+            if(!mag || items.length === 0) return alert("Tanpri mete non magazen an epi chwazi omwen yon pwodwi!");
+            
+            const txt = encodeURIComponent(`*AURISME - MARKET*\n🏢 Magasin: ${mag}\n📦 Produits: ${items.join(', ')}\n🔢 Qté: ${qty}`);
+            window.open(`https://wa.me/${phone}?text=${txt}`);
+        }
+
+        function sendPatisri() {
+            const type = document.getElementById('p_type').value;
+            const style = document.getElementById('p_style').value;
+            if(!style) return alert("Tanpri bay kèk detay sou gâteau a!");
+            
+            const txt = encodeURIComponent(`*AURISME - PÂTISSERIE*\n🥮 Article: ${type}\n🎨 Détails: ${style}`);
+            window.open(`https://wa.me/${phone}?text=${txt}`);
+        }
+
+        function sendOther() {
+            const details = document.getElementById('td_details').value;
+            if(!details) return alert("Tanpri dekri evènman an!");
+            
+            const txt = encodeURIComponent(`*AURISME - DEVIS*\n🍽️ Détails: ${details}`);
+            window.open(`https://wa.me/${phone}?text=${txt}`);
+        }
+
+        function payNatcash() { alert("📢 NATCASH: +509 4201-7744\nFè transfè a epi voye screenshot la."); }
+        function showPromo() { alert("🎁 Gâteau anniversaire = 1/2 douzaine cupcakes GRATUIT!"); }
+        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
+        function translatePage(lang) {
+            let s = document.querySelector("select.goog-te-combo");
+            if(s) { s.value = lang; s.dispatchEvent(new Event('change')); }
+        }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
+div>
 
         <div class="form-container">
             <h2>🍽️ Traiteur & Décoration</h2>
