@@ -1,0 +1,40 @@
+{
+  "courses": [
+    {
+      "language": "Anglais",
+      "week": 1,
+      "title": "Lesson 1: Greetings & Basics",
+      "content": "Nan premye leson sa a, n ap aprann salitasyon yo ak kijan pou n prezante tèt nou an Anglè.",
+      "videoUrl": "",
+      "topStudentName": "À déterminer",
+      "topStudentPhoto": "https://via.placeholder.com/150"
+    },
+    {
+      "language": "Anglais",
+      "week": 2,
+      "title": "Lesson 2: Common Phrases",
+      "content": "N ap aprann fraz moun plis itilize chak jou pou n ka kòmanse fè ti konvèsasyon.",
+      "videoUrl": "",
+      "topStudentName": "À déterminer",
+      "topStudentPhoto": "https://via.placeholder.com/150"
+    },
+    {
+      "language": "Espagnol",
+      "week": 1,
+      "title": "Lección 1: Hola y Saludos",
+      "content": "Aprenderemos a saludar y despedirnos correctamente en español.",
+      "videoUrl": "",
+      "topStudentName": "À déterminer",
+      "topStudentPhoto": "https://via.placeholder.com/150"
+    },
+    {
+      "language": "Portugais",
+      "week": 1,
+      "title": "Lição 1: Bem-vindos",
+      "content": "Primeiros passos no idioma português: saudações e alfabeto.",
+      "videoUrl": "",
+      "topStudentName": "À déterminer",
+      "topStudentPhoto": "https://via.placeholder.com/150"
+    }
+  ]
+}
