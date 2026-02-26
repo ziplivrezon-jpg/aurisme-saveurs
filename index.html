@@ -170,35 +170,41 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
-            authDomain: "aurisme-app.firebaseapp.com",
-            projectId: "aurisme-app",
-            storageBucket: "aurisme-app.firebasestorage.app",
-            messagingSenderId: "1037465492868",
-            appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
         window.showLoginModal = async function() {
-            let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
-            if (name) {
-                const docRef = doc(db, "clients_points", name);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    localStorage.setItem('aurisme_user', name);
-                    updateUI();
-                } else {
-                    alert("Padon, nou pa jwenn non sa a. Kontakte nou sou WhatsApp!");
-                }
-            }
-        };
+    let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
+    if (name) {
+        const docRef = doc(db, "clients_points", name);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+            localStorage.setItem('aurisme_user', name);
+            // Sa a ap fòse paj la refrechi pou l montre pwen yo
+            window.location.reload(); 
+        } else {
+            alert("Non sa a pa nan lis VIP a. Tcheke si w mete majiskil la (Pierre) !");
+        }
+    }
+};
 
+window.updateUI = async function() {
+    const user = localStorage.getItem('aurisme_user');
+    const rewardsSection = document.getElementById('rewards-section');
+    const pointsDisplay = document.getElementById('user-points');
+    
+    if (user && rewardsSection) {
+        const docRef = doc(db, "clients_points", user);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            document.getElementById('guest-msg').innerText = "Bienvenue, " + user + " !";
+            rewardsSection.style.display = 'block';
+            // Asire w ke pwen an monte isit la
+            pointsDisplay.innerText = (data.points || 0) + " Points"; 
+        }
+    }
+};
+        
         window.updateUI = async function() {
             const user = localStorage.getItem('aurisme_user');
             const rewardsSection = document.getElementById('rewards-section');
