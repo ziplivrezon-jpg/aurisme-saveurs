@@ -41,12 +41,6 @@
         .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); text-align: left; }
         iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; border: none; }
 
-        /* NOUVEAU: STYLE ÉTUDIANT BRILLANT */
-        .top-student-box { margin-top: 20px; padding: 15px; background: #fff9e6; border-radius: 12px; border: 1px solid var(--gold); display: flex; align-items: center; gap: 15px; }
-        .top-student-box img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-        .top-student-info h4 { margin: 0; color: var(--navy); font-size: 14px; }
-        .top-student-info p { margin: 2px 0 0 0; font-size: 12px; color: #555; }
-
         .quiz-container { background: #fdf9ea; padding: 20px; border-radius: 12px; margin-top: 20px; border: 2px dashed var(--gold); }
         .quiz-option { display: block; background: white; padding: 12px; margin: 10px 0; border-radius: 8px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
         .quiz-option:hover { background: #f1f1f1; border-color: var(--navy); }
@@ -89,7 +83,6 @@
     <div id="login-screen">
         <div class="login-card">
             <h2 style="color: var(--navy); margin-top: 0;">Accès Étudiant</h2>
-            <p style="font-size: 14px; color: #666;">Entrez vos informations pour accéder à vos cours.</p>
             <input type="text" id="student-name" placeholder="Votre Nom complet">
             <select id="course-select">
                 <option value="" disabled selected>Choisissez votre cours</option>
@@ -118,7 +111,7 @@
             <h3 style="color: var(--navy);">💬 Forum & Aide IA</h3>
             <div id="forum-feed"></div>
             <div class="forum-input-group">
-                <textarea id="forum-message" rows="2" placeholder="Posez une question à la communauté ou à l'IA..."></textarea>
+                <textarea id="forum-message" rows="2" placeholder="Posez une question à la communauté..."></textarea>
                 <button id="btn-post-forum" class="btn-login" style="max-width: 100%;">PUBLIER DANS LE FORUM</button>
             </div>
         </div>
@@ -136,7 +129,6 @@
           messagingSenderId: "1037465492868",
           appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const forumRef = collection(db, "forum_messages");
@@ -157,8 +149,7 @@
             feed.innerHTML = "";
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                const botClass = data.isBot ? 'bot-comment' : '';
-                feed.innerHTML += `<div class="comment ${botClass}"><p class="user-name">👤 ${data.user}</p><p class="comment-text">${data.text}</p></div>`;
+                feed.innerHTML += `<div class="comment"><p class="user-name">👤 ${data.user}</p><p class="comment-text">${data.text}</p></div>`;
             });
             feed.scrollTop = feed.scrollHeight;
         });
@@ -177,7 +168,6 @@
             const name = document.getElementById('student-name').value.trim();
             const course = document.getElementById('course-select').value;
             const code = document.getElementById('access-code').value.trim();
-            if (!name || !course || !code) { alert("Tanpri ranpli tout bwat yo!"); return; }
             if (code === CODES[course]) {
                 localStorage.setItem('aurisme_access', 'true');
                 localStorage.setItem('aurisme_student_name', name);
@@ -200,13 +190,16 @@
             fetch('./academy.json').then(res => res.json()).then(data => {
                 allLessons = data.courses.filter(l => l.language === course);
                 displayLessons(allLessons);
-            }).catch(() => { document.getElementById('lesson-list').innerHTML = "<p>Aucune leçon disponible.</p>"; });
+            }).catch(() => { document.getElementById('lesson-list').innerHTML = "<p>Erreur de chargement.</p>"; });
         }
 
         function displayLessons(lessons) {
             const list = document.getElementById('lesson-list');
             list.innerHTML = '';
             lessons.forEach((l, index) => {
+                const sName = l.topStudentName || "À déterminer";
+                const sPhoto = l.topStudentPhoto || "https://via.placeholder.com/60";
+
                 list.innerHTML += `
                     <div class="lesson-card">
                         <span style="color:var(--gold); font-weight:bold; font-size:12px;">SEMAINE ${l.week}</span>
@@ -214,27 +207,20 @@
                         <p style="font-size:14px;">${l.content}</p>
                         ${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}
                         
-                        <div class="top-student-box">
-                            <img src="${l.topStudentPhoto || 'student-placeholder.png'}" alt="Photo Étudiant">
-                            <div class="top-student-info">
-                                <h4>🌟 Étudiant le plus Brillant</h4>
-                                <p><strong>${l.topStudentName || 'À déterminer'}</strong></p>
-                                <p>Félicitations pour vos excellents résultats cette semaine !</p>
+                        <div style="margin-top: 20px; padding: 15px; background: #fff9e6; border-radius: 12px; border: 1px solid var(--gold); display: flex; align-items: center; gap: 15px;">
+                            <img src="${sPhoto}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--navy); font-size: 14px;">🌟 Étudiant le plus Brillant</h4>
+                                <p style="margin: 2px 0 0 0; font-size: 12px;"><strong>${sName}</strong></p>
+                                <p style="margin: 2px 0 0 0; font-size: 11px; color: #777;">Félicitations pour vos excellents résultats !</p>
                             </div>
                         </div>
 
                         <div id="quiz-area-${index}" style="margin-top:15px;">
-                            <button onclick="startQuiz(${index}, '${l.language}')" class="btn-login" style="background:var(--gold); font-size:14px; width:auto; padding:10px 20px;">📝 EXAMEN</button>
+                            <button onclick="alert('Quiz activé!')" class="btn-login" style="background:var(--gold); font-size:14px; width:auto; padding:10px 20px;">📝 EXAMEN</button>
                         </div>
                     </div>`;
             });
-        }
-
-        function startQuiz(index, lang) {
-            const quizArea = document.getElementById(`quiz-area-${index}`);
-            quizArea.innerHTML = `<div class="quiz-container"><p>Quiz en cours de chargement...</p></div>`;
-            // Logique quiz simplifiée
-            alert("Quiz activé pour " + lang);
         }
 
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
