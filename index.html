@@ -170,46 +170,42 @@
     </div>
 
     <script type="module">
-        window.showLoginModal = async function() {
-    let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
-    if (name) {
-        const docRef = doc(db, "clients_points", name);
-        const docSnap = await getDoc(docRef);
-        
-        if (docSnap.exists()) {
-            localStorage.setItem('aurisme_user', name);
-            // Sa a ap fòse paj la refrechi pou l montre pwen yo
-            window.location.reload(); 
-        } else {
-            alert("Non sa a pa nan lis VIP a. Tcheke si w mete majiskil la (Pierre) !");
-        }
-    }
-};
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-window.updateUI = async function() {
-    const user = localStorage.getItem('aurisme_user');
-    const rewardsSection = document.getElementById('rewards-section');
-    const pointsDisplay = document.getElementById('user-points');
-    
-    if (user && rewardsSection) {
-        const docRef = doc(db, "clients_points", user);
-        const docSnap = await getDoc(docRef);
-        
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            document.getElementById('guest-msg').innerText = "Bienvenue, " + user + " !";
-            rewardsSection.style.display = 'block';
-            // Asire w ke pwen an monte isit la
-            pointsDisplay.innerText = (data.points || 0) + " Points"; 
-        }
-    }
-};
-        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
+            authDomain: "aurisme-app.firebaseapp.com",
+            projectId: "aurisme-app",
+            storageBucket: "aurisme-app.firebasestorage.app",
+            messagingSenderId: "1037465492868",
+            appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.showLoginModal = async function() {
+            let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
+            if (name) {
+                try {
+                    const docRef = doc(db, "clients_points", name);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        localStorage.setItem('aurisme_user', name);
+                        location.reload(); 
+                    } else {
+                        alert("Non sa a pa nan lis VIP a. Tcheke majiskil la (Pierre) !");
+                    }
+                } catch (e) { alert("Erè: " + e.message); }
+            }
+        };
+
         window.updateUI = async function() {
             const user = localStorage.getItem('aurisme_user');
             const rewardsSection = document.getElementById('rewards-section');
             const authControls = document.getElementById('auth-controls');
-            if (user) {
+            if (user && db) {
                 const docRef = doc(db, "clients_points", user);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
@@ -218,7 +214,8 @@ window.updateUI = async function() {
                     authControls.innerHTML = `<span style="font-weight:bold; color:var(--navy)">Bonjour, ${user}!</span> <button class="btn-login-top" style="background:var(--bordeaux)" onclick="logoutUser()">Déconnexion</button>`;
                     if(rewardsSection) {
                         rewardsSection.style.display = 'block';
-                        document.getElementById('user-points').innerText = data.points + " Points";
+                        let pts = data.points !== undefined ? data.points : (data.Points || 0);
+                        document.getElementById('user-points').innerText = pts + " Points";
                     }
                 }
             }
@@ -260,26 +257,7 @@ window.updateUI = async function() {
         function translatePage(lang) {
             let s = document.querySelector("select.goog-te-combo");
             if(s) { s.value = lang; s.dispatchEvent(new Event('change')); }
-        }window.updateUI = async function() {
-    const user = localStorage.getItem('aurisme_user');
-    if (user) {
-        try {
-            const docRef = doc(db, "clients_points", user);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                document.getElementById('guest-msg').innerText = "Bienvenue, " + user + " !";
-                document.getElementById('rewards-section').style.display = 'block';
-                // Si nan Firebase li maké 'points', l'ap jwenn li isit la
-                document.getElementById('user-points').innerText = (data.points || 0) + " Points";
-            }
-        } catch (error) {
-            console.error("Erè Firebase:", error);
-            alert("Erè sekirite Firebase: " + error.message);
         }
-    }
-};
-        
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
