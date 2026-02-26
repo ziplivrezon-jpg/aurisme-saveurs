@@ -22,7 +22,6 @@
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; align-items: center; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
 
-        /* AUTH & REWARDS STYLES */
         .auth-bar { background: #fff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
         .btn-login-top { background: var(--navy); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
         
@@ -76,7 +75,7 @@
 
     <div class="auth-bar" id="auth-controls">
         <span id="guest-msg" style="font-weight: bold; color: var(--navy);">Bonjour, Invité!</span>
-        <button class="btn-login-top" onclick="showLoginModal()">Connexion VIP</button>
+        <button class="btn-login-top" id="login-btn-action">Connexion VIP</button>
     </div>
 
     <div class="lang-switcher">
@@ -95,7 +94,7 @@
         <div class="rewards-card" id="rewards-section">
             <div class="rewards-badge">MEMBRE VIP</div>
             <h3>🎁 Mes Points Aurisme</h3>
-            <div id="user-points" class="points-display">0 Points</div>
+            <div id="user-points" class="points-display">Chargement...</div>
             <p style="font-size: 12px; margin-top: 10px; color: #e0e0e0; line-height: 1.4;">
                 Félicitations ! Accumulez des points sur chaque achat.<br>
                 <strong>100 pts = 1 Douzaine Cupcakes GRATUITS</strong>
@@ -178,51 +177,75 @@
         </div>
     </div>
 
-    <script>
-        // DATABASE KLIYAN (Non : Pwen)
-        const CUSTOMERS_DATABASE = {
-            "Pierre": 45,
-            "Marie": 110,
-            "Jean": 25,
-            "Aurisme": 500
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
+            authDomain: "aurisme-app.firebaseapp.com",
+            projectId: "aurisme-app",
+            storageBucket: "aurisme-app.firebasestorage.app",
+            messagingSenderId: "1037465492868",
+            appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
         };
 
-        const phone = "50942017744";
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        function showLoginModal() {
+        // Fonksyon Login
+        window.showLoginModal = async function() {
             let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
-            if (name && CUSTOMERS_DATABASE[name] !== undefined) {
-                localStorage.setItem('aurisme_user', name);
-                updateUI();
-            } else if (name) {
-                alert("Padon, nou pa jwenn non sa a nan lis VIP nou an. Kontakte nou sou WhatsApp!");
-            }
-        }
+            if (name) {
+                const docRef = doc(db, "clients_points", name);
+                const docSnap = await getDoc(docRef);
 
-        function updateUI() {
+                if (docSnap.exists()) {
+                    localStorage.setItem('aurisme_user', name);
+                    updateUI();
+                } else {
+                    alert("Padon, nou pa jwenn non sa a nan baz done VIP nou an. Kontakte nou sou WhatsApp pou n ouvri yon kont pou ou!");
+                }
+            }
+        };
+
+        // Fonksyon Update UI (Firebase Live)
+        window.updateUI = async function() {
             const user = localStorage.getItem('aurisme_user');
             const rewardsSection = document.getElementById('rewards-section');
             const authControls = document.getElementById('auth-controls');
             const guestMsg = document.getElementById('guest-msg');
+            const pointsDisplay = document.getElementById('user-points');
             
-            if (user && CUSTOMERS_DATABASE[user] !== undefined) {
-                guestMsg.innerText = "Bienvenue, " + user + " !";
-                authControls.innerHTML = `<span style="font-weight:bold; color:var(--navy)">Bonjour, ${user}!</span> <button class="btn-login-top" style="background:var(--bordeaux)" onclick="logoutUser()">Déconnexion</button>`;
-                if(rewardsSection) {
-                    rewardsSection.style.display = 'block';
-                    document.getElementById('user-points').innerText = CUSTOMERS_DATABASE[user] + " Points";
+            if (user) {
+                const docRef = doc(db, "clients_points", user);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    guestMsg.innerText = "Bienvenue, " + user + " !";
+                    authControls.innerHTML = `<span style="font-weight:bold; color:var(--navy)">Bonjour, ${user}!</span> <button class="btn-login-top" style="background:var(--bordeaux)" onclick="logoutUser()">Déconnexion</button>`;
+                    
+                    if(rewardsSection) {
+                        rewardsSection.style.display = 'block';
+                        pointsDisplay.innerText = data.points + " Points";
+                    }
                 }
             }
-        }
+        };
 
-        function logoutUser() {
+        window.logoutUser = function() {
             localStorage.removeItem('aurisme_user');
             location.reload();
-        }
+        };
 
-        window.onload = updateUI;
+        document.getElementById('login-btn-action').onclick = window.showLoginModal;
+        window.onload = window.updateUI;
+    </script>
 
-        // RÈS FONKSYON YO (SANKO)
+    <script>
+        const phone = "50942017744";
+
         function sendMarket() {
             const mag = document.getElementById('m_name').value;
             let items = [];
@@ -247,5 +270,4 @@
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-    </html>
-    
+    </html>    
