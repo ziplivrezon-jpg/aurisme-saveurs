@@ -8,7 +8,7 @@
     <title>Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; --navy: #003366; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
         #google_translate_element { display: none; }
@@ -19,8 +19,17 @@
         .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; }
+        .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; align-items: center; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
+
+        /* AUTH & REWARDS STYLES */
+        .auth-bar { background: #fff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
+        .btn-login-top { background: var(--navy); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        
+        .rewards-card { background: linear-gradient(135deg, var(--navy) 0%, #001a33 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px auto; max-width: 460px; text-align: left; border: 2px solid var(--gold); position: relative; display: none; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .rewards-card h3 { color: var(--gold); margin: 0 0 5px 0; font-size: 18px; }
+        .points-display { font-size: 28px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .rewards-badge { position: absolute; top: 15px; right: 15px; background: var(--gold); color: var(--bordeaux); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
         .welcome-card { background: linear-gradient(135deg, #fff 0%, #fff9e6 100%); margin: 15px auto; padding: 20px; max-width: 460px; border-radius: 15px; border-left: 5px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; }
         .welcome-card h3 { color: var(--bordeaux); margin: 0 0 10px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
@@ -36,7 +45,6 @@
         
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         .checkbox-item { display: flex; align-items: center; font-size: 14px; gap: 8px; cursor: pointer; }
-        .checkbox-item input { width: auto; margin: 0; }
 
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; text-align: center; }
@@ -66,6 +74,11 @@
     <div id="google_translate_element"></div>
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
+    <div class="auth-bar" id="auth-controls">
+        <span id="guest-msg" style="font-weight: bold; color: var(--navy);">Bonjour, Invité!</span>
+        <button class="btn-login-top" onclick="showLoginModal()">Connexion VIP</button>
+    </div>
+
     <div class="lang-switcher">
         <button class="lang-btn" onclick="translatePage('en')">🇺🇸</button>
         <button class="lang-btn" onclick="translatePage('es')">🇪🇸</button>
@@ -79,6 +92,16 @@
     </header>
 
     <div class="container">
+        <div class="rewards-card" id="rewards-section">
+            <div class="rewards-badge">MEMBRE VIP</div>
+            <h3>🎁 Mes Points Aurisme</h3>
+            <div id="user-points" class="points-display">0 Points</div>
+            <p style="font-size: 12px; margin-top: 10px; color: #e0e0e0; line-height: 1.4;">
+                Félicitations ! Accumulez des points sur chaque achat.<br>
+                <strong>100 pts = 1 Douzaine Cupcakes GRATUITS</strong>
+            </p>
+        </div>
+
         <div class="celebrity-section">
             <h2 style="font-size: 18px; color: var(--bordeaux); margin-top: 0;">🎉 Nos Célébrités du Mois</h2>
             <div class="celebrity-grid">
@@ -107,10 +130,6 @@
                 <label class="checkbox-item"><input type="checkbox" value="Palmier"> Palmier</label>
                 <label class="checkbox-item"><input type="checkbox" value="Cookies"> Cookies</label>
                 <label class="checkbox-item"><input type="checkbox" value="Langue de boeufs"> Langue de boeuf</label>
-                <label class="checkbox-item"><input type="checkbox" value="Pâtés"> pâtes</label>
-                <label class="checkbox-item"><input type="checkbox" value="Sacristain"> Sacristain</label>
-                <label class="checkbox-item"><input type="checkbox" value="Coconuts"> Coconuts</label>
-                <label class="checkbox-item"><input type="checkbox" value="Cupcakes"> Cupcakes</label>
             </div>
             <input type="number" id="m_qty" value="1" min="1">
             <button class="btn-order" onclick="sendMarket()">COMMANDER</button>
@@ -121,22 +140,11 @@
             <div class="checkbox-group" id="patisri-list">
                 <label class="checkbox-item"><input type="checkbox" value="Gâteau d'Anniversaire"> Anniversaire</label>
                 <label class="checkbox-item"><input type="checkbox" value="Gâteau de Mariage"> Mariage</label>
-                   <label class="checkbox-item"><input type="checkbox" value="Gâteau de Baptême"> Baptême</label>
-                   <label class="checkbox-item"><input type="checkbox" value="Gâteau de Graduation"> Graduation</label>
                 <label class="checkbox-item"><input type="checkbox" value="Bonbons en Boîte"> Bonbons Boîte</label>
-                 <label class="checkbox-item"><input type="checkbox" value="Bonbons Sachet"> Bonbons Sachet</label>
-                   <label class="checkbox-item"><input type="checkbox" value="Viennoiseries"> Viennoiseries</label>
-                   <label class="checkbox-item"><input type="checkbox" value="Cupcakes"> Cupcakes</label>
                 <label class="checkbox-item"><input type="checkbox" value="Autre"> Autre (Précisez)</label>
             </div>
             <textarea id="p_style" rows="2" placeholder="Détails (Thème, Couleur, si Autre...)"></textarea>
             <button class="btn-order" onclick="sendPatisri()">COMMANDER</button>
-        </div>
-
-        <div class="form-container">
-            <h2>🍽️ Traiteur & Décoration</h2>
-            <textarea id="td_details" rows="2" placeholder="Date, type d'événement..."></textarea>
-            <button class="btn-order" style="background-color: #222;" onclick="sendOther()">DEVIS</button>
         </div>
 
         <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
@@ -164,7 +172,50 @@
     </div>
 
     <script>
+        // DATABASE KLIYAN (Non : Pwen)
+        const CUSTOMERS_DATABASE = {
+            "Pierre": 45,
+            "Marie": 110,
+            "Jean": 25,
+            "Aurisme": 500
+        };
+
         const phone = "50942017744";
+
+        function showLoginModal() {
+            let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
+            if (name && CUSTOMERS_DATABASE[name] !== undefined) {
+                localStorage.setItem('aurisme_user', name);
+                updateUI();
+            } else if (name) {
+                alert("Padon, nou pa jwenn non sa a nan lis VIP nou an. Kontakte nou sou WhatsApp!");
+            }
+        }
+
+        function updateUI() {
+            const user = localStorage.getItem('aurisme_user');
+            const rewardsSection = document.getElementById('rewards-section');
+            const authControls = document.getElementById('auth-controls');
+            const guestMsg = document.getElementById('guest-msg');
+            
+            if (user && CUSTOMERS_DATABASE[user] !== undefined) {
+                guestMsg.innerText = "Bienvenue, " + user + " !";
+                authControls.innerHTML = `<span style="font-weight:bold; color:var(--navy)">Bonjour, ${user}!</span> <button class="btn-login-top" style="background:var(--bordeaux)" onclick="logoutUser()">Déconnexion</button>`;
+                if(rewardsSection) {
+                    rewardsSection.style.display = 'block';
+                    document.getElementById('user-points').innerText = CUSTOMERS_DATABASE[user] + " Points";
+                }
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('aurisme_user');
+            location.reload();
+        }
+
+        window.onload = updateUI;
+
+        // RÈS FONKSYON YO (SANKO)
         function sendMarket() {
             const mag = document.getElementById('m_name').value;
             let items = [];
@@ -179,13 +230,8 @@
             const txt = encodeURIComponent(`*AURISME - PÂTISSERIE*\n🥮 Choix: ${types.join(', ')}\n🎨 Détails: ${style}`);
             window.open(`https://wa.me/${phone}?text=${txt}`);
         }
-        function sendOther() {
-            const details = document.getElementById('td_details').value;
-            const txt = encodeURIComponent(`*AURISME - DEVIS*\n🍽️ Détails: ${details}`);
-            window.open(`https://wa.me/${phone}?text=${txt}`);
-        }
         function payNatcash() { alert("📢 NATCASH: +509 4201-7744\nFè transfè a epi voye screenshot la."); }
-        function showPromo() { alert("🌟 OFFRES SPÉCIALES 🌟\n\n🎂 Gâteau Anniversaire (5000 Gds) = 1/2 douzaine Cupcakes GRATUITS!\n👰 Gâteau Mariage = 1 douzaine Cupcakes GRATUITS!"); }
+        function showPromo() { alert("🌟 OFFRES SPÉCIALES 🌟\n\n🎂 Gâteau Anniversaire (5000 Gds) = 1/2 douzaine Cupcakes GRATUITS!"); }
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
         function translatePage(lang) {
             let s = document.querySelector("select.goog-te-combo");
@@ -194,4 +240,5 @@
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-</html>
+    </html>
+    
