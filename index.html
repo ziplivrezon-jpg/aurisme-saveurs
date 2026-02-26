@@ -10,58 +10,43 @@
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; --navy: #003366; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
-        
         #google_translate_element { display: none; }
         .skiptranslate { display: none !important; }
         body { top: 0 !important; }
-
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
         .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-
         .lang-switcher { background: #eee; padding: 10px; display: flex; justify-content: center; gap: 15px; align-items: center; }
         .lang-btn { font-size: 22px; cursor: pointer; border: none; background: none; transition: 0.3s; }
-
         .auth-bar { background: #fff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
         .btn-login-top { background: var(--navy); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        
         .rewards-card { background: linear-gradient(135deg, var(--navy) 0%, #001a33 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px auto; max-width: 460px; text-align: left; border: 2px solid var(--gold); position: relative; display: none; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .rewards-card h3 { color: var(--gold); margin: 0 0 5px 0; font-size: 18px; }
         .points-display { font-size: 28px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
         .rewards-badge { position: absolute; top: 15px; right: 15px; background: var(--gold); color: var(--bordeaux); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-
         .welcome-card { background: linear-gradient(135deg, #fff 0%, #fff9e6 100%); margin: 15px auto; padding: 20px; max-width: 460px; border-radius: 15px; border-left: 5px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; }
         .welcome-card h3 { color: var(--bordeaux); margin: 0 0 10px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
-        
         .btn-galeri-home { display: block; background-color: var(--gold); color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 15px; border-radius: 12px; margin: 10px auto 20px auto; max-width: 460px; border: 2px solid var(--bordeaux); font-size: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
         header h1 { margin: 0; font-size: 22px; }
-
         .container { padding: 10px 20px 20px 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
-        
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         .checkbox-item { display: flex; align-items: center; font-size: 14px; gap: 8px; cursor: pointer; }
-
         input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; text-align: center; }
-        
         .celebrity-section { background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 2px solid var(--gold); }
         .celebrity-grid { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; }
         .celebrity-card { min-width: 120px; text-align: center; }
         .celebrity-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; }
-
         .btn-delivery { background-color: #000; color: var(--gold); border: 2px solid var(--gold); padding: 12px; width: 100%; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; display: block; text-align: center; margin-top: 15px; box-sizing: border-box; }
         .btn-natcash { background-color: var(--natcash); color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-size: 14px; font-weight: bold; margin-top: 10px; cursor: pointer; }
-
         .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); display: flex; flex-direction: column; align-items: center; }
         .slogan { font-size: 18px; font-weight: bold; color: var(--bordeaux); margin-bottom: 15px; font-style: italic; text-align: center; }
         .tiraj-footer { background: var(--gold); color: var(--bordeaux); padding: 12px; border-radius: 10px; font-weight: bold; font-size: 13px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; }
         .contact-detail { font-size: 14px; color: #333; margin: 5px 0; text-align: center; line-height: 1.6; }
         .contact-detail a { color: var(--bordeaux); text-decoration: none; font-weight: bold; }
-
         .social-buttons { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
         .btn-social { width: 50px; height: 50px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 20px; text-decoration: none; }
         .btn-facebook { background: #1877F2; }
@@ -69,7 +54,6 @@
     </style>
 </head>
 <body>
-
     <div id="google_translate_element"></div>
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
@@ -118,6 +102,7 @@
 
         <div class="form-container" style="border-left: 5px solid #0056b3;">
             <h2>📚 Aurisme Academy</h2>
+            <p style="font-size: 13px; color: #666;">Apprenez les Langues (Anglais, Espagnol, Portugais) et la Pâtisserie avec nous.</p>
             <button class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">VOIR LES COURS / S'INSCRIRE</button>
         </div>
 
@@ -141,16 +126,23 @@
         <div class="form-container">
             <h2>🥐 Pâtisserie & Gâteaux</h2>
             <div class="checkbox-group" id="patisri-list">
-                <label class="checkbox-item"><input type="checkbox" value="Gâteau d'Anniversaire">Anniversaire</label>
-                <label class="checkbox-item"><input type="checkbox" value="Gâteau de Mariage">Mariage</label>
+                <label class="checkbox-item"><input type="checkbox" value="Gâteau d'Anniversaire">Gâteau Anniversaire</label>
+                <label class="checkbox-item"><input type="checkbox" value="Gâteau de Mariage"> Gâteau Mariage</label>
                 <label class="checkbox-item"><input type="checkbox" value="Bonbons en Boîte">Bonbons Boîte</label>
-                <label class="checkbox-item"><input type="checkbox" value="Gâteau de Baptême">Baptême</label>
-                <label class="checkbox-item"><input type="checkbox" value="Gâteau Graduation">Graduation</label>
+                <label class="checkbox-item"><input type="checkbox" value="Gâteau de Baptême">Gâteau Baptême</label>
+                <label class="checkbox-item"><input type="checkbox" value="Gâteau Graduation">Gâteau Graduation</label>
                 <label class="checkbox-item"><input type="checkbox" value="Bonbons Sachet">Bonbon Sachet</label>
                 <label class="checkbox-item"><input type="checkbox" value="Autre"> Autre (Précisez)</label>
             </div>
             <textarea id="p_style" rows="2" placeholder="Détails (Thème, Couleur, si Autre...)"></textarea>
             <button class="btn-order" onclick="sendPatisri()">COMMANDER</button>
+        </div>
+
+        <div class="form-container" style="border-left: 5px solid var(--gold);">
+            <h2>🍽️ Traiteur & Décoration</h2>
+            <p style="font-size: 13px; color: #666;">Nous organisons vos événements de A à Z (Mariage, Fête, Reception).</p>
+            <textarea id="event_details" rows="2" placeholder="Détails de l'événement (Date, Nombre de personnes...)"></textarea>
+            <button class="btn-order" style="background-color: var(--navy);" onclick="sendEvent()">DEMANDER UN DEVIS</button>
         </div>
 
         <div class="form-container" style="background-color: #fffcf0; border: 2px solid var(--gold);">
@@ -193,42 +185,34 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Fonksyon Login
         window.showLoginModal = async function() {
             let name = prompt("Antre PRENON ou pou w wè pwen kado ou yo (Ex: Pierre) :");
             if (name) {
                 const docRef = doc(db, "clients_points", name);
                 const docSnap = await getDoc(docRef);
-
                 if (docSnap.exists()) {
                     localStorage.setItem('aurisme_user', name);
                     updateUI();
                 } else {
-                    alert("Padon, nou pa jwenn non sa a nan baz done VIP nou an. Kontakte nou sou WhatsApp pou n ouvri yon kont pou ou!");
+                    alert("Padon, nou pa jwenn non sa a. Kontakte nou sou WhatsApp!");
                 }
             }
         };
 
-        // Fonksyon Update UI (Firebase Live)
         window.updateUI = async function() {
             const user = localStorage.getItem('aurisme_user');
             const rewardsSection = document.getElementById('rewards-section');
             const authControls = document.getElementById('auth-controls');
-            const guestMsg = document.getElementById('guest-msg');
-            const pointsDisplay = document.getElementById('user-points');
-            
             if (user) {
                 const docRef = doc(db, "clients_points", user);
                 const docSnap = await getDoc(docRef);
-                
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    guestMsg.innerText = "Bienvenue, " + user + " !";
+                    document.getElementById('guest-msg').innerText = "Bienvenue, " + user + " !";
                     authControls.innerHTML = `<span style="font-weight:bold; color:var(--navy)">Bonjour, ${user}!</span> <button class="btn-login-top" style="background:var(--bordeaux)" onclick="logoutUser()">Déconnexion</button>`;
-                    
                     if(rewardsSection) {
                         rewardsSection.style.display = 'block';
-                        pointsDisplay.innerText = data.points + " Points";
+                        document.getElementById('user-points').innerText = data.points + " Points";
                     }
                 }
             }
@@ -245,7 +229,6 @@
 
     <script>
         const phone = "50942017744";
-
         function sendMarket() {
             const mag = document.getElementById('m_name').value;
             let items = [];
@@ -260,6 +243,11 @@
             const txt = encodeURIComponent(`*AURISME - PÂTISSERIE*\n🥮 Choix: ${types.join(', ')}\n🎨 Détails: ${style}`);
             window.open(`https://wa.me/${phone}?text=${txt}`);
         }
+        function sendEvent() {
+            const details = document.getElementById('event_details').value;
+            const txt = encodeURIComponent(`*AURISME - TRAITEUR/DECO*\n📝 Détails: ${details}`);
+            window.open(`https://wa.me/${phone}?text=${txt}`);
+        }
         function payNatcash() { alert("📢 NATCASH: +509 4201-7744\nFè transfè a epi voye screenshot la."); }
         function showPromo() { alert("🌟 OFFRES SPÉCIALES 🌟\n\n🎂 Gâteau Anniversaire (5000 Gds) = 1/2 douzaine Cupcakes GRATUITS!"); }
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
@@ -270,4 +258,4 @@
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-    </html>    
+</html>
