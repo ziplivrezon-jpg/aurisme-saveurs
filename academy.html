@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="VJf-ODYVZ-KhUxu-Ur30k";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script><!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -39,14 +41,18 @@
         .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); text-align: left; }
         iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; border: none; }
 
-        /* QUIZ STYLES */
+        /* NOUVEAU: STYLE ÉTUDIANT BRILLANT */
+        .top-student-box { margin-top: 20px; padding: 15px; background: #fff9e6; border-radius: 12px; border: 1px solid var(--gold); display: flex; align-items: center; gap: 15px; }
+        .top-student-box img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+        .top-student-info h4 { margin: 0; color: var(--navy); font-size: 14px; }
+        .top-student-info p { margin: 2px 0 0 0; font-size: 12px; color: #555; }
+
         .quiz-container { background: #fdf9ea; padding: 20px; border-radius: 12px; margin-top: 20px; border: 2px dashed var(--gold); }
         .quiz-option { display: block; background: white; padding: 12px; margin: 10px 0; border-radius: 8px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
         .quiz-option:hover { background: #f1f1f1; border-color: var(--navy); }
         .correct { background: #d4edda !important; color: #155724; border-color: #c3e6cb !important; font-weight: bold; }
         .wrong { background: #f8d7da !important; color: #721c24; border-color: #f5c6cb !important; }
 
-        /* FORUM STYLE */
         .forum-section { background: #e9ecef; padding: 20px; border-radius: 15px; margin-top: 40px; border-top: 4px solid var(--navy); }
         #forum-feed { max-height: 400px; overflow-y: auto; margin-bottom: 20px; border-radius: 10px; background: #f8f9fa; padding: 10px; }
         .comment { background: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -84,18 +90,14 @@
         <div class="login-card">
             <h2 style="color: var(--navy); margin-top: 0;">Accès Étudiant</h2>
             <p style="font-size: 14px; color: #666;">Entrez vos informations pour accéder à vos cours.</p>
-            
             <input type="text" id="student-name" placeholder="Votre Nom complet">
-            
             <select id="course-select">
                 <option value="" disabled selected>Choisissez votre cours</option>
                 <option value="Anglais">Cours d'Anglais</option>
                 <option value="Espagnol">Cours d'Espagnol</option>
                 <option value="Portugais">Cours de Portugais</option>
             </select>
-
             <input type="password" id="access-code" placeholder="Code d'accès secret">
-            
             <button onclick="verifyAccess()" class="btn-login" style="background: #28a745; width: 100%;">ENTRER EN CLASSE</button>
             <button onclick="hideLogin()" style="margin-top: 15px; border: none; background: none; color: gray; cursor: pointer; text-decoration: underline;">Annuler</button>
         </div>
@@ -143,19 +145,8 @@
             const msgInput = document.getElementById('forum-message');
             const text = msgInput.value.trim();
             const studentName = localStorage.getItem('aurisme_student_name') || "Étudiant";
-            
             if (text !== "") {
                 await addDoc(forumRef, { user: studentName, text: text, timestamp: serverTimestamp() });
-                if (text.toLowerCase().includes("ia") || text.toLowerCase().includes("aide") || text.toLowerCase().includes("kesyon")) {
-                    setTimeout(async () => {
-                        await addDoc(forumRef, {
-                            user: "🤖 Aurisme Bot",
-                            text: `Bonjour ${studentName}! Je suis l'IA de l'Academy. J'ai bien reçu votre question. Un instructeur ou moi-même allons vous répondre très bientôt !`,
-                            timestamp: serverTimestamp(),
-                            isBot: true
-                        });
-                    }, 1500);
-                }
                 msgInput.value = "";
             }
         });
@@ -192,7 +183,7 @@
                 localStorage.setItem('aurisme_student_name', name);
                 localStorage.setItem('aurisme_selected_course', course);
                 showAcademy();
-            } else { alert("Kòd aksè sa a pa bon pou kou " + course + " la!"); }
+            } else { alert("Code incorrect!"); }
         }
 
         function showAcademy() {
@@ -215,41 +206,35 @@
         function displayLessons(lessons) {
             const list = document.getElementById('lesson-list');
             list.innerHTML = '';
-            if(lessons.length === 0) { list.innerHTML = "<p>Bientôt disponible.</p>"; return; }
             lessons.forEach((l, index) => {
                 list.innerHTML += `
                     <div class="lesson-card">
                         <span style="color:var(--gold); font-weight:bold; font-size:12px;">SEMAINE ${l.week}</span>
                         <h3>${l.title}</h3>
-                        <p style="font-size:14px; color:#444;">${l.content}</p>
+                        <p style="font-size:14px;">${l.content}</p>
                         ${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}
-                        <div id="quiz-area-${index}">
-                            <button onclick="startQuiz(${index}, '${l.language}')" class="btn-login" style="margin-top:15px; background:var(--gold); font-size:14px; width:auto; padding:10px 20px;">📝 PRAN TI EGZAMEN SA A</button>
+                        
+                        <div class="top-student-box">
+                            <img src="${l.topStudentPhoto || 'student-placeholder.png'}" alt="Photo Étudiant">
+                            <div class="top-student-info">
+                                <h4>🌟 Étudiant le plus Brillant</h4>
+                                <p><strong>${l.topStudentName || 'À déterminer'}</strong></p>
+                                <p>Félicitations pour vos excellents résultats cette semaine !</p>
+                            </div>
+                        </div>
+
+                        <div id="quiz-area-${index}" style="margin-top:15px;">
+                            <button onclick="startQuiz(${index}, '${l.language}')" class="btn-login" style="background:var(--gold); font-size:14px; width:auto; padding:10px 20px;">📝 EXAMEN</button>
                         </div>
                     </div>`;
             });
         }
 
-        // SISTÈM QUIZ OTO-JENERE
         function startQuiz(index, lang) {
             const quizArea = document.getElementById(`quiz-area-${index}`);
-            let question = "Quel est le but principal de cette leçon ?";
-            let options = ["Apprendre du vocabulaire", "Dormir", "Manger"];
-            let correctIndex = 0;
-
-            if(lang === "Anglais") { question = "Comment dit-on 'Bonjour' en anglais ?"; options = ["Goodbye", "Hello", "Thank you"]; correctIndex = 1; }
-            if(lang === "Espagnol") { question = "Comment dit-on 'Merci' en espagnol ?"; options = ["Hola", "Gracias", "Por favor"]; correctIndex = 1; }
-
-            quizArea.innerHTML = `
-                <div class="quiz-container">
-                    <p><strong>Quiz:</strong> ${question}</p>
-                    ${options.map((opt, i) => `<div class="quiz-option" onclick="checkAnswer(this, ${i === correctIndex})">${opt}</div>`).join('')}
-                </div>`;
-        }
-
-        function checkAnswer(element, isCorrect) {
-            if(isCorrect) { element.classList.add('correct'); alert("🎉 Bravo! Ou jwenn li."); }
-            else { element.classList.add('wrong'); alert("❌ Oups! Refè l ankò."); }
+            quizArea.innerHTML = `<div class="quiz-container"><p>Quiz en cours de chargement...</p></div>`;
+            // Logique quiz simplifiée
+            alert("Quiz activé pour " + lang);
         }
 
         function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
