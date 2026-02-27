@@ -51,17 +51,24 @@
         .social-links a { font-size: 26px; color: var(--bordeaux); }
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         input, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+
+        /* Hide Google Translate Bar */
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-combo { display: none !important; }
     </style>
 </head>
 <body>
 
     <div class="lang-switcher">
-        <img src="https://flagcdn.com/w40/fr.png" alt="Français">
-        <img src="https://flagcdn.com/w40/us.png" alt="English">
-        <img src="https://flagcdn.com/w40/ht.png" alt="Kreyòl">
-        <img src="https://flagcdn.com/w40/es.png" alt="Español">
-        <img src="https://flagcdn.com/w40/br.png" alt="Português">
+        <img src="https://flagcdn.com/w40/fr.png" alt="Français" onclick="translatePage('fr')">
+        <img src="https://flagcdn.com/w40/us.png" alt="English" onclick="translatePage('en')">
+        <img src="https://flagcdn.com/w40/ht.png" alt="Kreyòl" onclick="translatePage('ht')">
+        <img src="https://flagcdn.com/w40/es.png" alt="Español" onclick="translatePage('es')">
+        <img src="https://flagcdn.com/w40/br.png" alt="Português" onclick="translatePage('pt')">
     </div>
+
+    <div id="google_translate_element" style="display:none;"></div>
 
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
@@ -158,7 +165,27 @@
         </div>
     </div>
 
-    <script>window.chatbaseConfig = { chatbotId: "VJf-ODYVZ-KhUxu-Ur30k" }</script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'fr', 
+                includedLanguages: 'fr,en,ht,es,pt',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        function translatePage(langCode) {
+            var selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = langCode;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script window.chatbaseConfig = { chatbotId: "VJf-ODYVZ-KhUxu-Ur30k" }></script>
     <script src="https://www.chatbase.co/embed.min.js" chatbotId="VJf-ODYVZ-KhUxu-Ur30k" defer></script>
 
     <script type="module">
@@ -191,4 +218,5 @@
         };
     </script>
 </body>
-</html>
+    </html>
+    
