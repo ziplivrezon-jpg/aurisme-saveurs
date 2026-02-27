@@ -3,81 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Academy - Formation Culinaire</title>
+    <title>Aurisme Academy - Formation & Langues</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
         /* Message de Bienvenue */
-        .welcome-academy { 
-            background: var(--navy); 
-            color: white; 
-            padding: 20px; 
-            font-size: 16px; 
-            border-bottom: 4px solid var(--gold);
-        }
-        .welcome-academy h2 { margin: 0; color: var(--gold); font-size: 22px; }
+        .welcome-academy { background: var(--navy); color: white; padding: 25px; border-bottom: 4px solid var(--gold); }
+        .welcome-academy h2 { margin: 0; color: var(--gold); font-size: 24px; text-transform: uppercase; }
         .welcome-academy p { margin: 10px 0 0 0; font-style: italic; opacity: 0.9; }
 
-        header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); position: relative; }
-        .btn-back { position: absolute; left: 15px; top: 35px; color: white; text-decoration: none; font-size: 20px; }
+        header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); position: relative; }
+        .btn-back { position: absolute; left: 15px; top: 30px; color: white; text-decoration: none; font-size: 20px; }
         
-        .container { padding: 20px; max-width: 500px; margin: auto; }
-        .course-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; border-left: 5px solid var(--gold); }
+        .container { padding: 20px; max-width: 550px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-left: 5px solid var(--gold); }
         
-        .btn-enroll { background-color: var(--navy); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; text-decoration: none; text-align: center; }
+        h3 { color: var(--navy); border-bottom: 1px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+
+        /* Language Courses Grid */
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .lang-item { background: #f9f9f9; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #ddd; transition: 0.3s; }
+        .lang-item:hover { border-color: var(--gold); background: #fff; }
+        .lang-item i { font-size: 24px; color: var(--bordeaux); margin-bottom: 5px; }
+
+        /* Forum Section */
+        .forum-box { background: #fff; border: 2px solid var(--navy); padding: 15px; border-radius: 15px; }
+        .forum-content { max-height: 200px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px; }
+        .forum-post { background: #f0f4f8; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; border-left: 4px solid var(--navy); }
+
+        .btn-enroll { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 15px; }
         
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        label { font-weight: bold; color: var(--bordeaux); }
+        /* Student Access */
+        #student-access { display: none; background: #e3f2fd; border: 2px solid var(--gold); padding: 25px; border-radius: 20px; margin-top: 20px; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 15px; }
+        label { font-weight: bold; color: var(--navy); font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="welcome-academy">
         <h2>Bienvenue à Aurisme Academy</h2>
-        <p>L'excellence linguistique à portée de main. Apprenez, créez et brillez avec nos formations certifiées.</p>
+        <p>Préparez votre avenir avec nos formations professionnelles et linguistiques.</p>
     </div>
 
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
-        <h1>Inscription Academy</h1>
+        <h1>Inscription & Espace Étudiant</h1>
     </header>
 
     <div class="container">
-        <div class="course-card">
-            <h3>Formulaire d'Admission</h3>
-            <form id="academy-form">
-                <label>Nom complet :</label>
-                <input type="text" placeholder="Votre nom et prénom" required>
-
-                <label>Choisir un cours :</label>
-                <select>
-                    <option>Pâtisserie de Base</option>
-                    <option>Art du Gâteau (Cake Design)</option>
-                    <option>Cuisine Internationale</option>
-                    <option>Décoration Événementielle</option>
-                </select>
-
-                <label>Numéro de téléphone :</label>
-                <input type="tel" placeholder="+509" required>
-
-                <label>Pourquoi voulez-vous nous rejoindre ?</label>
-                <textarea rows="4" placeholder="Parlez-nous de votre passion..."></textarea>
-
-                <button type="button" class="btn-enroll" onclick="submitAcademy()">ENVOYER MON INSCRIPTION</button>
-            </form>
+        
+        <div class="card" id="admission-section">
+            <h3><i class="fas fa-user-graduate"></i> Formulaire d'Admission</h3>
+            <label>Nom complet de l'étudiant :</label>
+            <input type="text" id="student-name" placeholder="Entrez votre nom et prénom">
+            
+            <label>Programme de formation :</label>
+            <select id="course-choice">
+                <option>Pâtisserie & Cake Design professionnel</option>
+                <option>Anglais Intensif (Tous niveaux)</option>
+                <option>Espagnol Pratique & Conversation</option>
+                <option>Portugais des Affaires</option>
+                <option>Cuisine Internationale & Créole</option>
+            </select>
+            
+            <button class="btn-enroll" onclick="activateAccess()">S'INSCRIRE ET ACCÉDER AU PORTAIL</button>
         </div>
 
-        <div style="font-size: 13px; color: #666; padding: 10px;">
-            <p><i class="fas fa-info-circle"></i> Après l'envoi, notre équipe vous contactera pour finaliser votre admission.</p>
+        <div class="card">
+            <h3><i class="fas fa-globe-americas"></i> Nos Cours de Langues</h3>
+            <p style="font-size: 14px; margin-bottom: 10px; color: #666;">Maîtrisez une nouvelle langue avec nos méthodes accélérées.</p>
+            <div class="lang-grid">
+                <div class="lang-item"><i class="fas fa-flag-usa"></i><br><b>Anglais</b></div>
+                <div class="lang-item"><i class="fas fa-flag"></i><br><b>Espagnol</b></div>
+                <div class="lang-item"><i class="fas fa-flag"></i><br><b>Portugais</b></div>
+                <div class="lang-item"><i class="fas fa-flag-france"></i><br><b>Français</b></div>
+            </div>
         </div>
+
+        <div class="card forum-box">
+            <h3><i class="fas fa-comments"></i> Forum Communautaire</h3>
+            <div class="forum-content" id="forum-list">
+                <div class="forum-post"><b>Admin Aurisme:</b> "Bienvenue à tous les nouveaux étudiants de la session 2024!"</div>
+                <div class="forum-post"><b>Marie:</b> "Quelqu'un sait à quelle heure commence le cours de Pâtisserie demain?"</div>
+                <div class="forum-post"><b>Jean:</b> "L'examen d'Espagnol est disponible dans la section PDF."</div>
+            </div>
+            <textarea id="forum-input" placeholder="Écrire un message sur le forum..."></textarea>
+            <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="postForum()">PUBLIER MON MESSAGE</button>
+        </div>
+
+        <div id="student-access">
+            <h3 style="margin-top:0; color: var(--navy); justify-content: center;">🎓 ESPACE ÉTUDIANT ACTIVÉ</h3>
+            <p id="welcome-msg" style="font-size: 18px; color: var(--bordeaux);"></p>
+            <p>Votre portail est désormais ouvert. Vous pouvez consulter vos cours, devoirs et ressources ci-dessous.</p>
+            <a href="cours.html" class="btn-enroll" style="display:block; text-decoration:none; text-align:center; background: var(--navy);">
+                <i class="fas fa-book-reader"></i> ACCÉDER À MES COURS
+            </a>
+            <button class="btn-enroll" style="background: #28a745;" onclick="window.location.href='https://wa.me/50942017744'">
+                <i class="fab fa-whatsapp"></i> CONTACTER UN PROFESSEUR
+            </button>
+        </div>
+
     </div>
 
     <script>
-        function submitAcademy() {
-            alert("Félicitations ! Votre demande d'inscription a été envoyée avec succès. Aurisme Academy vous contactera sous peu.");
-            window.location.href = "index.html";
+        function activateAccess() {
+            var name = document.getElementById('student-name').value;
+            if(name.trim() === "") {
+                alert("Veuillez entrer votre nom complet pour l'inscription.");
+                return;
+            }
+            // Kache fòm nan
+            document.getElementById('admission-section').style.display = 'none';
+            // Montre aksè a
+            document.getElementById('welcome-msg').innerHTML = "Félicitations, <b>" + name + "</b> !";
+            document.getElementById('student-access').style.display = 'block';
+            // Scroll desann
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function postForum() {
+            var txt = document.getElementById('forum-input').value;
+            if(txt.trim() !== "") {
+                var list = document.getElementById('forum-list');
+                var div = document.createElement('div');
+                div.className = "forum-post";
+                div.innerHTML = "<b>Moi:</b> " + txt;
+                list.appendChild(div);
+                document.getElementById('forum-input').value = "";
+                list.scrollTop = list.scrollHeight; // Auto-scroll nan fen forum nan
+            } else {
+                alert("Veuillez écrire quelque chose avant de publier.");
+            }
         }
     </script>
 
