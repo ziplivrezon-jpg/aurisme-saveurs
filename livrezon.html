@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ht">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme - Livrezon & Tracking</title>
+    <title>Aurisme - Livraison & Suivi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -17,40 +17,35 @@
         .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .back-btn { font-size: 24px; color: var(--bordeaux); text-decoration: none; }
         .logo-small { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); }
-        .lang-flags { display: flex; gap: 8px; font-size: 20px; }
+        .header-title { font-weight: bold; color: var(--navy); font-size: 16px; text-transform: uppercase; }
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
 
-        /* TRACKING SECTION */
+        /* SUIVI DE COMMANDE */
         .tracking-card { background: white; padding: 20px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--gold); }
-        .tracking-card h3 { margin: 0 0 10px 0; font-size: 16px; color: var(--navy); }
+        .tracking-card h3 { margin: 0 0 10px 0; font-size: 15px; color: var(--navy); text-transform: uppercase; }
         .tracking-input-group { display: flex; gap: 10px; }
-        .tracking-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; outline: none; }
+        .tracking-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 14px; }
         .btn-track { background: var(--navy); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-        /* SEARCH BAR */
-        .search-bar { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #eee; background: white; box-sizing: border-box; margin-bottom: 25px; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-
-        /* MAIN BUTTONS */
-        .section-title { font-size: 18px; font-weight: bold; margin: 20px 0 10px; color: var(--bordeaux); text-align: left; display: block; }
-        .main-card { padding: 20px; border-radius: 20px; color: white; display: flex; justify-content: space-between; align-items: center; text-decoration: none; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        /* BOUTONS PRINCIPAUX */
+        .section-title { font-size: 16px; font-weight: bold; margin: 20px 0 10px; color: var(--bordeaux); text-align: left; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        .main-card { padding: 20px; border-radius: 20px; color: white; display: flex; justify-content: space-between; align-items: center; text-decoration: none; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: 0.3s; }
         .main-card:active { transform: scale(0.96); }
         .bg-bordeaux { background: linear-gradient(135deg, var(--bordeaux), #a00000); }
         .bg-navy { background: linear-gradient(135deg, var(--navy), #004080); }
         .bg-gold { background: linear-gradient(135deg, var(--gold), #b8860b); color: var(--bordeaux) !important; }
 
-        /* GRID CATEGORIES */
-        .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .cat-box { background: white; padding: 15px 5px; border-radius: 15px; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 12px; font-weight: bold; transition: 0.2s; }
-        .cat-box i { font-size: 24px; display: block; margin-bottom: 5px; }
-        .cat-box:active { background: #f0f0f0; }
+        /* GRID CATÉGORIES */
+        .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .cat-box { background: white; padding: 15px 5px; border-radius: 15px; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 11px; font-weight: bold; transition: 0.2s; border: 1px solid transparent; }
+        .cat-box i { font-size: 24px; display: block; margin-bottom: 8px; }
+        .cat-box:hover { border-color: var(--gold); }
 
         /* MODALS */
         .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center; padding: 20px; }
-        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 8px solid var(--gold); animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .modal-btn { width: 100%; padding: 15px; margin-top: 10px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; }
+        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 8px solid var(--gold); }
+        .modal-btn { width: 100%; padding: 15px; margin-top: 10px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; }
         .btn-google { background: #f1f1f1; color: #333; }
         .btn-whatsapp { background: var(--bordeaux); color: white; }
     </style>
@@ -59,115 +54,97 @@
 
     <div class="top-bar">
         <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <span class="header-title">Logistique & Livraison</span>
         <img src="Logo.png" alt="Aurisme" class="logo-small">
-        <div class="lang-flags"><span>🇺🇸</span><span>🇪🇸</span><span>🇫🇷</span></div>
     </div>
 
     <div class="container">
         <div class="tracking-card">
-            <h3>🔎 Suivi de Commande</h3>
+            <h3>🔎 Suivi de votre colis</h3>
             <div class="tracking-input-group">
-                <input type="text" id="trackID" class="tracking-input" placeholder="Antre nimewo kòmand la...">
-                <button class="btn-track" onclick="trackOrder()">Track</button>
+                <input type="text" id="trackID" class="tracking-input" placeholder="Numéro de suivi (Ex: AUR-2026)">
+                <button class="btn-track" onclick="trackOrder()">Suivre</button>
             </div>
         </div>
 
-        <input type="text" id="main-search" class="search-bar" placeholder="Rechèch Google (Ex: Peyi m, Pizza...)" onkeypress="handleSearch(event)">
-
-        <span class="section-title">Transport & Kous</span>
-        <a href="javascript:void(0)" onclick="directWhatsApp('Mwen bezwen yon KOUS MOTO')" class="main-card bg-navy">
-            <div><h3>Kous Moto VIP</h3><p>Rapid ak an sekirite</p></div>
-            <i class="fas fa-motorcycle"></i>
+        <span class="section-title">Expéditions Spéciales</span>
+        <a href="javascript:void(0)" onclick="directWhatsApp('Bonjour Aurisme, je souhaite envoyer un COLIS ou un PAQUET')" class="main-card bg-navy">
+            <div><h3>Livraison de Colis</h3><p>Enveloppes, documents & paquets</p></div>
+            <i class="fas fa-box-open"></i>
         </a>
 
-        <span class="section-title">Livrezon & Makèt</span>
+        <span class="section-title">Achats & Courses</span>
         <div class="categories-grid">
-            <div class="cat-box" onclick="sendOrder('Restoran')"><i class="fas fa-utensils" style="color: var(--bordeaux);"></i>Resto</div>
-            <div class="cat-box" onclick="sendOrder('Makèt')"><i class="fas fa-shopping-basket" style="color: #27AE60;"></i>Makèt</div>
-            <div class="cat-box" onclick="sendOrder('Famasi')"><i class="fas fa-pills" style="color: #2980B9;"></i>Famasi</div>
+            <div class="cat-box" onclick="sendOrder('Restaurants')"><i class="fas fa-utensils" style="color: var(--bordeaux);"></i>Restaurant</div>
+            <div class="cat-box" onclick="sendOrder('Supermarchés')"><i class="fas fa-shopping-basket" style="color: #27AE60;"></i>Marché</div>
+            <div class="cat-box" onclick="sendOrder('Pharmacies')"><i class="fas fa-pills" style="color: #2980B9;"></i>Pharmacie</div>
         </div>
 
-        <a href="javascript:void(0)" onclick="sendOrder('Concierge')" class="main-card bg-bordeaux">
-            <div><h3>Concierge (Mesajeri)</h3><p>Al chache dokiman, kle, rad...</p></div>
+        <a href="javascript:void(0)" onclick="sendOrder('Conciergerie')" class="main-card bg-bordeaux">
+            <div><h3>Conciergerie & Courses</h3><p>Récupération de clés, dossiers, pressing</p></div>
             <i class="fas fa-paper-plane"></i>
         </a>
 
-        <a href="javascript:void(0)" onclick="directWhatsApp('Mwen gen yon LÒT LIVREZON')" class="main-card bg-gold">
-            <div><h3>Lòt Sèvis</h3><p>Nenpòt lòt livrezon espesyal</p></div>
+        <a href="javascript:void(0)" onclick="directWhatsApp('Bonjour, j\'ai besoin d\'un service de livraison personnalisé')" class="main-card bg-gold">
+            <div><h3>Demande Personnalisée</h3><p>Tout autre type de livraison urgente</p></div>
             <i class="fas fa-plus-circle"></i>
         </a>
     </div>
 
     <div id="choiceModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle" style="color: var(--bordeaux);">Chwa Sèvis</h3>
-            <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Kijan ou vle kontinye?</p>
-            <button class="modal-btn btn-google" id="btnGoogle"><i class="fab fa-google"></i> Google Maps</button>
-            <button class="modal-btn btn-whatsapp" id="btnAurisme"><i class="fab fa-whatsapp"></i> WhatsApp Aurisme</button>
-            <p onclick="closeModal()" style="margin-top:20px; cursor:pointer; color:#999; text-decoration: underline;">Anile</p>
+            <h3 id="modalTitle" style="color: var(--navy);">Service Client</h3>
+            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Comment souhaitez-vous continuer ?</p>
+            <button class="modal-btn btn-google" id="btnGoogle"><i class="fab fa-google"></i> Rechercher via Google Maps</button>
+            <button class="modal-btn btn-whatsapp" id="btnAurisme"><i class="fab fa-whatsapp"></i> Commander via WhatsApp</button>
+            <p onclick="closeModal()" style="margin-top:20px; cursor:pointer; color:#999; text-decoration: underline; font-size: 13px;">Annuler la demande</p>
         </div>
     </div>
 
     <div id="trackModal" class="modal">
         <div class="modal-content">
-            <i class="fas fa-box" style="font-size: 40px; color: var(--gold);"></i>
-            <h3 id="trackStatus">Chaje...</h3>
-            <div id="trackDetails" style="text-align: left; margin: 15px 0; padding: 10px; background: #f9f9f9; border-radius: 10px;"></div>
-            <button class="modal-btn btn-whatsapp" onclick="closeModal()">Fèmen</button>
+            <i class="fas fa-truck-loading" style="font-size: 40px; color: var(--gold);"></i>
+            <h3 id="trackStatus">Chargement...</h3>
+            <div id="trackDetails" style="text-align: left; margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 12px; font-size: 14px;"></div>
+            <button class="modal-btn btn-whatsapp" onclick="closeModal()">Fermer la fenêtre</button>
         </div>
     </div>
 
     <script>
-        // FIREBASE CONFIG (Ranplase ak pa w la)
+        // CONFIGURATION FIREBASE
         const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const myPhone = "50942017744";
 
-        // SON NOTIFIKASYON
-        const notificationSound = new Audio('notification.mp3');
-
-        function handleSearch(event) {
-            if (event.key === "Enter") {
-                const q = document.getElementById('main-search').value;
-                if(q) window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
-            }
-        }
-
         async function trackOrder() {
-            // Debloke audio sou mobil
-            notificationSound.play().then(() => { notificationSound.pause(); notificationSound.currentTime = 0; }).catch(e => {});
-
             const id = document.getElementById('trackID').value.trim().toUpperCase();
-            if(!id) return alert("Antre yon ID!");
+            if(!id) {
+                alert("Veuillez entrer un numéro de suivi valide.");
+                return;
+            }
 
             const statusH3 = document.getElementById('trackStatus');
             const detailsP = document.getElementById('trackDetails');
             document.getElementById('trackModal').style.display = 'flex';
             
-            statusH3.innerText = "Koneksyon...";
+            statusH3.innerText = "Recherche en cours...";
 
-            // Listener Firebase an dirèk
             db.collection("orders_tracking").doc(id).onSnapshot((doc) => {
                 if (doc.exists) {
                     const d = doc.data();
-                    const oldStatus = statusH3.innerText;
-
-                    // Son moute si estati a chanje
-                    if (oldStatus !== "Koneksyon..." && oldStatus !== d.status) {
-                        notificationSound.play();
-                        if (navigator.vibrate) navigator.vibrate(200);
-                    }
-
                     statusH3.innerText = d.status;
                     detailsP.innerHTML = `
-                        <b>Livreur:</b> ${d.courier}<br>
-                        <b>Dènye Mizajou:</b> ${d.lastUpdate}<br>
-                        <p style="color: green; font-size: 11px; margin-top: 5px;"><i>Paj sa a ap mete ajou otomatikman...</i></p>
+                        <strong style="color:var(--navy);">Agent Coursier :</strong> ${d.courier}<br>
+                        <strong style="color:var(--navy);">Dernière Mise à jour :</strong> ${d.lastUpdate}<br>
+                        <p style="color: #27AE60; font-size: 11px; margin-top: 10px; font-style: italic;">
+                            Cette fenêtre s'actualisera automatiquement dès que le livreur progresse.
+                        </p>
                     `;
+                    if (navigator.vibrate) navigator.vibrate(100);
                 } else {
-                    statusH3.innerText = "ID pa valid";
-                    detailsP.innerText = "Nimewo sa a pa egziste nan sistèm nan.";
+                    statusH3.innerText = "ID Introuvable";
+                    detailsP.innerText = "Désolé, ce numéro ne correspond à aucune commande active dans notre système.";
                 }
             });
         }
@@ -175,14 +152,12 @@
         function sendOrder(service) {
             document.getElementById('modalTitle').innerText = service;
             document.getElementById('choiceModal').style.display = 'flex';
-            document.getElementById('btnGoogle').onclick = () => window.open(`https://www.google.com/maps/search/${encodeURIComponent(service + " près de moi")}`);
-            document.getElementById('btnAurisme').onclick = () => directWhatsApp(`Bonjou Aurisme, mwen bezwen sèvis: *${service}*`);
+            document.getElementById('btnGoogle').onclick = () => window.open(`https://www.google.com/maps/search/${encodeURIComponent(service)}`);
+            document.getElementById('btnAurisme').onclick = () => directWhatsApp(`Bonjour Aurisme, j'ai besoin d'un service de livraison pour : *${service}*`);
         }
 
         function directWhatsApp(t) { window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(t)}`); }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        
-        // Fèmen modal si klike deyò
         window.onclick = (e) => { if (e.target.className === 'modal') closeModal(); }
     </script>
 </body>
