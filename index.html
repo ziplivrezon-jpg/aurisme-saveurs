@@ -9,10 +9,17 @@
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --natcom: #ffca28; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
-        /* Langue Switcher */
-        .lang-switcher { background: white; padding: 10px; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
-        .lang-switcher img { width: 30px; height: 20px; cursor: pointer; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.3s; }
-        .lang-switcher img:hover { transform: scale(1.2); }
+        /* Bannière Offre Spéciale */
+        .offre-speciale { 
+            background: var(--navy); 
+            color: white; 
+            padding: 15px; 
+            font-size: 15px; 
+            font-weight: bold; 
+            border-bottom: 3px solid var(--gold);
+            line-height: 1.4;
+        }
+        .offre-speciale span { color: var(--gold); text-transform: uppercase; }
 
         /* Ticker */
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
@@ -20,8 +27,8 @@
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         
         /* Top Bar */
-        .auth-bar { background: #fff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
-        .btn-login-top { background: var(--navy); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .auth-bar { background: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
+        .btn-login-top { background: var(--navy); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
         
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
@@ -29,26 +36,24 @@
         .container { padding: 10px 20px 20px 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
         
-        /* CSS POU BLOKE TOOLBAR GOOGLE LA NÈT */
-        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
-        body { top: 0px !important; }
-        .goog-tooltip { display: none !important; }
-        .goog-tooltip:hover { display: none !important; }
-        .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
-        #google_translate_element { position: absolute; opacity: 0; pointer-events: none; }
-
-        /* Celebrity & Buttons */
+        /* Célébrités */
         .celebrity-section { background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 2px solid var(--gold); }
         .celebrity-grid { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; justify-content: center; }
         .celebrity-card { min-width: 120px; text-align: center; }
         .celebrity-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; }
+        
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; transition: 0.3s; }
+        .btn-order:active { transform: scale(0.98); }
+        
+        /* Livraison & Taxi Section */
         .delivery-section { background: #000; padding: 20px; border-radius: 20px; margin: 20px 0; border: 2px solid var(--gold); }
         .delivery-section h2 { color: var(--gold); margin-top: 0; font-size: 18px; }
         .btn-box { display: flex; flex-direction: column; gap: 12px; align-items: center; }
         .btn-delivery-main { background: var(--gold); color: #000; width: 90%; padding: 15px; border-radius: 50px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; border: 2px solid white; }
+
         .natcash-box { background: #fffde7; border: 2px solid var(--natcom); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
         .btn-natcash { background-color: var(--natcom); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
         .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); font-size: 13px; }
         .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
         .social-links a { font-size: 26px; color: var(--bordeaux); }
@@ -58,20 +63,15 @@
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <img src="https://flagcdn.com/w40/fr.png" alt="Français" onclick="translatePage('fr')">
-        <img src="https://flagcdn.com/w40/us.png" alt="English" onclick="translatePage('en')">
-        <img src="https://flagcdn.com/w40/ht.png" alt="Kreyòl" onclick="translatePage('ht')">
-        <img src="https://flagcdn.com/w40/es.png" alt="Español" onclick="translatePage('es')">
-        <img src="https://flagcdn.com/w40/br.png" alt="Português" onclick="translatePage('pt')">
+    <div class="offre-speciale">
+        🎁 <span>Offre Spéciale :</span> Pour tout achat d'un gâteau de 5000 HTG,<br> 
+        une <b>demi-douzaine de cupcakes</b> vous est offerte !
     </div>
 
-    <div id="google_translate_element"></div>
-
-    <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
+    <div class="reklam-ticker"><p>🌟 VETIHKAM : LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
     <div class="auth-bar" id="auth-controls">
-        <span id="guest-msg" style="font-weight: bold; color: var(--navy);">Bonjour, Invité!</span>
+        <span id="guest-msg" style="font-weight: bold; color: var(--navy);">Bonjour, Invité !</span>
         <button class="btn-login-top" onclick="showLoginModal()">Connexion VIP</button>
     </div>
 
@@ -81,10 +81,11 @@
     </header>
 
     <div class="container">
+        
         <div id="rewards-section" style="display:none; background: var(--navy); color: white; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 2px solid var(--gold);">
             <div id="rewards-content"></div>
         </div>
-        
+
         <div class="celebrity-section">
             <h2 style="font-size: 18px; color: var(--bordeaux); margin-top: 0;">🎉 Nos Célébrités du Mois</h2>
             <div class="celebrity-grid">
@@ -95,36 +96,62 @@
 
         <div class="form-container" style="border-left: 5px solid #0056b3;">
             <h2 style="color: #0056b3;">📚 Aurisme Academy</h2>
+            <p style="font-size: 14px; margin-bottom: 15px;">Apprenez l'art culinaire avec les meilleurs experts.</p>
             <button class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">S'INSCRIRE</button>
         </div>
 
         <div class="form-container">
             <h2>🛒 Service Supermarché</h2>
-            <input type="text" placeholder="Nom du Supermarché...">
+            <input type="text" id="nom-supermarche" placeholder="Nom du Supermarché...">
             <div class="checkbox-group">
-                <label><input type="checkbox"> Sable</label>
-                <label><input type="checkbox"> Palmier</label>
-                <label><input type="checkbox"> Sacristain</label>
-                <label><input type="checkbox"> Coconuts</label>
-                <label><input type="checkbox"> Cookies</label>
-                <label><input type="checkbox"> Langue de boeufs</label>
-                <label><input type="checkbox"> Pâtés</label>
-                <label><input type="checkbox"> Cookies raisin</label>
+                <label><input type="checkbox" value="Sablé"> Sablé</label>
+                <label><input type="checkbox" value="Palmier"> Palmier</label>
+                <label><input type="checkbox" value="Sacristain"> Sacristain</label>
+                <label><input type="checkbox" value="Coconuts"> Coconuts</label>
+                <label><input type="checkbox" value="Cookies"> Cookies</label>
+                <label><input type="checkbox" value="Langue de boeuf"> Langue de boeuf</label>
+                <label><input type="checkbox" value="Pâtés"> Pâtés</label>
+                <label><input type="checkbox" value="Cookies raisin"> Cookies raisin</label>
             </div>
-            <textarea placeholder="Précisez la quantité pour chaque article..."></textarea>
-            <button class="btn-order" onclick="alert('Lòd la pati!')">COMMANDER</button>
+            <textarea id="details-supermarche" placeholder="Précisez la quantité pour chaque article..."></textarea>
+            <button class="btn-order" onclick="alert('Commande envoyée !')">COMMANDER</button>
+        </div>
+
+        <div class="form-container">
+            <h2>🥐 Gâteaux & Pâtisseries</h2>
+            <div class="checkbox-group">
+                <label><input type="checkbox" value="Mariage"> Mariage</label>
+                <label><input type="checkbox" value="Anniversaire"> Anniversaire</label>
+                <label><input type="checkbox" value="Baptême"> Baptême</label>
+                <label><input type="checkbox" value="Graduation"> Graduation</label>
+                <label><input type="checkbox" value="Bonbon boîte"> Bonbon boîte</label>
+                <label><input type="checkbox" value="Bonbon sachet"> Bonbon sachet</label>
+            </div>
+            <button class="btn-order" onclick="alert('Commande envoyée !')">COMMANDER</button>
+        </div>
+
+        <div class="form-container" style="border-left: 5px solid var(--gold);">
+            <h2>🍽️ Décoration & Traiteur</h2>
+            <textarea placeholder="Détails de votre événement (Type, date, nombre de personnes)..."></textarea>
+            <button class="btn-order" style="background-color: var(--navy);" onclick="alert('Demande de devis envoyée !')">DEVIS GRATUIT</button>
         </div>
 
         <div class="delivery-section">
-            <h2>🚕 Besoins d'un transport ?</h2>
+            <h2>🚕 Besoin d'un transport ?</h2>
             <div class="btn-box">
                 <a href="livrezon.html" class="btn-delivery-main">
-                    <i class="fas fa-shipping-fast"></i> SERVICE LIVRAISON
+                    <i class="fas fa-shipping-fast"></i> SERVICE DE LIVRAISON
                 </a>
                 <a href="taxi.html" class="btn-delivery-main" style="background: #fff; color: #000;">
-                    <i class="fas fa-motorcycle"></i> TAXI MOTO RAPIDE
+                    <i class="fas fa-motorcycle"></i> TAXI MOTO SÉCURISÉ
                 </a>
             </div>
+        </div>
+
+        <div class="natcash-box">
+            <p style="margin:0; font-weight:bold;">💸 Payez avec Natcash (*202#)</p>
+            <p style="font-size:14px; color: var(--bordeaux); font-weight: bold;">Compte : 4201-7744</p>
+            <button class="btn-natcash" onclick="window.location.href='tel:*202*1*50942017744*Montant#'">📲 PAYER MAINTENANT</button>
         </div>
 
         <div class="footer-info">
@@ -138,45 +165,25 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'fr',
-                includedLanguages: 'fr,en,ht,es,pt',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
-        function translatePage(langCode) {
-            var code = (langCode === 'ht') ? 'hat' : langCode;
-            var selectField = document.querySelector("select.goog-te-combo");
-            
-            if (selectField) {
-                selectField.value = code;
-                selectField.dispatchEvent(new Event('change'));
-            } else {
-                // Si Google poko la, nou fòse yon re-eseye rapid
-                setTimeout(function() { translatePage(langCode); }, 300);
-            }
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+        
         const firebaseConfig = { apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", projectId: "aurisme-app", appId: "1:1037465492868:web:a68723e9bdfb93966891d1" };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         window.showLoginModal = async function() {
-            let n = prompt("Prenon ou:");
+            let n = prompt("Entrez votre prénom :");
             if(n) {
                 let name = n.trim().toUpperCase();
                 const docSnap = await getDoc(doc(db, "clients_points", name));
-                if(docSnap.exists()) { localStorage.setItem('aurisme_user', name); location.reload(); }
-                else { alert("Non sa a pa nan lis la."); }
+                if(docSnap.exists()) { 
+                    localStorage.setItem('aurisme_user', name); 
+                    location.reload(); 
+                } else { 
+                    alert("Ce nom ne figure pas dans notre liste VIP."); 
+                }
             }
         };
 
@@ -187,7 +194,7 @@
                 if(docSnap.exists()) {
                     document.getElementById('guest-msg').innerText = "Salut, " + u;
                     document.getElementById('rewards-section').style.display = 'block';
-                    document.getElementById('rewards-content').innerHTML = "<b>🎁 Ou gen " + docSnap.data().points + " pwen VIP!</b>";
+                    document.getElementById('rewards-content').innerHTML = "<b>🎁 Vous avez " + docSnap.data().points + " points VIP !</b>";
                 }
             }
         };
