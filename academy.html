@@ -1,234 +1,85 @@
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="VJf-ODYVZ-KhUxu-Ur30k";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Academy | Espace Étudiant</title>
+    <title>Aurisme Academy - Formation Culinaire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --gold: #D4AF37;
-            --navy: #003366;
-            --light: #f4f4f4;
-            --bordeaux: #800000;
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
+        
+        /* Message de Bienvenue */
+        .welcome-academy { 
+            background: var(--navy); 
+            color: white; 
+            padding: 20px; 
+            font-size: 16px; 
+            border-bottom: 4px solid var(--gold);
         }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--light); margin: 0; padding: 0; }
+        .welcome-academy h2 { margin: 0; color: var(--gold); font-size: 22px; }
+        .welcome-academy p { margin: 10px 0 0 0; font-style: italic; opacity: 0.9; }
+
+        header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); position: relative; }
+        .btn-back { position: absolute; left: 15px; top: 35px; color: white; text-decoration: none; font-size: 20px; }
         
-        #google_translate_element { display: none; }
-        .skiptranslate { display: none !important; }
-        body { top: 0 !important; }
-
-        .top-nav { background: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
-        .btn-back-home { text-decoration: none; color: var(--bordeaux); font-weight: bold; font-size: 14px; }
-        .lang-switcher { display: flex; gap: 10px; }
-        .lang-btn { font-size: 20px; cursor: pointer; border: none; background: none; }
-
-        #landing-page { text-align: center; padding: 40px 20px; display: block; }
-        .logo { width: 110px; margin-bottom: 15px; border-radius: 50%; border: 3px solid var(--gold); }
-        h1 { color: var(--navy); margin-bottom: 10px; font-size: 24px; }
-        .btn-inscrit { display: block; background: #25D366; color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px auto; max-width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px; }
-        .btn-login { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; border: none; font-weight: bold; width: 100%; max-width: 335px; margin: 0 auto; cursor: pointer; font-size: 16px; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        .course-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; border-left: 5px solid var(--gold); }
         
-        #login-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .login-card { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 350px; }
-        input, select { padding: 15px; width: 100%; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 15px; font-size: 16px; outline: none; box-sizing: border-box; }
-        input:focus, select:focus { border-color: var(--navy); }
-
-        #academy-content { display: none; padding: 20px; }
-        .header-academy { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .btn-enroll { background-color: var(--navy); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; text-decoration: none; text-align: center; }
         
-        .lesson-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--gold); text-align: left; }
-        iframe { border-radius: 10px; width: 100%; height: 210px; margin-top: 15px; border: none; }
-
-        .quiz-container { background: #fdf9ea; padding: 20px; border-radius: 12px; margin-top: 20px; border: 2px dashed var(--gold); }
-        .quiz-option { display: block; background: white; padding: 12px; margin: 10px 0; border-radius: 8px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
-        .quiz-option:hover { background: #f1f1f1; border-color: var(--navy); }
-        .correct { background: #d4edda !important; color: #155724; border-color: #c3e6cb !important; font-weight: bold; }
-        .wrong { background: #f8d7da !important; color: #721c24; border-color: #f5c6cb !important; }
-
-        .forum-section { background: #e9ecef; padding: 20px; border-radius: 15px; margin-top: 40px; border-top: 4px solid var(--navy); }
-        #forum-feed { max-height: 400px; overflow-y: auto; margin-bottom: 20px; border-radius: 10px; background: #f8f9fa; padding: 10px; }
-        .comment { background: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .bot-comment { border-left: 5px solid #25D366; background: #f0fff4; }
-        .user-name { font-weight: bold; color: var(--navy); font-size: 14px; margin-bottom: 3px; }
-        .comment-text { margin: 0; font-size: 15px; }
-        .forum-input-group { display: flex; flex-direction: column; gap: 10px; }
-        #forum-message { padding: 12px; border-radius: 8px; border: 1px solid #ccc; resize: none; font-family: inherit; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        label { font-weight: bold; color: var(--bordeaux); }
     </style>
 </head>
 <body>
 
-    <div id="google_translate_element"></div>
-
-    <div class="top-nav">
-        <a href="index.html" class="btn-back-home">⬅️ Accueil</a>
-        <div class="lang-switcher">
-            <button class="lang-btn" onclick="translatePage('en')">🇺🇸</button>
-            <button class="lang-btn" onclick="translatePage('es')">🇪🇸</button>
-            <button class="lang-btn" onclick="translatePage('pt')">🇧🇷</button>
-            <button class="lang-btn" onclick="translatePage('fr')">🇫🇷</button>
-        </div>
+    <div class="welcome-academy">
+        <h2>Bienvenue à Aurisme Academy</h2>
+        <p>L'excellence linguistique à portée de main. Apprenez, créez et brillez avec nos formations certifiées.</p>
     </div>
 
-    <div id="landing-page">
-        <img src="Logo.png" alt="Aurisme Logo" class="logo">
-        <h1>Aurisme Academy</h1>
-        <div style="margin-top: 40px;">
-            <a href="https://wa.me/50942017744" class="btn-inscrit">📝 S'INSCRIRE VIA WHATSAPP</a>
-            <button onclick="showLogin()" class="btn-login">🎓 ACCÉDER AUX COURS</button>
+    <header>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
+        <h1>Inscription Academy</h1>
+    </header>
+
+    <div class="container">
+        <div class="course-card">
+            <h3>Formulaire d'Admission</h3>
+            <form id="academy-form">
+                <label>Nom complet :</label>
+                <input type="text" placeholder="Votre nom et prénom" required>
+
+                <label>Choisir un cours :</label>
+                <select>
+                    <option>Pâtisserie de Base</option>
+                    <option>Art du Gâteau (Cake Design)</option>
+                    <option>Cuisine Internationale</option>
+                    <option>Décoration Événementielle</option>
+                </select>
+
+                <label>Numéro de téléphone :</label>
+                <input type="tel" placeholder="+509" required>
+
+                <label>Pourquoi voulez-vous nous rejoindre ?</label>
+                <textarea rows="4" placeholder="Parlez-nous de votre passion..."></textarea>
+
+                <button type="button" class="btn-enroll" onclick="submitAcademy()">ENVOYER MON INSCRIPTION</button>
+            </form>
+        </div>
+
+        <div style="font-size: 13px; color: #666; padding: 10px;">
+            <p><i class="fas fa-info-circle"></i> Après l'envoi, notre équipe vous contactera pour finaliser votre admission.</p>
         </div>
     </div>
-
-    <div id="login-screen">
-        <div class="login-card">
-            <h2 style="color: var(--navy); margin-top: 0;">Accès Étudiant</h2>
-            <input type="text" id="student-name" placeholder="Votre Nom complet">
-            <select id="course-select">
-                <option value="" disabled selected>Choisissez votre cours</option>
-                <option value="Anglais">Cours d'Anglais</option>
-                <option value="Espagnol">Cours d'Espagnol</option>
-                <option value="Portugais">Cours de Portugais</option>
-            </select>
-            <input type="password" id="access-code" placeholder="Code d'accès secret">
-            <button onclick="verifyAccess()" class="btn-login" style="background: #28a745; width: 100%;">ENTRER EN CLASSE</button>
-            <button onclick="hideLogin()" style="margin-top: 15px; border: none; background: none; color: gray; cursor: pointer; text-decoration: underline;">Annuler</button>
-        </div>
-    </div>
-
-    <div id="academy-content">
-        <div class="header-academy">
-            <div>
-                <h2 style="color: var(--navy); margin: 0;">Mes Leçons</h2>
-                <p id="welcome-msg" style="margin: 5px 0 0 0; font-size: 14px; color: var(--gold); font-weight: bold;"></p>
-            </div>
-            <button onclick="logout()" style="background: var(--bordeaux); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer;">DÉCONNEXION</button>
-        </div>
-        
-        <div id="lesson-list"></div>
-
-        <div class="forum-section">
-            <h3 style="color: var(--navy);">💬 Forum & Aide IA</h3>
-            <div id="forum-feed"></div>
-            <div class="forum-input-group">
-                <textarea id="forum-message" rows="2" placeholder="Posez une question à la communauté..."></textarea>
-                <button id="btn-post-forum" class="btn-login" style="max-width: 100%;">PUBLIER DANS LE FORUM</button>
-            </div>
-        </div>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
-          authDomain: "aurisme-app.firebaseapp.com",
-          projectId: "aurisme-app",
-          storageBucket: "aurisme-app.firebasestorage.app",
-          messagingSenderId: "1037465492868",
-          appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const forumRef = collection(db, "forum_messages");
-
-        document.getElementById('btn-post-forum').addEventListener('click', async () => {
-            const msgInput = document.getElementById('forum-message');
-            const text = msgInput.value.trim();
-            const studentName = localStorage.getItem('aurisme_student_name') || "Étudiant";
-            if (text !== "") {
-                await addDoc(forumRef, { user: studentName, text: text, timestamp: serverTimestamp() });
-                msgInput.value = "";
-            }
-        });
-
-        const q = query(forumRef, orderBy("timestamp", "asc"));
-        onSnapshot(q, (snapshot) => {
-            const feed = document.getElementById('forum-feed');
-            feed.innerHTML = "";
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                feed.innerHTML += `<div class="comment"><p class="user-name">👤 ${data.user}</p><p class="comment-text">${data.text}</p></div>`;
-            });
-            feed.scrollTop = feed.scrollHeight;
-        });
-    </script>
 
     <script>
-        let allLessons = [];
-        const CODES = { "Anglais": "AUR-ANG-26", "Espagnol": "AUR-ESP-26", "Portugais": "AUR-POR-26" };
-
-        window.onload = () => { if (localStorage.getItem('aurisme_access') === 'true') showAcademy(); };
-        function showLogin() { document.getElementById('login-screen').style.display = 'flex'; }
-        function hideLogin() { document.getElementById('login-screen').style.display = 'none'; }
-        function logout() { localStorage.clear(); location.reload(); }
-
-        function verifyAccess() {
-            const name = document.getElementById('student-name').value.trim();
-            const course = document.getElementById('course-select').value;
-            const code = document.getElementById('access-code').value.trim();
-            if (code === CODES[course]) {
-                localStorage.setItem('aurisme_access', 'true');
-                localStorage.setItem('aurisme_student_name', name);
-                localStorage.setItem('aurisme_selected_course', course);
-                showAcademy();
-            } else { alert("Code incorrect!"); }
-        }
-
-        function showAcademy() {
-            const name = localStorage.getItem('aurisme_student_name');
-            const course = localStorage.getItem('aurisme_selected_course');
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('academy-content').style.display = 'block';
-            document.getElementById('welcome-msg').innerText = "Bienvenue, " + name + " (" + course + ")";
-            loadLessons(course);
-        }
-
-        function loadLessons(course) {
-            fetch('./academy.json').then(res => res.json()).then(data => {
-                allLessons = data.courses.filter(l => l.language === course);
-                displayLessons(allLessons);
-            }).catch(() => { document.getElementById('lesson-list').innerHTML = "<p>Erreur de chargement.</p>"; });
-        }
-
-        function displayLessons(lessons) {
-            const list = document.getElementById('lesson-list');
-            list.innerHTML = '';
-            lessons.forEach((l, index) => {
-                const sName = l.topStudentName || "À déterminer";
-                const sPhoto = l.topStudentPhoto || "https://via.placeholder.com/60";
-
-                list.innerHTML += `
-                    <div class="lesson-card">
-                        <span style="color:var(--gold); font-weight:bold; font-size:12px;">SEMAINE ${l.week}</span>
-                        <h3>${l.title}</h3>
-                        <p style="font-size:14px;">${l.content}</p>
-                        ${l.videoUrl ? `<iframe src="${l.videoUrl}" allowfullscreen></iframe>` : ''}
-                        
-                        <div style="margin-top: 20px; padding: 15px; background: #fff9e6; border-radius: 12px; border: 1px solid var(--gold); display: flex; align-items: center; gap: 15px;">
-                            <img src="${sPhoto}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover;">
-                            <div>
-                                <h4 style="margin: 0; color: var(--navy); font-size: 14px;">🌟 Étudiant le plus Brillant</h4>
-                                <p style="margin: 2px 0 0 0; font-size: 12px;"><strong>${sName}</strong></p>
-                                <p style="margin: 2px 0 0 0; font-size: 11px; color: #777;">Félicitations pour vos excellents résultats !</p>
-                            </div>
-                        </div>
-
-                        <div id="quiz-area-${index}" style="margin-top:15px;">
-                            <button onclick="alert('Quiz activé!')" class="btn-login" style="background:var(--gold); font-size:14px; width:auto; padding:10px 20px;">📝 EXAMEN</button>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element'); }
-        function translatePage(lang) {
-            var s = document.querySelector("select.goog-te-combo");
-            if (s) { s.value = lang; s.dispatchEvent(new Event('change')); }
+        function submitAcademy() {
+            alert("Félicitations ! Votre demande d'inscription a été envoyée avec succès. Aurisme Academy vous contactera sous peu.");
+            window.location.href = "index.html";
         }
     </script>
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
