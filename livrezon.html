@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurisme - Livrezon & Tracking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --bg: #F8F9FA; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; overflow-x: hidden; }
 
         /* HEADER */
         .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .back-btn { font-size: 24px; color: var(--bordeaux); text-decoration: none; }
         .logo-small { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); }
-        .lang-flags { display: flex; gap: 8px; }
+        .lang-flags { display: flex; gap: 8px; font-size: 20px; }
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
 
@@ -24,28 +25,32 @@
         .tracking-card { background: white; padding: 20px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--gold); }
         .tracking-card h3 { margin: 0 0 10px 0; font-size: 16px; color: var(--navy); }
         .tracking-input-group { display: flex; gap: 10px; }
-        .tracking-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; }
+        .tracking-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; outline: none; }
         .btn-track { background: var(--navy); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
         /* SEARCH BAR */
-        .search-bar { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #eee; background: white; box-sizing: border-box; margin-bottom: 25px; }
+        .search-bar { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #eee; background: white; box-sizing: border-box; margin-bottom: 25px; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
 
         /* MAIN BUTTONS */
-        .section-title { font-size: 18px; font-weight: bold; margin: 20px 0 10px; color: var(--bordeaux); }
-        .main-card { padding: 20px; border-radius: 20px; color: white; display: flex; justify-content: space-between; align-items: center; text-decoration: none; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .section-title { font-size: 18px; font-weight: bold; margin: 20px 0 10px; color: var(--bordeaux); text-align: left; display: block; }
+        .main-card { padding: 20px; border-radius: 20px; color: white; display: flex; justify-content: space-between; align-items: center; text-decoration: none; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .main-card:active { transform: scale(0.96); }
         .bg-bordeaux { background: linear-gradient(135deg, var(--bordeaux), #a00000); }
         .bg-navy { background: linear-gradient(135deg, var(--navy), #004080); }
         .bg-gold { background: linear-gradient(135deg, var(--gold), #b8860b); color: var(--bordeaux) !important; }
 
         /* GRID CATEGORIES */
         .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .cat-box { background: white; padding: 15px 5px; border-radius: 15px; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 12px; font-weight: bold; }
+        .cat-box { background: white; padding: 15px 5px; border-radius: 15px; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 12px; font-weight: bold; transition: 0.2s; }
         .cat-box i { font-size: 24px; display: block; margin-bottom: 5px; }
+        .cat-box:active { background: #f0f0f0; }
 
         /* MODALS */
         .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center; padding: 20px; }
-        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 8px solid var(--gold); }
-        .modal-btn { width: 100%; padding: 15px; margin-top: 10px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 8px solid var(--gold); animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-btn { width: 100%; padding: 15px; margin-top: 10px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; }
         .btn-google { background: #f1f1f1; color: #333; }
         .btn-whatsapp { background: var(--bordeaux); color: white; }
     </style>
@@ -62,12 +67,12 @@
         <div class="tracking-card">
             <h3>🔎 Suivi de Commande</h3>
             <div class="tracking-input-group">
-                <input type="text" id="trackID" class="tracking-input" placeholder="Nimewo kòmand lan...">
+                <input type="text" id="trackID" class="tracking-input" placeholder="Antre nimewo kòmand la...">
                 <button class="btn-track" onclick="trackOrder()">Track</button>
             </div>
         </div>
 
-        <input type="text" id="main-search" class="search-bar" placeholder="Chache sou Google Maps..." onkeypress="handleSearch(event)">
+        <input type="text" id="main-search" class="search-bar" placeholder="Rechèch Google (Ex: Peyi m, Pizza...)" onkeypress="handleSearch(event)">
 
         <span class="section-title">Transport & Kous</span>
         <a href="javascript:void(0)" onclick="directWhatsApp('Mwen bezwen yon KOUS MOTO')" class="main-card bg-navy">
@@ -75,7 +80,7 @@
             <i class="fas fa-motorcycle"></i>
         </a>
 
-        <span class="section-title">Livrezon Manje & Makèt</span>
+        <span class="section-title">Livrezon & Makèt</span>
         <div class="categories-grid">
             <div class="cat-box" onclick="sendOrder('Restoran')"><i class="fas fa-utensils" style="color: var(--bordeaux);"></i>Resto</div>
             <div class="cat-box" onclick="sendOrder('Makèt')"><i class="fas fa-shopping-basket" style="color: #27AE60;"></i>Makèt</div>
@@ -83,7 +88,7 @@
         </div>
 
         <a href="javascript:void(0)" onclick="sendOrder('Concierge')" class="main-card bg-bordeaux">
-            <div><h3>Concierge (Mesajeri)</h3><p>Al chache nenpòt bagay</p></div>
+            <div><h3>Concierge (Mesajeri)</h3><p>Al chache dokiman, kle, rad...</p></div>
             <i class="fas fa-paper-plane"></i>
         </a>
 
@@ -95,10 +100,11 @@
 
     <div id="choiceModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle">Chwa Sèvis</h3>
+            <h3 id="modalTitle" style="color: var(--bordeaux);">Chwa Sèvis</h3>
+            <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Kijan ou vle kontinye?</p>
             <button class="modal-btn btn-google" id="btnGoogle"><i class="fab fa-google"></i> Google Maps</button>
             <button class="modal-btn btn-whatsapp" id="btnAurisme"><i class="fab fa-whatsapp"></i> WhatsApp Aurisme</button>
-            <p onclick="closeModal()" style="margin-top:20px; cursor:pointer; color:#999;">Anile</p>
+            <p onclick="closeModal()" style="margin-top:20px; cursor:pointer; color:#999; text-decoration: underline;">Anile</p>
         </div>
     </div>
 
@@ -106,17 +112,20 @@
         <div class="modal-content">
             <i class="fas fa-box" style="font-size: 40px; color: var(--gold);"></i>
             <h3 id="trackStatus">Chaje...</h3>
-            <div id="trackDetails" style="text-align: left; margin: 15px 0;"></div>
-            <button class="modal-btn btn-whatsapp" onclick="closeModal()">Ok</button>
+            <div id="trackDetails" style="text-align: left; margin: 15px 0; padding: 10px; background: #f9f9f9; border-radius: 10px;"></div>
+            <button class="modal-btn btn-whatsapp" onclick="closeModal()">Fèmen</button>
         </div>
     </div>
 
     <script>
-        // FIREBASE CONFIG (Mete pa w la isit la)
+        // FIREBASE CONFIG (Ranplase ak pa w la)
         const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const myPhone = "50942017744";
+
+        // SON NOTIFIKASYON
+        const notificationSound = new Audio('notification.mp3');
 
         function handleSearch(event) {
             if (event.key === "Enter") {
@@ -126,32 +135,55 @@
         }
 
         async function trackOrder() {
-            const id = document.getElementById('trackID').value.trim();
-            if(!id) return;
-            document.getElementById('trackModal').style.display = 'flex';
-            document.getElementById('trackStatus').innerText = "Vérification...";
+            // Debloke audio sou mobil
+            notificationSound.play().then(() => { notificationSound.pause(); notificationSound.currentTime = 0; }).catch(e => {});
 
-            try {
-                const doc = await db.collection("orders_tracking").doc(id).get();
+            const id = document.getElementById('trackID').value.trim().toUpperCase();
+            if(!id) return alert("Antre yon ID!");
+
+            const statusH3 = document.getElementById('trackStatus');
+            const detailsP = document.getElementById('trackDetails');
+            document.getElementById('trackModal').style.display = 'flex';
+            
+            statusH3.innerText = "Koneksyon...";
+
+            // Listener Firebase an dirèk
+            db.collection("orders_tracking").doc(id).onSnapshot((doc) => {
                 if (doc.exists) {
                     const d = doc.data();
-                    document.getElementById('trackStatus').innerText = "Kòmand #" + id;
-                    document.getElementById('trackDetails').innerHTML = `<b>Status:</b> ${d.status}<br><b>Livreur:</b> ${d.courier}<br><small>Update: ${d.lastUpdate}</small>`;
+                    const oldStatus = statusH3.innerText;
+
+                    // Son moute si estati a chanje
+                    if (oldStatus !== "Koneksyon..." && oldStatus !== d.status) {
+                        notificationSound.play();
+                        if (navigator.vibrate) navigator.vibrate(200);
+                    }
+
+                    statusH3.innerText = d.status;
+                    detailsP.innerHTML = `
+                        <b>Livreur:</b> ${d.courier}<br>
+                        <b>Dènye Mizajou:</b> ${d.lastUpdate}<br>
+                        <p style="color: green; font-size: 11px; margin-top: 5px;"><i>Paj sa a ap mete ajou otomatikman...</i></p>
+                    `;
                 } else {
-                    document.getElementById('trackStatus').innerText = "Pa jwenn ID sa a";
+                    statusH3.innerText = "ID pa valid";
+                    detailsP.innerText = "Nimewo sa a pa egziste nan sistèm nan.";
                 }
-            } catch(e) { document.getElementById('trackStatus').innerText = "Erè koneksyon"; }
+            });
         }
 
         function sendOrder(service) {
             document.getElementById('modalTitle').innerText = service;
             document.getElementById('choiceModal').style.display = 'flex';
             document.getElementById('btnGoogle').onclick = () => window.open(`https://www.google.com/maps/search/${encodeURIComponent(service + " près de moi")}`);
-            document.getElementById('btnAurisme').onclick = () => directWhatsApp(`Mwen bezwen sèvis: *${service}*`);
+            document.getElementById('btnAurisme').onclick = () => directWhatsApp(`Bonjou Aurisme, mwen bezwen sèvis: *${service}*`);
         }
 
         function directWhatsApp(t) { window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(t)}`); }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+        
+        // Fèmen modal si klike deyò
+        window.onclick = (e) => { if (e.target.className === 'modal') closeModal(); }
     </script>
 </body>
 </html>
