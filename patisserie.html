@@ -1,51 +1,147 @@
-<script>
-    function loginVIP() {
-        let n = prompt("Entrez votre nom VIP:");
-        if(n && n.trim() !== "") {
-            localStorage.setItem('aurisme_user', n.toUpperCase());
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pâtisserie - Aurisme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; color: #333; }
+
+        /* VIP Header */
+        .vip-header { background: var(--navy); color: white; padding: 12px; border-bottom: 3px solid var(--gold); font-size: 14px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-vip { background: var(--gold); color: var(--bordeaux); border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .logout-icon { color: var(--gold); cursor: pointer; margin-left: 8px; font-size: 16px; }
+
+        header { background: var(--bordeaux); color: white; padding: 40px 20px; border-bottom: 4px solid var(--gold); }
+        header h1 { margin: 0; text-transform: uppercase; letter-spacing: 2px; font-size: 24px; }
+
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+
+        /* Lis Gato */
+        .cake-list { background: white; border-radius: 20px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .cake-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        .cake-item:last-child { border-bottom: none; }
+        .cake-item i { color: var(--bordeaux); font-size: 24px; margin-right: 15px; }
+        .cake-item h3 { margin: 0; font-size: 16px; color: var(--navy); }
+        .cake-item p { margin: 2px 0 0; font-size: 12px; color: #666; }
+
+        /* Formulaire */
+        .order-box { background: white; border-radius: 20px; padding: 25px; text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--gold); }
+        label { font-weight: bold; color: var(--navy); font-size: 14px; display: block; margin-bottom: 5px; }
+        select, input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
+        
+        .btn-whatsapp { 
+            background: #25D366; color: white; border: none; padding: 16px; 
+            width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; 
+            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        .back-home { display: inline-block; margin: 20px 0; color: var(--navy); text-decoration: none; font-weight: bold; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="vip-header">
+        <span id="vip-info">🌟 Espace Client VIP</span>
+        <button id="login-btn" class="btn-vip" onclick="loginVIP()">Se Connecter</button>
+    </div>
+
+    <header>
+        <h1>NOS GÂTEAUX</h1>
+        <p style="font-size: 13px; color: var(--gold); margin-top: 5px;">Pâtisserie artisanale sur mesure</p>
+    </header>
+
+    <div class="container">
+        <div class="cake-list">
+            <div class="cake-item"><i class="fas fa-birthday-cake"></i><div><h3>Choco Royal</h3><p>Chocolat noir et ganache.</p></div></div>
+            <div class="cake-item"><i class="fas fa-cake"></i><div><h3>Vanille Velouté</h3><p>La douceur de la vanille pure.</p></div></div>
+            <div class="cake-item"><i class="fas fa-stroopwafel"></i><div><h3>Fraisier Deluxe</h3><p>Fraises fraîches et crème mousseline.</p></div></div>
+            <div class="cake-item"><i class="fas fa-holly-berry"></i><div><h3>Pièce Montée</h3><p>Mariage, Baptême et événements.</p></div></div>
+        </div>
+
+        <div class="order-box">
+            <h3 style="color: var(--bordeaux); margin-top: 0; text-align: center;">VOTRE COMMANDE</h3>
+            
+            <label>Type de Gâteau:</label>
+            <select id="cake-type">
+                <option>Choco Royal</option>
+                <option>Vanille Velouté</option>
+                <option>Fraisier Deluxe</option>
+                <option>Pièce Montée</option>
+                <option>Création Spéciale</option>
+            </select>
+            
+            <label>Nombre de personnes:</label>
+            <input type="text" id="cake-size" placeholder="Ex: 25 personnes">
+            
+            <label>Détails (Couleurs, Inscriptions...):</label>
+            <textarea id="cake-desc" rows="3" placeholder="Précisez vos envies..."></textarea>
+            
+            <button class="btn-whatsapp" onclick="sendWhatsApp()">
+                <i class="fab fa-whatsapp"></i> ENVOYER SUR WHATSAPP
+            </button>
+        </div>
+
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> RETOUR À L'ACCUEIL</a>
+    </div>
+
+    <script>
+        // Fonksyon pou mete paj la ajou
+        function updateVIP() {
+            const user = localStorage.getItem('aurisme_user');
+            const vipInfo = document.getElementById('vip-info');
+            const loginBtn = document.getElementById('login-btn');
+
+            if (user && user !== "null") {
+                vipInfo.innerHTML = `👑 Bienvenue, <b>${user}</b> <i class="fas fa-sign-out-alt logout-icon" onclick="logoutVIP()"></i>`;
+                loginBtn.style.display = 'none';
+            } else {
+                vipInfo.innerHTML = `🌟 Espace Client VIP`;
+                loginBtn.style.display = 'inline-block';
+            }
+        }
+
+        // Fonksyon pou konekte
+        function loginVIP() {
+            let n = prompt("Entrez votre nom VIP:");
+            if (n && n.trim() !== "") {
+                localStorage.setItem('aurisme_user', n.trim().toUpperCase());
+                updateVIP();
+            }
+        }
+
+        // Fonksyon pou dekonekte
+        function logoutVIP() {
+            localStorage.removeItem('aurisme_user');
             updateVIP();
         }
-    }
 
-    function logoutVIP() {
-        localStorage.removeItem('aurisme_user');
-        location.reload();
-    }
+        // Fonksyon pou voye mesaj WhatsApp la
+        function sendWhatsApp() {
+            const tel = "50942017744";
+            const type = document.getElementById('cake-type').value;
+            const size = document.getElementById('cake-size').value;
+            const desc = document.getElementById('cake-desc').value;
+            const user = localStorage.getItem('aurisme_user') || "Invité";
 
-    function updateVIP() {
-        const user = localStorage.getItem('aurisme_user');
-        const vipInfo = document.getElementById('vip-info');
-        const loginBtn = document.getElementById('login-btn');
+            if (!size || !desc) {
+                alert("Tanpri ranpli tout detay kòmand lan.");
+                return;
+            }
 
-        if(user) {
-            vipInfo.innerHTML = `👑 Bienvenue, <b>${user}</b> <i class="fas fa-sign-out-alt" onclick="logoutVIP()" style="margin-left:10px; cursor:pointer; color:var(--gold);" title="Déconnexion"></i>`;
-            loginBtn.style.display = 'none';
-        } else {
-            vipInfo.innerHTML = `🌟 Espace Client VIP`;
-            loginBtn.style.display = 'inline-block';
-        }
-    }
+            const msg = `*COMMANDE GÂTEAU - AURISME*%0A%0A` +
+                        `*Client:* ${user}%0A` +
+                        `*Type:* ${type}%0A` +
+                        `*Taille:* ${size}%0A` +
+                        `*Détails:* ${desc}`;
 
-    function sendWhatsApp() {
-        const tel = "50942017744";
-        const type = document.getElementById('cake-type').value;
-        const size = document.getElementById('cake-size').value;
-        const desc = document.getElementById('cake-desc').value;
-        const user = localStorage.getItem('aurisme_user') || "Invité";
-
-        if(!size || !desc) {
-            alert("Veuillez remplir les détails de la commande.");
-            return;
+            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
 
-        const msg = `*COMMANDE GÂTEAU - AURISME*%0A%0A` +
-                    `*Client:* ${user}%0A` +
-                    `*Type:* ${type}%0A` +
-                    `*Taille:* ${size}%0A` +
-                    `*Détails:* ${desc}`;
-
-        window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-    }
-
-    window.onload = updateVIP;
-</script>
+        // Depi paj la chaje, nou kouri fonksyon update la
+        window.onload = updateVIP;
+    </script>
+</body>
+</html>
