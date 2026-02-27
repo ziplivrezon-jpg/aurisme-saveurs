@@ -34,8 +34,15 @@
         /* FOOTER */
         footer { text-align: center; padding: 30px; font-size: 14px; color: #777; }
         
-        /* HIDE VERCEL TOOLBAR */
-        vercel-developer-toolbar, #__vercel-toolbar { display: none !important; visibility: hidden !important; }
+        /* Cacher la barre Vercel sans modifier le reste */
+        vercel-developer-toolbar, 
+        #__vercel-toolbar, 
+        .vercel-toolbar { 
+            display: none !important; 
+            visibility: hidden !important; 
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
     </style>
 </head>
 <body>
@@ -73,7 +80,7 @@
 
     <script>
         window.chatbaseConfig = {
-            chatbotId: "v_E6N3Y_mX3Q6Xv_9v9Xv", // Ranplase ak ID Chatbase ou a si sa a pa bon
+            chatbotId: "v_E6N3Y_mX3Q6Xv_9v9Xv", 
         }
     </script>
     <script
