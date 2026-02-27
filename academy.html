@@ -3,144 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Academy - Formation & Langues</title>
+    <title>Aurisme Academy - Formation Professionnelle</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; }
         
-        /* Message de Bienvenue */
-        .welcome-academy { background: var(--navy); color: white; padding: 25px; border-bottom: 4px solid var(--gold); }
-        .welcome-academy h2 { margin: 0; color: var(--gold); font-size: 24px; text-transform: uppercase; }
-        .welcome-academy p { margin: 10px 0 0 0; font-style: italic; opacity: 0.9; }
+        .welcome-academy { background: var(--navy); color: white; padding: 20px; border-bottom: 4px solid var(--gold); }
+        header { background: var(--bordeaux); color: white; padding: 20px; border-bottom: 4px solid var(--gold); position: relative; }
+        .btn-back { position: absolute; left: 15px; top: 25px; color: white; text-decoration: none; font-size: 20px; }
 
-        header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); position: relative; }
-        .btn-back { position: absolute; left: 15px; top: 30px; color: white; text-decoration: none; font-size: 20px; }
-        
-        .container { padding: 20px; max-width: 550px; margin: auto; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
         .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-left: 5px solid var(--gold); }
         
-        h3 { color: var(--navy); border-bottom: 1px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-
-        /* Language Courses Grid */
-        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .lang-item { background: #f9f9f9; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #ddd; transition: 0.3s; }
-        .lang-item:hover { border-color: var(--gold); background: #fff; }
-        .lang-item i { font-size: 24px; color: var(--bordeaux); margin-bottom: 5px; }
-
-        /* Forum Section */
-        .forum-box { background: #fff; border: 2px solid var(--navy); padding: 15px; border-radius: 15px; }
-        .forum-content { max-height: 200px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px; }
-        .forum-post { background: #f0f4f8; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; border-left: 4px solid var(--navy); }
-
-        .btn-enroll { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 15px; }
+        .btn-enroll { background: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-whatsapp { background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
         
-        /* Student Access */
-        #student-access { display: none; background: #e3f2fd; border: 2px solid var(--gold); padding: 25px; border-radius: 20px; margin-top: 20px; animation: slideIn 0.5s ease-out; }
-        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        #access-code-section, #student-portal { display: none; }
 
-        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 15px; }
-        label { font-weight: bold; color: var(--navy); font-size: 14px; }
+        .course-item { background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; }
+        .course-item i { font-size: 25px; color: var(--bordeaux); width: 30px; text-align: center; }
+
+        .forum-box { background: #f0f0f0; padding: 15px; border-radius: 15px; max-height: 200px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #ccc; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
     </style>
 </head>
 <body>
 
     <div class="welcome-academy">
-        <h2>Bienvenue à Aurisme Academy</h2>
-        <p>Préparez votre avenir avec nos formations professionnelles et linguistiques.</p>
+        <h2>Aurisme Academy</h2>
+        <p>Apprenez un métier ou une langue avec excellence !</p>
     </div>
 
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
-        <h1>Inscription & Espace Étudiant</h1>
+        <h1>Inscription & Espace VIP</h1>
     </header>
 
     <div class="container">
         
-        <div class="card" id="admission-section">
-            <h3><i class="fas fa-user-graduate"></i> Formulaire d'Admission</h3>
-            <label>Nom complet de l'étudiant :</label>
-            <input type="text" id="student-name" placeholder="Entrez votre nom et prénom">
+        <div class="card" id="reg-section">
+            <h3><i class="fas fa-user-plus"></i> Inscription Rapide</h3>
+            <label>Votre Nom Complet :</label>
+            <input type="text" id="reg-name" placeholder="Ex: Jean-Robert Louis">
             
-            <label>Programme de formation :</label>
-            <select id="course-choice">
-                <option>Pâtisserie & Cake Design professionnel</option>
-                <option>Anglais Intensif (Tous niveaux)</option>
-                <option>Espagnol Pratique & Conversation</option>
-                <option>Portugais des Affaires</option>
-                <option>Cuisine Internationale & Créole</option>
+            <label>Cours souhaité :</label>
+            <select id="reg-lang">
+                <option value="Anglais Intensif">Anglais Intensif</option>
+                <option value="Espagnol Pratique">Espagnol Pratique</option>
+                <option value="Portugais des Affaires">Portugais des Affaires</option>
+                <option value="Cuisine Internationale">Cuisine Internationale & Créole</option>
             </select>
             
-            <button class="btn-enroll" onclick="activateAccess()">S'INSCRIRE ET ACCÉDER AU PORTAIL</button>
-        </div>
-
-        <div class="card">
-            <h3><i class="fas fa-globe-americas"></i> Nos Cours de Langues</h3>
-            <p style="font-size: 14px; margin-bottom: 10px; color: #666;">Maîtrisez une nouvelle langue avec nos méthodes accélérées.</p>
-            <div class="lang-grid">
-                <div class="lang-item"><i class="fas fa-flag-usa"></i><br><b>Anglais</b></div>
-                <div class="lang-item"><i class="fas fa-flag"></i><br><b>Espagnol</b></div>
-                <div class="lang-item"><i class="fas fa-flag"></i><br><b>Portugais</b></div>
-                <div class="lang-item"><i class="fas fa-flag-france"></i><br><b>Français</b></div>
-            </div>
-        </div>
-
-        <div class="card forum-box">
-            <h3><i class="fas fa-comments"></i> Forum Communautaire</h3>
-            <div class="forum-content" id="forum-list">
-                <div class="forum-post"><b>Admin Aurisme:</b> "Bienvenue à tous les nouveaux étudiants de la session 2024!"</div>
-                <div class="forum-post"><b>Marie:</b> "Quelqu'un sait à quelle heure commence le cours de Pâtisserie demain?"</div>
-                <div class="forum-post"><b>Jean:</b> "L'examen d'Espagnol est disponible dans la section PDF."</div>
-            </div>
-            <textarea id="forum-input" placeholder="Écrire un message sur le forum..."></textarea>
-            <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="postForum()">PUBLIER MON MESSAGE</button>
-        </div>
-
-        <div id="student-access">
-            <h3 style="margin-top:0; color: var(--navy); justify-content: center;">🎓 ESPACE ÉTUDIANT ACTIVÉ</h3>
-            <p id="welcome-msg" style="font-size: 18px; color: var(--bordeaux);"></p>
-            <p>Votre portail est désormais ouvert. Vous pouvez consulter vos cours, devoirs et ressources ci-dessous.</p>
-            <a href="cours.html" class="btn-enroll" style="display:block; text-decoration:none; text-align:center; background: var(--navy);">
-                <i class="fas fa-book-reader"></i> ACCÉDER À MES COURS
-            </a>
-            <button class="btn-enroll" style="background: #28a745;" onclick="window.location.href='https://wa.me/50942017744'">
-                <i class="fab fa-whatsapp"></i> CONTACTER UN PROFESSEUR
+            <button class="btn-enroll btn-whatsapp" onclick="sendToWhatsApp()">
+                <i class="fab fa-whatsapp"></i> S'INSCRIRE VIA WHATSAPP
             </button>
+        </div>
+
+        <div class="card" id="access-code-section" style="border-left-color: var(--navy);">
+            <h3 style="color: var(--bordeaux); text-align:center;">🔒 Activation de l'Espace</h3>
+            <p style="font-size: 13px; text-align:center;">Veuillez entrer le code d'accès reçu après paiement :</p>
+            <input type="text" id="access-code" placeholder="CODE-1234" style="text-align:center; font-size: 22px; font-weight: bold; letter-spacing: 3px; color: var(--navy);">
+            <button class="btn-enroll" onclick="verifyCode()">DÉBLOQUER MON ACCÈS</button>
+        </div>
+
+        <div id="student-portal">
+            <div class="card">
+                <h3><i class="fas fa-graduation-cap"></i> Mon Programme d'Études</h3>
+                <div class="course-item"><i class="fas fa-flag-usa"></i> <span>Anglais (Vidéos & PDF)</span></div>
+                <div class="course-item"><i class="fas fa-flag"></i> <span>Espagnol (Conversation)</span></div>
+                <div class="course-item"><i class="fas fa-flag"></i> <span>Portugais (Niveau 1)</span></div>
+                <div class="course-item"><i class="fas fa-utensils"></i> <span>Cuisine Internationale</span></div>
+                <button class="btn-enroll" style="background: var(--bordeaux);">ACCÉDER AUX CONTENUS</button>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-comments"></i> Forum Communautaire</h3>
+                <div class="forum-box" id="forum-messages">
+                    </div>
+                <input type="text" id="forum-msg" placeholder="Posez une question...">
+                <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="sendMessage()">PUBLIER SUR LE FORUM</button>
+            </div>
         </div>
 
     </div>
 
-    <script>
-        function activateAccess() {
-            var name = document.getElementById('student-name').value;
-            if(name.trim() === "") {
-                alert("Veuillez entrer votre nom complet pour l'inscription.");
-                return;
-            }
-            // Kache fòm nan
-            document.getElementById('admission-section').style.display = 'none';
-            // Montre aksè a
-            document.getElementById('welcome-msg').innerHTML = "Félicitations, <b>" + name + "</b> !";
-            document.getElementById('student-access').style.display = 'block';
-            // Scroll desann
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-        function postForum() {
-            var txt = document.getElementById('forum-input').value;
-            if(txt.trim() !== "") {
-                var list = document.getElementById('forum-list');
-                var div = document.createElement('div');
-                div.className = "forum-post";
-                div.innerHTML = "<b>Moi:</b> " + txt;
-                list.appendChild(div);
-                document.getElementById('forum-input').value = "";
-                list.scrollTop = list.scrollHeight; // Auto-scroll nan fen forum nan
+        const firebaseConfig = { 
+            apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", 
+            projectId: "aurisme-app", 
+            appId: "1:1037465492868:web:a68723e9bdfb93966891d1" 
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.sendToWhatsApp = function() {
+            var name = document.getElementById('reg-name').value;
+            var choice = document.getElementById('reg-lang').value;
+            if(!name) { alert("Veuillez entrer votre nom"); return; }
+            
+            var msg = encodeURIComponent("Bonjour Aurisme, je souhaite m'inscrire au programme : " + choice + "\nNom: " + name + "\nJ'aimerais recevoir mon code d'accès.");
+            window.open("https://wa.me/50942017744?text=" + msg);
+            
+            document.getElementById('reg-section').style.display = 'none';
+            document.getElementById('access-code-section').style.display = 'block';
+        };
+
+        window.verifyCode = async function() {
+            var codeInput = document.getElementById('access-code').value.trim();
+            if(!codeInput) return;
+
+            // Verifye kòd la nan tab "codes_acces"
+            const docSnap = await getDoc(doc(db, "codes_acces", codeInput));
+            
+            if(docSnap.exists() && docSnap.data().actif === true) {
+                alert("Accès activé ! Bienvenue à l'Academy.");
+                document.getElementById('access-code-section').style.display = 'none';
+                document.getElementById('student-portal').style.display = 'block';
+                loadForum();
             } else {
-                alert("Veuillez écrire quelque chose avant de publier.");
+                alert("Code incorrect ou compte non activé. Veuillez contacter l'administration.");
             }
-        }
-    </script>
+        };
 
+        function loadForum() {
+            const q = query(collection(db, "forum_academy"), orderBy("date", "asc"));
+            onSnapshot(q, (snapshot) => {
+                const box = document.getElementById('forum-messages');
+                box.innerHTML = "";
+                snapshot.forEach((doc) => {
+                    box.innerHTML += `<div style="background:white; padding:10px; border-radius:10px; margin-bottom:8px; font-size:14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <b style="color:var(--navy);">${doc.data().user}:</b> ${doc.data().text}
+                    </div>`;
+                });
+                box.scrollTop = box.scrollHeight;
+            });
+        }
+
+        window.sendMessage = async function() {
+            var txt = document.getElementById('forum-msg').value;
+            var user = document.getElementById('reg-name').value || "Étudiant";
+            if(!txt) return;
+            
+            await addDoc(collection(db, "forum_academy"), {
+                user: user,
+                text: txt,
+                date: new Date()
+            });
+            document.getElementById('forum-msg').value = "";
+        };
+    </script>
 </body>
 </html>
