@@ -9,6 +9,11 @@
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --natcom: #ffca28; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
+        /* Langue Switcher */
+        .lang-switcher { background: white; padding: 10px; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
+        .lang-switcher img { width: 30px; height: 20px; cursor: pointer; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.3s; }
+        .lang-switcher img:hover { transform: scale(1.2); }
+
         /* Ticker */
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
         .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
@@ -30,15 +35,13 @@
         .celebrity-card { min-width: 120px; text-align: center; }
         .celebrity-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; }
         
-        /* Buttons Style */
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; }
         
-        /* NOUVO BOUTON LIVREZON YO */
+        /* Livraison & Taxi Section */
         .delivery-section { background: #000; padding: 20px; border-radius: 20px; margin: 20px 0; border: 2px solid var(--gold); }
         .delivery-section h2 { color: var(--gold); margin-top: 0; font-size: 18px; }
         .btn-box { display: flex; flex-direction: column; gap: 12px; align-items: center; }
-        .btn-delivery-main { background: var(--gold); color: #000; width: 90%; padding: 15px; border-radius: 50px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; transition: 0.3s; border: 2px solid white; }
-        .btn-delivery-main:hover { transform: scale(1.05); background: white; }
+        .btn-delivery-main { background: var(--gold); color: #000; width: 90%; padding: 15px; border-radius: 50px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; border: 2px solid white; }
 
         .natcash-box { background: #fffde7; border: 2px solid var(--natcom); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
         .btn-natcash { background-color: var(--natcom); color: #000; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -47,9 +50,18 @@
         .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 15px; }
         .social-links a { font-size: 26px; color: var(--bordeaux); }
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+        input, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
     </style>
 </head>
 <body>
+
+    <div class="lang-switcher">
+        <img src="https://flagcdn.com/w40/fr.png" alt="Français">
+        <img src="https://flagcdn.com/w40/us.png" alt="English">
+        <img src="https://flagcdn.com/w40/ht.png" alt="Kreyòl">
+        <img src="https://flagcdn.com/w40/es.png" alt="Español">
+        <img src="https://flagcdn.com/w40/br.png" alt="Português">
+    </div>
 
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
@@ -83,6 +95,7 @@
 
         <div class="form-container">
             <h2>🛒 Service Supermarché</h2>
+            <input type="text" placeholder="Nom du Supermarché...">
             <div class="checkbox-group">
                 <label><input type="checkbox"> Sable</label>
                 <label><input type="checkbox"> Palmier</label>
@@ -93,6 +106,7 @@
                 <label><input type="checkbox"> Pâtés</label>
                 <label><input type="checkbox"> Cookies raisin</label>
             </div>
+            <textarea placeholder="Précisez la quantité pour chaque article..."></textarea>
             <button class="btn-order" onclick="alert('Lòd la pati!')">COMMANDER</button>
         </div>
 
