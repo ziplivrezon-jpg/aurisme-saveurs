@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déco & Traiteur - Aurisme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #fcfcfc; text-align: center; color: #333; }
+
+        /* Banner Style */
+        header { background: linear-gradient(rgba(128,0,0,0.9), rgba(128,0,0,0.9)), url('https://www.transparenttextures.com/patterns/cubes.png'); 
+                 color: white; padding: 50px 20px; border-bottom: 5px solid var(--gold); }
+        header h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 3px; }
+        header p { color: var(--gold); font-style: italic; margin-top: 10px; }
+
+        .container { padding: 20px; max-width: 550px; margin: auto; }
+
+        /* Section Services */
+        .service-section { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
+        .section-title { color: var(--bordeaux); font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .section-title i { color: var(--gold); }
+
+        .item-list { text-align: left; }
+        .item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #f9f9f9; padding-bottom: 10px; }
+        .item i { background: var(--navy); color: white; padding: 10px; border-radius: 12px; font-size: 18px; }
+        .item h4 { margin: 0; color: var(--navy); font-size: 16px; }
+        .item p { margin: 3px 0 0; font-size: 13px; color: #666; }
+
+        /* Formulaire */
+        .booking-box { background: var(--navy); color: white; border-radius: 25px; padding: 30px; text-align: left; box-shadow: 0 15px 35px rgba(0,51,102,0.2); }
+        .booking-box h3 { color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; }
+        label { font-size: 13px; display: block; margin-bottom: 5px; color: #ccc; }
+        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px; border: none; font-size: 14px; }
+        
+        .btn-whatsapp { 
+            background: #25D366; color: white; border: none; padding: 18px; 
+            width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; 
+            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .back-home { display: inline-block; margin: 30px 0; color: var(--bordeaux); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Déco & Traiteur</h1>
+        <p>Transformer vos rêves en réalité mémorable</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="service-section">
+            <div class="section-title"><i class="fas fa-magic"></i> <span>Décoration de Luxe</span></div>
+            <div class="item-list">
+                <div class="item">
+                    <i class="fas fa-glass-cheers"></i>
+                    <div><h4>Événements Sociaux</h4><p>Mariages, Baptêmes, Anniversaires, Baby Shower.</p></div>
+                </div>
+                <div class="item">
+                    <i class="fas fa-building"></i>
+                    <div><h4>Événements Corporatifs</h4><p>Lancements, Galas, Cocktails d'entreprise.</p></div>
+                </div>
+                <div class="item">
+                    <i class="fas fa-lightbulb"></i>
+                    <div><h4>Design Thématique</h4><p>Mise en scène personnalisée et éclairage d'ambiance.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-section">
+            <div class="section-title"><i class="fas fa-utensils"></i> <span>Service Traiteur</span></div>
+            <div class="item-list">
+                <div class="item">
+                    <i class="fas fa-concierge-bell"></i>
+                    <div><h4>Buffets Gastronomiques</h4><p>Saveurs locales et internationales raffinées.</p></div>
+                </div>
+                <div class="item">
+                    <i class="fas fa-hamburger"></i>
+                    <div><h4>Finger Food & Hors-d'œuvre</h4><p>Plateaux assortis pour vos réceptions.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-box">
+            <h3>Demander un Devis</h3>
+            <label>Type d'événement:</label>
+            <select id="event-type">
+                <option>Mariage</option>
+                <option>Anniversaire</option>
+                <option>Baptême / Communion</option>
+                <option>Dîner Privé</option>
+                <option>Événement d'Affaires</option>
+            </select>
+
+            <label>Service souhaité:</label>
+            <select id="service-needed">
+                <option>Décoration uniquement</option>
+                <option>Traiteur uniquement</option>
+                <option>Service Complet (Déco + Traiteur)</option>
+            </select>
+
+            <label>Date prévue & Nombre d'invités:</label>
+            <input type="text" id="event-details" placeholder="Ex: 12 Juin 2026 - 100 personnes">
+
+            <label>Vos envies particulières:</label>
+            <textarea id="event-desc" rows="3" placeholder="Thème, couleurs, menu spécifique..."></textarea>
+
+            <button class="btn-whatsapp" onclick="bookEvent()">
+                <i class="fab fa-whatsapp"></i> OBTENIR MON DEVIS WHATSAPP
+            </button>
+        </div>
+
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> RETOUR À L'ACCUEIL</a>
+    </div>
+
+    <script>
+        function bookEvent() {
+            const tel = "50942017744";
+            const type = document.getElementById('event-type').value;
+            const service = document.getElementById('service-needed').value;
+            const details = document.getElementById('event-details').value;
+            const desc = document.getElementById('event-desc').value;
+            
+            if(!details || !desc) {
+                alert("Tanpri bay kèk enfòmasyon sou dat ak sa ou bezwen an.");
+                return;
+            }
+
+            const msg = `*DEMANDE DE DEVIS - AURISME*%0A%0A` +
+                        `*Événement:* ${type}%0A` +
+                        `*Service:* ${service}%0A` +
+                        `*Date/Invités:* ${details}%0A` +
+                        `*Détails:* ${desc}`;
+
+            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
+        }
+    </script>
+
+</body>
+</html>
