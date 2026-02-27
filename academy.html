@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Academy - Formation Professionnelle</title>
+    <title>Aurisme Academy - Espace Étudiant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #25D366; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; }
         
         .welcome-academy { background: var(--navy); color: white; padding: 20px; border-bottom: 4px solid var(--gold); }
@@ -16,36 +16,40 @@
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-left: 5px solid var(--gold); }
         
-        .btn-enroll { background: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .btn-whatsapp { background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
+        .btn-enroll { background: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 16px; }
+        .btn-whatsapp { background: var(--green); color: white; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
         
         #access-code-section, #student-portal { display: none; }
 
         .course-item { background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; }
-        .course-item i { font-size: 25px; color: var(--bordeaux); width: 30px; text-align: center; }
+        .course-item i { font-size: 22px; color: var(--bordeaux); width: 25px; text-align: center; }
 
-        .forum-box { background: #f0f0f0; padding: 15px; border-radius: 15px; max-height: 200px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #ccc; }
+        .forum-box { background: #f0f0f0; padding: 15px; border-radius: 15px; max-height: 250px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #ccc; }
+        .msg-bubble { background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
         input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+
+        .btn-logout { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 20px; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="welcome-academy">
         <h2>Aurisme Academy</h2>
-        <p>Apprenez un métier ou une langue avec excellence !</p>
+        <p>Votre portail vers l'excellence culinaire et linguistique.</p>
     </div>
 
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
-        <h1>Inscription & Espace VIP</h1>
+        <h1>Espace VIP</h1>
     </header>
 
     <div class="container">
         
         <div class="card" id="reg-section">
-            <h3><i class="fas fa-user-plus"></i> Inscription Rapide</h3>
-            <label>Votre Nom Complet :</label>
-            <input type="text" id="reg-name" placeholder="Ex: Jean-Robert Louis">
+            <h3><i class="fas fa-user-plus"></i> Inscription</h3>
+            <label>Nom Complet :</label>
+            <input type="text" id="reg-name" placeholder="Entrez votre nom">
             
             <label>Cours souhaité :</label>
             <select id="reg-lang">
@@ -56,34 +60,37 @@
             </select>
             
             <button class="btn-enroll btn-whatsapp" onclick="sendToWhatsApp()">
-                <i class="fab fa-whatsapp"></i> S'INSCRIRE VIA WHATSAPP
+                <i class="fab fa-whatsapp"></i> DEMANDER MON CODE (WHATSAPP)
             </button>
         </div>
 
-        <div class="card" id="access-code-section" style="border-left-color: var(--navy);">
-            <h3 style="color: var(--bordeaux); text-align:center;">🔒 Activation de l'Espace</h3>
-            <p style="font-size: 13px; text-align:center;">Veuillez entrer le code d'accès reçu après paiement :</p>
-            <input type="text" id="access-code" placeholder="CODE-1234" style="text-align:center; font-size: 22px; font-weight: bold; letter-spacing: 3px; color: var(--navy);">
-            <button class="btn-enroll" onclick="verifyCode()">DÉBLOQUER MON ACCÈS</button>
+        <div class="card" id="access-code-section">
+            <h3 style="text-align:center;">🔑 Activation</h3>
+            <p style="font-size: 13px; text-align:center;">Entrez le code reçu pour débloquer vos cours :</p>
+            <input type="text" id="access-code" placeholder="VOTRE-CODE" style="text-align:center; font-size: 22px; font-weight: bold; text-transform: uppercase;">
+            <button class="btn-enroll" onclick="verifyCode()">ACTIVER MON ACCÈS</button>
         </div>
 
         <div id="student-portal">
             <div class="card">
-                <h3><i class="fas fa-graduation-cap"></i> Mon Programme d'Études</h3>
-                <div class="course-item"><i class="fas fa-flag-usa"></i> <span>Anglais (Vidéos & PDF)</span></div>
-                <div class="course-item"><i class="fas fa-flag"></i> <span>Espagnol (Conversation)</span></div>
-                <div class="course-item"><i class="fas fa-flag"></i> <span>Portugais (Niveau 1)</span></div>
+                <h3><i class="fas fa-graduation-cap"></i> Mes Formations</h3>
+                <div class="course-item"><i class="fas fa-flag-usa"></i> <span>Anglais (Tous Niveaux)</span></div>
+                <div class="course-item"><i class="fas fa-flag"></i> <span>Espagnol Pratique</span></div>
+                <div class="course-item"><i class="fas fa-flag"></i> <span>Portugais Business</span></div>
                 <div class="course-item"><i class="fas fa-utensils"></i> <span>Cuisine Internationale</span></div>
-                <button class="btn-enroll" style="background: var(--bordeaux);">ACCÉDER AUX CONTENUS</button>
+                <button class="btn-enroll" style="background: var(--bordeaux);">ACCÉDER AUX RESSOURCES</button>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-comments"></i> Forum Communautaire</h3>
-                <div class="forum-box" id="forum-messages">
-                    </div>
-                <input type="text" id="forum-msg" placeholder="Posez une question...">
-                <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="sendMessage()">PUBLIER SUR LE FORUM</button>
+                <h3><i class="fas fa-comments"></i> Forum Étudiant</h3>
+                <div class="forum-box" id="forum-messages"></div>
+                <input type="text" id="forum-msg" placeholder="Écrire un message...">
+                <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="sendMessage()">PUBLIER</button>
             </div>
+
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Se déconnecter (Changer de compte)
+            </button>
         </div>
 
     </div>
@@ -100,34 +107,47 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Tcheke si kòd la te deja sove nan telefòn nan
+        window.onload = async () => {
+            const savedCode = localStorage.getItem('aurisme_academy_code');
+            if (savedCode) {
+                const docSnap = await getDoc(doc(db, "codes_acces", savedCode));
+                if (docSnap.exists() && docSnap.data().actif === true) {
+                    showPortal();
+                } else {
+                    localStorage.removeItem('aurisme_academy_code');
+                }
+            }
+        };
+
         window.sendToWhatsApp = function() {
             var name = document.getElementById('reg-name').value;
             var choice = document.getElementById('reg-lang').value;
-            if(!name) { alert("Veuillez entrer votre nom"); return; }
-            
-            var msg = encodeURIComponent("Bonjour Aurisme, je souhaite m'inscrire au programme : " + choice + "\nNom: " + name + "\nJ'aimerais recevoir mon code d'accès.");
+            if(!name) { alert("Nom requis"); return; }
+            var msg = encodeURIComponent("Bonjour Aurisme, je souhaite m'inscrire au cours de : " + choice + "\nNom: " + name);
             window.open("https://wa.me/50942017744?text=" + msg);
-            
             document.getElementById('reg-section').style.display = 'none';
             document.getElementById('access-code-section').style.display = 'block';
         };
 
         window.verifyCode = async function() {
-            var codeInput = document.getElementById('access-code').value.trim();
+            var codeInput = document.getElementById('access-code').value.trim().toUpperCase();
             if(!codeInput) return;
-
-            // Verifye kòd la nan tab "codes_acces"
             const docSnap = await getDoc(doc(db, "codes_acces", codeInput));
-            
             if(docSnap.exists() && docSnap.data().actif === true) {
-                alert("Accès activé ! Bienvenue à l'Academy.");
-                document.getElementById('access-code-section').style.display = 'none';
-                document.getElementById('student-portal').style.display = 'block';
-                loadForum();
+                localStorage.setItem('aurisme_academy_code', codeInput);
+                showPortal();
             } else {
-                alert("Code incorrect ou compte non activé. Veuillez contacter l'administration.");
+                alert("Code invalide.");
             }
         };
+
+        function showPortal() {
+            document.getElementById('reg-section').style.display = 'none';
+            document.getElementById('access-code-section').style.display = 'none';
+            document.getElementById('student-portal').style.display = 'block';
+            loadForum();
+        }
 
         function loadForum() {
             const q = query(collection(db, "forum_academy"), orderBy("date", "asc"));
@@ -135,9 +155,7 @@
                 const box = document.getElementById('forum-messages');
                 box.innerHTML = "";
                 snapshot.forEach((doc) => {
-                    box.innerHTML += `<div style="background:white; padding:10px; border-radius:10px; margin-bottom:8px; font-size:14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                        <b style="color:var(--navy);">${doc.data().user}:</b> ${doc.data().text}
-                    </div>`;
+                    box.innerHTML += `<div class="msg-bubble"><b>${doc.data().user}:</b> ${doc.data().text}</div>`;
                 });
                 box.scrollTop = box.scrollHeight;
             });
@@ -145,15 +163,20 @@
 
         window.sendMessage = async function() {
             var txt = document.getElementById('forum-msg').value;
-            var user = document.getElementById('reg-name').value || "Étudiant";
             if(!txt) return;
-            
             await addDoc(collection(db, "forum_academy"), {
-                user: user,
+                user: "Étudiant VIP", 
                 text: txt,
                 date: new Date()
             });
             document.getElementById('forum-msg').value = "";
+        };
+
+        window.logout = function() {
+            if(confirm("Voulez-vous vraiment vous déconnecter ?")) {
+                localStorage.removeItem('aurisme_academy_code');
+                location.reload();
+            }
         };
     </script>
 </body>
