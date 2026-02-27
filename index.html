@@ -52,10 +52,10 @@
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         input, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
 
-        /* Hide Google Translate Bar */
-        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        /* Cache l'élément Google Translate pour garder le design propre */
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
         body { top: 0px !important; }
-        .goog-te-combo { display: none !important; }
+        #google_translate_element { display: none; }
     </style>
 </head>
 <body>
@@ -68,7 +68,7 @@
         <img src="https://flagcdn.com/w40/br.png" alt="Português" onclick="translatePage('pt')">
     </div>
 
-    <div id="google_translate_element" style="display:none;"></div>
+    <div id="google_translate_element"></div>
 
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
@@ -168,8 +168,7 @@
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'fr', 
-                includedLanguages: 'fr,en,ht,es,pt',
+                pageLanguage: 'fr',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false
             }, 'google_translate_element');
@@ -180,6 +179,9 @@
             if (selectField) {
                 selectField.value = langCode;
                 selectField.dispatchEvent(new Event('change'));
+            } else {
+                // Si Google poko chaje, n'ap tann yon ti moman epi n'ap eseye ankò
+                setTimeout(function() { translatePage(langCode); }, 500);
             }
         }
     </script>
@@ -218,5 +220,4 @@
         };
     </script>
 </body>
-    </html>
-    
+</html>
