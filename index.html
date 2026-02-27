@@ -52,10 +52,17 @@
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         input, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
 
-        /* Kache Google pou li pa gate design lan men pou li ka fonksyone */
+        /* NOUVO MODIFIKASYON CSS POU GOOGLE TRANSLATE */
         .goog-te-banner-frame.skiptranslate { display: none !important; }
         body { top: 0px !important; }
-        #google_translate_element { position: absolute; top: -9999px; left: -9999px; }
+        #google_translate_element { 
+            position: absolute; 
+            opacity: 0.01; 
+            height: 1px; 
+            width: 1px; 
+            overflow: hidden; 
+            z-index: -1; 
+        }
     </style>
 </head>
 <body>
@@ -175,15 +182,17 @@
         }
 
         function translatePage(langCode) {
-            // Google itilize 'hat' pou Kreyòl Ayisyen
             var code = (langCode === 'ht') ? 'hat' : langCode;
             var selectField = document.querySelector("select.goog-te-combo");
             
             if (selectField) {
                 selectField.value = code;
                 selectField.dispatchEvent(new Event('change'));
+                // Sekirite pou fòse chanjman an
+                setTimeout(function() {
+                    selectField.dispatchEvent(new Event('change'));
+                }, 150);
             } else {
-                // Si Google poko chaje, n'ap tann yon ti moman epi n'ap eseye ankò
                 setTimeout(function() { translatePage(langCode); }, 500);
             }
         }
@@ -223,4 +232,4 @@
         };
     </script>
 </body>
-            </html>
+                    </html>
