@@ -3,45 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme - Panèl Kontwòl</title>
+    <title>Aurisme Admin - Sekirize & Netwaye</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        
-        /* LOGIN */
-        #login-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 350px; }
-        .pin-input { width: 100%; padding: 15px; font-size: 24px; text-align: center; border: 2px solid #ddd; border-radius: 12px; margin-bottom: 20px; letter-spacing: 10px; }
-        
-        /* ADMIN PANEL */
-        #admin-panel { display: none; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 95%; max-width: 450px; border-top: 10px solid var(--bordeaux); }
-        h2 { color: var(--bordeaux); text-align: center; margin-bottom: 25px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        #login-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 320px; }
+        .pin-input { width: 100%; padding: 15px; font-size: 24px; text-align: center; border: 2px solid #ddd; border-radius: 12px; margin-bottom: 20px; letter-spacing: 5px; }
+        #admin-panel { display: none; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; border-top: 10px solid var(--bordeaux); }
+        h2 { color: var(--bordeaux); text-align: center; }
         label { font-size: 14px; font-weight: bold; color: #555; display: block; margin-top: 15px; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 16px; }
-        
-        .btn-update { background: var(--bordeaux); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 16px; }
-        .btn-update:active { transform: scale(0.98); }
-        
-        #status-msg { text-align: center; margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 8px; display: none; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; }
+        .btn-update { background: var(--bordeaux); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 25px; }
+        #status-msg { text-align: center; margin-top: 15px; font-weight: bold; display: none; padding: 10px; border-radius: 8px; }
     </style>
 </head>
 <body>
 
     <div id="login-box">
-        <img src="Logo.png" width="80" style="border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--gold);">
-        <h3>Aksè Administratè</h3>
+        <img src="Logo.png" width="80" style="border-radius: 50%; margin-bottom: 15px; border: 2px solid var(--gold);">
+        <h3>Admin Access</h3>
         <input type="password" id="adminPin" class="pin-input" maxlength="4" placeholder="****">
         <button class="btn-update" onclick="checkPin()">Konekte</button>
     </div>
 
     <div id="admin-panel">
-        <h2>Mizajou Kòmand</h2>
+        <h2>Aurisme Control</h2>
         
         <label>ID Kòmand (Ex: AUR001)</label>
-        <input type="text" id="orderID" placeholder="Tape ID kliyan an bay la">
+        <input type="text" id="orderID" placeholder="ID kòmand an">
 
-        <label>Chanje Estati</label>
+        <label>Estati Kòmand lan</label>
         <select id="orderStatus">
             <option value="Kòmand Resevwa ✅">✅ Resevwa</option>
             <option value="Nan Preparasyon 🍳">🍳 Nan Preparasyon</option>
@@ -51,40 +44,62 @@
         </select>
 
         <label>Non Livreur a</label>
-        <input type="text" id="courierName" placeholder="Jean-Claude / Pierre / elatriye.">
+        <input type="text" id="courierName" placeholder="Ex: Jean / Pierre">
 
-        <button class="btn-update" onclick="updateFirebase()">Mete a Jou an Direk</button>
+        <button class="btn-update" onclick="updateFirebase()">Mete a Jou nan Cloud</button>
         <div id="status-msg"></div>
         
-        <p onclick="location.reload()" style="text-align:center; font-size:12px; color:#999; cursor:pointer; margin-top:30px; text-decoration: underline;">Dekonekte</p>
+        <p onclick="location.reload()" style="text-align:center; font-size:12px; color:#999; cursor:pointer; margin-top:20px;">Déconnexion</p>
     </div>
 
 <script>
-    // 1. KONFIGIRASYON FIREBASE (Mete pa w la)
+    // 1. CONFIGURATION FIREBASE (REMETE PA W LA)
     const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // 2. TCHEKE PIN (Kòd sekirite a se 2024 pou kounye a)
+    // 2. TCHEKE PIN AK NETWAYE BAZ DONE A
     function checkPin() {
         const pin = document.getElementById('adminPin').value;
-        if(pin === "2024") {
+        const secretPin = "2024"; 
+
+        if(pin === secretPin) {
             document.getElementById('login-box').style.display = 'none';
             document.getElementById('admin-panel').style.display = 'block';
+            
+            // Lè w konekte, li efase vye kòmand ki gen plis pase 24h
+            cleanOldOrders();
         } else {
-            alert("PIN nan pa bon!");
+            alert("Kòd la pa bon!");
             document.getElementById('adminPin').value = "";
         }
     }
 
-    // 3. MIZAJOU FIREBASE
+    // 3. FONKSYON NETWAYAJ OTOMATIK (24H)
+    async function cleanOldOrders() {
+        const limitTan = Date.now() - (24 * 60 * 60 * 1000); // 24 èdtan nan milisegonn
+        try {
+            const snapshot = await db.collection("orders_tracking")
+                .where("timestamp", "<", firebase.firestore.Timestamp.fromMillis(limitTan))
+                .get();
+
+            const batch = db.batch();
+            snapshot.forEach(doc => {
+                batch.delete(doc.ref);
+            });
+            await batch.commit();
+            console.log("Netwayaj otomatik fèt: Vye done yo efase.");
+        } catch (e) { console.error("Erè netwayaj:", e); }
+    }
+
+    // 4. MIZAJOU FIREBASE
     async function updateFirebase() {
         const id = document.getElementById('orderID').value.trim().toUpperCase();
         const status = document.getElementById('orderStatus').value;
         const courier = document.getElementById('courierName').value;
         const msgDiv = document.getElementById('status-msg');
 
-        if(!id) return alert("Ou dwe mete yon ID!");
+        if(!id) return alert("Antre ID kòmand lan!");
 
         msgDiv.style.display = "block";
         msgDiv.innerText = "Mizajou an kouran...";
@@ -94,15 +109,13 @@
             await db.collection("orders_tracking").doc(id).set({
                 status: status,
                 courier: courier || "Ekip Aurisme",
-                lastUpdate: new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}) + " - " + new Date().toLocaleDateString('fr-FR'),
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                lastUpdate: new Date().toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp() // Sèvi pou konnen laj kòmand lan
             });
-            
-            msgDiv.innerText = "Siksè! Pierre pral tande BIP la! 🎉";
+            msgDiv.innerText = "Mizajou fèt! Kliyan an ap tande son an. 🎉";
             msgDiv.style.background = "#d4edda";
-            msgDiv.style.color = "#155724";
+            msgDiv.style.color = "green";
             
-            // Netwaye bwat la apre 3 segonn
             setTimeout(() => { msgDiv.style.display = "none"; }, 3000);
         } catch (error) {
             msgDiv.innerText = "Erè: " + error.message;
