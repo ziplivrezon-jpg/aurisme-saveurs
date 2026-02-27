@@ -6,29 +6,58 @@
     <title>Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --natcash: #e11a27; --navy: #003366; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --natcash: #e11a27; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
+        
+        .lang-switcher { background: white; padding: 5px; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; }
+        .lang-switcher img { width: 25px; cursor: pointer; border-radius: 3px; }
+
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
-        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
+        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        
         .auth-bar { background: #fff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
         .btn-login-top { background: var(--navy); color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        
         header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
+        
         .container { padding: 10px 20px 20px 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
+        
+        /* Offre Spéciale Style */
+        .special-offer { background: linear-gradient(45deg, var(--bordeaux), #b30000); color: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 3px dashed var(--gold); }
+        
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         .checkbox-item { display: flex; align-items: center; font-size: 14px; gap: 8px; cursor: pointer; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .rewards-card { background: linear-gradient(135deg, var(--navy) 0%, #001a33 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px auto; text-align: left; border: 2px solid var(--gold); position: relative; display: none; }
-        .points-display { font-size: 32px; font-weight: bold; color: #fff; }
+        
+        /* Natcash Style */
+        .natcash-box { background: #fff1f1; border: 2px solid var(--natcash); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
+        .btn-natcash { background-color: var(--natcash); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        input, textarea { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; }
+        
+        .btn-galeri-home { display: block; background-color: var(--gold); color: var(--bordeaux); text-decoration: none; font-weight: bold; padding: 15px; border-radius: 12px; margin: 10px auto 20px auto; border: 2px solid var(--bordeaux); }
+        .btn-delivery { background-color: #000; color: var(--gold); border: 2px solid var(--gold); padding: 12px; width: 100%; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; display: block; text-align: center; margin-top: 15px; }
+        
+        .rewards-card { background: linear-gradient(135deg, var(--navy) 0%, #001a33 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px auto; text-align: left; border: 2px solid var(--gold); display: none; }
+        .celebrity-section { background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 2px solid var(--gold); }
+        .celebrity-grid { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; }
+        .celebrity-card { min-width: 120px; text-align: center; }
+        .celebrity-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; }
+        
         .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); }
-        .social-buttons { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
-        .btn-social { width: 50px; height: 50px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 20px; text-decoration: none; }
     </style>
 </head>
 <body>
+
+    <div class="lang-switcher">
+        <img src="https://flagcdn.com/w40/fr.png" alt="FR">
+        <img src="https://flagcdn.com/w40/us.png" alt="EN">
+        <img src="https://flagcdn.com/w40/ht.png" alt="HT">
+        <img src="https://flagcdn.com/w40/es.png" alt="ES">
+    </div>
 
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
@@ -43,8 +72,31 @@
     </header>
 
     <div class="container">
-        <div class="rewards-card" id="rewards-section">
-            <div id="rewards-content"></div>
+        <div class="rewards-card" id="rewards-section"><div id="rewards-content"></div></div>
+
+        <div class="special-offer">
+            <h2 style="margin:0;">🔥 Offre Spéciale 🔥</h2>
+            <p style="font-size: 14px;">Achetez 2 Gâteaux Graduation, obtenez 1 douzaine de Cupcakes GRATUITS !</p>
+        </div>
+
+        <div class="celebrity-section">
+            <h2 style="font-size: 18px; color: var(--bordeaux); margin-top: 0;">🎉 Nos Célébrités du Mois</h2>
+            <div class="celebrity-grid">
+                <div class="celebrity-card"><img src="client1.jpg" alt="Fête"><p style="font-size:12px;">Joyeux Anniversaire!</p></div>
+                <div class="celebrity-card"><img src="client2.jpg" alt="Fête"><p style="font-size:12px;">Félicitations!</p></div>
+            </div>
+        </div>
+
+        <a href="galeri.html" class="btn-galeri-home">🍰 VOIR NOS RÉALISATIONS</a>
+
+        <div class="form-container" style="border-left: 5px solid #0056b3;">
+            <h2 style="color: #0056b3;">📚 Aurisme Academy</h2>
+            <div style="display: flex; justify-content: space-around; margin-bottom: 10px;">
+                <img src="https://flagcdn.com/w40/us.png" width="30">
+                <img src="https://flagcdn.com/w40/fr.png" width="30">
+                <img src="https://flagcdn.com/w40/es.png" width="30">
+            </div>
+            <button class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">S'INSCRIRE</button>
         </div>
 
         <div class="form-container">
@@ -59,7 +111,6 @@
                 <label class="checkbox-item"><input type="checkbox" value="Langue de boeufs">Langue de boeufs</label>
                 <label class="checkbox-item"><input type="checkbox" value="Pâtés">Pâtés</label>
                 <label class="checkbox-item"><input type="checkbox" value="Cookies au raisin">Cookies au raisin</label>
-                <label class="checkbox-item"><input type="checkbox" value="Autres">Autres (Précisez)</label>
             </div>
             <button class="btn-order" onclick="sendMarket()">COMMANDER</button>
         </div>
@@ -74,22 +125,20 @@
                 <label class="checkbox-item"><input type="checkbox" value="Bonbon boîte">Bonbon boîte</label>
                 <label class="checkbox-item"><input type="checkbox" value="Bonbon sachet">Bonbon sachet</label>
             </div>
-            <textarea id="p_style" rows="2" placeholder="Détails (Thème, Couleur, Parfum...)"></textarea>
+            <textarea id="p_style" rows="2" placeholder="Détails..."></textarea>
             <button class="btn-order" onclick="sendPatisri()">COMMANDER</button>
+            
+            <div class="natcash-box">
+                <p style="margin:0; font-weight:bold; color:var(--natcash);">Peiman rapid ak Natcash</p>
+                <button class="btn-natcash" onclick="window.location.href='tel:*202*1*50937832098*Montant#'">📲 PAYER PAR NATCASH</button>
+            </div>
         </div>
 
+        <a href="livrezon.html" class="btn-delivery">🚕 SERVICE LIVRAISON / TAXI</a>
+
         <div class="footer-info">
-            <div style="font-size: 18px; font-weight: bold; color: var(--bordeaux); font-style: italic;">"Le goût allié à l'excellence, à votre porte !"</div>
-            <div style="margin: 15px 0; font-size: 14px; color: #333;">
-                📧 gâteaux.friandise@gmail.com<br>
-                📍 Péguy-ville, rue A Qualo, Haïti<br>
-                📞 <a href="tel:+50937832098" style="color:var(--bordeaux); text-decoration:none; font-weight:bold;">+509 3783-2098</a>
-            </div>
-            <div class="social-buttons">
-                <a href="https://facebook.com" class="btn-social" style="background:#1877F2;"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://instagram.com" class="btn-social" style="background:linear-gradient(45deg, #f09433, #bc1888);"><i class="fab fa-instagram"></i></a>
-            </div>
-            <a href="privacy.html" style="color: #666; font-size: 11px; text-decoration: underline;">Politique de Confidentialité</a>
+            <p>📧 gâteaux.friandise@gmail.com | 📍 Péguy-ville</p>
+            <a href="privacy.html">Politique de Confidentialité</a>
         </div>
     </div>
 
@@ -103,21 +152,18 @@
             projectId: "aurisme-app",
             appId: "1:1037465492868:web:a68723e9bdfb93966891d1"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         window.showLoginModal = async function() {
-            let rawName = prompt("Antre PRENON ou (Ex: Pierre) :");
+            let rawName = prompt("Antre PRENON ou :");
             if (rawName) {
                 let name = rawName.trim().toUpperCase();
                 try {
                     const docRef = doc(db, "clients_points", name);
                     const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        localStorage.setItem('aurisme_user', name);
-                        location.reload();
-                    } else { alert("Non '" + name + "' pa nan lis la."); }
+                    if (docSnap.exists()) { localStorage.setItem('aurisme_user', name); location.reload(); }
+                    else { alert("ID pa jwenn."); }
                 } catch (e) { alert(e.message); }
             }
         };
@@ -129,42 +175,12 @@
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    let pts = data.points || 0;
-                    document.getElementById('guest-msg').innerText = "Bienvenue, " + user + " !";
-                    document.getElementById('auth-controls').innerHTML = `<span>Bonjour, ${user}!</span> <button onclick="logoutUser()" class="btn-login-top" style="background:var(--bordeaux)">Sortir</button>`;
-                    const rewardsSection = document.getElementById('rewards-section');
-                    rewardsSection.style.display = 'block';
-                    document.getElementById('rewards-content').innerHTML = `
-                        <div class="points-display">${pts} Points</div>
-                        <p style="color:var(--gold); font-size:12px;">50pts: Rabè | 150pts: Kous Gratis | 300pts: Cupcakes</p>
-                        <button onclick="reclamerPwen('${user}', ${pts})" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer;">ECHANJE SOU WHATSAPP</button>
-                    `;
+                    document.getElementById('rewards-section').style.display = 'block';
+                    document.getElementById('rewards-content').innerHTML = `<h3>🎁 ${user}, ou gen ${data.points || 0} pwen!</h3>`;
                 }
             }
         };
-
-        window.logoutUser = function() { localStorage.removeItem('aurisme_user'); location.reload(); };
-        window.reclamerPwen = function(name, pts) {
-            window.open(`https://wa.me/50942017744?text=*POINTS VIP*%0ANom: ${name}%0APoints: ${pts}`);
-        };
         window.onload = window.updateUI;
     </script>
-
-    <script>
-        const phone = "50942017744";
-        function sendMarket() {
-            let mag = document.getElementById('m_name').value || "Non spécifié";
-            let items = [];
-            document.querySelectorAll('#market-list input:checked').forEach(i => items.push(i.value));
-            window.open(`https://wa.me/${phone}?text=*MARKET - ${mag}*%0A📦 Produits: ${items.join(', ')}`);
-        }
-        function sendPatisri() {
-            let items = [];
-            document.querySelectorAll('#patisri-list input:checked').forEach(i => items.push(i.value));
-            let detail = document.getElementById('p_style').value;
-            window.open(`https://wa.me/${phone}?text=*PÂTISSERIE*%0A🧁 Choix: ${items.join(', ')}%0A🎨 Détail: ${detail}`);
-        }
-    </script>
 </body>
-                                                                                                      </html>
-                                                                                                      
+</html>
