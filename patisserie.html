@@ -7,150 +7,136 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #fff; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
 
-        /* VIP SECTION */
-        .vip-header { background: var(--navy); color: white; padding: 15px; border-bottom: 3px solid var(--gold); }
-        .btn-login { background: var(--gold); color: var(--bordeaux); border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-        #vip-status { display: none; margin-top: 10px; font-size: 14px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; }
+        /* VIP Header */
+        .vip-header { background: var(--navy); color: white; padding: 12px; border-bottom: 3px solid var(--gold); font-size: 14px; }
+        .btn-vip { background: var(--gold); color: var(--bordeaux); border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-left: 10px; }
 
-        header { background: var(--bordeaux); color: white; padding: 40px 20px; }
-        header h1 { margin: 0; font-family: 'Times New Roman', serif; letter-spacing: 2px; }
+        header { background: var(--bordeaux); color: white; padding: 40px 20px; border-bottom: 4px solid var(--gold); }
+        header h1 { margin: 0; text-transform: uppercase; letter-spacing: 2px; font-size: 24px; }
 
-        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
 
-        /* GRILLE GÂTEAUX */
-        .cake-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .cake-card { 
-            border: 1px solid #eee; border-radius: 15px; overflow: hidden; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s;
+        /* Menu Textuel (nan plas foto) */
+        .cake-list { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .cake-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        .cake-item:last-child { border-bottom: none; }
+        .cake-item i { color: var(--bordeaux); font-size: 24px; margin-right: 15px; }
+        .cake-item div h3 { margin: 0; font-size: 16px; color: var(--navy); }
+        .cake-item div p { margin: 2px 0 0; font-size: 12px; color: #666; }
+
+        /* Formulaire */
+        .order-box { background: white; border-radius: 20px; padding: 25px; text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--gold); }
+        label { font-weight: bold; color: var(--navy); font-size: 14px; display: block; margin-bottom: 5px; }
+        select, input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; }
+        
+        .btn-whatsapp { 
+            background: #25D366; color: white; border: none; padding: 16px; 
+            width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; 
+            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        .cake-card:hover { transform: translateY(-5px); }
-        .cake-card img { width: 100%; height: 150px; object-fit: cover; background: #f9f9f9; }
-        .cake-info { padding: 10px; }
-        .cake-info h3 { margin: 5px 0; font-size: 16px; color: var(--bordeaux); }
-        .cake-price { color: var(--gold); font-weight: bold; }
 
-        /* ORDER FORM */
-        .order-box { 
-            background: #fdfdfd; border: 2px solid var(--gold); border-radius: 20px; 
-            padding: 20px; margin-top: 40px; text-align: left; 
-        }
-        select, input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        .btn-order { background: var(--bordeaux); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; }
-
-        .back-home { display: inline-block; margin-top: 20px; color: var(--navy); text-decoration: none; font-weight: bold; }
+        .back-home { display: inline-block; margin: 20px 0; color: var(--navy); text-decoration: none; font-weight: bold; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="vip-header">
-        <div id="auth-controls">
-            <span>Espace Privilège Aurisme</span><br><br>
-            <button class="btn-login" onclick="loginVIP()">KONEKTE POU WÈ PWEN W</button>
-        </div>
-        <div id="vip-status">
-            <i class="fas fa-crown" style="color: var(--gold);"></i> 
-            Salut <b id="user-name"></b>! Ou gen <b id="user-points"></b> pwen kado.
-        </div>
+        <span id="vip-info">🌟 Espace Client VIP</span>
+        <button id="login-btn" class="btn-vip" onclick="loginVIP()">Se Connecter</button>
     </div>
 
     <header>
         <h1>NOS GÂTEAUX</h1>
-        <p>L'excellence sucrée pour vos moments spéciaux</p>
+        <p style="font-size: 13px; color: var(--gold); margin-top: 5px;">L'art de la pâtisserie personnalisée</p>
     </header>
 
     <div class="container">
-        <div class="cake-grid">
-            <div class="cake-card">
-                <img src="gateau-chocolat.jpg" alt="Gâteau Chocolat">
-                <div class="cake-info">
-                    <h3>Choco Royal</h3>
-                    <p class="cake-price">Sur Devis</p>
-                </div>
+        <div class="cake-list">
+            <div class="cake-item">
+                <i class="fas fa-birthday-cake"></i>
+                <div><h3>Choco Royal</h3><p>Chocolat intense et ganache onctueuse.</p></div>
             </div>
-            <div class="cake-card">
-                <img src="gateau-vanille.jpg" alt="Gâteau Vanille">
-                <div class="cake-info">
-                    <h3>Vanille Velouté</h3>
-                    <p class="cake-price">Sur Devis</p>
-                </div>
+            <div class="cake-item">
+                <i class="fas fa-cake"></i>
+                <div><h3>Vanille Velouté</h3><p>La douceur classique de la vanille des îles.</p></div>
             </div>
-            <div class="cake-card">
-                <img src="gateau-fruits.jpg" alt="Gâteau Fruits">
-                <div class="cake-info">
-                    <h3>Fraisier Deluxe</h3>
-                    <p class="cake-price">Sur Devis</p>
-                </div>
+            <div class="cake-item">
+                <i class="fas fa-stroopwafel"></i>
+                <div><h3>Fraisier Deluxe</h3><p>Fruits frais et crème légère.</p></div>
             </div>
-            <div class="cake-card">
-                <img src="gateau-mariage.jpg" alt="Gâteau Mariage">
-                <div class="cake-info">
-                    <h3>Pièce Montée</h3>
-                    <p class="cake-price">Sur Devis</p>
-                </div>
+            <div class="cake-item">
+                <i class="fas fa-holly-berry"></i>
+                <div><h3>Pièce Montée</h3><p>Pour vos grands événements (Mariage, Baptême).</p></div>
             </div>
         </div>
 
         <div class="order-box">
-            <h2 style="color: var(--bordeaux); margin-top: 0;">Personnaliser ma commande</h2>
-            <label>Choisissez le type:</label>
+            <h3 style="color: var(--bordeaux); margin-top: 0; text-align: center;">VOTRE COMMANDE</h3>
+            
+            <label>Type de Gâteau:</label>
             <select id="cake-type">
                 <option>Choco Royal</option>
                 <option>Vanille Velouté</option>
                 <option>Fraisier Deluxe</option>
-                <option>Pièce Montée (Mariage/Baptême)</option>
-                <option>Autre (Spécifier)</option>
+                <option>Pièce Montée</option>
+                <option>Création Spéciale</option>
             </select>
             
-            <input type="text" id="cake-size" placeholder="Nombre de personnes (ex: 15-20)">
-            <textarea id="cake-desc" placeholder="Détails (Couleurs, message à écrire, parfum...)"></textarea>
+            <label>Taille / Nombre de personnes:</label>
+            <input type="text" id="cake-size" placeholder="Ex: 20 personnes">
             
-            <button class="btn-order" onclick="sendOrder()">PASSER LA COMMANDE</button>
+            <label>Détails & Inscriptions:</label>
+            <textarea id="cake-desc" rows="3" placeholder="Couleurs, message à écrire, parfum spécial..."></textarea>
+            
+            <button class="btn-whatsapp" onclick="sendWhatsApp()">
+                <i class="fab fa-whatsapp"></i> ENVOYER SUR WHATSAPP
+            </button>
         </div>
 
-        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> RETOUR À L'ACCUEIL</a>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-        
-        const firebaseConfig = { apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", projectId: "aurisme-app" };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.loginVIP = async function() {
-            let n = prompt("Antre Prenon ou (VIP):");
+    <script>
+        function loginVIP() {
+            let n = prompt("Entrez votre nom VIP:");
             if(n) {
-                let name = n.trim().toUpperCase();
-                const docSnap = await getDoc(doc(db, "clients_points", name));
-                if(docSnap.exists()) {
-                    localStorage.setItem('aurisme_user', name);
-                    checkStatus();
-                } else {
-                    alert("Non sa a pa nan lis VIP nou an.");
-                }
+                localStorage.setItem('aurisme_user', n.toUpperCase());
+                updateVIP();
             }
-        };
+        }
 
-        function checkStatus() {
+        function updateVIP() {
             const user = localStorage.getItem('aurisme_user');
             if(user) {
-                document.getElementById('auth-controls').style.display = 'none';
-                document.getElementById('vip-status').style.display = 'block';
-                document.getElementById('user-name').innerText = user;
-                // Similasyon pwen oswa rekipere nan Firebase si ou vle
-                document.getElementById('user-points').innerText = "150"; 
+                document.getElementById('vip-info').innerHTML = `👑 Bienvenue, <b>${user}</b>`;
+                document.getElementById('login-btn').style.display = 'none';
             }
         }
 
-        window.sendOrder = function() {
-            alert("Mèsi! Kòmand ou an voye bay Aurisme. N ap kontakte w pou pri a.");
+        function sendWhatsApp() {
+            const tel = "50942017744";
+            const type = document.getElementById('cake-type').value;
+            const size = document.getElementById('cake-size').value;
+            const desc = document.getElementById('cake-desc').value;
+            const user = localStorage.getItem('aurisme_user') || "Client Standard";
+
+            if(!size || !desc) {
+                alert("Veuillez remplir les détails de la commande.");
+                return;
+            }
+
+            const msg = `*COMMANDE GÂTEAU - AURISME*%0A%0A` +
+                        `*Client:* ${user}%0A` +
+                        `*Type:* ${type}%0A` +
+                        `*Taille:* ${size}%0A` +
+                        `*Détails:* ${desc}`;
+
+            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
 
-        window.onload = checkStatus;
+        window.onload = updateVIP;
     </script>
-
 </body>
 </html>
