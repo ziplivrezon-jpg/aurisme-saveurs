@@ -18,7 +18,7 @@
         .auth-bar { background: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; border-bottom: 1px solid #eee; }
         .btn-vip { background: var(--navy); color: white; border: none; padding: 5px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
-        /* Célébrités - Style Story Instagram */
+        /* Célébrités */
         .celebrity-bar { background: white; padding: 10px 0; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; overflow-x: auto; }
         .celeb-item { text-align: center; min-width: 70px; }
         .celeb-item img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--gold); padding: 2px; object-fit: cover; }
@@ -88,9 +88,12 @@
             <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span>LIVRAISON</span></a>
             <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span>TAXI MOTO</span></a>
             <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span>ACADEMY</span></a>
-            <a href="galerie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span>GÂTEAUX</span></a>
+            
+            <a href="patisserie.html" class="menu-card"><i class="fas fa-bread-slice"></i><span>PÂTISSERIE</span></a>
+            
             <a href="decoration.html" class="menu-card"><i class="fas fa-utensils"></i><span>DÉCO & TRAITEUR</span></a>
-            <a href="https://wa.me/50942017744" class="menu-card"><i class="fab fa-whatsapp"></i><span>CONTACT</span></a>
+            
+            <a href="galerie.html" class="menu-card"><i class="fas fa-images"></i><span>GALERIE</span></a>
         </div>
 
         <div class="form-container">
@@ -110,8 +113,8 @@
             <p style="font-weight: bold; margin-bottom: 5px;">Aurisme Group</p>
             <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
             <div class="social-mini">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com/Zipservices" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/aurisme_saveurs" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
             <span style="font-size: 10px; color: #d32f2f; font-weight: bold;">💳 NATCASH : *202*1*50942017744*Montant#</span>
             <br><a href="privacy.html" style="text-decoration:none; color:var(--navy); font-size:10px;">Privacy Policy</a>
@@ -143,7 +146,7 @@
                 if(docSnap.exists()) {
                     document.getElementById('guest-msg').innerHTML = "Salut, <b>" + u + "</b>";
                     document.getElementById('rewards-section').style.display = 'block';
-                    document.getElementById('rewards-content').innerHTML = "🎁 Félicitations ! Vous avez <b>" + docSnap.data().points + " points</b> VIP.";
+                    document.getElementById('rewards-content').innerHTML = "🎁 Vous avez <b>" + docSnap.data().points + " points</b> VIP.";
                 }
             }
         };
@@ -152,4 +155,5 @@
     <script>window.chatbaseConfig = { chatbotId: "VJf-ODYVZ-KhUxu-Ur30k" }</script>
     <script src="https://www.chatbase.co/embed.min.js" defer></script>
 </body>
-</html>
+    </html>
+    
