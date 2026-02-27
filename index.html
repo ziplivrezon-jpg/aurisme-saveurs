@@ -6,7 +6,7 @@
     <title>Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --natcom: #ffca28; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
         /* Ticker */
@@ -26,32 +26,29 @@
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
 
-        /* Grid Bouton - Ranje pou l pa kache */
+        /* Grid */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: -50px; position: relative; z-index: 10; }
         .menu-card { 
             background: white; padding: 25px 10px; border-radius: 20px; text-align: center;
             text-decoration: none; color: var(--navy); font-weight: bold;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s;
-            border-bottom: 4px solid var(--gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-bottom: 4px solid var(--gold);
             display: flex; flex-direction: column; align-items: center;
         }
         .menu-card i { font-size: 35px; color: var(--bordeaux); margin-bottom: 10px; }
         .menu-card span { font-size: 14px; text-transform: uppercase; }
 
-        /* Formulaire Supermarché */
+        /* Supermarché */
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin: 25px 0; border-left: 5px solid var(--bordeaux); }
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
         
         input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
 
-        /* Footer & Tout enfòmasyon Kontak yo */
+        /* Footer & Kontak */
         .footer-info { background: #eee; padding: 25px; border-radius: 20px; margin-top: 30px; font-size: 13px; color: #444; }
         .social-mini { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
         .social-mini a { color: var(--bordeaux); font-size: 24px; text-decoration: none; }
-        
-        .natcash-small { font-size: 12px; color: #d32f2f; font-weight: bold; margin-top: 10px; display: block; border: 1px dashed #d32f2f; padding: 5px; border-radius: 5px; }
-        .privacy-link { display: block; margin-top: 15px; color: var(--navy); text-decoration: none; font-size: 11px; font-weight: bold; }
+        .natcash-small { font-size: 12px; color: #d32f2f; font-weight: bold; display: block; margin-top: 10px; }
 
         vercel-developer-toolbar, #__vercel-toolbar { display: none !important; }
     </style>
@@ -78,7 +75,8 @@
             <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span>ACADEMY</span></a>
             <a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span>PÂTISSERIE</span></a>
             <a href="decoration.html" class="menu-card"><i class="fas fa-utensils"></i><span>DÉCO & TRAITEUR</span></a>
-            <a href="galerie.html" class="menu-card"><i class="fas fa-images"></i><span>GALERIE</span></a>
+            
+            <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span>GALERIE</span></a>
         </div>
 
         <div class="form-container">
@@ -90,15 +88,15 @@
                 <label><input type="checkbox"> Pâtés</label>
                 <label><input type="checkbox"> Pain</label>
             </div>
-            <textarea placeholder="Liste détaillée et quantités..."></textarea>
-            <button class="btn-order" onclick="alert('Commande envoyée!')">COMMANDER MAINTENANT</button>
+            <textarea placeholder="Liste et quantités..."></textarea>
+            <button class="btn-order" onclick="alert('Commande envoyée!')">COMMANDER</button>
         </div>
 
         <div class="footer-info">
-            <p style="font-weight: bold; font-size: 16px; margin-bottom: 10px;">Aurisme Group</p>
-            <p>📧 <b>Email:</b> gâteaux.friandise@gmail.com</p>
-            <p>📞 <b>Téléphone:</b> +509 4201-7744</p>
-            <p>📍 <b>Adresse:</b> Péguy-ville, rue A Qualo, Haïti</p>
+            <p style="font-weight: bold; font-size: 16px;">Aurisme Group</p>
+            <p>📧 gâteaux.friandise@gmail.com</p>
+            <p>📞 +509 4201-7744</p>
+            <p>📍 Péguy-ville, rue A Qualo, Haïti</p>
             
             <div class="social-mini">
                 <a href="https://facebook.com/Zipservices" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -107,19 +105,10 @@
             </div>
 
             <span class="natcash-small">💳 PAIEMENT NATCASH : *202*1*50942017744*Montant#</span>
-            
-            <a href="privacy.html" class="privacy-link">Politique de Confidentialité</a>
-            
-            <div style="margin-top: 20px; font-size: 11px; color: #999;">
-                © 2026 Aurisme Group. Tous droits réservés.
-            </div>
+            <br><a href="privacy.html" style="text-decoration:none; color:var(--navy); font-size:11px; font-weight:bold;">Politique de Confidentialité</a>
         </div>
     </div>
 
-    <script>
-        window.chatbaseConfig = { chatbotId: "VJf-ODYVZ-KhUxu-Ur30k" }
-    </script>
-    <script src="https://www.chatbase.co/embed.min.js" defer></script>
-
 </body>
-</html>
+    </html>
+    
