@@ -3,130 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taxi Moto Sécurisé - Aurisme</title>
+    <title>Taxi Moto & Navette - Aurisme</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #25D366; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; color: #333; }
         
-        header { background: var(--bordeaux); color: white; padding: 20px; border-bottom: 4px solid var(--gold); position: relative; }
-        .btn-back { position: absolute; left: 15px; top: 25px; color: white; text-decoration: none; font-size: 20px; }
+        header { background: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); position: relative; }
+        .btn-back { position: absolute; left: 15px; top: 30px; color: white; text-decoration: none; font-size: 20px; }
 
-        .lang-switcher { background: white; padding: 10px; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; }
-        .lang-switcher img { width: 30px; height: 20px; cursor: pointer; border-radius: 3px; }
-        
         .container { padding: 20px; max-width: 500px; margin: auto; }
 
-        .taxi-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; }
-        .taxi-card h2 { text-align: center; color: var(--bordeaux); }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; text-align: left; border-top: 5px solid var(--gold); }
+        .card h2 { text-align: center; color: var(--bordeaux); margin-top: 0; font-size: 20px; }
         
-        label { font-weight: bold; font-size: 14px; color: var(--navy); display: block; margin-top: 10px; }
-        .input-field, .zone-select { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ddd; font-size: 15px; margin-top: 5px; box-sizing: border-box; }
+        label { font-weight: bold; font-size: 14px; color: var(--navy); display: block; margin-top: 15px; }
+        .input-field, .zone-select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid #ddd; font-size: 15px; margin-top: 5px; box-sizing: border-box; }
 
-        .btn-action { width: 100%; padding: 15px; border-radius: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; font-size: 16px; margin-top: 15px; border: none; cursor: pointer; }
+        /* Bouton yo */
+        .btn-action { width: 100%; padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; font-size: 16px; margin-top: 15px; border: none; cursor: pointer; transition: 0.3s; }
         .btn-whatsapp { background: var(--green); color: white; }
-        .btn-share { background: var(--gold); color: #000; }
-        .btn-call { background: var(--navy); color: white; }
+        .btn-share { background: #eee; color: #333; border: 1px solid #ccc; }
+        .btn-call { background: var(--navy); color: white; margin: 20px auto 0 auto; width: 90%; } /* Santre bouton an */
+        .btn-navette { background: var(--bordeaux); color: white; }
 
-        .safety-box { background: #fffde7; border: 1px solid var(--gold); padding: 15px; border-radius: 15px; font-size: 13px; color: #333; margin-top: 10px; }
-        
-        #google_translate_element { position: absolute; opacity: 0; pointer-events: none; }
-        .goog-te-banner-frame.skiptranslate { display: none !important; }
-        body { top: 0px !important; }
+        .safety-box { background: #fffde7; border: 1px solid var(--gold); padding: 15px; border-radius: 15px; font-size: 13px; margin-top: 10px; text-align: left; }
+        .icon-section { font-size: 40px; color: var(--gold); display: block; text-align: center; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <img src="https://flagcdn.com/w40/fr.png" onclick="translatePage('fr')">
-        <img src="https://flagcdn.com/w40/us.png" onclick="translatePage('en')">
-        <img src="https://flagcdn.com/w40/ht.png" onclick="translatePage('ht')">
-    </div>
-
-    <div id="google_translate_element"></div>
-
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
-        <h1>Taxi Moto Aurisme</h1>
+        <h1>Services Transport Aurisme</h1>
     </header>
 
     <div class="container">
-        <div class="taxi-card">
-            <h2><i class="fas fa-motorcycle"></i> Nouveau Trajet</h2>
+        
+        <div class="card">
+            <i class="fas fa-motorcycle icon-section"></i>
+            <h2>TAXI MOTO SÉCURISÉ</h2>
             
-            <label>Destination :</label>
+            <label>Votre Destination :</label>
             <select class="zone-select" id="zone-list">
-                <option value="Destination non spécifiée">-- Choisir --</option>
+                <option value="Non spécifiée">-- Choisir une zone --</option>
                 <option value="Péguy-Ville">Péguy-Ville</option>
                 <option value="Pétion-Ville">Pétion-Ville</option>
                 <option value="Laboule / Thomassin">Laboule / Thomassin</option>
-                <option value="Delmas">Delmas</option>
-                <option value="Aéroport / Tabarre">Aéroport / Tabarre</option>
+                <option value="Kenscoff">Kenscoff</option>
+                <option value="Delmas (Toutes zones)">Delmas</option>
+                <option value="Tabarre / Clercine">Tabarre / Clercine</option>
+                <option value="Cité Soleil / Route Frère">Route Frère</option>
+                <option value="Vivy Mitchell">Vivy Mitchell</option>
+                <option value="Canape-Vert / Juvénat">Canape-Vert</option>
             </select>
 
-            <label>Nom du Chauffeur (Optionnel) :</label>
-            <input type="text" id="driver-name" class="input-field" placeholder="Ex: Jean-Robert">
+            <label>Infos Chauffeur & Plaque (Pour la famille) :</label>
+            <input type="text" id="driver-info" class="input-field" placeholder="Ex: Jean / Plaque: AA-0000">
 
-            <label>Numéro Plaque (Optionnel) :</label>
-            <input type="text" id="plate-number" class="input-field" placeholder="Ex: AA-12345">
-
-            <button onclick="orderWhatsApp()" class="btn-action btn-whatsapp">
-                <i class="fab fa-whatsapp"></i> COMMANDER TAXI
+            <button onclick="orderWhatsApp('Moto')" class="btn-action btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> COMMANDER MOTO
             </button>
 
-            <button onclick="shareLocation()" class="btn-action btn-share">
-                <i class="fas fa-shield-alt"></i> SÉCURISER MA FAMILLE
+            <button onclick="shareTrip()" class="btn-action btn-share">
+                <i class="fas fa-user-shield"></i> PARTAGER À MA FAMILLE
             </button>
-            
-            <a href="tel:+50942017744" class="btn-action btn-call">
-                <i class="fas fa-phone-alt"></i> APPEL DIRECT
-            </a>
         </div>
 
+        <div class="card" style="border-top: 5px solid var(--navy);">
+            <i class="fas fa-shuttle-van icon-section" style="color: var(--navy);"></i>
+            <h2>NAVETTE AÉROPORT</h2>
+            
+            <label>Type de Réservation :</label>
+            <select class="zone-select" id="navette-type">
+                <option value="Hôtel vers Aéroport">Hôtel ➔ Aéroport</option>
+                <option value="Aéroport vers Hôtel">Aéroport ➔ Hôtel</option>
+            </select>
+
+            <label>Nom de l'Hôtel & Heure :</label>
+            <input type="text" id="hotel-info" class="input-field" placeholder="Ex: Karibe Hôtel / 10:00 AM">
+
+            <button onclick="orderWhatsApp('Navette')" class="btn-action btn-navette">
+                <i class="fas fa-calendar-check"></i> RÉSERVER LA NAVETTE
+            </button>
+        </div>
+
+        <a href="tel:+50942017744" class="btn-action btn-call">
+            <i class="fas fa-phone-alt"></i> APPEL DIRECT
+        </a>
+
         <div class="safety-box">
-            <p><strong><i class="fas fa-info-circle"></i> COMMENT ÇA MARCHE ?</strong><br>
-             .</p>Entrez les informations du chauffeur, puis cliquez sur le bouton doré pour envoyer la plaque d'immatriculation et votre position à votre famille. Cela leur permettra de savoir avec qui vous êtes parti.
+            <p><strong><i class="fas fa-lock"></i> SÉCURITÉ AURISME :</strong><br>
+            Tous nos chauffeurs sont certifiés. Pour chaque trajet, n'oubliez pas de partager vos infos avec un proche.</p>
         </div>
     </div>
 
     <script>
-        function orderWhatsApp() {
-            var zone = document.getElementById('zone-list').value;
-            var driver = document.getElementById('driver-name').value || "Non spécifié";
-            var plate = document.getElementById('plate-number').value || "Non spécifiée";
+        function orderWhatsApp(type) {
             var tel = "50942017744";
-            var msg = encodeURIComponent("Bonjour Aurisme, je commande un taxi.\n📍 Destination: " + zone + "\n🏍️ Chauffeur: " + driver + "\n🔢 Plaque: " + plate);
-            window.open("https://wa.me/" + tel + "?text=" + msg);
+            var msg = "";
+
+            if(type === 'Moto') {
+                var zone = document.getElementById('zone-list').value;
+                var info = document.getElementById('driver-info').value || "Non spécifié";
+                msg = "Bonjour Aurisme, je commande un Taxi Moto.\n📍 Destination: " + zone + "\n🏍️ Infos: " + info;
+            } else {
+                var voyage = document.getElementById('navette-type').value;
+                var hotel = document.getElementById('hotel-info').value || "Non spécifié";
+                msg = "Bonjour Aurisme, je réserve une Navette.\n🚐 Type: " + voyage + "\n🏨 Hôtel/Heure: " + hotel;
+            }
+
+            window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent(msg));
         }
 
-        function shareLocation() {
+        function shareTrip() {
             var zone = document.getElementById('zone-list').value;
-            var driver = document.getElementById('driver-name').value || "inconnu";
-            var plate = document.getElementById('plate-number').value || "inconnue";
-            
-            var textMsg = "Je suis en route avec Aurisme Taxi Moto.\n📍 Destination: " + zone + "\n🏍️ Chauffeur: " + driver + "\n🔢 Plaque: " + plate + "\nSuivez ma position en direct via WhatsApp.";
+            var info = document.getElementById('driver-info').value || "inconnues";
+            var textMsg = "Je suis en route avec Aurisme Taxi Moto.\n📍 Vers: " + zone + "\n🏍️ Infos Chauffeur: " + info + "\nSuivez-moi pour ma sécurité.";
 
             if (navigator.share) {
-                navigator.share({
-                    title: 'Mon trajet Aurisme',
-                    text: textMsg,
-                    url: 'https://maps.google.com'
-                }).catch(console.error);
+                navigator.share({ title: 'Mon trajet Aurisme', text: textMsg }).catch(console.error);
             } else {
                 window.open("https://wa.me/?text=" + encodeURIComponent(textMsg));
             }
         }
-
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
-        }
-        function translatePage(langCode) {
-            var code = (langCode === 'ht') ? 'hat' : langCode;
-            var sel = document.querySelector("select.goog-te-combo");
-            if (sel) { sel.value = code; sel.dispatchEvent(new Event('change')); }
-            else { setTimeout(function() { translatePage(langCode); }, 500); }
-        }
     </script>
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-</html>
+                    </html>
+                    
