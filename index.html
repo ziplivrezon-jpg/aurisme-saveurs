@@ -13,7 +13,7 @@
         .lang-switcher { background: white; padding: 5px; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; }
         .lang-switcher img { width: 25px; cursor: pointer; border-radius: 3px; }
         .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
-        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; }
+        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
         
         .auth-bar { background: #fff; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; font-size: 13px; }
@@ -24,8 +24,13 @@
         .container { padding: 10px 20px 20px 20px; max-width: 500px; margin: auto; }
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin-bottom: 20px; }
         
-        .special-offer { background: linear-gradient(45deg, var(--bordeaux), #b30000); color: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 3px dashed var(--gold); }
+        /* Célébrités Section */
+        .celebrity-section { background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 2px solid var(--gold); }
+        .celebrity-grid { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; justify-content: center; }
+        .celebrity-card { min-width: 120px; text-align: center; }
+        .celebrity-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover; }
         
+        .special-offer { background: linear-gradient(45deg, var(--bordeaux), #b30000); color: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 3px dashed var(--gold); }
         .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
         .checkbox-item { display: flex; align-items: center; font-size: 14px; gap: 8px; }
         
@@ -37,16 +42,11 @@
         .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; display: block; }
         .btn-delivery { background-color: #000; color: var(--gold); border: 2px solid var(--gold); padding: 12px; width: 100%; border-radius: 10px; font-size: 15px; font-weight: bold; text-decoration: none; display: block; text-align: center; margin: 15px 0; }
         
-        /* Chatbot IA Style */
-        .chatbot-bubble { position: fixed; bottom: 20px; right: 20px; background: var(--bordeaux); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000; border: 2px solid var(--gold); }
-        
         .rewards-card { background: linear-gradient(135deg, var(--navy) 0%, #001a33 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px auto; text-align: left; border: 2px solid var(--gold); display: none; }
         .footer-info { background: #f0f0f0; padding: 25px; border-radius: 20px; margin-top: 20px; border-top: 3px solid var(--gold); font-size: 13px; }
     </style>
 </head>
 <body>
-
-    <div class="chatbot-bubble" onclick="window.location.href='https://wa.me/50942017744?text=Salut Aurisme IA, j\'ai une question...'"><i class="fas fa-robot"></i></div>
 
     <div class="lang-switcher">
         <img src="https://flagcdn.com/w40/fr.png" alt="FR"> <img src="https://flagcdn.com/w40/us.png" alt="EN">
@@ -68,16 +68,24 @@
     <div class="container">
         <div class="rewards-card" id="rewards-section"><div id="rewards-content"></div></div>
 
+        <div class="celebrity-section">
+            <h2 style="font-size: 18px; color: var(--bordeaux); margin-top: 0;">🎉 Nos Célébrités du Mois</h2>
+            <div class="celebrity-grid">
+                <div class="celebrity-card"><img src="client1.jpg" alt="Client 1"><p style="font-size:11px; font-weight:bold; margin-top:5px;">Joyeux Anniversaire</p></div>
+                <div class="celebrity-card"><img src="client2.jpg" alt="Client 2"><p style="font-size:11px; font-weight:bold; margin-top:5px;">Félicitations</p></div>
+            </div>
+        </div>
+
         <div class="special-offer">
             <h2 style="margin:0;">🔥 Offre Spéciale 🔥</h2>
-            <p>Achetez 2 Gâteaux Graduation, obtenez 1 douzaine de Cupcakes GRATUITS !</p>
+            <p style="font-size:14px;">Achetez 2 Gâteaux Graduation, obtenez 1 douzaine de Cupcakes GRATUITS !</p>
         </div>
 
         <a href="galeri.html" class="btn-galeri-home" style="display:block; background:var(--gold); color:var(--bordeaux); padding:15px; border-radius:12px; font-weight:bold; text-decoration:none; margin-bottom:20px; border: 2px solid var(--bordeaux);">🍰 VOIR NOS RÉALISATIONS</a>
 
         <div class="form-container" style="border-left: 5px solid #0056b3;">
             <h2 style="color: #0056b3;">📚 Aurisme Academy</h2>
-            <button class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">S'INSCRIRE</button>
+            <button class="btn-order" style="background-color: #0056b3;" onclick="window.location.href='academy.html'">S'INSCRIRE AUX COURS</button>
         </div>
 
         <div class="form-container">
@@ -116,7 +124,7 @@
         </div>
 
         <div class="natcash-box">
-            <p style="margin:0; font-weight:bold; color:#000;">💸 Payer avec Natcash</p>
+            <p style="margin:0; font-weight:bold;">💸 Payer avec Natcash</p>
             <p style="font-size:14px; color: var(--bordeaux); font-weight: bold;">Compte: 4201-7744</p>
             <button class="btn-natcash" onclick="window.location.href='tel:*202*1*50942017744*Montant#'">📲 COMPOSER *202# (PAYER)</button>
         </div>
@@ -124,14 +132,19 @@
         <a href="livrezon.html" class="btn-delivery">🚕 SERVICE LIVRAISON / TAXI</a>
 
         <div class="footer-info">
-            <p>📧 gâteaux.friandise@gmail.com | 📞 +509 3783-2098</p>
-            <p>📍 Péguy-ville, rue A Qualo, Haïti</p>
+            <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
             <a href="privacy.html" style="color: #666; text-decoration: underline;">Politique de Confidentialité</a>
         </div>
     </div>
 
+    <script>
+      window.chatbaseConfig = {
+        chatbotId: "VJf-ODYVZ-KhUxu-Ur30k",
+      }
+    </script>
+    <script src="https://www.chatbase.co/embed.min.js" chatbotId="VJf-ODYVZ-KhUxu-Ur30k" defer></script>
+
     <script type="module">
-        /* Firebase UI Logic remains same */
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
         const firebaseConfig = { apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", projectId: "aurisme-app", appId: "1:1037465492868:web:a68723e9bdfb93966891d1" };
@@ -145,11 +158,11 @@
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     document.getElementById('rewards-section').style.display = 'block';
-                    document.getElementById('rewards-content').innerHTML = `<h3 style="color:var(--gold)">Bravo ${user}! Ou gen ${docSnap.data().points} pwen.</h3>`;
+                    document.getElementById('rewards-content').innerHTML = `<h3>🎁 ${user}, ou gen ${docSnap.data().points || 0} pwen!</h3>`;
                 }
             }
         };
         window.onload = window.updateUI;
     </script>
 </body>
-                </html>
+</html>
