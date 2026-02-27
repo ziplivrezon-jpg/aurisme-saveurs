@@ -6,67 +6,45 @@
     <title>Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --natcom: #ffca28; --grey-bg: #666666; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; text-align: center; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --natcom: #ffca28; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; text-align: center; }
         
-        /* HEADER STYLE SCREENSHOT */
-        header { 
-            background-color: var(--grey-bg); 
-            color: white; 
-            padding: 40px 20px; 
-            border-bottom: 5px solid var(--gold); 
-        }
-        .logo-container img { 
-            width: 110px; height: 110px; 
-            border-radius: 50%; 
-            border: 4px solid var(--gold); 
-            background: #001a33; 
-            margin-bottom: 15px; 
-            object-fit: contain; 
-            padding: 5px;
-        }
-        header h1 { font-size: 38px; letter-spacing: 2px; margin: 10px 0; font-family: 'Times New Roman', serif; }
-        .tagline { font-style: italic; font-size: 17px; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }
-
+        /* Ticker */
+        .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); }
+        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; font-size: 16px; text-transform: uppercase; }
+        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        
+        /* Header */
+        header { background-color: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
+        .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; margin-bottom: 10px; object-fit: cover; }
+        
         .container { padding: 20px; max-width: 500px; margin: auto; }
 
-        /* GRID 6 BOUTONS (3 Lignes de 2) */
-        .menu-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
-            margin-top: -50px; 
-        }
-        
+        /* Grid Bouton */
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: -50px; }
         .menu-card { 
-            background: white; 
-            padding: 22px 10px; 
-            border-radius: 20px; 
-            text-decoration: none; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+            background: white; padding: 25px 10px; border-radius: 20px; text-align: center;
+            text-decoration: none; color: var(--navy); font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s;
             border-bottom: 4px solid var(--gold);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center;
         }
-        .menu-card:active { transform: scale(0.95); }
         .menu-card i { font-size: 35px; color: var(--bordeaux); margin-bottom: 10px; }
-        .menu-card span { color: var(--navy); font-weight: bold; font-size: 14px; text-transform: uppercase; }
+        .menu-card span { font-size: 14px; text-transform: uppercase; }
 
-        /* SECTIONS FORMULAIRES */
-        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; margin: 25px 0; border-left: 5px solid var(--gold); }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        /* Formulaire */
+        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin: 25px 0; border-left: 5px solid var(--bordeaux); }
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
         
-        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; }
-        input, textarea { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
 
-        /* TICKER & LANGUE */
-        .reklam-ticker { background: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 8px 0; overflow: hidden; white-space: nowrap; }
-        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        /* Footer & Contact */
+        .footer-info { background: #eee; padding: 25px; border-radius: 20px; margin-top: 30px; font-size: 13px; color: #444; }
+        .natcash-small { font-size: 11px; color: #d32f2f; font-weight: bold; margin-top: 10px; display: block; }
+        .privacy-link { display: block; margin-top: 15px; color: var(--navy); text-decoration: none; font-size: 12px; font-weight: bold; }
 
-        /* HIDE VERCEL TOOLBAR */
+        /* Hide Vercel Toolbar */
         vercel-developer-toolbar, #__vercel-toolbar { display: none !important; }
     </style>
 </head>
@@ -75,14 +53,13 @@
     <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
     <header>
-        <div class="logo-container"><img src="Logo.png" alt="Logo"></div>
-        <h1>AURISME</h1>
-        <div class="tagline">L'excellence à votre service</div>
+        <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
+        <h1>Aurisme Saveurs et Services</h1>
     </header>
 
     <div class="container">
         <div class="menu-grid">
-            <a href="livraison.html" class="menu-card">
+            <a href="livrezon.html" class="menu-card">
                 <i class="fas fa-truck"></i>
                 <span>LIVRAISON</span>
             </a>
@@ -94,41 +71,47 @@
                 <i class="fas fa-graduation-cap"></i>
                 <span>ACADEMY</span>
             </a>
-            <a href="immobilier.html" class="menu-card">
-                <i class="fas fa-building"></i>
-                <span>IMMOBILIER</span>
-            </a>
             <a href="patisserie.html" class="menu-card">
                 <i class="fas fa-birthday-cake"></i>
-                <span>PÂTISSERIE</span>
+                <span>GÂTEAUX</span>
             </a>
-            <a href="tel:*202*1*50942017744*Montant#" class="menu-card">
-                <i class="fas fa-wallet"></i>
-                <span>NATCASH</span>
+            <a href="decoration.html" class="menu-card">
+                <i class="fas fa-utensils"></i>
+                <span>DÉCO & TRAITEUR</span>
+            </a>
+            <a href="https://wa.me/50942017744" class="menu-card">
+                <i class="fab fa-whatsapp"></i>
+                <span>CONTACT</span>
             </a>
         </div>
 
         <div class="form-container">
-            <h2>🛒 Supermarché</h2>
-            <input type="text" placeholder="Nom du produit...">
+            <h2 style="color: var(--navy); margin-top: 0;">🛒 Service Supermarché</h2>
+            <p style="font-size: 13px; color: #666;">Passez votre commande ici, nous livrons chez vous.</p>
+            <input type="text" placeholder="Nom du Supermarché...">
             <div class="checkbox-group">
                 <label><input type="checkbox"> Sable</label>
                 <label><input type="checkbox"> Cookies</label>
                 <label><input type="checkbox"> Pâtés</label>
                 <label><input type="checkbox"> Pain</label>
             </div>
-            <button class="btn-order" onclick="alert('Commande envoyée!')">COMMANDER</button>
+            <textarea placeholder="Liste détaillée et quantités..."></textarea>
+            <button class="btn-order" onclick="alert('Commande envoyée!')">COMMANDER MAINTENANT</button>
         </div>
 
-        <div class="form-container">
-            <h2>🍽️ Traiteur & Déco</h2>
-            <textarea placeholder="Décrivez votre événement..."></textarea>
-            <button class="btn-order" style="background: var(--navy);">DEVIS GRATUIT</button>
+        <div class="footer-info">
+            <p style="font-weight: bold; font-size: 15px; margin-bottom: 5px;">Aurisme Group</p>
+            <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
+            <p>📍 Péguy-ville, rue A Qualo, Haïti</p>
+            
+            <span class="natcash-small">💳 PAIEMENT NATCASH : *202*1*50942017744*Montant#</span>
+            
+            <a href="privacy.html" class="privacy-link">Politique de Confidentialité (Privacy Policy)</a>
+            
+            <div style="margin-top: 15px; font-size: 11px; color: #999;">
+                © 2026 Aurisme Group. Tous droits réservés.
+            </div>
         </div>
-
-        <footer style="padding: 30px; color: #999; font-size: 13px;">
-            <p>© 2026 Aurisme Group. Tous droits réservés.</p>
-        </footer>
     </div>
 
     <script>
