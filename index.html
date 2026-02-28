@@ -34,10 +34,9 @@
         .menu-card span { font-size: 14px; text-transform: uppercase; }
 
         .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin: 25px 0; border-left: 5px solid var(--bordeaux); }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-family: inherit; }
 
         .footer-info { background: #eee; padding: 25px; border-radius: 20px; margin-top: 30px; font-size: 13px; color: #444; }
         .social-mini { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
@@ -70,7 +69,8 @@
         </div>
 
         <div class="form-container">
-            <h2 style="color: var(--navy); margin-top: 0;">🛒 Service Supermarché</h2>
+            <h2 style="color: var(--navy); margin-top: 0;"><i class="fas fa-shopping-basket"></i> Service Supermarché</h2>
+            
             <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Choisir le Supermarché :</label>
             <select id="market-name">
                 <option value="Star Market">Star Market</option>
@@ -86,17 +86,19 @@
                 <option value="Autre">Autre...</option>
             </select>
 
-            <div class="checkbox-group" id="product-list">
-                <label><input type="checkbox" value="Sable"> Sable</label>
-                <label><input type="checkbox" value="Cookies"> Cookies</label>
-                <label><input type="checkbox" value="Pâtés"> Pâtés</label>
-                <label><input type="checkbox" value="Palmier"> Palmier</label>
-                <label><input type="checkbox" value="Sacristain"> Sacristain</label>
-                <label><input type="checkbox" value="Coconuts"> Coconuts</label>
-                <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
-                <label><input type="checkbox" value="Cookies au raisin"> Cookies au raisin</label>
-                <label><input type="checkbox" value="Langue de bœufs"> Langue de bœufs</label>
-            </div>
+            <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Produit :</label>
+            <select id="market-product">
+                <option value="">-- Sélectionner un produit --</option>
+                <option>Sable</option>
+                <option>Cookies</option>
+                <option>Pâtés</option>
+                <option>Palmier</option>
+                <option>Sacristain</option>
+                <option>Coconuts</option>
+                <option>Cupcakes</option>
+                <option>Cookies au raisin</option>
+                <option>Langue de bœufs</option>
+            </select>
             
             <textarea id="order-details" placeholder="Précisez les quantités ou autres articles ici..."></textarea>
 
@@ -109,6 +111,46 @@
             </select>
 
             <button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
+        </div>
+
+        <div class="form-container" style="border-left: 5px solid var(--navy);">
+            <h2 style="color: var(--navy); margin-top: 0;"><i class="fas fa-store"></i> Espace Ti Machann</h2>
+            
+            <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Produit en Gros :</label>
+            <select id="resell-product">
+                <option value="">-- Choisir le produit --</option>
+                <optgroup label="Friandises (Spécial Revendeur)">
+                    <option>Bonbons Amidon</option>
+                    <option>Bonbons Gingembre</option>
+                    <option>Tablettes Noix</option>
+                    <option>Douce Macos</option>
+                </optgroup>
+                <optgroup label="Articles Supermarché">
+                    <option>Riz (Sac 25kg)</option>
+                    <option>Huile (Caisse/Gallon)</option>
+                    <option>Sucre (Gros)</option>
+                    <option>Spaghetti (Caisse)</option>
+                </optgroup>
+            </select>
+
+            <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Format d'emballage :</label>
+            <select id="resell-format">
+                <option value="Boîte (Bwat)">Boîte (Bwat)</option>
+                <option value="Sachet (Sache)">Sachet (Sache)</option>
+            </select>
+
+            <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Quantité :</label>
+            <input type="text" id="resell-qty" placeholder="Ex: 10 bwat oswa 50 sache">
+
+            <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Mode de paiement :</label>
+            <select id="resell-payment">
+                <option value="Natcash">Natcash</option>
+                <option value="Moncash">Moncash</option>
+                <option value="Cash">Cash</option>
+                <option value="Chèque">Chèque</option>
+            </select>
+
+            <button class="btn-order" style="background-color: var(--navy);" onclick="sendResellOrder()">COMMANDE GROSSISTE WHATSAPP</button>
         </div>
 
         <div class="footer-info">
@@ -129,28 +171,45 @@
     <script>
         function sendOrder() {
             const market = document.getElementById('market-name').value;
+            const product = document.getElementById('market-product').value;
             const details = document.getElementById('order-details').value;
             const payment = document.getElementById('payment-method').value;
-            const checkboxes = document.querySelectorAll('#product-list input[type="checkbox"]:checked');
-            
-            let items = [];
-            checkboxes.forEach((cb) => { items.push(cb.value); });
 
-            if (items.length === 0 && details.trim() === "") {
+            if (product === "" && details.trim() === "") {
                 alert("Tanpri chwazi yon pwodwi oswa ekri sa w bezwen an.");
                 return;
             }
 
-            let message = `*NOUVELLE COMMANDE SUPERMARCHÉ*%0A%0A`;
+            let message = `*COMMANDE SUPERMARCHÉ - AURISME*%0A%0A`;
             message += `📍 *Lieu:* ${market}%0A`;
-            message += `🍪 *Produits:* ${items.length > 0 ? items.join(", ") : "Aucun"}%0A`;
+            message += `🛒 *Produit:* ${product || "Voir détails"}%0A`;
             message += `📝 *Détails:* ${details}%0A`;
             message += `💳 *Paiement:* ${payment}%0A%0A`;
             message += `_Envoyé via l'App Aurisme_`;
 
-            const whatsappUrl = `https://wa.me/50942017744?text=${message}`;
-            window.open(whatsappUrl, '_blank');
+            window.open(`https://wa.me/50942017744?text=${message}`, '_blank');
+        }
+
+        function sendResellOrder() {
+            const product = document.getElementById('resell-product').value;
+            const format = document.getElementById('resell-format').value;
+            const qty = document.getElementById('resell-qty').value;
+            const payment = document.getElementById('resell-payment').value;
+
+            if (product === "" || qty.trim() === "") {
+                alert("Tanpri chwazi pwodwi a ak kantite w vle a.");
+                return;
+            }
+
+            let message = `*COMMANDE TI MACHANN (GROS)*%0A%0A`;
+            message += `🍪 *Produit:* ${product}%0A`;
+            message += `📦 *Format:* ${format}%0A`;
+            message += `🔢 *Quantité:* ${qty}%0A`;
+            message += `💳 *Paiement:* ${payment}%0A%0A`;
+            message += `_Envoyé via l'App Aurisme_`;
+
+            window.open(`https://wa.me/50942017744?text=${message}`, '_blank');
         }
     </script>
 </body>
-</html>
+                </html>
