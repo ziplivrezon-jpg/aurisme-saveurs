@@ -17,6 +17,14 @@
 
         .container { padding: 20px; max-width: 550px; margin: auto; }
 
+        /* Ti bwat Idée/Conseils la */
+        .help-card { 
+            background: #e3f2fd; border-left: 5px solid var(--gold); border-radius: 15px; 
+            padding: 15px; margin-bottom: 25px; text-align: left; font-size: 13px; color: #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .help-card h4 { margin: 0 0 8px 0; color: var(--navy); display: flex; align-items: center; gap: 8px; font-size: 15px; }
+
         /* Section Services */
         .service-section { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
         .section-title { color: var(--bordeaux); font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -31,13 +39,13 @@
         /* Formulaire */
         .booking-box { background: var(--navy); color: white; border-radius: 25px; padding: 30px; text-align: left; box-shadow: 0 15px 35px rgba(0,51,102,0.2); }
         .booking-box h3 { color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; }
-        label { font-size: 13px; display: block; margin-bottom: 5px; color: #ccc; }
-        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 12px; border: none; font-size: 14px; }
+        label { font-size: 13px; display: block; margin-bottom: 5px; color: #ccc; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 12px; border: none; font-size: 14px; color: #333; }
         
         .btn-whatsapp { 
             background: #25D366; color: white; border: none; padding: 18px; 
             width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; 
-            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
 
@@ -53,6 +61,13 @@
 
     <div class="container">
         
+        <div class="help-card">
+            <h4><i class="fas fa-lightbulb"></i> Besoin d'inspiration ?</h4>
+            <p style="margin: 5px 0;"><b>Mariage:</b> Thème Or & Blanc / Buffet complet.<br>
+               <b>Anniversaire:</b> Bar à mignardises / Thèmes colorés.<br>
+               <b>Cocktail:</b> Finger food varié (Acras, mini-brochettes).</p>
+        </div>
+
         <div class="service-section">
             <div class="section-title"><i class="fas fa-magic"></i> <span>Décoration de Luxe</span></div>
             <div class="item-list">
@@ -63,10 +78,6 @@
                 <div class="item">
                     <i class="fas fa-building"></i>
                     <div><h4>Événements Corporatifs</h4><p>Lancements, Galas, Cocktails d'entreprise.</p></div>
-                </div>
-                <div class="item">
-                    <i class="fas fa-lightbulb"></i>
-                    <div><h4>Design Thématique</h4><p>Mise en scène personnalisée et éclairage d'ambiance.</p></div>
                 </div>
             </div>
         </div>
@@ -80,13 +91,14 @@
                 </div>
                 <div class="item">
                     <i class="fas fa-hamburger"></i>
-                    <div><h4>Finger Food & Hors-d'œuvre</h4><p>Plateaux assortis pour vos réceptions.</p></div>
+                    <div><h4>Finger Food</h4><p>Plateaux assortis pour vos réceptions.</p></div>
                 </div>
             </div>
         </div>
 
         <div class="booking-box">
             <h3>Demander un Devis</h3>
+            
             <label>Type d'événement:</label>
             <select id="event-type">
                 <option>Mariage</option>
@@ -106,8 +118,16 @@
             <label>Date prévue & Nombre d'invités:</label>
             <input type="text" id="event-details" placeholder="Ex: 12 Juin 2026 - 100 personnes">
 
-            <label>Vos envies particulières:</label>
-            <textarea id="event-desc" rows="3" placeholder="Thème, couleurs, menu spécifique..."></textarea>
+            <label>Vos envies particulières (Couleurs, Menu):</label>
+            <textarea id="event-desc" rows="3" placeholder="Détails importants..."></textarea>
+
+            <label>Mode de Paiement Prévu:</label>
+            <select id="deco-payment">
+                <option value="Natcash">Natcash</option>
+                <option value="Moncash">Moncash</option>
+                <option value="Cash">Cash</option>
+                <option value="Chèque">Chèque</option>
+            </select>
 
             <button class="btn-whatsapp" onclick="bookEvent()">
                 <i class="fab fa-whatsapp"></i> OBTENIR MON DEVIS WHATSAPP
@@ -124,6 +144,7 @@
             const service = document.getElementById('service-needed').value;
             const details = document.getElementById('event-details').value;
             const desc = document.getElementById('event-desc').value;
+            const pay = document.getElementById('deco-payment').value;
             
             if(!details || !desc) {
                 alert("Tanpri bay kèk enfòmasyon sou dat ak sa ou bezwen an.");
@@ -131,14 +152,16 @@
             }
 
             const msg = `*DEMANDE DE DEVIS - AURISME*%0A%0A` +
-                        `*Événement:* ${type}%0A` +
-                        `*Service:* ${service}%0A` +
-                        `*Date/Invités:* ${details}%0A` +
-                        `*Détails:* ${desc}`;
+                        `🎉 *Événement:* ${type}%0A` +
+                        `🛠️ *Service:* ${service}%0A` +
+                        `📅 *Date/Invités:* ${details}%0A` +
+                        `📝 *Détails:* ${desc}%0A` +
+                        `💳 *Paiement:* ${pay}%0A%0A` +
+                        `_Envoyé via l'App Aurisme_`;
 
             window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
     </script>
 
 </body>
-</html>
+    </html>
