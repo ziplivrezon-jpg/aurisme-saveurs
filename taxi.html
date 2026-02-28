@@ -20,7 +20,6 @@
         label { font-weight: bold; font-size: 14px; color: var(--navy); display: block; margin-top: 15px; }
         .input-field, .zone-select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid #ddd; font-size: 15px; margin-top: 5px; box-sizing: border-box; }
 
-        /* Bouton yo */
         .btn-action { width: 100%; padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; font-size: 16px; margin-top: 15px; border: none; cursor: pointer; transition: 0.3s; }
         .btn-whatsapp { background: var(--green); color: white; }
         .btn-share { background: #eee; color: #333; border: 1px solid #ccc; }
@@ -44,23 +43,33 @@
             <i class="fas fa-motorcycle icon-section"></i>
             <h2>TAXI MOTO SÉCURISÉ</h2>
             
-            <label>Votre Destination :</label>
+            <label>Votre Itinéraire / Zone :</label>
             <select class="zone-select" id="zone-list">
-                <option value="Non spécifiée">-- Choisir une zone --</option>
-                <option value="Péguy-Ville">Péguy-Ville</option>
-                <option value="Pétion-Ville">Pétion-Ville</option>
-                <option value="Laboule / Thomassin">Laboule / Thomassin</option>
-                <option value="Kenscoff">Kenscoff</option>
-                <option value="Delmas (Toutes zones)">Delmas</option>
-                <option value="Tabarre / Clercine">Tabarre / Clercine</option>
-                <option value="Route Frère">Route Frère</option>
-                <option value="Vivy Mitchell">Vivy Mitchell</option>
-                <option value="Canape-Vert / Juvénat">Canape-Vert</option>
-                <option value="Bourdon / Musseau">Bourdon / Musseau</option>
-                <option value="Turgeau / Christ-Roi">Turgeau / Christ-Roi</option>
-                <option value="Aéroport / Maïs Gâté">Aéroport / Maïs Gâté</option>
-                <option value="Malpasse / Frontière">Malpasse / Frontière</option>
-                <option value="Centre-Ville / Champ de Mars">Centre-Ville</option>
+                <option value="Non spécifiée">-- Choisir un trajet --</option>
+                <optgroup label="Zones Principales">
+                    <option value="Péguy-Ville">Péguy-Ville</option>
+                    <option value="Pétion-Ville">Pétion-Ville</option>
+                    <option value="Laboule / Thomassin">Laboule / Thomassin</option>
+                    <option value="Delmas (Toutes zones)">Delmas</option>
+                    <option value="Route de Frères">Route de Frères</option>
+                    <option value="Tabarre">Tabarre</option>
+                </optgroup>
+                <optgroup label="Trajets Fréquents">
+                    <option value="Pétion-Ville ➔ Route de Frères">Pétion-Ville ➔ Route de Frères</option>
+                    <option value="Pétion-Ville ➔ Delmas">Pétion-Ville ➔ Delmas</option>
+                    <option value="Péguy-Ville ➔ Pétion-Ville">Péguy-Ville ➔ Pétion-Ville</option>
+                    <option value="Delmas ➔ Aéroport">Delmas ➔ Aéroport</option>
+                    <option value="Frères ➔ Tabarre">Frères ➔ Tabarre</option>
+                    <option value="Bourdon ➔ Centre-Ville">Bourdon ➔ Centre-Ville</option>
+                    <option value="Canape-Vert ➔ Pétion-Ville">Canape-Vert ➔ Pétion-Ville</option>
+                </optgroup>
+                <optgroup label="Autres Zones">
+                    <option value="Kenscoff">Kenscoff</option>
+                    <option value="Vivy Mitchell">Vivy Mitchell</option>
+                    <option value="Turgeau / Christ-Roi">Turgeau / Christ-Roi</option>
+                    <option value="Malpasse / Frontière">Malpasse / Frontière</option>
+                    <option value="Autre">Autre destination...</option>
+                </optgroup>
             </select>
 
             <label>Infos Chauffeur & Plaque (Optionnel) :</label>
@@ -115,7 +124,7 @@
 
         <div class="safety-box">
             <p><strong><i class="fas fa-lock"></i> SÉCURITÉ AURISME :</strong><br>
-            Tous nos chauffeurs sont certifiés. Pour chaque trajet, n'oubliez pas de partager vos infos avec un proche.</p>
+            Tous nos chauffeurs sont certifiés. Partagez votre trajet pour votre sécurité.</p>
         </div>
     </div>
 
@@ -128,12 +137,12 @@
                 var zone = document.getElementById('zone-list').value;
                 var info = document.getElementById('driver-info').value || "Non spécifié";
                 var pay = document.getElementById('moto-payment').value;
-                msg = "*TAXI MOTO AURISME*\n📍 Destination: " + zone + "\n🏍️ Infos: " + info + "\n💳 Paiement: " + pay;
+                msg = "*RÉSERVATION TAXI MOTO AURISME*\n📍 Trajet: " + zone + "\n🏍️ Infos: " + info + "\n💳 Paiement: " + pay;
             } else {
                 var voyage = document.getElementById('navette-type').value;
                 var hotel = document.getElementById('hotel-info').value || "Non spécifié";
                 var pay = document.getElementById('navette-payment').value;
-                msg = "*NAVETTE AURISME*\n🚐 Type: " + voyage + "\n🏨 Hôtel/Heure: " + hotel + "\n💳 Paiement: " + pay;
+                msg = "*RÉSERVATION NAVETTE AURISME*\n🚐 Type: " + voyage + "\n🏨 Hôtel/Heure: " + hotel + "\n💳 Paiement: " + pay;
             }
 
             window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent(msg));
