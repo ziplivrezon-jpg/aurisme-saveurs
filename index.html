@@ -53,7 +53,6 @@
         .footer-info { background: #eee; padding: 25px; border-radius: 20px; margin-top: 30px; font-size: 13px; color: #444; }
         .social-mini { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
         .social-mini a { color: var(--bordeaux); font-size: 24px; text-decoration: none; }
-        .natcash-small { font-size: 12px; color: #d32f2f; font-weight: bold; display: block; margin-top: 10px; }
 
         vercel-developer-toolbar, #__vercel-toolbar { display: none !important; }
     </style>
@@ -85,6 +84,7 @@
 
         <div class="form-container">
             <h2 style="color: var(--navy); margin-top: 0;">🛒 Service Supermarché</h2>
+            
             <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Choisir le Supermarché :</label>
             <select id="market-name">
                 <option value="Star Market">Star Market</option>
@@ -93,6 +93,8 @@
                 <option value="Ola Market">Ola Market</option>
                 <option value="Barak Market">Barak Market</option>
                 <option value="8a8 Market">8a8 Market</option>
+                <option value="Emile Market">Emile Market</option>
+                <option value="Compas Market">Compas Market</option>
                 <option value="Caribbean Supermarket">Caribbean Supermarket</option>
                 <option value="Déli Mart">Déli Mart</option>
                 <option value="Autre">Autre...</option>
@@ -109,7 +111,17 @@
                 <label><input type="checkbox" value="Cookies au raisin"> Cookies au raisin</label>
                 <label><input type="checkbox" value="Langue de bœufs"> Langue de bœufs</label>
             </div>
+            
             <textarea id="order-details" placeholder="Précisez les quantités ou autres articles ici..."></textarea>
+
+            <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Mode de paiement :</label>
+            <select id="payment-method">
+                <option value="Natcash">Natcash</option>
+                <option value="Moncash">Moncash</option>
+                <option value="Cash">Cash</option>
+                <option value="Chèque">Chèque</option>
+            </select>
+
             <button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
         </div>
 
@@ -119,7 +131,7 @@
             <a href="tel:*202*1*50942017744*" class="btn-natcash">
                 <i class="fas fa-mobile-alt"></i> PAYER VIA NATCASH
             </a>
-            <p style="font-size: 10px; color: #888; margin-top: 8px;">(Entrez le montant et appuyez sur Appel)</p>
+            <p style="font-size: 10px; color: #888; margin-top: 8px;">(N'oubliez pas le <b>#</b> après le montant avant d'appeler)</p>
         </div>
 
         <div class="footer-info">
@@ -133,17 +145,15 @@
                 <a href="https://instagram.com/aurisme_saveurs" target="_blank"><i class="fab fa-instagram"></i></a>
                 <a href="https://wa.me/50942017744" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
-
-            <span class="natcash-small">💳 PAIEMENT NATCASH : *202*1*50942017744*Montant#</span>
-            <br><a href="privacy.html" style="text-decoration:none; color:var(--navy); font-size:11px; font-weight:bold;">Politique de Confidentialité</a>
+            <a href="privacy.html" style="text-decoration:none; color:var(--navy); font-size:11px; font-weight:bold;">Politique de Confidentialité</a>
         </div>
     </div>
 
     <script>
-        // Fonksyon pou voye kòmand Supermarché sou WhatsApp
         function sendOrder() {
             const market = document.getElementById('market-name').value;
             const details = document.getElementById('order-details').value;
+            const payment = document.getElementById('payment-method').value;
             const checkboxes = document.querySelectorAll('#product-list input[type="checkbox"]:checked');
             
             let items = [];
@@ -157,15 +167,15 @@
             let message = `*NOUVELLE COMMANDE SUPERMARCHÉ*%0A%0A`;
             message += `📍 *Lieu:* ${market}%0A`;
             message += `🍪 *Produits:* ${items.length > 0 ? items.join(", ") : "Aucun"}%0A`;
-            message += `📝 *Détails:* ${details}%0A%0A`;
+            message += `📝 *Détails:* ${details}%0A`;
+            message += `💳 *Paiement:* ${payment}%0A%0A`;
             message += `_Envoyé via l'App Aurisme_`;
 
             const whatsappUrl = `https://wa.me/50942017744?text=${message}`;
             window.open(whatsappUrl, '_blank');
         }
-
         window.chatbaseConfig = { chatbotId: "VJf-ODYVZ-KhUxu-Ur30k" }
     </script>
     <script src="https://www.chatbase.co/embed.min.js" chatbotId="VJf-ODYVZ-KhUxu-Ur30k" defer></script>
 </body>
-            </html>
+    </html>
