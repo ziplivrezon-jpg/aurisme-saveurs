@@ -19,6 +19,13 @@
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
 
+        /* Ti bwat Offre Spéciale */
+        .promo-box { 
+            background: #fff3f3; border: 2px dashed #d32f2f; border-radius: 15px; 
+            padding: 15px; margin-bottom: 20px; color: #d32f2f; font-weight: bold; font-size: 13px;
+            display: flex; align-items: center; gap: 10px; justify-content: center;
+        }
+
         /* Lis Gato */
         .cake-list { background: white; border-radius: 20px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .cake-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
@@ -29,13 +36,19 @@
 
         /* Formulaire */
         .order-box { background: white; border-radius: 20px; padding: 25px; text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--gold); }
-        label { font-weight: bold; color: var(--navy); font-size: 14px; display: block; margin-bottom: 5px; }
-        select, input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
+        label { font-weight: bold; color: var(--navy); font-size: 14px; display: block; margin: 15px 0 5px 0; }
+        .section-label { color: var(--bordeaux); text-transform: uppercase; font-size: 12px; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 20px; }
         
+        select, input, textarea { width: 100%; padding: 12px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
+        
+        /* Checkbox Viennoiseries */
+        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .check-item { font-size: 13px; display: flex; align-items: center; gap: 8px; background: #fdfdfd; padding: 8px; border-radius: 8px; border: 1px solid #f0f0f0; }
+
         .btn-whatsapp { 
             background: #25D366; color: white; border: none; padding: 16px; 
             width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; 
-            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;
         }
 
         .back-home { display: inline-block; margin: 20px 0; color: var(--navy); text-decoration: none; font-weight: bold; font-size: 14px; }
@@ -54,6 +67,11 @@
     </header>
 
     <div class="container">
+        <div class="promo-box">
+            <i class="fas fa-gift" style="font-size: 20px;"></i>
+            <span>Achetez un gâteau de 5000 HTG et recevez une demi-douzaine de cupcakes !</span>
+        </div>
+
         <div class="cake-list">
             <div class="cake-item"><i class="fas fa-birthday-cake"></i><div><h3>Choco Royal</h3><p>Chocolat noir et ganache.</p></div></div>
             <div class="cake-item"><i class="fas fa-cake"></i><div><h3>Vanille Velouté</h3><p>La douceur de la vanille pure.</p></div></div>
@@ -64,8 +82,10 @@
         <div class="order-box">
             <h3 style="color: var(--bordeaux); margin-top: 0; text-align: center;">VOTRE COMMANDE</h3>
             
+            <div class="section-label">Gâteaux</div>
             <label>Type de Gâteau:</label>
             <select id="cake-type">
+                <option value="Aucun">-- Choisir un gâteau --</option>
                 <option>Choco Royal</option>
                 <option>Vanille Velouté</option>
                 <option>Fraisier Deluxe</option>
@@ -76,8 +96,26 @@
             <label>Nombre de personnes:</label>
             <input type="text" id="cake-size" placeholder="Ex: 25 personnes">
             
-            <label>Détails (Couleurs, Inscriptions...):</label>
-            <textarea id="cake-desc" rows="3" placeholder="Précisez vos envies..."></textarea>
+            <div class="section-label">Viennoiseries</div>
+            <div class="check-grid" id="viennoiseries-list">
+                <div class="check-item"><input type="checkbox" value="Croissant Nature"> Croissant</div>
+                <div class="check-item"><input type="checkbox" value="Pain au Chocolat"> P. Chocolat</div>
+                <div class="check-item"><input type="checkbox" value="Chausson Pommes"> Chausson</div>
+                <div class="check-item"><input type="checkbox" value="Brioche"> Brioche</div>
+                <div class="check-item"><input type="checkbox" value="Pain Raisins"> P. Raisins</div>
+            </div>
+
+            <div class="section-label">Détails & Paiement</div>
+            <label>Inscriptions / Détails:</label>
+            <textarea id="cake-desc" rows="3" placeholder="Couleurs, messages, etc..."></textarea>
+            
+            <label>Mode de Paiement:</label>
+            <select id="pato-payment">
+                <option value="Natcash">Natcash</option>
+                <option value="Moncash">Moncash</option>
+                <option value="Cash">Cash</option>
+                <option value="Chèque">Chèque</option>
+            </select>
             
             <button class="btn-whatsapp" onclick="sendWhatsApp()">
                 <i class="fab fa-whatsapp"></i> ENVOYER SUR WHATSAPP
@@ -88,7 +126,6 @@
     </div>
 
     <script>
-        // Fonksyon pou mete paj la ajou
         function updateVIP() {
             const user = localStorage.getItem('aurisme_user');
             const vipInfo = document.getElementById('vip-info');
@@ -103,7 +140,6 @@
             }
         }
 
-        // Fonksyon pou konekte
         function loginVIP() {
             let n = prompt("Entrez votre nom VIP:");
             if (n && n.trim() !== "") {
@@ -112,36 +148,48 @@
             }
         }
 
-        // Fonksyon pou dekonekte
         function logoutVIP() {
             localStorage.removeItem('aurisme_user');
             updateVIP();
         }
 
-        // Fonksyon pou voye mesaj WhatsApp la
         function sendWhatsApp() {
             const tel = "50942017744";
             const type = document.getElementById('cake-type').value;
             const size = document.getElementById('cake-size').value;
             const desc = document.getElementById('cake-desc').value;
+            const payment = document.getElementById('pato-payment').value;
             const user = localStorage.getItem('aurisme_user') || "Invité";
+            
+            // Ranmase Viennoiseries koche yo
+            const v_checkboxes = document.querySelectorAll('#viennoiseries-list input[type="checkbox"]:checked');
+            let viennoiseries = [];
+            v_checkboxes.forEach((cb) => { viennoiseries.push(cb.value); });
 
-            if (!size || !desc) {
-                alert("Tanpri ranpli tout detay kòmand lan.");
+            if (type === "Aucun" && viennoiseries.length === 0) {
+                alert("Tanpri chwazi yon gato oswa yon viennoiserie.");
                 return;
             }
 
-            const msg = `*COMMANDE GÂTEAU - AURISME*%0A%0A` +
-                        `*Client:* ${user}%0A` +
-                        `*Type:* ${type}%0A` +
-                        `*Taille:* ${size}%0A` +
-                        `*Détails:* ${desc}`;
+            let msg = `*COMMANDE PÂTISSERIE - AURISME*%0A%0A` +
+                        `👤 *Client:* ${user}%0A`;
+            
+            if(type !== "Aucun") {
+                msg += `🎂 *Gâteau:* ${type} (${size})%0A`;
+            }
+
+            if(viennoiseries.length > 0) {
+                msg += `🥐 *Viennoiseries:* ${viennoiseries.join(", ")}%0A`;
+            }
+
+            msg += `📝 *Détails:* ${desc}%0A` +
+                   `💳 *Paiement:* ${payment}%0A%0A` +
+                   `_Envoyé via l'App Aurisme_`;
 
             window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
 
-        // Depi paj la chaje, nou kouri fonksyon update la
         window.onload = updateVIP;
     </script>
 </body>
-</html>
+    </html>
