@@ -33,14 +33,15 @@
         .menu-card i { font-size: 35px; color: var(--bordeaux); margin-bottom: 10px; }
         .menu-card span { font-size: 14px; text-transform: uppercase; }
 
-        .form-container { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); text-align: left; margin: 25px 0; border-left: 5px solid var(--bordeaux); }
-        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .collapsible-box { background: white; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); margin: 20px 0; overflow: hidden; border-left: 5px solid var(--bordeaux); }
+        .collapsible-btn { background: white; width: 100%; padding: 20px; border: none; text-align: left; font-size: 18px; font-weight: bold; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .collapsible-content { display: none; padding: 0 20px 20px 20px; text-align: left; }
+
+        .btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-family: inherit; }
         
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
-        
-        /* Bwat ki pèmèt koche plizyè pwodwi san pran plas */
-        .scroll-list { border: 1px solid #ddd; border-radius: 10px; padding: 10px; max-height: 150px; overflow-y: auto; margin: 10px 0; }
-        .scroll-list label { display: block; padding: 5px 0; font-size: 14px; border-bottom: 1px solid #eee; cursor: pointer; }
+        .scroll-list { border: 1px solid #ddd; border-radius: 10px; padding: 10px; max-height: 150px; overflow-y: auto; margin: 10px 0; background: #fff; }
+        .scroll-list label { display: block; padding: 8px 0; font-size: 14px; border-bottom: 1px solid #eee; cursor: pointer; }
 
         .footer-info { background: #eee; padding: 25px; border-radius: 20px; margin-top: 30px; font-size: 13px; color: #444; }
         .social-mini { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
@@ -72,111 +73,120 @@
             <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span>GALERIE</span></a>
         </div>
 
-        <div class="form-container">
-            <h2 style="color: var(--navy); margin-top: 0;">🛒 Service Supermarché</h2>
-            <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Choisir le Supermarché :</label>
-            <select id="market-name">
-                <option value="Star Market">Star Market</option>
-                <option value="Bonjan Market">Bonjan Market</option>
-                <option value="Juvénat Market">Juvénat Market</option>
-                <option value="Ola Market">Ola Market</option>
-                <option value="Barak Market">Barak Market</option>
-                <option value="8a8 Market">8a8 Market</option>
-                <option value="Emile Market">Emile Market</option>
-                <option value="Compas Market">Compas Market</option>
-                <option value="Caribbean Supermarket">Caribbean Supermarket</option>
-                <option value="Déli Mart">Déli Mart</option>
-                <option value="Autre">Autre...</option>
-            </select>
-
-            <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Produits (Koche sa ou bezwen) :</label>
-            <div class="scroll-list" id="supermarket-list">
-                <label><input type="checkbox" value="Sable"> Sable</label>
-                <label><input type="checkbox" value="Cookies"> Cookies</label>
-                <label><input type="checkbox" value="Pâtés"> Pâtés</label>
-                <label><input type="checkbox" value="Palmier"> Palmier</label>
-                <label><input type="checkbox" value="Sacristain"> Sacristain</label>
-                <label><input type="checkbox" value="Coconuts"> Coconuts</label>
-                <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
-                <label><input type="checkbox" value="Cookies au raisin"> Cookies au raisin</label>
-                <label><input type="checkbox" value="Langue de bœufs"> Langue de bœufs</label>
+        <div class="collapsible-box">
+            <button class="collapsible-btn" onclick="toggleBox('market-content')">
+                <span>🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="market-content" class="collapsible-content">
+                <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Marché :</label>
+                <select id="market-name">
+                    <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
+                    <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option>
+                    <option>Emile Market</option><option>Compas Market</option><option>Caribbean Supermarket</option>
+                    <option>Déli Mart</option><option>Autre...</option>
+                </select>
+                <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Produits (Koche plizyè) :</label>
+                <div class="scroll-list" id="super-list">
+                    <label><input type="checkbox" value="Sable"> Sable</label>
+                    <label><input type="checkbox" value="Cookies"> Cookies</label>
+                    <label><input type="checkbox" value="Pâtés"> Pâtés</label>
+                    <label><input type="checkbox" value="Palmier"> Palmier</label>
+                    <label><input type="checkbox" value="Sacristain"> Sacristain</label>
+                    <label><input type="checkbox" value="Coconuts"> Coconuts</label>
+                    <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
+                </div>
+                <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Date de livraison :</label>
+                <input type="date" id="market-date">
+                <textarea id="market-details" placeholder="Détails ou autres articles..."></textarea>
+                <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Paiement :</label>
+                <select id="market-payment">
+                    <option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
+                    <option value="Cash">Cash</option><option value="Chèque">Chèque</option>
+                </select>
+                <button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
             </div>
-            
-            <textarea id="order-details" placeholder="Précisez les quantités ou autres articles ici..."></textarea>
-
-            <label style="font-size: 13px; font-weight: bold; color: var(--bordeaux);">Mode de paiement :</label>
-            <select id="payment-method">
-                <option value="Natcash">Natcash</option>
-                <option value="Moncash">Moncash</option>
-                <option value="Cash">Cash</option>
-                <option value="Chèque">Chèque</option>
-            </select>
-
-            <button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
         </div>
 
-        <div class="form-container" style="border-left: 5px solid var(--navy);">
-            <h2 style="color: var(--navy); margin-top: 0;">🏪 Espace Ti Machann</h2>
-            <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Produits an gwo (Koche plizyè) :</label>
-            <div class="scroll-list" id="reseller-list">
-                <label><input type="checkbox" value="Sable"> Sable</label>
-                <label><input type="checkbox" value="Cookies"> Cookies</label>
-                <label><input type="checkbox" value="Pâtés"> Pâtés</label>
-                <label><input type="checkbox" value="Palmier"> Palmier</label>
-                <label><input type="checkbox" value="Sacristain"> Sacristain</label>
-                <label><input type="checkbox" value="Coconuts"> Coconuts</label>
-                <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
-                <label><input type="checkbox" value="Bonbons Amidon"> Bonbons Amidon</label>
-                <label><input type="checkbox" value="Bonbons Gingembre"> Bonbons Gingembre</label>
+        <div class="collapsible-box" style="border-left-color: var(--navy);">
+            <button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);">
+                <span>🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="reseller-content" class="collapsible-content">
+                <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Produits an gwo :</label>
+                <div class="scroll-list" id="resell-list">
+                    <label><input type="checkbox" value="Sable"> Sable</label>
+                    <label><input type="checkbox" value="Cookies"> Cookies</label>
+                    <label><input type="checkbox" value="Pâtés"> Pâtés</label>
+                    <label><input type="checkbox" value="Palmier"> Palmier</label>
+                    <label><input type="checkbox" value="Sacristain"> Sacristain</label>
+                    <label><input type="checkbox" value="Coconuts"> Coconuts</label>
+                    <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
+                </div>
+                <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Format d'emballage :</label>
+                <select id="package-format"><option>Boîte (Bwat)</option><option>Sachet (Sache)</option></select>
+                <input type="text" id="resell-qty" placeholder="Kantite (Ex: 10 bwat, 50 sache...)">
+                <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Paiement :</label>
+                <select id="resell-payment">
+                    <option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
+                    <option value="Cash">Cash</option><option value="Chèque">Chèque</option>
+                </select>
+                <button class="btn-order" style="background: var(--navy);" onclick="sendResellOrder()">COMMANDE GROS WHATSAPP</button>
             </div>
-
-            <label style="font-size: 13px; font-weight: bold; color: var(--navy);">Format :</label>
-            <select id="package-format">
-                <option value="Boîte (Bwat)">Boîte (Bwat)</option>
-                <option value="Sachet (Sache)">Sachet (Sache)</option>
-            </select>
-
-            <input type="text" id="reseller-qty" placeholder="Kantite (Ex: 10 bwat, 50 sache...)">
-            
-            <button class="btn-order" style="background-color: var(--navy);" onclick="sendResellerOrder()">COMMANDER AN GWO</button>
         </div>
 
         <div class="footer-info">
             <p style="font-weight: bold; font-size: 16px;">Aurisme Group</p>
-            <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
+            <p>📧 gâteaux.friandise@gmail.com</p>
+            <p>📞 +509 4201-7744</p>
+            <p>📍 Péguy-ville, rue A Qualo, Haïti</p>
             <div class="social-mini">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://facebook.com/Zipservices" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/aurisme_saveurs" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/50942017744" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
+            <a href="privacy.html" style="text-decoration:none; color:var(--navy); font-size:11px; font-weight:bold;">Politique de Confidentialité</a>
         </div>
     </div>
 
     <script>
+        function toggleBox(id) {
+            var content = document.getElementById(id);
+            var btn = content.previousElementSibling.querySelector('i');
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                btn.className = "fas fa-chevron-down";
+            } else {
+                content.style.display = "block";
+                btn.className = "fas fa-chevron-up";
+            }
+        }
+
         function sendOrder() {
             const market = document.getElementById('market-name').value;
-            const details = document.getElementById('order-details').value;
-            const payment = document.getElementById('payment-method').value;
-            const checked = document.querySelectorAll('#supermarket-list input:checked');
+            const date = document.getElementById('market-date').value;
+            const details = document.getElementById('market-details').value;
+            const pay = document.getElementById('market-payment').value;
+            const checked = document.querySelectorAll('#super-list input:checked');
             let items = Array.from(checked).map(cb => cb.value);
 
-            if (items.length === 0 && !details) { alert("Chwazi yon pwodwi!"); return; }
+            if (items.length === 0 && !details) { alert("Tanpri chwazi yon pwodwi!"); return; }
 
-            let msg = `*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${details}%0A💳 Paiement: ${payment}`;
+            let msg = `*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}%0A📅 Date: ${date}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${details}%0A💳 Paiement: ${pay}`;
             window.open(`https://wa.me/50942017744?text=${msg}`);
         }
 
         function sendResellOrder() {
             const format = document.getElementById('package-format').value;
             const qty = document.getElementById('resell-qty').value;
-            const checked = document.querySelectorAll('#reseller-list input:checked');
+            const pay = document.getElementById('resell-payment').value;
+            const checked = document.querySelectorAll('#resell-list input:checked');
             let items = Array.from(checked).map(cb => cb.value);
 
             if (items.length === 0 || !qty) { alert("Ranpli tout pati yo!"); return; }
 
-            let msg = `*COMMANDE TI MACHANN*%0A📦 Format: ${format}%0A🔢 Kantite: ${qty}%0A🍪 Pwodwi: ${items.join(", ")}`;
+            let msg = `*COMMANDE TI MACHANN*%0A📦 Format: ${format}%0A🔢 Kantite: ${qty}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;
             window.open(`https://wa.me/50942017744?text=${msg}`);
         }
     </script>
 </body>
-</html>
+    </html>
