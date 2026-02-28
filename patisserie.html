@@ -41,10 +41,6 @@
         
         select, input, textarea { width: 100%; padding: 12px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
         
-        /* Checkbox Viennoiseries */
-        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .check-item { font-size: 13px; display: flex; align-items: center; gap: 8px; background: #fdfdfd; padding: 8px; border-radius: 8px; border: 1px solid #f0f0f0; }
-
         .btn-whatsapp { 
             background: #25D366; color: white; border: none; padding: 16px; 
             width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; 
@@ -92,18 +88,37 @@
                 <option>Pièce Montée</option>
                 <option>Création Spéciale</option>
             </select>
-            
             <label>Nombre de personnes:</label>
             <input type="text" id="cake-size" placeholder="Ex: 25 personnes">
             
-            <div class="section-label">Viennoiseries</div>
-            <div class="check-grid" id="viennoiseries-list">
-                <div class="check-item"><input type="checkbox" value="Croissant Nature"> Croissant</div>
-                <div class="check-item"><input type="checkbox" value="Pain au Chocolat"> P. Chocolat</div>
-                <div class="check-item"><input type="checkbox" value="Chausson Pommes"> Chausson</div>
-                <div class="check-item"><input type="checkbox" value="Brioche"> Brioche</div>
-                <div class="check-item"><input type="checkbox" value="Pain Raisins"> P. Raisins</div>
-            </div>
+            <div class="section-label">🥐 Viennoiseries Artisanal</div>
+            <label>Choisir une Viennoiserie:</label>
+            <select id="viennoiserie-type">
+                <option value="Aucune">-- Aucune --</option>
+                <option>Croissant Nature</option>
+                <option>Pain au Chocolat</option>
+                <option>Chausson aux Pommes</option>
+                <option>Brioche Maison</option>
+                <option>Pain aux Raisins</option>
+                <option>Palmier Croustillant</option>
+            </select>
+            <label>Quantité Viennoiseries:</label>
+            <input type="number" id="viennoiserie-qty" placeholder="Ex: 6" min="0">
+
+            <div class="section-label">🍩 Douceurs & Douceurs</div>
+            <label>Choisir une Douceur:</label>
+            <select id="douceur-type">
+                <option value="Aucune">-- Aucune --</option>
+                <option>Donuts Glacés (Chocolat/Fraise)</option>
+                <option>Muffin (Pépites de Chocolat)</option>
+                <option>Muffin (Vanille/Myrtille)</option>
+                <option>Brownie aux Noix</option>
+                <option>Éclair au Chocolat</option>
+                <option>Macarons (Boîte de 6)</option>
+                <option>Cookies Maison</option>
+            </select>
+            <label>Quantité Douceurs:</label>
+            <input type="number" id="douceur-qty" placeholder="Ex: 4" min="0">
 
             <div class="section-label">Détails & Paiement</div>
             <label>Inscriptions / Détails:</label>
@@ -157,17 +172,16 @@
             const tel = "50942017744";
             const type = document.getElementById('cake-type').value;
             const size = document.getElementById('cake-size').value;
+            const v_type = document.getElementById('viennoiserie-type').value;
+            const v_qty = document.getElementById('viennoiserie-qty').value;
+            const d_type = document.getElementById('douceur-type').value;
+            const d_qty = document.getElementById('douceur-qty').value;
             const desc = document.getElementById('cake-desc').value;
             const payment = document.getElementById('pato-payment').value;
             const user = localStorage.getItem('aurisme_user') || "Invité";
-            
-            // Ranmase Viennoiseries koche yo
-            const v_checkboxes = document.querySelectorAll('#viennoiseries-list input[type="checkbox"]:checked');
-            let viennoiseries = [];
-            v_checkboxes.forEach((cb) => { viennoiseries.push(cb.value); });
 
-            if (type === "Aucun" && viennoiseries.length === 0) {
-                alert("Tanpri chwazi yon gato oswa yon viennoiserie.");
+            if (type === "Aucun" && v_type === "Aucune" && d_type === "Aucune") {
+                alert("Tanpri chwazi omwen yon pwodwi.");
                 return;
             }
 
@@ -178,8 +192,12 @@
                 msg += `🎂 *Gâteau:* ${type} (${size})%0A`;
             }
 
-            if(viennoiseries.length > 0) {
-                msg += `🥐 *Viennoiseries:* ${viennoiseries.join(", ")}%0A`;
+            if(v_type !== "Aucune") {
+                msg += `🥐 *Viennoiserie:* ${v_type} (Qté: ${v_qty || 1})%0A`;
+            }
+
+            if(d_type !== "Aucune") {
+                msg += `🍩 *Douceur:* ${d_type} (Qté: ${d_qty || 1})%0A`;
             }
 
             msg += `📝 *Détails:* ${desc}%0A` +
@@ -192,4 +210,4 @@
         window.onload = updateVIP;
     </script>
 </body>
-    </html>
+</html>
