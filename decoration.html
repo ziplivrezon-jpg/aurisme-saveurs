@@ -17,7 +17,7 @@
 
         .container { padding: 20px; max-width: 550px; margin: auto; }
 
-        /* --- NOUVO: Ti Bwat Ide Inspirasyon --- */
+        /* Ti Bwat Ide Inspirasyon */
         .inspiration-box { 
             background: #fff; border-radius: 20px; padding: 20px; 
             margin-bottom: 30px; border: 2px solid var(--gold); text-align: left;
@@ -39,11 +39,23 @@
         .item h4 { margin: 0; color: var(--navy); font-size: 16px; }
         .item p { margin: 3px 0 0; font-size: 13px; color: #666; }
 
-        /* Formulaire */
+        /* Formulaire Ranje pou l Santre */
         .booking-box { background: var(--navy); color: white; border-radius: 25px; padding: 30px; text-align: left; box-shadow: 0 15px 35px rgba(0,51,102,0.2); }
         .booking-box h3 { color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; }
         label { font-size: 13px; display: block; margin-bottom: 5px; color: #ccc; margin-top: 10px; }
-        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 12px; border: none; font-size: 14px; color: #333; }
+        
+        /* Sa a asire tout champ yo pran tout lajè a epi yo santre */
+        input, select, textarea { 
+            width: 100%; 
+            padding: 14px; 
+            margin-bottom: 10px; 
+            border-radius: 12px; 
+            border: none; 
+            font-size: 14px; 
+            color: #333; 
+            box-sizing: border-box; /* Trè enpòtan pou santraj la */
+            display: block;
+        }
         
         .btn-whatsapp { 
             background: #25D366; color: white; border: none; padding: 18px; 
@@ -66,34 +78,25 @@
         
         <div class="inspiration-box">
             <h4><i class="fas fa-lightbulb"></i> Idées & Inspirations Aurisme</h4>
-            
             <div class="idea-item">
-                <b>🌟 Thème "Royal Gold" (Mariage/Gala)</b>
-                <span>Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique complet (Lambi, Riz djon-djon, Salades variées).</span>
+                <b>🌟 Thème "Royal Gold"</b>
+                <span>Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique.</span>
             </div>
-
             <div class="idea-item">
-                <b>🎈 Thème "Garden Party" (Anniversaire/Baptême)</b>
-                <span>Décoration champêtre avec fleurs fraîches, guirlandes lumineuses, et service de Finger Food (Pâtés, mini-burgers, acras).</span>
+                <b>🎈 Thème "Garden Party"</b>
+                <span>Décoration champêtre, guirlandes lumineuses, et service de Finger Food.</span>
             </div>
-
             <div class="idea-item">
-                <b>💼 Thème "Corporate Chic" (Business)</b>
-                <span>Espace moderne et épuré, éclairage LED aux couleurs de votre entreprise, avec cocktail dînatoire et bar à boissons.</span>
+                <b>💼 Thème "Corporate Chic"</b>
+                <span>Espace moderne, éclairage LED aux couleurs de l'entreprise, cocktail dînatoire.</span>
             </div>
         </div>
 
         <div class="service-section">
             <div class="section-title"><i class="fas fa-magic"></i> <span>Décoration de Luxe</span></div>
             <div class="item-list">
-                <div class="item">
-                    <i class="fas fa-glass-cheers"></i>
-                    <div><h4>Événements Sociaux</h4><p>Mariages, Baptêmes, Anniversaires, Baby Shower.</p></div>
-                </div>
-                <div class="item">
-                    <i class="fas fa-building"></i>
-                    <div><h4>Événements Corporatifs</h4><p>Lancements, Galas, Cocktails d'entreprise.</p></div>
-                </div>
+                <div class="item"><i class="fas fa-glass-cheers"></i><div><h4>Événements Sociaux</h4><p>Mariages, Baptêmes, Anniversaires.</p></div></div>
+                <div class="item"><i class="fas fa-building"></i><div><h4>Événements Corporatifs</h4><p>Lancements, Galas, Cocktails.</p></div></div>
             </div>
         </div>
 
@@ -120,7 +123,7 @@
             <input type="text" id="event-details" placeholder="Ex: 12 Juin 2026 - 100 personnes">
 
             <label>Détails ou Thème choisi (Ex: Royal Gold):</label>
-            <textarea id="event-desc" rows="3" placeholder="Inspiré d'un de nos thèmes ou votre propre idée..."></textarea>
+            <textarea id="event-desc" rows="3" placeholder="Inspiré d'un de nos thèmes oswa ide pa w..."></textarea>
 
             <label>Mode de Paiement Prévu:</label>
             <select id="deco-payment">
@@ -163,6 +166,5 @@
             window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
     </script>
-
 </body>
 </html>
