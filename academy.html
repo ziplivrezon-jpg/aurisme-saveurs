@@ -41,14 +41,14 @@
 
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
-        <h1>Espace VIP</h1>
+        <h1>Espace Étudiant</h1>
     </header>
 
     <div class="container">
         <!-- SECTION INSCRIPTION -->
         <div class="card" id="reg-section">
             <h3><i class="fas fa-user-plus"></i> Inscription</h3>
-            <label>Nom Complet :</label>
+            <label>Nom complet :</label>
             <input type="text" id="reg-name" placeholder="Entrez votre nom">
 
             <label>Cours souhaité :</label>
@@ -62,35 +62,35 @@
             <label>Numéro WhatsApp :</label>
             <input type="text" id="reg-phone" placeholder="509XXXXXXXX">
 
-            <label>Numéro transaction :</label>
-            <input type="text" id="reg-transaction" placeholder="Entrez numéro transaction">
+            <label>Numéro de transaction :</label>
+            <input type="text" id="reg-transaction" placeholder="Entrez numéro de transaction">
 
             <button class="btn-enroll btn-whatsapp" onclick="sendToWhatsApp()">
-                <i class="fab fa-whatsapp"></i> DEMANDER MON CODE (Automatique)
+                <i class="fab fa-whatsapp"></i> DEMANDER MON CODE
             </button>
 
             <button class="btn-enroll btn-whatsapp" 
                     style="background:#1e88e5;" 
                     onclick="sendProofToWhatsApp()">
-                <i class="fas fa-paperclip"></i> ENVOYER PREUVE DE PAIEMENT
+                <i class="fas fa-paperclip"></i> ENVOYER LA PREUVE DE PAIEMENT
             </button>
 
             <button class="btn-enroll" 
                     style="background: var(--gold); color: black;" 
                     onclick="showAccessSection()">
-                🎓 APA – ACCÈS ÉTUDIANT
+                ACCÈS ÉTUDIANT
             </button>
 
             <p style="font-size:13px; text-align:center; color:#555;">
-                Après paiement, cliquez sur "Envoyer preuve de paiement" pour recevoir votre code.
+                Après paiement, cliquez sur "Envoyer la preuve de paiement" pour recevoir votre code.
             </p>
         </div>
 
         <!-- SECTION CODE D'ACCES -->
         <div class="card" id="access-code-section">
-            <h3 style="text-align:center;">🔑 Activation</h3>
+            <h3 style="text-align:center;">🔑 Code d'accès</h3>
             <p style="font-size: 13px; text-align:center;">Entrez le code reçu pour débloquer vos cours :</p>
-            <input type="text" id="access-code" placeholder="VOTRE-CODE" style="text-align:center; font-size: 22px; font-weight: bold; text-transform: uppercase;">
+            <input type="text" id="access-code" placeholder="VOTRE CODE" style="text-align:center; font-size: 22px; font-weight: bold; text-transform: uppercase;">
             <button class="btn-enroll" onclick="verifyCode()">ACTIVER MON ACCÈS</button>
         </div>
 
@@ -113,7 +113,7 @@
             </div>
 
             <button class="btn-logout" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Se déconnecter (Changer de compte)
+                <i class="fas fa-sign-out-alt"></i> Se déconnecter
             </button>
         </div>
 
@@ -143,7 +143,6 @@
             }
         };
 
-        // Bouton DEMANDER MON CODE – tout automatique
         window.sendToWhatsApp = function() {
             var name = document.getElementById('reg-name').value.trim();
             var choice = document.getElementById('reg-lang').value;
@@ -151,17 +150,17 @@
             var transaction = document.getElementById('reg-transaction').value.trim();
 
             if(!name || !phone || !transaction) { 
-                alert("Tout chan yo obligatwa : Nom, WhatsApp, et Numéro transaction."); 
+                alert("Tous les champs sont obligatoires : Nom, WhatsApp et Numéro de transaction."); 
                 return; 
             }
 
             var msg = encodeURIComponent(
                 "Bonjour Aurisme Academy,\n\n" +
-                "Mwen swete m'enskri nan kou: " + choice + "\n" +
-                "Nom complet: " + name + "\n" +
-                "Numéro WhatsApp: " + phone + "\n" +
-                "Numéro transaction: " + transaction + "\n\n" +
-                "Mwen swete resevwa kòd aksè mwen kounye a."
+                "Je souhaite m'inscrire au cours : " + choice + "\n" +
+                "Nom complet : " + name + "\n" +
+                "Numéro WhatsApp : " + phone + "\n" +
+                "Numéro de transaction : " + transaction + "\n\n" +
+                "Je souhaite recevoir mon code d'accès maintenant."
             );
 
             window.open("https://wa.me/50942017744?text=" + msg);
@@ -169,7 +168,6 @@
             document.getElementById('access-code-section').style.display = 'block';
         };
 
-        // Bouton ENVOYER PREUVE DE PAIEMENT
         window.sendProofToWhatsApp = function() {
             var name = document.getElementById('reg-name').value.trim();
             var choice = document.getElementById('reg-lang').value;
@@ -177,23 +175,22 @@
             var transaction = document.getElementById('reg-transaction').value.trim();
 
             if(!name || !phone || !transaction) { 
-                alert("Tout chan yo obligatwa : Nom, WhatsApp, et Numéro transaction."); 
+                alert("Tous les champs sont obligatoires : Nom, WhatsApp et Numéro de transaction."); 
                 return; 
             }
 
             var msg = encodeURIComponent(
                 "Bonjour Aurisme Academy,\n\n" +
-                "Mwen fin fè peman pou kou: " + choice + "\n\n" +
-                "Nom complet: " + name + "\n" +
-                "Numéro WhatsApp: " + phone + "\n" +
-                "Numéro transaction: " + transaction + "\n\n" +
-                "Mwen pral voye screenshot la kounye a."
+                "J'ai effectué le paiement pour le cours : " + choice + "\n\n" +
+                "Nom complet : " + name + "\n" +
+                "Numéro WhatsApp : " + phone + "\n" +
+                "Numéro de transaction : " + transaction + "\n\n" +
+                "Je vais envoyer la capture d'écran maintenant."
             );
 
             window.open("https://wa.me/50942017744?text=" + msg);
         };
 
-        // Bouton Accès 
         window.showAccessSection = function() {
             document.getElementById('reg-section').style.display = 'none';
             document.getElementById('access-code-section').style.display = 'block';
@@ -249,4 +246,4 @@
         };
     </script>
 </body>
-    </html>
+</html>
