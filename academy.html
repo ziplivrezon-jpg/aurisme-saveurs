@@ -8,17 +8,17 @@
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #25D366; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; }
-        
+
         .welcome-academy { background: var(--navy); color: white; padding: 20px; border-bottom: 4px solid var(--gold); }
         header { background: var(--bordeaux); color: white; padding: 20px; border-bottom: 4px solid var(--gold); position: relative; }
         .btn-back { position: absolute; left: 15px; top: 25px; color: white; text-decoration: none; font-size: 20px; }
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-left: 5px solid var(--gold); }
-        
+
         .btn-enroll { background: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 16px; }
-        .btn-whatsapp { background: var(--green); color: white; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
-        
+        .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
+
         #access-code-section, #student-portal { display: none; }
 
         .course-item { background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; }
@@ -26,7 +26,7 @@
 
         .forum-box { background: #f0f0f0; padding: 15px; border-radius: 15px; max-height: 250px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #ccc; }
         .msg-bubble { background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        
+
         input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
 
         .btn-logout { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 20px; font-size: 14px; }
@@ -45,12 +45,12 @@
     </header>
 
     <div class="container">
-        
+        <!-- SECTION INSCRIPTION -->
         <div class="card" id="reg-section">
             <h3><i class="fas fa-user-plus"></i> Inscription</h3>
             <label>Nom Complet :</label>
             <input type="text" id="reg-name" placeholder="Entrez votre nom">
-            
+
             <label>Cours souhaité :</label>
             <select id="reg-lang">
                 <option value="Anglais">Anglais</option>
@@ -58,12 +58,35 @@
                 <option value="Portugais">Portugais</option>
                 <option value="Cuisine Internationale">Cuisine Internationale & Créole</option>
             </select>
-            
+
+            <label>Numéro WhatsApp :</label>
+            <input type="text" id="reg-phone" placeholder="509XXXXXXXX">
+
+            <label>Numéro transaction :</label>
+            <input type="text" id="reg-transaction" placeholder="Entrez numéro transaction">
+
             <button class="btn-enroll btn-whatsapp" onclick="sendToWhatsApp()">
-                <i class="fab fa-whatsapp"></i> DEMANDER MON CODE (WHATSAPP)
+                <i class="fab fa-whatsapp"></i> DEMANDER MON CODE (Automatique)
             </button>
+
+            <button class="btn-enroll btn-whatsapp" 
+                    style="background:#1e88e5;" 
+                    onclick="sendProofToWhatsApp()">
+                <i class="fas fa-paperclip"></i> ENVOYER PREUVE DE PAIEMENT
+            </button>
+
+            <button class="btn-enroll" 
+                    style="background: var(--gold); color: black;" 
+                    onclick="showAccessSection()">
+                🎓 APA – ACCÈS ÉTUDIANT
+            </button>
+
+            <p style="font-size:13px; text-align:center; color:#555;">
+                Après paiement, cliquez sur "Envoyer preuve de paiement" pour recevoir votre code.
+            </p>
         </div>
 
+        <!-- SECTION CODE D'ACCES -->
         <div class="card" id="access-code-section">
             <h3 style="text-align:center;">🔑 Activation</h3>
             <p style="font-size: 13px; text-align:center;">Entrez le code reçu pour débloquer vos cours :</p>
@@ -71,6 +94,7 @@
             <button class="btn-enroll" onclick="verifyCode()">ACTIVER MON ACCÈS</button>
         </div>
 
+        <!-- ESPACE ETUDIANT -->
         <div id="student-portal">
             <div class="card">
                 <h3><i class="fas fa-graduation-cap"></i> Mes Formations</h3>
@@ -107,7 +131,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Tcheke si kòd la te deja sove nan telefòn nan
         window.onload = async () => {
             const savedCode = localStorage.getItem('aurisme_academy_code');
             if (savedCode) {
@@ -120,12 +143,58 @@
             }
         };
 
+        // Bouton DEMANDER MON CODE – tout automatique
         window.sendToWhatsApp = function() {
-            var name = document.getElementById('reg-name').value;
+            var name = document.getElementById('reg-name').value.trim();
             var choice = document.getElementById('reg-lang').value;
-            if(!name) { alert("Nom requis"); return; }
-            var msg = encodeURIComponent("Bonjour Aurisme, je souhaite m'inscrire au cours de : " + choice + "\nNom: " + name);
+            var phone = document.getElementById('reg-phone').value.trim();
+            var transaction = document.getElementById('reg-transaction').value.trim();
+
+            if(!name || !phone || !transaction) { 
+                alert("Tout chan yo obligatwa : Nom, WhatsApp, et Numéro transaction."); 
+                return; 
+            }
+
+            var msg = encodeURIComponent(
+                "Bonjour Aurisme Academy,\n\n" +
+                "Mwen swete m'enskri nan kou: " + choice + "\n" +
+                "Nom complet: " + name + "\n" +
+                "Numéro WhatsApp: " + phone + "\n" +
+                "Numéro transaction: " + transaction + "\n\n" +
+                "Mwen swete resevwa kòd aksè mwen kounye a."
+            );
+
             window.open("https://wa.me/50942017744?text=" + msg);
+            document.getElementById('reg-section').style.display = 'none';
+            document.getElementById('access-code-section').style.display = 'block';
+        };
+
+        // Bouton ENVOYER PREUVE DE PAIEMENT
+        window.sendProofToWhatsApp = function() {
+            var name = document.getElementById('reg-name').value.trim();
+            var choice = document.getElementById('reg-lang').value;
+            var phone = document.getElementById('reg-phone').value.trim();
+            var transaction = document.getElementById('reg-transaction').value.trim();
+
+            if(!name || !phone || !transaction) { 
+                alert("Tout chan yo obligatwa : Nom, WhatsApp, et Numéro transaction."); 
+                return; 
+            }
+
+            var msg = encodeURIComponent(
+                "Bonjour Aurisme Academy,\n\n" +
+                "Mwen fin fè peman pou kou: " + choice + "\n\n" +
+                "Nom complet: " + name + "\n" +
+                "Numéro WhatsApp: " + phone + "\n" +
+                "Numéro transaction: " + transaction + "\n\n" +
+                "Mwen pral voye screenshot la kounye a."
+            );
+
+            window.open("https://wa.me/50942017744?text=" + msg);
+        };
+
+        // Bouton APA
+        window.showAccessSection = function() {
             document.getElementById('reg-section').style.display = 'none';
             document.getElementById('access-code-section').style.display = 'block';
         };
@@ -180,4 +249,4 @@
         };
     </script>
 </body>
-</html>
+    </html>
