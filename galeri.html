@@ -6,117 +6,122 @@
 <title>Galerie - ZIP Services</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f4f4f4;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
 }
 
 /* 🔥 Bann */
-.top-banner{
-    width:100%;
-    background:linear-gradient(90deg,#ff512f,#dd2476);
-    color:white;
-    overflow:hidden;
-    padding:12px 0;
-    font-weight:bold;
-    font-size:14px;
+.top-banner {
+    width: 100%;
+    background: linear-gradient(90deg, #ff512f, #dd2476);
+    color: white;
+    overflow: hidden;
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-.banner-content{
-    display:inline-block;
-    white-space:nowrap;
-    padding-left:100%;
-    animation:scrollBanner 20s linear infinite;
+.banner-content {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scrollBanner 20s linear infinite;
 }
 
-@keyframes scrollBanner{
-    0%{transform:translateX(0);}
-    100%{transform:translateX(-100%);}
+@keyframes scrollBanner {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 /* Galerie */
-.gallery-title{
-    text-align:center;
-    font-size:24px;
-    margin:20px 0;
-    font-weight:bold;
+.gallery-container {
+    padding: 20px;
 }
 
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-    padding:20px;
+.gallery-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.card{
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
-    transition:0.3s;
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
 }
 
-.card:hover{
-    transform:translateY(-5px);
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
 }
 
-.card img{
-    width:100%;
-    cursor:pointer;
+.card img {
+    width: 100%;
+    display: block;
+    transition: transform 0.4s ease;
+    cursor: pointer;
 }
 
-.overlay{
-    padding:10px;
-    text-align:center;
+.card:hover img {
+    transform: scale(1.1);
 }
 
-.price{
-    color:#dd2476;
-    font-weight:bold;
-    margin:5px 0;
+/* Overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    width: 100%;
+    color: white;
+    padding: 10px;
+    text-align: center;
 }
 
-.order-btn{
-    background:#ff512f;
-    border:none;
-    color:white;
-    padding:7px 14px;
-    border-radius:20px;
-    cursor:pointer;
+.order-btn {
+    background: #ff512f;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
 /* Lightbox */
-.lightbox{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.9);
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
-.lightbox img{
-    max-width:90%;
-    max-height:80%;
-    border-radius:10px;
+.lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
 }
 
-/* WhatsApp */
-.whatsapp-btn{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#25D366;
-    color:white;
-    padding:14px 18px;
-    border-radius:50px;
-    font-weight:bold;
-    text-decoration:none;
-    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+/* WhatsApp bouton */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+
 </style>
 </head>
 
@@ -124,21 +129,23 @@ body{
 
 <div class="top-banner">
   <div class="banner-content">
-    🍰 Commandez vos gâteaux personnalisés dès aujourd’hui ! 🚚 Livraison rapide • 📍 Suivi GPS • 💬 WhatsApp direct
+    🍰 Commandez vos gâteaux personnalisés dès aujourd’hui ! 
+    🚚 Livraison rapide • 📍 Suivi GPS en temps réel • 💬 Contact WhatsApp direct
   </div>
 </div>
 
+<div class="gallery-container">
 <div class="gallery-title">Notre Galerie</div>
 
 <div class="gallery">
 
-<!-- ⚠️ REMPLACE photo1.jpg PAR VRAI NON FOTO OU YO -->
+<!-- 🔴 Ou jis mete tout foto ou yo konsa -->
 
 <div class="card">
     <img src="photo1.jpg" onclick="openLightbox(this.src)">
     <div class="overlay">
-        Gâteau Anniversaire
-        <div class="price">À partir de 35$</div>
+        Gâteau Personnalisé
+        <br>
         <button class="order-btn" onclick="orderNow()">Commander</button>
     </div>
 </div>
@@ -146,21 +153,15 @@ body{
 <div class="card">
     <img src="photo2.jpg" onclick="openLightbox(this.src)">
     <div class="overlay">
-        Gâteau Mariage
-        <div class="price">À partir de 120$</div>
+        Gâteau Anniversaire
+        <br>
         <button class="order-btn" onclick="orderNow()">Commander</button>
     </div>
 </div>
 
-<div class="card">
-    <img src="photo3.jpg" onclick="openLightbox(this.src)">
-    <div class="overlay">
-        Gâteau Personnalisé
-        <div class="price">À partir de 50$</div>
-        <button class="order-btn" onclick="orderNow()">Commander</button>
-    </div>
-</div>
+<!-- Ajoute tout rès foto yo menm jan -->
 
+</div>
 </div>
 
 <!-- Lightbox -->
@@ -168,21 +169,22 @@ body{
     <img id="lightbox-img">
 </div>
 
+<!-- WhatsApp Floating -->
 <a href="https://wa.me/50942017744" class="whatsapp-btn" target="_blank">
     WhatsApp
 </a>
 
 <script>
-function openLightbox(src){
-    document.getElementById("lightbox").style.display="flex";
-    document.getElementById("lightbox-img").src=src;
+function openLightbox(src) {
+    document.getElementById('lightbox').style.display = 'flex';
+    document.getElementById('lightbox-img').src = src;
 }
 
-function closeLightbox(){
-    document.getElementById("lightbox").style.display="none";
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
 }
 
-function orderNow(){
+function orderNow() {
     window.open("https://wa.me/50942017744?text=Bonjour%20je%20souhaite%20commander%20un%20g%C3%A2teau");
 }
 </script>
