@@ -3,149 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galerie Premium - ZIP Services</title>
+<title>Galerie - ZIP Services</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f8f8f8;
-    animation: fadeIn 1s ease-in;
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f4f4;
 }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+/* 🔥 Bann */
+.top-banner{
+    width:100%;
+    background:linear-gradient(90deg,#ff512f,#dd2476);
+    color:white;
+    overflow:hidden;
+    padding:12px 0;
+    font-weight:bold;
+    font-size:14px;
 }
 
-/* Bann */
-.top-banner {
-    width: 100%;
-    background: linear-gradient(90deg, #ff512f, #dd2476);
-    color: white;
-    overflow: hidden;
-    padding: 12px 0;
-    font-weight: bold;
-    font-size: 14px;
+.banner-content{
+    display:inline-block;
+    white-space:nowrap;
+    padding-left:100%;
+    animation:scrollBanner 20s linear infinite;
 }
 
-.banner-content {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: scrollBanner 20s linear infinite;
-}
-
-@keyframes scrollBanner {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-
-/* Titre */
-.gallery-title {
-    text-align: center;
-    font-size: 26px;
-    margin: 25px 0 10px;
-    font-weight: bold;
-}
-
-/* Filtre */
-.filter-buttons {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.filter-buttons button {
-    padding: 8px 15px;
-    margin: 5px;
-    border: none;
-    border-radius: 20px;
-    background: #ddd;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.filter-buttons button:hover {
-    background: #ff512f;
-    color: white;
+@keyframes scrollBanner{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
 }
 
 /* Galerie */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-    padding: 20px;
+.gallery-title{
+    text-align:center;
+    font-size:24px;
+    margin:20px 0;
+    font-weight:bold;
 }
 
-.card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-    background: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    padding:20px;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+.card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    transition:0.3s;
 }
 
-.card img {
-    width: 100%;
-    display: block;
-    cursor: pointer;
+.card:hover{
+    transform:translateY(-5px);
 }
 
-.overlay {
-    padding: 10px;
-    text-align: center;
+.card img{
+    width:100%;
+    cursor:pointer;
 }
 
-.price {
-    color: #dd2476;
-    font-weight: bold;
-    margin: 5px 0;
+.overlay{
+    padding:10px;
+    text-align:center;
 }
 
-.order-btn {
-    background: #ff512f;
-    border: none;
-    color: white;
-    padding: 7px 14px;
-    border-radius: 20px;
-    cursor: pointer;
+.price{
+    color:#dd2476;
+    font-weight:bold;
+    margin:5px 0;
+}
+
+.order-btn{
+    background:#ff512f;
+    border:none;
+    color:white;
+    padding:7px 14px;
+    border-radius:20px;
+    cursor:pointer;
 }
 
 /* Lightbox */
-.lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+.lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
 }
 
-.lightbox img {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
+.lightbox img{
+    max-width:90%;
+    max-height:80%;
+    border-radius:10px;
 }
 
 /* WhatsApp */
-.whatsapp-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    color: white;
-    padding: 14px 18px;
-    border-radius: 50px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+.whatsapp-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:14px 18px;
+    border-radius:50px;
+    font-weight:bold;
+    text-decoration:none;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
 }
 </style>
 </head>
@@ -158,18 +128,13 @@ body {
   </div>
 </div>
 
-<div class="gallery-title">Nos Créations Premium</div>
-
-<div class="filter-buttons">
-    <button onclick="filterSelection('all')">Tous</button>
-    <button onclick="filterSelection('anniversaire')">Anniversaire</button>
-    <button onclick="filterSelection('mariage')">Mariage</button>
-    <button onclick="filterSelection('personnalise')">Personnalisé</button>
-</div>
+<div class="gallery-title">Notre Galerie</div>
 
 <div class="gallery">
 
-<div class="card anniversaire">
+<!-- ⚠️ REMPLACE photo1.jpg PAR VRAI NON FOTO OU YO -->
+
+<div class="card">
     <img src="photo1.jpg" onclick="openLightbox(this.src)">
     <div class="overlay">
         Gâteau Anniversaire
@@ -178,7 +143,7 @@ body {
     </div>
 </div>
 
-<div class="card mariage">
+<div class="card">
     <img src="photo2.jpg" onclick="openLightbox(this.src)">
     <div class="overlay">
         Gâteau Mariage
@@ -187,7 +152,7 @@ body {
     </div>
 </div>
 
-<div class="card personnalise">
+<div class="card">
     <img src="photo3.jpg" onclick="openLightbox(this.src)">
     <div class="overlay">
         Gâteau Personnalisé
@@ -198,6 +163,7 @@ body {
 
 </div>
 
+<!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img">
 </div>
@@ -207,28 +173,17 @@ body {
 </a>
 
 <script>
-function openLightbox(src) {
-    document.getElementById('lightbox').style.display = 'flex';
-    document.getElementById('lightbox-img').src = src;
+function openLightbox(src){
+    document.getElementById("lightbox").style.display="flex";
+    document.getElementById("lightbox-img").src=src;
 }
 
-function closeLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
+function closeLightbox(){
+    document.getElementById("lightbox").style.display="none";
 }
 
-function orderNow() {
+function orderNow(){
     window.open("https://wa.me/50942017744?text=Bonjour%20je%20souhaite%20commander%20un%20g%C3%A2teau");
-}
-
-function filterSelection(category) {
-    var cards = document.getElementsByClassName("card");
-    for (var i = 0; i < cards.length; i++) {
-        if (category === "all" || cards[i].classList.contains(category)) {
-            cards[i].style.display = "block";
-        } else {
-            cards[i].style.display = "none";
-        }
-    }
 }
 </script>
 
