@@ -3,17 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galerie - ZIP Services</title>
+<title>Galerie Premium - ZIP Services</title>
 
 <style>
-
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8f8f8;
+    animation: fadeIn 1s ease-in;
 }
 
-/* 🔥 Bann Publicitaire */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Bann */
 .top-banner {
     width: 100%;
     background: linear-gradient(90deg, #ff512f, #dd2476);
@@ -36,67 +41,196 @@ body {
     100% { transform: translateX(-100%); }
 }
 
-/* Galerie */
-.gallery-container {
-    padding: 20px;
-}
-
+/* Titre */
 .gallery-title {
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 26px;
+    margin: 25px 0 10px;
     font-weight: bold;
 }
 
+/* Filtre */
+.filter-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filter-buttons button {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 20px;
+    background: #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-buttons button:hover {
+    background: #ff512f;
+    color: white;
+}
+
+/* Galerie */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
+    padding: 20px;
 }
 
-.gallery img {
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
     width: 100%;
-    border-radius: 12px;
+    display: block;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.overlay {
+    padding: 10px;
+    text-align: center;
 }
 
+.price {
+    color: #dd2476;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.order-btn {
+    background: #ff512f;
+    border: none;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+/* WhatsApp */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 Bann Publicitaire -->
 <div class="top-banner">
   <div class="banner-content">
-    🍰 Commandez vos gâteaux personnalisés dès aujourd’hui ! 
-    🚚 Livraison rapide • 📍 Suivi GPS en temps réel • 💬 Contact WhatsApp direct
+    🍰 Commandez vos gâteaux personnalisés dès aujourd’hui ! 🚚 Livraison rapide • 📍 Suivi GPS • 💬 WhatsApp direct
   </div>
 </div>
 
-<div class="gallery-container">
+<div class="gallery-title">Nos Créations Premium</div>
 
-<div class="gallery-title">Notre Galerie</div>
+<div class="filter-buttons">
+    <button onclick="filterSelection('all')">Tous</button>
+    <button onclick="filterSelection('anniversaire')">Anniversaire</button>
+    <button onclick="filterSelection('mariage')">Mariage</button>
+    <button onclick="filterSelection('personnalise')">Personnalisé</button>
+</div>
 
 <div class="gallery">
 
-<!-- 🔴 Mete tout foto ou yo isit la san retire okenn -->
+<div class="card anniversaire">
+    <img src="photo1.jpg" onclick="openLightbox(this.src)">
+    <div class="overlay">
+        Gâteau Anniversaire
+        <div class="price">À partir de 35$</div>
+        <button class="order-btn" onclick="orderNow()">Commander</button>
+    </div>
+</div>
 
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo4.jpg">
-<img src="photo5.jpg">
-<img src="photo6.jpg">
+<div class="card mariage">
+    <img src="photo2.jpg" onclick="openLightbox(this.src)">
+    <div class="overlay">
+        Gâteau Mariage
+        <div class="price">À partir de 120$</div>
+        <button class="order-btn" onclick="orderNow()">Commander</button>
+    </div>
+</div>
 
+<div class="card personnalise">
+    <img src="photo3.jpg" onclick="openLightbox(this.src)">
+    <div class="overlay">
+        Gâteau Personnalisé
+        <div class="price">À partir de 50$</div>
+        <button class="order-btn" onclick="orderNow()">Commander</button>
+    </div>
 </div>
 
 </div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
+</div>
+
+<a href="https://wa.me/50942017744" class="whatsapp-btn" target="_blank">
+    WhatsApp
+</a>
+
+<script>
+function openLightbox(src) {
+    document.getElementById('lightbox').style.display = 'flex';
+    document.getElementById('lightbox-img').src = src;
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+
+function orderNow() {
+    window.open("https://wa.me/50942017744?text=Bonjour%20je%20souhaite%20commander%20un%20g%C3%A2teau");
+}
+
+function filterSelection(category) {
+    var cards = document.getElementsByClassName("card");
+    for (var i = 0; i < cards.length; i++) {
+        if (category === "all" || cards[i].classList.contains(category)) {
+            cards[i].style.display = "block";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+</script>
 
 </body>
 </html>
