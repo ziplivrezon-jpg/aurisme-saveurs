@@ -20,8 +20,8 @@
         .title-fancy { margin: 0 0 15px 0; font-size: 22px; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); display: inline-block; }
         .title-fancy::after { content: ''; display: block; width: 60%; height: 3px; background: var(--gold); margin: 5px auto; border-radius: 2px; }
 
-        .filter-bar { display: flex; justify-content: center; gap: 10px; padding: 15px; background: white; overflow-x: auto; }
-        .filter-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--gold); background: transparent; color: var(--bordeaux); font-weight: bold; cursor: pointer; font-size: 12px; white-space: nowrap; }
+        .filter-bar { display: flex; justify-content: center; gap: 10px; padding: 15px; background: white; }
+        .filter-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--gold); background: transparent; color: var(--bordeaux); font-weight: bold; cursor: pointer; font-size: 12px; }
         .filter-btn.active { background: var(--gold); color: white; }
 
         .nav-buttons { display: flex; gap: 10px; justify-content: center; align-items: center; }
@@ -54,7 +54,7 @@
     </div>
 
     <div class="reklam-ticker">
-        <p id="txt-ticker">✨ Aurisme Saveurs : Le goût allié à l'excellence ! — Commandez dès maintenant ✨</p>
+        <p id="txt-ticker">✨ Aurisme Saveurs : Le goût allié à l'excellence ! ✨</p>
     </div>
 
     <header>
@@ -67,9 +67,9 @@
     </header>
 
     <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterGallery('all')" id="f-all">Tous</button>
-        <button class="filter-btn" onclick="filterGallery('traiteur')" id="f-cat">Catering / Gâteaux</button>
-        <button class="filter-btn" onclick="filterGallery('deco')" id="f-dec">Décoration</button>
+        <button class="filter-btn active" onclick="filterGallery('all', this)" id="f-all">Tous</button>
+        <button class="filter-btn" onclick="filterGallery('traiteur', this)" id="f-cat">Gâteaux & Traiteur</button>
+        <button class="filter-btn" onclick="filterGallery('deco', this)" id="f-dec">Décoration</button>
     </div>
 
     <div class="container">
@@ -118,32 +118,20 @@
         <img id="lightbox-img" src="">
         <div class="lightbox-info">
             <a id="btn-wa-order" href="" class="btn-order-img" target="_blank">
-                <i class="fab fa-whatsapp"></i> <span id="txt-order-wa">Je veux ce service</span>
+                <i class="fab fa-whatsapp"></i> <span id="txt-order-wa">Commander</span>
             </a>
         </div>
     </div>
 
     <a href="https://wa.me/50942017744" class="wa-float"><i class="fab fa-whatsapp"></i></a>
 
-    <footer><p>&copy; 2026 Aurisme Saveurs et Services</p></footer>
+    <footer><p>&copy; 2026 Aurisme Saveurs</p></footer>
 
     <script>
         const translations = {
-            fr: {
-                ticker: "✨ Aurisme Saveurs : Le goût allié à l'excellence ! — Commandez dès maintenant ✨",
-                title: "Nos Réalisations", home: "⬅ ACCUEIL", all: "Tous", cat: "Traiteur/Gâteaux", dec: "Décoration",
-                order: "Je veux ce service", waMsg: "Bonjour Aurisme, je suis intéressé par ce service : "
-            },
-            en: {
-                ticker: "✨ Aurisme Saveurs: Taste meets excellence! — Order now ✨",
-                title: "Our Work", home: "⬅ HOME", all: "All", cat: "Catering/Cakes", dec: "Decoration",
-                order: "I want this service", waMsg: "Hello Aurisme, I am interested in this service: "
-            },
-            ht: {
-                ticker: "✨ Aurisme Saveurs : Gou ak Kalite ! — Pase kòmand ou kounye a ✨",
-                title: "Travay Nou Yo", home: "⬅ AKÈY", all: "Tout", cat: "Tretè/Gato", dec: "Dekorasyon",
-                order: "Mwen vle sèvis sa a", waMsg: "Bonjou Aurisme, mwen enterese nan sèvis sa a : "
-            }
+            fr: { ticker: "✨ Aurisme Saveurs : Le goût allié à l'excellence ! ✨", title: "Nos Réalisations", home: "⬅ ACCUEIL", all: "Tous", cat: "Gâteaux & Traiteur", dec: "Décoration", order: "Je veux ce service", waMsg: "Bonjour, je suis intéressé par ce service : " },
+            en: { ticker: "✨ Aurisme Saveurs: Taste meets excellence! ✨", title: "Our Work", home: "⬅ HOME", all: "All", cat: "Cakes & Catering", dec: "Decoration", order: "I want this service", waMsg: "Hello, I am interested in this service: " },
+            ht: { ticker: "✨ Aurisme Saveurs : Gou ak Kalite ! ✨", title: "Travay Nou Yo", home: "⬅ AKÈY", all: "Tout", cat: "Gato ak Tretè", dec: "Dekorasyon", order: "Mwen vle sa", waMsg: "Bonjou, mwen enterese nan sèvis sa a : " }
         };
 
         function changeLang(lang) {
@@ -158,17 +146,12 @@
             localStorage.setItem('aurisme_gal_lang', lang);
         }
 
-        function filterGallery(category) {
+        function filterGallery(category, btn) {
             const cards = document.querySelectorAll('.card');
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            if(event) event.target.classList.add('active');
-
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             cards.forEach(card => {
-                if (category === 'all' || card.classList.contains(category)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = (category === 'all' || card.classList.contains(category)) ? 'block' : 'none';
             });
         }
 
@@ -179,12 +162,8 @@
             document.getElementById('btn-wa-order').href = `https://wa.me/50942017744?text=${encodeURIComponent(translations[lang].waMsg + src)}`;
         }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
-
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
         window.onload = () => changeLang(localStorage.getItem('aurisme_gal_lang') || 'fr');
     </script>
 </body>
-                                       </html>
-
+</html>
