@@ -5,43 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aurisme Saveurs et Services</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 <style>
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;}
-body{font-family:'Segoe UI',Tahoma,sans-serif;margin:0;background:#f8f8f8;text-align:center;}
+body{font-family:'Segoe UI',Tahoma,sans-serif;margin:0;background:#f8f8f8;text-align:center;padding-top:50px;}
 .reklam-ticker{background:var(--gold);color:var(--bordeaux);font-weight:bold;padding:10px;overflow:hidden;white-space:nowrap;}
 .reklam-ticker p{display:inline-block;padding-left:100%;animation:ticker 20s linear infinite;margin:0;}
 @keyframes ticker{0%{transform:translate(0)}100%{transform:translate(-100%)}}
-
 header{background:var(--bordeaux);color:white;padding:30px 20px 60px;border-bottom:4px solid var(--gold);}
 .logo-container img{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);background:white;}
 .celebrity-bar{background:white;padding:15px 0;display:flex;justify-content:center;gap:15px;border-bottom:1px solid #ddd;}
 .celeb-item{text-align:center;min-width:80px;}
 .celeb-item img{width:60px;height:60px;border-radius:50%;border:3px solid var(--gold);padding:2px;object-fit:cover;}
 .celeb-item p{font-size:11px;margin:5px 0 0;font-weight:bold;color:var(--bordeaux);}
-
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:-50px 20px 20px;}
 .menu-card{background:white;padding:25px;border-radius:20px;text-decoration:none;color:var(--navy);font-weight:bold;box-shadow:0 10px 20px rgba(0,0,0,0.1);border-bottom:4px solid var(--gold);}
 .menu-card i{font-size:35px;color:var(--bordeaux);margin-bottom:10px;}
-
 .collapsible-box{background:white;border-radius:20px;box-shadow:0 6px 15px rgba(0,0,0,0.1);margin:20px;overflow:hidden;border-left:5px solid var(--bordeaux);}
 .collapsible-btn{background:white;width:100%;padding:20px;border:none;font-size:17px;font-weight:bold;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;}
 .collapsible-content{display:none;padding:20px;text-align:left;}
-
 input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #ddd;}
 .btn-order{background:var(--bordeaux);color:white;border:none;padding:15px;width:100%;border-radius:10px;font-weight:bold;cursor:pointer;}
-
 .footer-info{background:#eee;padding:25px;border-radius:20px;margin:20px;font-size:13px;}
-.lang-bar{margin:10px;}
-.lang-bar button{margin:3px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;}
-
-#trusted-bar{background:var(--navy);color:white;padding:8px;font-size:13px;font-weight:bold;}
 .scroll-list{border:1px solid #ddd;border-radius:10px;padding:10px;max-height:150px;overflow-y:auto;margin:10px 0;background:#fff;}
 .scroll-list label{display:block;padding:8px 0;font-size:14px;border-bottom:1px solid #eee;cursor:pointer;}
+/* LANG BAR FIXE */
+.lang-bar-fixed {
+  position: fixed; top:0; left:0; width:100%; background:var(--navy); padding:5px 0;
+  display:flex; justify-content:center; z-index:9999; box-shadow:0 4px 6px rgba(0,0,0,0.2);
+}
+.lang-bar-fixed button {
+  margin:0 5px; padding:6px 10px; border:none; border-radius:6px;
+  cursor:pointer; background:var(--gold); color:var(--bordeaux); font-weight:bold; font-size:14px; transition:0.2s;
+}
+.lang-bar-fixed button:hover{background:var(--bordeaux); color:var(--gold);}
+#trusted-bar{background:var(--navy);color:white;padding:8px;font-size:13px;font-weight:bold;}
 </style>
 </head>
-
 <body>
+
+<!-- LANG BAR FIXE -->
+<div class="lang-bar-fixed">
+  <button onclick="changeLanguageFull('fr')">🇫🇷 FR</button>
+  <button onclick="changeLanguageFull('en')">🇺🇸 EN</button>
+  <button onclick="changeLanguageFull('es')">🇪🇸 ES</button>
+  <button onclick="changeLanguageFull('pt')">🇵🇹 PT</button>
+  <button onclick="changeLanguageFull('it')">🇮🇹 IT</button>
+  <button onclick="changeLanguageFull('ht')">🇭🇹 HT</button>
+</div>
 
 <!-- REKLAM TICKER -->
 <div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
@@ -59,18 +69,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <h1 id="main-title">Aurisme Saveurs et Services</h1>
 </header>
 
-<!-- TRUSTED BADGE -->
 <div id="trusted-bar">🌍 Trusted Local Service – Safe • Professional • Reliable</div>
-
-<!-- LANGUAGE BUTTONS -->
-<div class="lang-bar">
-<button onclick="changeLanguage('fr')">🇫🇷</button>
-<button onclick="changeLanguage('en')">🇺🇸</button>
-<button onclick="changeLanguage('es')">🇪🇸</button>
-<button onclick="changeLanguage('pt')">🇵🇹</button>
-<button onclick="changeLanguage('it')">🇮🇹</button>
-<button onclick="changeLanguage('ht')">🇭🇹</button>
-</div>
 
 <!-- MENU GRID -->
 <div class="menu-grid">
@@ -86,9 +85,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 
 <!-- SUPERMARCHÉ -->
 <div class="collapsible-box">
-<button class="collapsible-btn" onclick="toggleBox('market-content')">
-<span>🛒 Service Supermarché</span><i class="fas fa-chevron-down"></i>
-</button>
+<button class="collapsible-btn" onclick="toggleBox('market-content')"><span>🛒 Service Supermarché</span><i class="fas fa-chevron-down"></i></button>
 <div id="market-content" class="collapsible-content">
 <label>Marché :</label>
 <select id="market-name">
@@ -121,9 +118,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 
 <!-- TI MACHANN -->
 <div class="collapsible-box" style="border-left-color: var(--navy);">
-<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);">
-<span>🏪 Espace Ti Machann</span><i class="fas fa-chevron-down"></i>
-</button>
+<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);"><span>🏪 Espace Ti Machann</span><i class="fas fa-chevron-down"></i></button>
 <div id="reseller-content" class="collapsible-content">
 <label>Produits an gwo :</label>
 <div class="scroll-list" id="resell-list">
@@ -147,16 +142,16 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 </div>
 </div>
 
-<!-- TOURIST -->
+<!-- TOURIST ASSISTANCE -->
 <div class="collapsible-box" style="border-left-color:#DAA520;">
 <button class="collapsible-btn" onclick="toggleBox('tourist')"><span>🌍 Tourist Assistance</span><i class="fas fa-chevron-down"></i></button>
 <div id="tourist" class="collapsible-content">
-<input type="text" placeholder="Full Name">
-<input type="text" placeholder="Hotel / Airbnb">
-<input type="date">
-<textarea placeholder="Details..."></textarea>
+<input type="text" id="tourist-name" placeholder="Full Name">
+<input type="text" id="tourist-hotel" placeholder="Hotel / Airbnb">
+<input type="date" id="tourist-date">
+<textarea id="tourist-details" placeholder="Details..."></textarea>
 <p id="currency-display" style="font-weight:bold;color:#800000;"></p>
-<button class="btn-order">REQUEST VIA WHATSAPP</button>
+<button class="btn-order" onclick="sendTouristOrder()">REQUEST VIA WHATSAPP</button>
 </div>
 </div>
 
@@ -173,62 +168,22 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <a href="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti" target="_blank" style="display:inline-block;margin-top:10px;background:#003366;color:white;padding:10px 15px;border-radius:10px;text-decoration:none;">📍 Get Directions</a>
 </div>
 
-<!-- PRIVACY POLICY -->
-<div style="margin-top:15px;">
-<a href="privacy.html" style="text-decoration:none; color:var(--navy); font-size:12px; font-weight:bold;">🔒 Politique de Confidentialité / Privacy Policy</a>
+<!-- PRIVACY -->
+<div style="margin-top:20px; text-align:center;">
+<a href="privacy.html" style="display:inline-block; background:#003366; color:white; padding:10px 20px; border-radius:25px; font-size:14px; font-weight:bold; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.2); transition:0.3s;">
+🔒 Privacy Policy / Politique de Confidentialité
+</a>
+</div>
 </div>
 
-</div> <!-- END FOOTER INFO -->
-
 <script>
-function toggleBox(id){
-let content=document.getElementById(id);
-content.style.display=(content.style.display==="block")?"none":"block";
-}
+// COLLAPSIBLE
+function toggleBox(id){let c=document.getElementById(id);c.style.display=(c.style.display==="block")?"none":"block";}
 
-function sendOrder(){
-const market=document.getElementById('market-name').value;
-const date=document.getElementById('market-date').value;
-const details=document.getElementById('market-details').value;
-const pay=document.getElementById('market-payment').value;
-const checked=document.querySelectorAll('#super-list input:checked');
-let items=Array.from(checked).map(cb=>cb.value);
-if(items.length===0 && !details){alert("Tanpri chwazi yon pwodwi!");return;}
-let msg=`*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}%0A📅 Date: ${date}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${details}%0A💳 Paiement: ${pay}`;
-window.open(`https://wa.me/50942017744?text=${msg}`);
-}
+// WHATSAPP ORDERS
+function sendOrder(){const m=document.getElementById('market-name').value;const d=document.getElementById('market-date').value;const det=document.getElementById('market-details').value;const pay=document.getElementById('market-payment').value;const checked=document.querySelectorAll('#super-list input:checked');let items=Array.from(checked).map(cb=>cb.value);if(items.length===0 && !det){alert("Tanpri chwazi yon pwodwi!");return;}let msg=`*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${m}%0A📅 Date: ${d}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${det}%0A💳 Paiement: ${pay}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
+function sendResellOrder(){const f=document.getElementById('package-format').value;const q=document.getElementById('resell-qty').value;const pay=document.getElementById('resell-payment').value;const checked=document.querySelectorAll('#resell-list input:checked');let items=Array.from(checked).map(cb=>cb.value);if(items.length===0 || !q){alert("Ranpli tout pati yo!");return;}let msg=`*COMMANDE TI MACHANN*%0A📦 Format: ${f}%0A🔢 Kantite: ${q}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
+function sendTouristOrder(){const n=document.getElementById('tourist-name').value;const h=document.getElementById('tourist-hotel').value;const d=document.getElementById('tourist-date').value;const det=document.getElementById('tourist-details').value;if(!n||!h){alert("Please fill your name and hotel!");return;}let msg=`*TOURIST ASSISTANCE*%0A👤 Name: ${n}%0A🏨 Hotel: ${h}%0A📅 Date: ${d}%0A📝 Details: ${det}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
 
-function sendResellOrder(){
-const format=document.getElementById('package-format').value;
-const qty=document.getElementById('resell-qty').value;
-const pay=document.getElementById('resell-payment').value;
-const checked=document.querySelectorAll('#resell-list input:checked');
-let items=Array.from(checked).map(cb=>cb.value);
-if(items.length===0 || !qty){alert("Ranpli tout pati yo!");return;}
-let msg=`*COMMANDE TI MACHANN*%0A📦 Format: ${format}%0A🔢 Kantite: ${qty}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;
-window.open(`https://wa.me/50942017744?text=${msg}`);
-}
-
-const translations={
-fr:{title:"Aurisme Saveurs et Services",currency:"HTG"},
-en:{title:"Aurisme Flavors & Services",currency:"USD"},
-es:{title:"Aurisme Sabores y Servicios",currency:"USD"},
-pt:{title:"Aurisme Sabores e Serviços",currency:"USD"},
-it:{title:"Aurisme Sapori e Servizi",currency:"EUR"},
-ht:{title:"Aurisme Saveurs ak Sèvis",currency:"HTG"}
-};
-
-function changeLanguage(lang){
-document.getElementById("main-title").innerText=translations[lang].title;
-document.getElementById("currency-display").innerText="Currency: "+translations[lang].currency;
-localStorage.setItem("lang",lang);
-}
-
-window.onload=function(){
-let saved=localStorage.getItem("lang");
-if(saved){changeLanguage(saved);}
-}
-</script>
-
-</body>
-  </html>
+// MULTILINGUAL
+const translationsFull={fr:{title:"Aurisme Saveurs et Services",menu:["LIVRAISON","TAXI MOTO","ACADEMY","PÂTISSERIE","DÉCO & TRAITEUR","GALERIE"],superLabelMarket:"Marché :",superLabelProducts:"Produits (Koche plizyè) :",superLabelDate:"Date de livraison :",superLabelDetails:"Détails ou autres articles...",superLabelPayment:"Paiement :",superBtnOrder:"COMMANDER VIA WHATSAPP",resellerLabelProducts:"Produits an gwo :",resellerLabelFormat:"Format d'emballage :",resellerLabelQty:"Kantite (Ex: 10 bwat, 50 sache...)",resellerLabelPayment:"Paiement :",resellerBtnOrder:"COMMANDE GROS WHATSAPP",touristLabelName:"Nom complet",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Détails...",touristBtnOrder:"DEMANDER VIA WHATSAPP",privacyBtn:"🔒 Politique de Confidentialité"},en:{title:"Aurisme Flavors & Services",menu:["DELIVERY","MOTO TAXI","ACADEMY","PASTRY","DECOR & CATERING","GALLERY"],superLabelMarket:"Market:",superLabelProducts:"Products (Select multiple):",superLabelDate:"Delivery Date:",superLabelDetails:"Details or other items...",superLabelPayment:"Payment:",superBtnOrder:"ORDER VIA WHATSAPP",resellerLabelProducts:"Wholesale Products:",resellerLabelFormat:"Package Format:",resellerLabelQty:"Quantity (Ex: 10 boxes, 50 packs...)",resellerLabelPayment:"Payment:",resellerBtnOrder:"WHOLESALE ORDER WHATSAPP",touristLabelName:"Full Name",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Details...",touristBtnOrder:"REQUEST VIA WHATSAPP",privacyBtn:"🔒 Privacy Policy"},es:{title:"Aurisme Sabores y Servicios",menu:["ENTREGA","MOTO TAXI","ACADEMIA","PASTELERÍA","DECORACIÓN & CATERING","GALERÍA"],superLabelMarket:"Mercado:",superLabelProducts:"Productos (Selecciona varios):",superLabelDate:"Fecha de entrega:",superLabelDetails:"Detalles u otros artículos...",superLabelPayment:"Pago:",superBtnOrder:"PEDIR POR WHATSAPP
