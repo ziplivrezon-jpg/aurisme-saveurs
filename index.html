@@ -39,12 +39,12 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 
 <!-- LANGUE -->
 <div class="lang-bar-fixed">
-<button onclick="changeLanguageFull('fr')">🇫🇷 FR</button>
-<button onclick="changeLanguageFull('en')">🇺🇸 EN</button>
-<button onclick="changeLanguageFull('es')">🇪🇸 ES</button>
-<button onclick="changeLanguageFull('pt')">🇵🇹 PT</button>
-<button onclick="changeLanguageFull('it')">🇮🇹 IT</button>
-<button onclick="changeLanguageFull('ht')">🇭🇹 HT</button>
+<button onclick="changeLanguage('fr')">🇫🇷 FR</button>
+<button onclick="changeLanguage('en')">🇺🇸 EN</button>
+<button onclick="changeLanguage('es')">🇪🇸 ES</button>
+<button onclick="changeLanguage('pt')">🇵🇹 PT</button>
+<button onclick="changeLanguage('it')">🇮🇹 IT</button>
+<button onclick="changeLanguage('ht')">🇭🇹 HT</button>
 </div>
 
 <!-- REKLAM -->
@@ -77,7 +77,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 
 <!-- SUPERMARCHÉ -->
 <div class="collapsible-box">
-<button class="collapsible-btn" onclick="toggleBox('market-content')"><span id="super-title">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
+<button class="collapsible-btn" onclick="toggleBox('market-content', this)"><span id="super-title">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
 <div id="market-content" class="collapsible-content">
 <label id="super-label-market">Marché :</label>
 <select id="market-name">
@@ -110,7 +110,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 
 <!-- TI MACHANN -->
 <div class="collapsible-box" style="border-left-color: var(--navy);">
-<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);"><span id="reseller-title">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
+<button class="collapsible-btn" onclick="toggleBox('reseller-content', this)" style="color: var(--navy);"><span id="reseller-title">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
 <div id="reseller-content" class="collapsible-content">
 <label id="reseller-label-products">Produits an gwo :</label>
 <div class="scroll-list" id="resell-list">
@@ -136,7 +136,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 
 <!-- TOURIST ASSISTANCE -->
 <div class="collapsible-box" style="border-left-color:#DAA520;">
-<button class="collapsible-btn" onclick="toggleBox('tourist')"><span id="tourist-title">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
+<button class="collapsible-btn" onclick="toggleBox('tourist', this)"><span id="tourist-title">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
 <div id="tourist" class="collapsible-content">
 <input type="text" id="tourist-name" placeholder="Full Name">
 <input type="text" id="tourist-hotel" placeholder="Hotel / Airbnb">
@@ -169,14 +169,48 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </div>
 
 <script>
-// COLLAPSIBLE
-function toggleBox(id){let c=document.getElementById(id);c.style.display=(c.style.display==="block")?"none":"block";}
-// WHATSAPP
-function sendOrder(){const m=document.getElementById('market-name').value;const d=document.getElementById('market-date').value;const det=document.getElementById('market-details').value;const pay=document.getElementById('market-payment').value;const checked=document.querySelectorAll('#super-list input:checked');let items=Array.from(checked).map(cb=>cb.value);if(items.length===0 && !det){alert("Tanpri chwazi yon pwodwi!");return;}let msg=`*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${m}%0A📅 Date: ${d}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${det}%0A💳 Paiement: ${pay}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
-function sendResellOrder(){const f=document.getElementById('package-format').value;const q=document.getElementById('resell-qty').value;const pay=document.getElementById('resell-payment').value;const checked=document.querySelectorAll('#resell-list input:checked');let items=Array.from(checked).map(cb=>cb.value);if(items.length===0 || !q){alert("Ranpli tout pati yo!");return;}let msg=`*COMMANDE TI MACHANN*%0A📦 Format: ${f}%0A🔢 Kantite: ${q}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
-function sendTouristOrder(){const n=document.getElementById('tourist-name').value;const h=document.getElementById('tourist-hotel').value;const d=document.getElementById('tourist-date').value;const det=document.getElementById('tourist-details').value;if(!n||!h){alert("Please fill your name and hotel!");return;}let msg=`*TOURIST ASSISTANCE*%0A👤 Name: ${n}%0A🏨 Hotel: ${h}%0A📅 Date: ${d}%0A📝 Details: ${det}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
+// COLLAPSIBLE FUNCTION
+function toggleBox(id, btn){
+  var content = document.getElementById(id);
+  content.style.display = (content.style.display === "block")?"none":"block";
+  var icon = btn.querySelector('i');
+  icon.className = (content.style.display === "block")?"fas fa-chevron-up":"fas fa-chevron-down";
+}
 
-// MULTI-LANGUAGE
-const translationsFull = {
-fr:{superTitle:"🛒 Service Supermarché",superLabelMarket:"Marché :",superLabelProducts:"Produits (Koche plizyè) :",superLabelDate:"Date de livraison :",superLabelPayment:"Paiement :",superBtnOrder:"COMMANDER VIA WHATSAPP",resellerTitle:"🏪 Espace Ti Machann",resellerLabelProducts:"Produits an gwo :",resellerLabelFormat:"Format d'emballage :",resellerLabelQty:"Kantite (Ex: 10 bwat, 50 sache...)",resellerLabelPayment:"Paiement :",resellerBtnOrder:"COMMANDE GROS WHATSAPP",touristTitle:"🌍 Tourist Assistance",touristLabelName:"Nom complet",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Détails...",touristBtnOrder:"DEMANDER VIA WHATSAPP",adText:"🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟"},
-en:{superTitle:"🛒 Supermarket Service",superLabelMarket:"Market:",superLabelProducts:"Products (Select multiple):",superLabelDate:"Delivery Date:",superLabelPayment:"Payment:",superBtnOrder:"ORDER VIA WHATSAPP",resellerTitle:"🏪 Small Vendor Space",resellerLabelProducts:"Wholesale Products:",resellerLabelFormat:"Package Format:",resellerLabelQty:"
+// WHATSAPP ORDERS
+function sendOrder(){
+  const market=document.getElementById('market-name').value;
+  const date=document.getElementById('market-date').value;
+  const details=document.getElementById('market-details').value;
+  const pay=document.getElementById('market-payment').value;
+  const checked=document.querySelectorAll('#super-list input:checked');
+  const items=Array.from(checked).map(cb=>cb.value);
+  if(items.length===0 && !details){alert("Tanpri chwazi yon pwodwi!"); return;}
+  const msg=`*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}%0A📅 Date: ${date}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${details}%0A💳 Paiement: ${pay}`;
+  window.open(`https://wa.me/50942017744?text=${msg}`);
+}
+
+function sendResellOrder(){
+  const format=document.getElementById('package-format').value;
+  const qty=document.getElementById('resell-qty').value;
+  const pay=document.getElementById('resell-payment').value;
+  const checked=document.querySelectorAll('#resell-list input:checked');
+  const items=Array.from(checked).map(cb=>cb.value);
+  if(items.length===0 || !qty){alert("Ranpli tout pati yo!"); return;}
+  const msg=`*COMMANDE TI MACHANN*%0A📦 Format: ${format}%0A🔢 Kantite: ${qty}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;
+  window.open(`https://wa.me/50942017744?text=${msg}`);
+}
+
+function sendTouristOrder(){
+  const name=document.getElementById('tourist-name').value;
+  const hotel=document.getElementById('tourist-hotel').value;
+  const date=document.getElementById('tourist-date').value;
+  const details=document.getElementById('tourist-details').value;
+  if(!name||!hotel){alert("Please fill your name and hotel!");return;}
+  const msg=`*TOURIST ASSISTANCE*%0A👤 Name: ${name}%0A🏨 Hotel: ${hotel}%0A📅 Date: ${date}%0A📝 Details: ${details}`;
+  window.open(`https://wa.me/50942017744?text=${msg}`);
+}
+
+// MULTI-LANGUAGE TRANSLATION
+const translations = {
+fr:{superTitle:"🛒 Service Supermarché",superLabelMarket:"Marché :",superLabelProducts:"Produits (Koche plizyè) :",superLabelDate:"Date de livraison :",superLabelPayment:"Paiement :",superBtnOrder:"COMMANDER VIA WHATSAPP",resellerTitle:"🏪 Espace Ti Machann",resellerLabelProducts:"Produits an gwo :",resellerLabelFormat:"Format d'emballage :",resellerLabelQty:"Kantite (Ex: 10 bwat, 50 sache...)",resellerLabelPayment:"Paiement :",resellerBtnOrder:"COMMANDE GROS WHATSAPP",touristTitle:"🌍 Tourist Assistance",touristLabelName:"Nom complet",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",tourist
