@@ -37,7 +37,6 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </head>
 <body>
 
-<!-- LANGUE -->
 <div class="lang-bar-fixed">
 <button onclick="changeLanguage('fr')">🇫🇷 FR</button>
 <button onclick="changeLanguage('en')">🇺🇸 EN</button>
@@ -47,17 +46,14 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 <button onclick="changeLanguage('ht')">🇭🇹 HT</button>
 </div>
 
-<!-- REKLAM -->
 <div class="reklam-ticker"><p id="ad-text">🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
-<!-- CELEBRITY -->
 <div class="celebrity-bar">
 <div class="celeb-item"><img src="client1.jpg" alt="C1"><p id="celebrity1">Anniversaire</p></div>
 <div class="celeb-item"><img src="client2.jpg" alt="C2"><p id="celebrity2">Félicitations</p></div>
 <div class="celeb-item"><img src="client3.jpg" alt="C3"><p id="celebrity3">Top Client</p></div>
 </div>
 
-<!-- HEADER -->
 <header>
 <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
 <h1 id="main-title">Aurisme Saveurs et Services</h1>
@@ -65,7 +61,6 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 
 <div class="container">
 
-<!-- MENU GRID -->
 <div class="menu-grid">
 <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span id="menu-livraison">LIVRAISON</span></a>
 <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span id="menu-taxi">TAXI MOTO</span></a>
@@ -75,7 +70,6 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span id="menu-galeri">GALERIE</span></a>
 </div>
 
-<!-- SUPERMARCHÉ -->
 <div class="collapsible-box">
 <button class="collapsible-btn" onclick="toggleBox('market-content', this)"><span id="super-title">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
 <div id="market-content" class="collapsible-content">
@@ -108,7 +102,6 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </div>
 </div>
 
-<!-- TI MACHANN -->
 <div class="collapsible-box" style="border-left-color: var(--navy);">
 <button class="collapsible-btn" onclick="toggleBox('reseller-content', this)" style="color: var(--navy);"><span id="reseller-title">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
 <div id="reseller-content" class="collapsible-content">
@@ -134,7 +127,6 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </div>
 </div>
 
-<!-- TOURIST ASSISTANCE -->
 <div class="collapsible-box" style="border-left-color:#DAA520;">
 <button class="collapsible-btn" onclick="toggleBox('tourist', this)"><span id="tourist-title">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
 <div id="tourist" class="collapsible-content">
@@ -146,35 +138,29 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </div>
 </div>
 
-<!-- FOOTER + GOOGLE MAP + PRIVACY -->
 <div class="footer-info">
 <p style="font-weight:bold;font-size:16px;">Aurisme Group</p>
 <p>📧 gâteaux.friandise@gmail.com</p>
 <p>📞 +509 4201-7744</p>
 <p>📍 Péguy-ville, rue A Qualo, Haïti</p>
-<div style="margin-top:20px;">
-<iframe src="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti&output=embed" width="100%" height="250" style="border:0;border-radius:20px;" loading="lazy"></iframe>
-<a href="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti" target="_blank" style="display:inline-block;margin-top:10px;background:#003366;color:white;padding:10px 15px;border-radius:10px;text-decoration:none;">📍 Get Directions</a>
-</div>
 <div class="social-mini">
 <a href="https://facebook.com/Zipservices" target="_blank"><i class="fab fa-facebook"></i></a>
 <a href="https://instagram.com/aurisme_saveurs" target="_blank"><i class="fab fa-instagram"></i></a>
 <a href="https://wa.me/50942017744" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </div>
-<div style="margin-top:20px; text-align:center;">
-<a href="privacy.html" style="display:inline-block; background:#003366; color:white; padding:10px 20px; border-radius:25px; font-size:14px; font-weight:bold; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.2); transition:0.3s;">
-🔒 Privacy Policy / Politique de Confidentialité
-</a>
-</div>
 </div>
 
 <script>
-// COLLAPSIBLE FUNCTION
+// FONKSYON POU OUVRI/FENMEN BWAT YO
 function toggleBox(id, btn){
   var content = document.getElementById(id);
-  content.style.display = (content.style.display === "block")?"none":"block";
-  var icon = btn.querySelector('i');
-  icon.className = (content.style.display === "block")?"fas fa-chevron-up":"fas fa-chevron-down";
+  if(content.style.display === "block"){
+    content.style.display = "none";
+    btn.querySelector('i').className = "fas fa-chevron-down";
+  } else {
+    content.style.display = "block";
+    btn.querySelector('i').className = "fas fa-chevron-up";
+  }
 }
 
 // WHATSAPP ORDERS
@@ -211,6 +197,30 @@ function sendTouristOrder(){
   window.open(`https://wa.me/50942017744?text=${msg}`);
 }
 
-// MULTI-LANGUAGE TRANSLATION
+// TRADIKSYON POU TOUT LANG YO
 const translations = {
-fr:{superTitle:"🛒 Service Supermarché",superLabelMarket:"Marché :",superLabelProducts:"Produits (Koche plizyè) :",superLabelDate:"Date de livraison :",superLabelPayment:"Paiement :",superBtnOrder:"COMMANDER VIA WHATSAPP",resellerTitle:"🏪 Espace Ti Machann",resellerLabelProducts:"Produits an gwo :",resellerLabelFormat:"Format d'emballage :",resellerLabelQty:"Kantite (Ex: 10 bwat, 50 sache...)",resellerLabelPayment:"Paiement :",resellerBtnOrder:"COMMANDE GROS WHATSAPP",touristTitle:"🌍 Tourist Assistance",touristLabelName:"Nom complet",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",tourist
+  fr: { title: "Aurisme Saveurs et Services", market: "🛒 Service Supermarché", reseller: "🏪 Espace Ti Machann", tourist: "🌍 Tourist Assistance", order: "COMMANDER VIA WHATSAPP" },
+  en: { title: "Aurisme Flavors and Services", market: "🛒 Supermarket Service", reseller: "🏪 Resellers Space", tourist: "🌍 Tourist Assistance", order: "ORDER VIA WHATSAPP" },
+  es: { title: "Aurisme Sabores y Servicios", market: "🛒 Servicio de Supermercado", reseller: "🏪 Espacio para Revendedores", tourist: "🌍 Asistencia Turística", order: "PEDIR POR WHATSAPP" },
+  pt: { title: "Aurisme Sabores e Serviços", market: "🛒 Serviço de Supermercado", reseller: "🏪 Espaço do Revendedor", tourist: "🌍 Assistência Turística", order: "ENCOMENDAR VIA WHATSAPP" },
+  it: { title: "Aurisme Sapori e Servizi", market: "🛒 Servizio Supermercato", reseller: "🏪 Spazio Rivenditori", tourist: "🌍 Assistenza Turistica", order: "ORDINA VIA WHATSAPP" },
+  ht: { title: "Aurisme Saveurs ak Sèvis", market: "🛒 Sèvis Sipèmache", reseller: "🏪 Espas Ti Machann", tourist: "🌍 Asistans Touris", order: "KOMANDE SOU WHATSAPP" }
+};
+
+function changeLanguage(lang) {
+  const t = translations[lang];
+  document.getElementById('main-title').innerText = t.title;
+  document.getElementById('super-title').innerText = t.market;
+  document.getElementById('reseller-title').innerText = t.reseller;
+  document.getElementById('tourist-title').innerText = t.tourist;
+  
+  // Chanje tèks bouton yo
+  const btns = document.querySelectorAll('.btn-order');
+  btns[0].innerText = t.order;
+  btns[1].innerText = t.order;
+  btns[2].innerText = t.order;
+}
+</script>
+
+</body>
+</html>
