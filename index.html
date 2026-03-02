@@ -18,20 +18,19 @@ header{background:var(--bordeaux);color:white;padding:30px 20px 60px 20px;border
 .celeb-item img{width:60px;height:60px;border-radius:50%;border:3px solid var(--gold);padding:2px;object-fit:cover;}
 .celeb-item p{font-size:11px;margin:5px 0 0;font-weight:bold;color:var(--bordeaux);}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px;}
-.menu-card{background:white;padding:25px 10px;border-radius:20px;text-align:center;text-decoration:none;color:var(--navy);font-weight:bold;box-shadow:0 10px 20px rgba(0,0,0,0.1);border-bottom:4px solid var(--gold);display:flex;flex-direction:column;align-items:center;}
+.menu-card{background:white;padding:25px 10px;border-radius:20px;text-align:center;text-decoration:none;color:var(--navy);font-weight:bold;box-shadow:0 10px 20px rgba(0,0,0,0.1);border-bottom:4px solid var(--gold);display:flex;flex-direction:column;align-items:center;transition: 0.3s;}
+.menu-card:active{transform: scale(0.95);}
 .menu-card i{font-size:35px;color:var(--bordeaux);margin-bottom:10px;}
 .collapsible-box{background:white;border-radius:20px;box-shadow:0 6px 15px rgba(0,0,0,0.1);margin:20px 10px;overflow:hidden;border-left:5px solid var(--bordeaux);}
 .collapsible-btn{background:white;width:100%;padding:20px;border:none;text-align:left;font-size:16px;font-weight:bold;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
 .collapsible-content{display:none;padding:0 20px 20px 20px;text-align:left;}
 input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:10px;box-sizing:border-box;font-family:inherit;}
 .btn-order{background-color:var(--bordeaux);color:white;border:none;padding:16px;width:100%;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
-.scroll-list{border:1px solid #ddd;border-radius:10px;padding:10px;max-height:150px;overflow-y:auto;margin:10px 0;background:#fff;}
-.scroll-list label{display:block;padding:8px 0;font-size:14px;border-bottom:1px solid #eee;cursor:pointer;}
 .footer-info{background:#eee;padding:25px;border-radius:20px;margin-top:30px;font-size:13px;color:#444;}
 .social-mini{margin:15px 0;display:flex;justify-content:center;gap:20px;}
 .social-mini a{color:var(--bordeaux);font-size:24px;text-decoration:none;}
 .lang-bar-fixed{position:fixed;top:0;left:0;width:100%;background:var(--navy);padding:5px 0;display:flex;justify-content:center;z-index:9999;box-shadow:0 4px 6px rgba(0,0,0,0.2);flex-wrap:wrap;}
-.lang-bar-fixed button{margin:3px 4px;padding:4px 8px;border:none;border-radius:6px;cursor:pointer;background:var(--gold);color:var(--bordeaux);font-weight:bold;font-size:12px;transition:0.2s;}
+.lang-bar-fixed button{margin:3px 4px;padding:4px 8px;border:none;border-radius:6px;cursor:pointer;background:var(--gold);color:var(--bordeaux);font-weight:bold;font-size:12px;}
 </style>
 </head>
 <body>
@@ -46,12 +45,6 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </div>
 
 <div class="reklam-ticker"><p id="ad-text">🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
-
-<div class="celebrity-bar">
-<div class="celeb-item"><img src="client1.jpg" alt="C1"><p id="celebrity1">Anniversaire</p></div>
-<div class="celeb-item"><img src="client2.jpg" alt="C2"><p id="celebrity2">Félicitations</p></div>
-<div class="celeb-item"><img src="client3.jpg" alt="C3"><p id="celebrity3">Top Client</p></div>
-</div>
 
 <header>
 <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
@@ -71,51 +64,20 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 <div class="collapsible-box">
 <button class="collapsible-btn" onclick="toggleBox('market-content')"><span id="super-title">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
 <div id="market-content" class="collapsible-content">
-<label>Marché :</label>
 <select id="market-name">
 <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
-<option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option>
-<option>Emile Market</option><option>Compas Market</option><option>Caribbean Supermarket</option>
-<option>Déli Mart</option><option>Autre...</option>
+<option>Déli Mart</option>
 </select>
-<div class="scroll-list" id="super-list">
-<label><input type="checkbox" value="Sable"> Sable</label>
-<label><input type="checkbox" value="Cookies"> Cookies</label>
-<label><input type="checkbox" value="Pâtés"> Pâtés</label>
-<label><input type="checkbox" value="Palmier"> Palmier</label>
-<label><input type="checkbox" value="Sacristain"> Sacristain</label>
-<label><input type="checkbox" value="Coconuts"> Coconuts</label>
-<label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
-</div>
-<input type="date" id="market-date">
-<textarea id="market-details" placeholder="Détails ou autres articles..."></textarea>
-<select id="market-payment">
-<option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
-<option value="Cash">Cash</option><option value="Chèque">Chèque</option>
-</select>
-<button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
+<textarea id="market-details" placeholder="Articles..."></textarea>
+<button class="btn-order" id="btn-super" onclick="sendOrder()">COMMANDER WHATSAPP</button>
 </div>
 </div>
 
 <div class="collapsible-box" style="border-left-color: var(--navy);">
 <button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);"><span id="reseller-title">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
 <div id="reseller-content" class="collapsible-content">
-<div class="scroll-list" id="resell-list">
-<label><input type="checkbox" value="Sable"> Sable</label>
-<label><input type="checkbox" value="Cookies"> Cookies</label>
-<label><input type="checkbox" value="Pâtés"> Pâtés</label>
-<label><input type="checkbox" value="Palmier"> Palmier</label>
-<label><input type="checkbox" value="Sacristain"> Sacristain</label>
-<label><input type="checkbox" value="Coconuts"> Coconuts</label>
-<label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
-</div>
-<select id="package-format"><option>Boîte (Bwat)</option><option>Sachet (Sache)</option><option>Les deux (Deux)</option></select>
-<input type="text" id="resell-qty" placeholder="Kantite (Ex: 10 bwat, 50 sache...)">
-<select id="resell-payment">
-<option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
-<option value="Cash">Cash</option><option value="Chèque">Chèque</option>
-</select>
-<button class="btn-order" style="background: var(--navy);" onclick="sendResellOrder()">COMMANDE GROS WHATSAPP</button>
+<input type="text" id="resell-qty" placeholder="Quantité...">
+<button class="btn-order" style="background: var(--navy);" id="btn-resell" onclick="sendResellOrder()">COMMANDER GROS</button>
 </div>
 </div>
 
@@ -123,85 +85,94 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 <button class="collapsible-btn" onclick="toggleBox('tourist')"><span id="tourist-title">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
 <div id="tourist" class="collapsible-content">
 <input type="text" id="tourist-name" placeholder="Full Name">
-<input type="text" id="tourist-hotel" placeholder="Hotel / Airbnb">
-<input type="date" id="tourist-date">
-<textarea id="tourist-details" placeholder="Details..."></textarea>
-<button class="btn-order" onclick="sendTouristOrder()">REQUEST VIA WHATSAPP</button>
+<textarea id="tourist-details" placeholder="How can we help you?"></textarea>
+<button class="btn-order" style="background:#DAA520;" id="btn-tourist" onclick="sendTouristOrder()">REQUEST ASSISTANCE</button>
+</div>
 </div>
 </div>
 
 <div class="footer-info">
 <p style="font-weight:bold;font-size:16px;">Aurisme Group</p>
-<p>📧 gâteaux.friandise@gmail.com</p>
-<p>📞 +509 4201-7744</p>
-<p>📍 Péguy-ville, rue A Qualo, Haïti</p>
+<p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
 
 <div style="margin-top:20px;">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.450!2d-72.287!3d18.520!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMxJzEyLjAiTiA3MsKwMTcnMTMuMiJX!5e0!3m2!1sfr!2sht!4v1620000000000" width="100%" height="250" style="border:0;border-radius:20px;" loading="lazy"></iframe>
-<br>
-<a href="https://maps.google.com" target="_blank" style="display:inline-block;margin-top:10px;background:#003366;color:white;padding:10px 15px;border-radius:10px;text-decoration:none;">📍 Get Directions</a>
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15143.123456789!2d-72.29!3d18.54!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sht!4v123456789" width="100%" height="200" style="border:0;border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
 </div>
 
 <div class="social-mini">
-<a href="https://facebook.com/Zipservices" target="_blank"><i class="fab fa-facebook"></i></a>
-<a href="https://instagram.com/aurisme_saveurs" target="_blank"><i class="fab fa-instagram"></i></a>
-<a href="https://wa.me/50942017744" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/50942017744"><i class="fab fa-whatsapp"></i></a>
 </div>
 
 <div style="margin-top:20px;">
-<a href="privacy.html" style="display:inline-block; background:#003366; color:white; padding:10px 20px; border-radius:25px; font-size:14px; font-weight:bold; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
-🔒 Privacy Policy / Politique de Confidentialité
+<a href="privacy.html" style="display:inline-block; background:#003366; color:white; padding:10px 20px; border-radius:25px; font-size:14px; text-decoration:none;">
+🔒 Privacy Policy / Confidentialité
 </a>
 </div>
 </div>
 
 <script>
-// FIX OUVRI BWAT
+// 1. FONKSYON POU BWAT YO OUVRI (GARANTI)
 function toggleBox(id) {
     var content = document.getElementById(id);
-    if (content.style.display === "none" || content.style.display === "") {
-        content.style.display = "block";
-    } else {
+    var allBoxes = document.querySelectorAll('.collapsible-content');
+    
+    // Si bwat la te deja louvri, nou fèmen li
+    if (content.style.display === "block") {
         content.style.display = "none";
+    } else {
+        // Fèmen tout rès yo anvan epi ouvri sa a
+        allBoxes.forEach(box => box.style.display = "none");
+        content.style.display = "block";
     }
 }
 
-// FIX LANG
-const langData = {
-    fr: { title: "Aurisme Saveurs et Services", market: "🛒 Service Supermarché", resell: "🏪 Espace Ti Machann", tourist: "🌍 Tourist Assistance", deliv: "LIVRAISON" },
-    ht: { title: "Aurisme Saveurs ak Sèvis", market: "🛒 Sèvis Sipèmache", resell: "🏪 Espas Ti Machann", tourist: "🌍 Asistans Touris", deliv: "LIVREZON" },
-    en: { title: "Aurisme Flavors and Services", market: "🛒 Supermarket Service", resell: "🏪 Resellers Space", tourist: "🌍 Tourist Assistance", deliv: "DELIVERY" },
-    es: { title: "Aurisme Sabores y Servicios", market: "🛒 Servicio Supermercado", resell: "🏪 Espacio Revendedores", tourist: "🌍 Asistencia Turística", deliv: "ENTREGA" },
-    it: { title: "Aurisme Sapori e Servizi", market: "🛒 Servizio Supermercato", resell: "🏪 Spazio Rivenditori", tourist: "🌍 Assistenza Turistica", deliv: "CONSEGNA" },
-    pt: { title: "Aurisme Sabores e Serviços", market: "🛒 Serviço Supermercado", resell: "🏪 Espaço Revendedor", tourist: "🌍 Assistência Turística", deliv: "ENTREGA" }
+// 2. SISTÈM TRADIKSYON POU TOUT LANG YO
+const translations = {
+    fr: { title: "Aurisme Saveurs et Services", market: "🛒 Service Supermarché", resell: "🏪 Espace Ti Machann", tourist: "🌍 Tourist Assistance", deliv: "LIVRAISON", taxi: "TAXI MOTO", btn: "COMMANDER WHATSAPP" },
+    ht: { title: "Aurisme Saveurs ak Sèvis", market: "🛒 Sèvis Sipèmache", resell: "🏪 Espas Ti Machann", tourist: "🌍 Asistans Touris", deliv: "LIVREZON", taxi: "TAKSI MOTO", btn: "KOMANDE SOU WHATSAPP" },
+    en: { title: "Aurisme Flavors and Services", market: "🛒 Supermarket Service", resell: "🏪 Resellers Space", tourist: "🌍 Tourist Assistance", deliv: "DELIVERY", taxi: "MOTO TAXI", btn: "ORDER VIA WHATSAPP" },
+    es: { title: "Aurisme Sabores y Servicios", market: "🛒 Servicio Supermercado", resell: "🏪 Espacio Revendedores", tourist: "🌍 Asistencia Turística", deliv: "ENTREGA", taxi: "TAXI MOTO", btn: "PEDIR POR WHATSAPP" },
+    it: { title: "Aurisme Sapori e Servizi", market: "🛒 Servizio Supermercato", resell: "🏪 Spazio Rivenditori", tourist: "🌍 Assistenza Turistica", deliv: "CONSEGNA", taxi: "TAXI MOTO", btn: "ORDINA SU WHATSAPP" },
+    pt: { title: "Aurisme Sabores e Serviços", market: "🛒 Serviço Supermercado", resell: "🏪 Espaço Revendedor", tourist: "🌍 Assistência Turística", deliv: "ENTREGA", taxi: "TAXI MOTO", btn: "PEDIR NO WHATSAPP" }
 };
 
 function changeLanguage(lang) {
-    const d = langData[lang];
-    if(d) {
-        document.getElementById('main-title').innerText = d.title;
-        document.getElementById('super-title').innerText = d.market;
-        document.getElementById('reseller-title').innerText = d.resell;
-        document.getElementById('tourist-title').innerText = d.tourist;
-        document.getElementById('menu-livraison').innerText = d.deliv;
-    }
+    const t = translations[lang];
+    if(!t) return;
+
+    // Chanje Tit ak Menu
+    document.getElementById('main-title').innerText = t.title;
+    document.getElementById('super-title').innerText = t.market;
+    document.getElementById('reseller-title').innerText = t.resell;
+    document.getElementById('tourist-title').innerText = t.tourist;
+    document.getElementById('menu-livraison').innerText = t.deliv;
+    document.getElementById('menu-taxi').innerText = t.taxi;
+    
+    // Chanje bouton yo
+    document.getElementById('btn-super').innerText = t.btn;
+    document.getElementById('btn-resell').innerText = t.btn;
+    
+    // SOVE LANG LAN NAN TELEFÒN NAN
+    localStorage.setItem('selectedLang', lang);
 }
 
-// WHATSAPP
+// Lè moun nan tounen sou paj la, remete lang li te chwazi a
+window.onload = function() {
+    const savedLang = localStorage.getItem('selectedLang') || 'fr';
+    changeLanguage(savedLang);
+};
+
+// 3. WHATSAPP ORDERS
 function sendOrder(){
     const market = document.getElementById('market-name').value;
-    const msg = `*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}`;
-    window.open(`https://wa.me/50942017744?text=${msg}`);
-}
-function sendResellOrder(){
-    const qty = document.getElementById('resell-qty').value;
-    const msg = `*COMMANDE TI MACHANN*%0A🔢 Kantite: ${qty}`;
-    window.open(`https://wa.me/50942017744?text=${msg}`);
+    const details = document.getElementById('market-details').value;
+    window.open(`https://wa.me/50942017744?text=*SUPERMARCHÉ*%0A📍:${market}%0A📝:${details}`);
 }
 function sendTouristOrder(){
     const name = document.getElementById('tourist-name').value;
-    const msg = `*TOURIST ASSISTANCE*%0A👤 Name: ${name}`;
-    window.open(`https://wa.me/50942017744?text=${msg}`);
+    window.open(`https://wa.me/50942017744?text=*TOURIST HELP*%0A👤:${name}`);
 }
 </script>
 </body>
