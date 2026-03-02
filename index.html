@@ -21,24 +21,24 @@ header{background:var(--bordeaux);color:white;padding:30px 20px 60px;border-bott
 .menu-card{background:white;padding:25px;border-radius:20px;text-decoration:none;color:var(--navy);font-weight:bold;box-shadow:0 10px 20px rgba(0,0,0,0.1);border-bottom:4px solid var(--gold);}
 .menu-card i{font-size:35px;color:var(--bordeaux);margin-bottom:10px;}
 .collapsible-box{background:white;border-radius:20px;box-shadow:0 6px 15px rgba(0,0,0,0.1);margin:20px;overflow:hidden;border-left:5px solid var(--bordeaux);}
-.collapsible-btn{background:white;width:100%;padding:20px;border:none;font-size:17px;font-weight:bold;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;}
-.collapsible-content{display:none;padding:20px;text-align:left;}
-input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #ddd;}
-.btn-order{background:var(--bordeaux);color:white;border:none;padding:15px;width:100%;border-radius:10px;font-weight:bold;cursor:pointer;}
+.collapsible-btn{background:white;width:100%;padding:18px;border:none;font-size:16px;font-weight:bold;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;}
+.collapsible-content{display:none;padding:15px;text-align:left;}
+input,select,textarea{width:100%;padding:10px;margin:8px 0;border-radius:10px;border:1px solid #ddd;}
+.btn-order{background:var(--bordeaux);color:white;border:none;padding:14px;width:100%;border-radius:10px;font-weight:bold;cursor:pointer;}
 .footer-info{background:#eee;padding:25px;border-radius:20px;margin:20px;font-size:13px;}
 .scroll-list{border:1px solid #ddd;border-radius:10px;padding:10px;max-height:150px;overflow-y:auto;margin:10px 0;background:#fff;}
 .scroll-list label{display:block;padding:8px 0;font-size:14px;border-bottom:1px solid #eee;cursor:pointer;}
-/* LANG BAR FIXE */
+/* LANG BAR FIXE - PI TI AK RESPONSIVE */
 .lang-bar-fixed {
   position: fixed; top:0; left:0; width:100%; background:var(--navy); padding:5px 0;
   display:flex; justify-content:center; z-index:9999; box-shadow:0 4px 6px rgba(0,0,0,0.2);
+  flex-wrap:wrap;
 }
 .lang-bar-fixed button {
-  margin:0 5px; padding:6px 10px; border:none; border-radius:6px;
-  cursor:pointer; background:var(--gold); color:var(--bordeaux); font-weight:bold; font-size:14px; transition:0.2s;
+  margin:3px 4px; padding:4px 8px; border:none; border-radius:6px;
+  cursor:pointer; background:var(--gold); color:var(--bordeaux); font-weight:bold; font-size:12px; transition:0.2s;
 }
 .lang-bar-fixed button:hover{background:var(--bordeaux); color:var(--gold);}
-#trusted-bar{background:var(--navy);color:white;padding:8px;font-size:13px;font-weight:bold;}
 </style>
 </head>
 <body>
@@ -58,9 +58,9 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 
 <!-- CELEBRITY BAR -->
 <div class="celebrity-bar">
-<div class="celeb-item"><img src="client1.jpg" alt="C1"><p>Anniversaire</p></div>
-<div class="celeb-item"><img src="client2.jpg" alt="C2"><p>Félicitations</p></div>
-<div class="celeb-item"><img src="client3.jpg" alt="C3"><p>Top Client</p></div>
+<div class="celeb-item"><img src="client1.jpg" alt="C1"><p id="celebrity1">Anniversaire</p></div>
+<div class="celeb-item"><img src="client2.jpg" alt="C2"><p id="celebrity2">Félicitations</p></div>
+<div class="celeb-item"><img src="client3.jpg" alt="C3"><p id="celebrity3">Top Client</p></div>
 </div>
 
 <!-- HEADER -->
@@ -69,32 +69,20 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <h1 id="main-title">Aurisme Saveurs et Services</h1>
 </header>
 
-<div id="trusted-bar">🌍 Trusted Local Service – Safe • Professional • Reliable</div>
-
-<!-- MENU GRID -->
-<div class="menu-grid">
-<a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span>LIVRAISON</span></a>
-<a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span>TAXI MOTO</span></a>
-<a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span>ACADEMY</span></a>
-<a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span>PÂTISSERIE</span></a>
-<a href="decoration.html" class="menu-card"><i class="fas fa-utensils"></i><span>DÉCO & TRAITEUR</span></a>
-<a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span>GALERIE</span></a>
-</div>
-
 <div class="container">
 
 <!-- SUPERMARCHÉ -->
 <div class="collapsible-box">
-<button class="collapsible-btn" onclick="toggleBox('market-content')"><span>🛒 Service Supermarché</span><i class="fas fa-chevron-down"></i></button>
+<button class="collapsible-btn" onclick="toggleBox('market-content')"><span id="super-title">🛒 Service Supermarché</span><i class="fas fa-chevron-down"></i></button>
 <div id="market-content" class="collapsible-content">
-<label>Marché :</label>
+<label id="super-label-market">Marché :</label>
 <select id="market-name">
 <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
 <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option>
 <option>Emile Market</option><option>Compas Market</option><option>Caribbean Supermarket</option>
 <option>Déli Mart</option><option>Autre...</option>
 </select>
-<label>Produits (Koche plizyè) :</label>
+<label id="super-label-products">Produits (Koche plizyè) :</label>
 <div class="scroll-list" id="super-list">
 <label><input type="checkbox" value="Sable"> Sable</label>
 <label><input type="checkbox" value="Cookies"> Cookies</label>
@@ -104,23 +92,23 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <label><input type="checkbox" value="Coconuts"> Coconuts</label>
 <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
 </div>
-<label>Date de livraison :</label>
+<label id="super-label-date">Date de livraison :</label>
 <input type="date" id="market-date">
-<textarea id="market-details" placeholder="Détails ou autres articles..."></textarea>
-<label>Paiement :</label>
+<textarea id="market-details" placeholder="Détails ou autres articles..." ></textarea>
+<label id="super-label-payment">Paiement :</label>
 <select id="market-payment">
 <option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
 <option value="Cash">Cash</option><option value="Chèque">Chèque</option>
 </select>
-<button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
+<button class="btn-order" id="super-btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
 </div>
 </div>
 
 <!-- TI MACHANN -->
 <div class="collapsible-box" style="border-left-color: var(--navy);">
-<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);"><span>🏪 Espace Ti Machann</span><i class="fas fa-chevron-down"></i></button>
+<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);"><span id="reseller-title">🏪 Espace Ti Machann</span><i class="fas fa-chevron-down"></i></button>
 <div id="reseller-content" class="collapsible-content">
-<label>Produits an gwo :</label>
+<label id="reseller-label-products">Produits an gwo :</label>
 <div class="scroll-list" id="resell-list">
 <label><input type="checkbox" value="Sable"> Sable</label>
 <label><input type="checkbox" value="Cookies"> Cookies</label>
@@ -130,28 +118,27 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <label><input type="checkbox" value="Coconuts"> Coconuts</label>
 <label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
 </div>
-<label>Format d'emballage :</label>
+<label id="reseller-label-format">Format d'emballage :</label>
 <select id="package-format"><option>Boîte (Bwat)</option><option>Sachet (Sache)</option><option>Les deux (Deux)</option></select>
 <input type="text" id="resell-qty" placeholder="Kantite (Ex: 10 bwat, 50 sache...)">
-<label>Paiement :</label>
+<label id="reseller-label-payment">Paiement :</label>
 <select id="resell-payment">
 <option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
 <option value="Cash">Cash</option><option value="Chèque">Chèque</option>
 </select>
-<button class="btn-order" style="background: var(--navy);" onclick="sendResellOrder()">COMMANDE GROS WHATSAPP</button>
+<button class="btn-order" style="background: var(--navy);" id="reseller-btn-order" onclick="sendResellOrder()">COMMANDE GROS WHATSAPP</button>
 </div>
 </div>
 
 <!-- TOURIST ASSISTANCE -->
 <div class="collapsible-box" style="border-left-color:#DAA520;">
-<button class="collapsible-btn" onclick="toggleBox('tourist')"><span>🌍 Tourist Assistance</span><i class="fas fa-chevron-down"></i></button>
+<button class="collapsible-btn" onclick="toggleBox('tourist')"><span id="tourist-title">🌍 Tourist Assistance</span><i class="fas fa-chevron-down"></i></button>
 <div id="tourist" class="collapsible-content">
 <input type="text" id="tourist-name" placeholder="Full Name">
 <input type="text" id="tourist-hotel" placeholder="Hotel / Airbnb">
 <input type="date" id="tourist-date">
 <textarea id="tourist-details" placeholder="Details..."></textarea>
-<p id="currency-display" style="font-weight:bold;color:#800000;"></p>
-<button class="btn-order" onclick="sendTouristOrder()">REQUEST VIA WHATSAPP</button>
+<button class="btn-order" id="tourist-btn-order" onclick="sendTouristOrder()">REQUEST VIA WHATSAPP</button>
 </div>
 </div>
 
@@ -185,5 +172,9 @@ function sendOrder(){const m=document.getElementById('market-name').value;const 
 function sendResellOrder(){const f=document.getElementById('package-format').value;const q=document.getElementById('resell-qty').value;const pay=document.getElementById('resell-payment').value;const checked=document.querySelectorAll('#resell-list input:checked');let items=Array.from(checked).map(cb=>cb.value);if(items.length===0 || !q){alert("Ranpli tout pati yo!");return;}let msg=`*COMMANDE TI MACHANN*%0A📦 Format: ${f}%0A🔢 Kantite: ${q}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
 function sendTouristOrder(){const n=document.getElementById('tourist-name').value;const h=document.getElementById('tourist-hotel').value;const d=document.getElementById('tourist-date').value;const det=document.getElementById('tourist-details').value;if(!n||!h){alert("Please fill your name and hotel!");return;}let msg=`*TOURIST ASSISTANCE*%0A👤 Name: ${n}%0A🏨 Hotel: ${h}%0A📅 Date: ${d}%0A📝 Details: ${det}`;window.open(`https://wa.me/50942017744?text=${msg}`);}
 
-// MULTILINGUAL
-const translationsFull={fr:{title:"Aurisme Saveurs et Services",menu:["LIVRAISON","TAXI MOTO","ACADEMY","PÂTISSERIE","DÉCO & TRAITEUR","GALERIE"],superLabelMarket:"Marché :",superLabelProducts:"Produits (Koche plizyè) :",superLabelDate:"Date de livraison :",superLabelDetails:"Détails ou autres articles...",superLabelPayment:"Paiement :",superBtnOrder:"COMMANDER VIA WHATSAPP",resellerLabelProducts:"Produits an gwo :",resellerLabelFormat:"Format d'emballage :",resellerLabelQty:"Kantite (Ex: 10 bwat, 50 sache...)",resellerLabelPayment:"Paiement :",resellerBtnOrder:"COMMANDE GROS WHATSAPP",touristLabelName:"Nom complet",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Détails...",touristBtnOrder:"DEMANDER VIA WHATSAPP",privacyBtn:"🔒 Politique de Confidentialité"},en:{title:"Aurisme Flavors & Services",menu:["DELIVERY","MOTO TAXI","ACADEMY","PASTRY","DECOR & CATERING","GALLERY"],superLabelMarket:"Market:",superLabelProducts:"Products (Select multiple):",superLabelDate:"Delivery Date:",superLabelDetails:"Details or other items...",superLabelPayment:"Payment:",superBtnOrder:"ORDER VIA WHATSAPP",resellerLabelProducts:"Wholesale Products:",resellerLabelFormat:"Package Format:",resellerLabelQty:"Quantity (Ex: 10 boxes, 50 packs...)",resellerLabelPayment:"Payment:",resellerBtnOrder:"WHOLESALE ORDER WHATSAPP",touristLabelName:"Full Name",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Details...",touristBtnOrder:"REQUEST VIA WHATSAPP",privacyBtn:"🔒 Privacy Policy"},es:{title:"Aurisme Sabores y Servicios",menu:["ENTREGA","MOTO TAXI","ACADEMIA","PASTELERÍA","DECORACIÓN & CATERING","GALERÍA"],superLabelMarket:"Mercado:",superLabelProducts:"Productos (Selecciona varios):",superLabelDate:"Fecha de entrega:",superLabelDetails:"Detalles u otros artículos...",superLabelPayment:"Pago:",superBtnOrder:"PEDIR POR WHATSAPP
+// MULTILINGUAL TRANSLATION FUNCTION
+const translationsFull={
+fr:{superTitle:"🛒 Service Supermarché",superLabelMarket:"Marché :",superLabelProducts:"Produits (Koche plizyè) :",superLabelDate:"Date de livraison :",superLabelPayment:"Paiement :",superBtnOrder:"COMMANDER VIA WHATSAPP",resellerTitle:"🏪 Espace Ti Machann",resellerLabelProducts:"Produits an gwo :",resellerLabelFormat:"Format d'emballage :",resellerLabelQty:"Kantite (Ex: 10 bwat, 50 sache...)",resellerLabelPayment:"Paiement :",resellerBtnOrder:"COMMANDE GROS WHATSAPP",touristTitle:"🌍 Tourist Assistance",touristLabelName:"Nom complet",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Détails...",touristBtnOrder:"DEMANDER VIA WHATSAPP"},
+en:{superTitle:"🛒 Supermarket Service",superLabelMarket:"Market:",superLabelProducts:"Products (Select multiple):",superLabelDate:"Delivery Date:",superLabelPayment:"Payment:",superBtnOrder:"ORDER VIA WHATSAPP",resellerTitle:"🏪 Small Vendor Space",resellerLabelProducts:"Wholesale Products:",resellerLabelFormat:"Package Format:",resellerLabelQty:"Quantity (Ex: 10 boxes, 50 packs...)",resellerLabelPayment:"Payment:",resellerBtnOrder:"WHOLESALE ORDER WHATSAPP",touristTitle:"🌍 Tourist Assistance",touristLabelName:"Full Name",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Date",touristLabelDetails:"Details...",touristBtnOrder:"REQUEST VIA WHATSAPP"},
+es:{superTitle:"🛒 Servicio Supermercado",superLabelMarket:"Mercado:",superLabelProducts:"Productos (Selecciona varios):",superLabelDate:"Fecha de entrega:",superLabelPayment:"Pago:",superBtnOrder:"PEDIR POR WHATSAPP",resellerTitle:"🏪 Espacio Pequeños Vendedores",resellerLabelProducts:"Productos al por mayor:",resellerLabelFormat:"Formato de paquete:",resellerLabelQty:"Cantidad (Ej: 10 cajas, 50 sobres...)",resellerLabelPayment:"Pago:",resellerBtnOrder:"PEDIDO MAYORISTA WHATSAPP",touristTitle:"🌍 Asistencia Turística",touristLabelName:"Nombre Completo",touristLabelHotel:"Hotel / Airbnb",touristLabelDate:"Fecha",touristLabelDetails:"Detalles...",touristBtnOrder:"SOLICITAR POR WHATSAPP"},
+pt:{superTitle:"🛒 Serviço Supermercado",superLabelMarket:"Mercado:",superLabelProducts:"Produtos (Selecione vários):",superLabelDate:"Data de entrega:",superLabelPayment:"Pagamento:",superBtnOrder:"PEDIR VIA WHATSAPP",resellerTitle:"🏪 Espaço Pequenos Vendedores",resellerLabelProducts:"Produtos por atacado:",resellerLabelFormat:"Formato da embalagem:",resellerLabelQty:"Quantidade (Ex: 10 caixas, 50 pacotes...)",resellerLabelPayment:"Pagamento:",resellerBtnOrder:"PEDIDO ATACADO WHATSAPP",touristTitle:"🌍
