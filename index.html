@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;}
-body{font-family:'Segoe UI',Tahoma,sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
+body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
 
 .security-header {background:var(--navy); color:white; padding:8px; font-size:13px; font-weight:bold; display:flex; justify-content:center; align-items:center; gap:8px;}
 .security-header i {color: #4CAF50;}
@@ -86,14 +86,21 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <div class="collapsible-box" style="border-left-color: var(--navy);">
         <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-ti" class="collapsible-content">
-            <label id="lbl-p">Produit en Gros:</label>
+            <label id="lbl-p">Veuillez choisir un produit:</label>
             <select id="resell-prod">
-                <option>Dlo an sachet</option>
-                <option>Ji (Jus)</option>
-                <option>Sik / Kafe</option>
-                <option>Pwodwi Netwayaj</option>
+                <option>Sable</option>
+                <option>Palmier</option>
+                <option>Sacristain</option>
+                <option>Coconuts</option>
+                <option>Cookies</option>
+                <option>Langue de boeufs</option>
+                <option>Pâtés</option>
+                <option>Cupcakes</option>
+                <option>Gâteau ti bol</option>
+                <option>Gâteau 12"</option>
+                <option>Cookies raisin</option>
             </select>
-            <input type="text" id="resell-qty" placeholder="Quantité (Egz: 50 rido)">
+            <input type="text" id="ph-qty" placeholder="Quantité souhaitée...">
             <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWA('Ti Machann')">COMMANDER EN GROS</button>
         </div>
     </div>
@@ -110,7 +117,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15124.93482563332!2d-72.3082!3d18.5392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e14440076a59%3A0x63349927514f0460!2sPort-au-Prince%2C%20Ayiti!5e0!3m2!1sfr!2s!4v1700000000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121016.91142562477!2d-72.3995663!3d18.5714486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e06385d56411%3A0xc3f8e653069e25e1!2sPort-au-Prince!5e0!3m2!1sfr!2sht!4v1709400000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
     <a href="privacy.html" id="priv-link" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy / Confidentialité</a>
 </div>
@@ -126,19 +133,19 @@ const translations = {
         sec: "Service Vérifié & Livraison Sécurisée", ad: "🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟",
         title: "Aurisme Saveurs et Services", sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
         l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE",
-        m_lbl: "Choisir Marché:", p_lbl: "Produit en Gros:", b_wa: "COMMANDER WHATSAPP", b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE"
+        m_lbl: "Choisir Marché:", p_lbl: "Veuillez choisir un produit:", b_wa: "COMMANDER WHATSAPP", b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE"
     },
     en: {
         sec: "Verified Service & Secured Delivery", ad: "🌟 VETIHKAM THE BEST VETIVER PERFUME — AVAILABLE NOW! 🌟",
         title: "Aurisme Flavors and Services", sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
         l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO & CATERING", g: "GALLERY",
-        m_lbl: "Choose Market:", p_lbl: "Wholesale Product:", b_wa: "ORDER VIA WHATSAPP", b_res: "ORDER BULK", b_tour: "REQUEST ASSISTANCE"
+        m_lbl: "Choose Market:", p_lbl: "Please choose a product:", b_wa: "ORDER VIA WHATSAPP", b_res: "ORDER BULK", b_tour: "REQUEST ASSISTANCE"
     },
     ht: {
         sec: "Sèvis Verifye ak Livrezon an Sekirite", ad: "🌟 VETIHKAM BON PARFEN VETIVÈ — LI DISPONIB KOUNYA! 🌟",
         title: "Aurisme Saveurs ak Sèvis", sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
         l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO & TRAITEUR", g: "GALERI",
-        m_lbl: "Chwazi Mache:", p_lbl: "Pwodwi an Gwo:", b_wa: "KOMANDE SOU WHATSAPP", b_res: "KOMANDE AN GWO", b_tour: "MANDE ED"
+        m_lbl: "Chwazi Mache:", p_lbl: "Tanpri chwazi yon pwodwi:", b_wa: "KOMANDE SOU WHATSAPP", b_res: "KOMANDE AN GWO", b_tour: "MANDE ED"
     }
 };
 
@@ -165,7 +172,12 @@ function changeLanguage(lang) {
 }
 
 function sendWA(service) {
-    window.open(`https://wa.me/50942017744?text=Service:${service}`);
+    const market = document.getElementById('market-name').value;
+    const prod = document.getElementById('resell-prod').value;
+    const qty = document.getElementById('ph-qty').value;
+    let msg = `Bonjour Aurisme, je souhaite commander via le service ${service}`;
+    if(service === 'Ti Machann') msg += `: ${prod} (Quantité: ${qty})`;
+    window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
 }
 
 window.onload = function() {
