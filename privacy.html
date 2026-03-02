@@ -3,45 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Politique de Confidentialité - Aurisme Saveurs et Services</title>
+    <title>Privacy Policy - Aurisme Saveurs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; padding: 20px; max-width: 600px; margin: auto; color: #333; background-color: #f8f8f8; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; padding: 10px; max-width: 600px; margin: auto; color: #333; background-color: #f8f8f8; }
+        
+        /* Lang Bar */
+        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-radius: 50px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
+        .lang-bar button.active { background: var(--gold); color: white; }
+
         .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-top: 5px solid var(--bordeaux); }
-        h1 { color: var(--bordeaux); font-size: 22px; text-align: center; }
+        h1 { color: var(--bordeaux); font-size: 22px; text-align: center; margin-bottom: 5px; }
         h2 { color: var(--gold); border-bottom: 1px solid #ddd; padding-bottom: 5px; font-size: 18px; margin-top: 25px; }
         p, li { font-size: 15px; color: #555; }
+        .date-update { text-align: center; font-style: italic; font-size: 13px; margin-bottom: 20px; color: #888; }
+        
         .btn-back { display: block; background-color: var(--bordeaux); color: white; text-align: center; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 30px; transition: 0.3s; }
-        .btn-back:hover { background-color: #a00000; }
+        .btn-back:hover { background-color: #a00000; opacity: 0.9; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>Politique de Confidentialité</h1>
-        <p style="text-align: center; font-style: italic;">Dernière mise à jour : Février 2026</p>
-
-        <p>Bienvenue chez <strong>Aurisme Saveurs et Services</strong>. La protection de vos données est une priorité pour nous.</p>
-
-        <h2>1. Collecte des informations</h2>
-        <p>Nous ne collectons aucune donnée personnelle de manière automatique. Les informations que vous saisissez dans nos formulaires (Nom, adresse, détails de commande) ne sont pas stockées sur nos serveurs. Elles sont uniquement utilisées pour formater votre message de commande vers WhatsApp.</p>
-
-        <h2>2. Utilisation de WhatsApp et Facebook</h2>
-        <p>Toutes vos interactions se font via <strong>WhatsApp</strong> ou <strong>Facebook</strong>. En utilisant ces services, vous acceptez les conditions d'utilisation et la politique de confidentialité de Meta Platforms, Inc.</p>
-
-        <h2>3. Services de Traduction</h2>
-        <p>Notre application utilise l'outil <strong>Google Translate</strong> pour vous offrir une interface multilingue. Aucune donnée confidentielle n'est partagée avec ce service tiers.</p>
-
-        <h2>4. Vos Droits</h2>
-        <p>Puisque nous ne stockons pas vos données, vous gardez le contrôle total sur les informations que vous choisissez d'envoyer par message à nos services.</p>
-
-        <h2>5. Contact</h2>
-        <p>Pour toute question concernant cette politique, vous pouvez nous contacter à : <br>
-        <strong>Email :</strong> gâteaux.friandise@gmail.com<br>
-        <strong>Téléphone :</strong> +509 3783-2098</p>
-
-        <a href="index.html" class="btn-back">RETOURNER À L'ACCUEIL</a>
+    <div class="lang-bar">
+        <button id="btn-fr" onclick="changeLang('fr')">FR</button>
+        <button id="btn-en" onclick="changeLang('en')">EN</button>
+        <button id="btn-ht" onclick="changeLang('ht')">HT</button>
     </div>
 
+    <div class="card">
+        <h1 id="txt-title">Politique de Confidentialité</h1>
+        <p class="date-update" id="txt-date">Dernière mise à jour : Février 2026</p>
+
+        <div id="privacy-content">
+            </div>
+
+        <a href="index.html" class="btn-back" id="txt-btn-back">RETOURNER À L'ACCUEIL</a>
+    </div>
+
+    <script>
+        const translations = {
+            fr: {
+                title: "Politique de Confidentialité",
+                date: "Dernière mise à jour : Février 2026",
+                btnBack: "RETOURNER À L'ACCUEIL",
+                html: `
+                    <p>Bienvenue chez <strong>Aurisme Saveurs et Services</strong>. La protection de vos données est une priorité pour nous.</p>
+                    <h2>1. Collecte des informations</h2>
+                    <p>Nous ne collectons aucune donnée personnelle de manière automatique. Les informations que vous saisissez dans nos formulaires ne sont pas stockées sur nos serveurs. Elles sont uniquement utilisées pour formater votre message vers WhatsApp.</p>
+                    <h2>2. Utilisation de WhatsApp et Facebook</h2>
+                    <p>Toutes vos interactions se font via WhatsApp ou Facebook. En utilisant ces services, vous acceptez leurs politiques de confidentialité respectives.</p>
+                    <h2>3. Services de Traduction</h2>
+                    <p>Notre application utilise des outils de traduction pour vous offrir une interface multilingue. Aucune donnée confidentielle n'est partagée.</p>
+                    <h2>4. Vos Droits</h2>
+                    <p>Puisque nous ne stockons pas vos données, vous gardez le contrôle total sur les informations que vous choisissez d'envoyer.</p>
+                    <h2>5. Contact</h2>
+                    <p>Email : gâteaux.friandise@gmail.com<br>Téléphone : +509 3783-2098</p>
+                `
+            },
+            en: {
+                title: "Privacy Policy",
+                date: "Last update: February 2026",
+                btnBack: "RETURN TO HOME",
+                html: `
+                    <p>Welcome to <strong>Aurisme Saveurs et Services</strong>. Protecting your data is a priority for us.</p>
+                    <h2>1. Information Collection</h2>
+                    <p>We do not collect any personal data automatically. The information you enter in our forms is not stored on our servers. It is only used to format your message to WhatsApp.</p>
+                    <h2>2. Use of WhatsApp and Facebook</h2>
+                    <p>All your interactions take place via WhatsApp or Facebook. By using these services, you agree to their respective privacy policies.</p>
+                    <h2>3. Translation Services</h2>
+                    <p>Our application uses translation tools to provide a multilingual interface. No confidential data is shared.</p>
+                    <h2>4. Your Rights</h2>
+                    <p>Since we do not store your data, you maintain full control over the information you choose to send.</p>
+                    <h2>5. Contact</h2>
+                    <p>Email: gâteaux.friandise@gmail.com<br>Phone: +509 3783-2098</p>
+                `
+            },
+            ht: {
+                title: "Politik Konfidansyalite",
+                date: "Dènye mizajou : Fevriye 2026",
+                btnBack: "TOUNEN NAN AKÈY",
+                html: `
+                    <p>Byenvini nan <strong>Aurisme Saveurs et Services</strong>. Pwoteksyon done ou se yon priyorite pou nou.</p>
+                    <h2>1. Koleksyon Enfòmasyon</h2>
+                    <p>Nou pa pran okenn enfòmasyon pèsonèl otomatikman. Enfòmasyon ou ranpli nan fòmilè nou yo pa rete sou sèvè nou. Yo sèvi sèlman pou prepare mesaj kòmand ou pou voye sou WhatsApp.</p>
+                    <h2>2. Itilizasyon WhatsApp ak Facebook</h2>
+                    <p>Tout kontak ou fè pase pa WhatsApp oswa Facebook. Lè w sèvi ak sèvis sa yo, ou aksepte règleman konfidansyalite pa yo.</p>
+                    <h2>3. Sèvis Tradiksyon</h2>
+                    <p>Aplikasyon nou an sèvi ak zouti tradiksyon pou n ka ba ou paj la nan plizyè lang. Nou pa pataje okenn done sekrè.</p>
+                    <h2>4. Dwa Ou</h2>
+                    <p>Kòm nou pa sere done ou yo, se ou ki gen kontwòl total sou sa ou chwazi voye ban nou pa mesaj.</p>
+                    <h2>5. Kontak</h2>
+                    <p>Email : gâteaux.friandise@gmail.com<br>Telefòn : +509 3783-2098</p>
+                `
+            }
+        };
+
+        function changeLang(lang) {
+            const t = translations[lang];
+            document.getElementById('txt-title').innerText = t.title;
+            document.getElementById('txt-date').innerText = t.date;
+            document.getElementById('txt-btn-back').innerText = t.btnBack;
+            document.getElementById('privacy-content').innerHTML = t.html;
+            
+            // Mete bouton an an ble (active)
+            document.querySelectorAll('.lang-bar button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            
+            localStorage.setItem('aurisme_lang', lang);
+        }
+
+        window.onload = () => {
+            const savedLang = localStorage.getItem('aurisme_lang') || 'fr';
+            changeLang(savedLang);
+        };
+    </script>
 </body>
 </html>
