@@ -3,120 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Academy - Espace Étudiant</title>
+    <title>Aurisme Academy - Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #25D366; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; }
 
-        .welcome-academy { background: var(--navy); color: white; padding: 20px; border-bottom: 4px solid var(--gold); }
+        /* Lang Bar */
+        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 2px solid var(--gold); }
+        .lang-bar button { border: none; background: #eee; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: bold; color: var(--navy); }
+
+        .welcome-academy { background: var(--navy); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
+        .welcome-academy h2 { margin: 0; letter-spacing: 2px; text-transform: uppercase; }
+        .welcome-academy p { margin: 10px 0 0; opacity: 0.9; font-style: italic; font-size: 14px; }
+
         header { background: var(--bordeaux); color: white; padding: 20px; border-bottom: 4px solid var(--gold); position: relative; }
         .btn-back { position: absolute; left: 15px; top: 25px; color: white; text-decoration: none; font-size: 20px; }
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-left: 5px solid var(--gold); }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-top: 5px solid var(--gold); }
+        .card h3 { margin-top: 0; color: var(--navy); font-size: 18px; display: flex; align-items: center; gap: 10px; }
 
-        .btn-enroll { background: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 16px; }
+        label { font-weight: bold; font-size: 13px; color: var(--navy); margin-top: 10px; display: block; }
+        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 15px; font-family: inherit; }
+
+        .btn-enroll { background: var(--navy); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 15px; transition: 0.3s; }
         .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
+        
+        .tourist-note { background: #fffde7; padding: 12px; border-radius: 10px; border: 1px dashed var(--gold); font-size: 13px; color: #666; margin-bottom: 15px; }
 
         #access-code-section, #student-portal { display: none; }
 
-        .course-item { background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #ddd; }
-        .course-item i { font-size: 22px; color: var(--bordeaux); width: 25px; text-align: center; }
+        .course-item { background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #eee; }
+        .course-item i { font-size: 20px; color: var(--bordeaux); width: 25px; text-align: center; }
 
-        .forum-box { background: #f0f0f0; padding: 15px; border-radius: 15px; max-height: 250px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #ccc; }
-        .msg-bubble { background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .forum-box { background: #f8f9fa; padding: 15px; border-radius: 15px; max-height: 250px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #eee; }
+        .msg-bubble { background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 3px solid var(--gold); }
 
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-
-        .btn-logout { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 20px; font-size: 14px; }
+        .btn-logout { background: #e74c3c; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <div class="lang-bar">
+        <button onclick="changeLang('fr')">FR</button>
+        <button onclick="changeLang('en')">EN</button>
+        <button onclick="changeLang('ht')">HT</button>
+    </div>
+
     <div class="welcome-academy">
-        <h2>Aurisme Academy</h2>
-        <p>Votre portail vers l'excellence culinaire et linguistique.</p>
+        <h2 id="txt-welcome-title">Aurisme Academy</h2>
+        <p id="txt-welcome-sub">Votre portail vers l'excellence culinaire et linguistique.</p>
     </div>
 
     <header>
         <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
-        <h1>Espace Étudiant</h1>
+        <h1 id="txt-header-title">Espace Étudiant</h1>
     </header>
 
     <div class="container">
-        <!-- SECTION INSCRIPTION -->
         <div class="card" id="reg-section">
-            <h3><i class="fas fa-user-plus"></i> Inscription</h3>
-            <label>Nom complet :</label>
-            <input type="text" id="reg-name" placeholder="Entrez votre nom">
+            <h3><i class="fas fa-user-plus"></i> <span id="txt-reg-title">Inscription</span></h3>
+            
+            <div class="tourist-note" id="txt-tourist-note">
+                <i class="fas fa-globe-americas"></i> <b>Tourist Special:</b> Learn Haitian Creole or Local Cooking to immerse yourself in our culture!
+            </div>
 
-            <label>Cours souhaité :</label>
+            <label id="lbl-name">Nom complet :</label>
+            <input type="text" id="reg-name" placeholder="John Doe">
+
+            <label id="lbl-course">Cours souhaité :</label>
             <select id="reg-lang">
-                <option value="Anglais">Anglais</option>
-                <option value="Espagnol">Espagnol</option>
-                <option value="Portugais">Portugais</option>
-                <option value="Cuisine Internationale">Cuisine Internationale & Créole</option>
+                <option value="Kreyòl" id="opt-ht">Kreyòl Ayisyen (Haitian Creole)</option>
+                <option value="Anglais" id="opt-en">Anglais (English)</option>
+                <option value="Espagnol" id="opt-es">Espagnol (Spanish)</option>
+                <option value="Portugais" id="opt-pt">Portugais (Portuguese)</option>
+                <option value="Cuisine" id="opt-ck">Cuisine Internationale & Créole</option>
             </select>
 
-            <label>Numéro WhatsApp :</label>
-            <input type="text" id="reg-phone" placeholder="509XXXXXXXX">
+            <label id="lbl-phone">Numéro WhatsApp :</label>
+            <input type="text" id="reg-phone" placeholder="Ex: +50942017744">
 
-            <label>Numéro de transaction :</label>
-            <input type="text" id="reg-transaction" placeholder="Entrez numéro de transaction">
+            <label id="lbl-trans">Numéro de transaction (MonCash/NatCash/Zelle) :</label>
+            <input type="text" id="reg-transaction" placeholder="ID #000000">
 
             <button class="btn-enroll btn-whatsapp" onclick="sendToWhatsApp()">
-                <i class="fab fa-whatsapp"></i> DEMANDER MON CODE
+                <i class="fab fa-whatsapp"></i> <span id="btn-get-code">DEMANDER MON CODE</span>
             </button>
 
-            <button class="btn-enroll btn-whatsapp" 
-                    style="background:#1e88e5;" 
-                    onclick="sendProofToWhatsApp()">
-                <i class="fas fa-paperclip"></i> ENVOYER LA PREUVE DE PAIEMENT
+            <button class="btn-enroll btn-whatsapp" style="background:#1e88e5;" onclick="sendProofToWhatsApp()">
+                <i class="fas fa-paperclip"></i> <span id="btn-proof">ENVOYER LA PREUVE</span>
             </button>
 
-            <button class="btn-enroll" 
-                    style="background: var(--gold); color: black;" 
-                    onclick="showAccessSection()">
-                ACCÈS ÉTUDIANT
+            <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="showAccessSection()">
+                <span id="btn-access">ACCÈS ÉTUDIANT</span>
             </button>
-
-            <p style="font-size:13px; text-align:center; color:#555;">
-                Après paiement, cliquez sur "Envoyer la preuve de paiement" pour recevoir votre code.
-            </p>
         </div>
 
-        <!-- SECTION CODE D'ACCES -->
         <div class="card" id="access-code-section">
-            <h3 style="text-align:center;">🔑 Code d'accès</h3>
-            <p style="font-size: 13px; text-align:center;">Entrez le code reçu pour débloquer vos cours :</p>
+            <h3 style="justify-content:center;"><i class="fas fa-key"></i> <span id="txt-code-title">Code d'accès</span></h3>
+            <p id="txt-code-info" style="font-size: 13px; text-align:center;">Entrez le code reçu pour débloquer vos cours :</p>
             <input type="text" id="access-code" placeholder="VOTRE CODE" style="text-align:center; font-size: 22px; font-weight: bold; text-transform: uppercase;">
-            <button class="btn-enroll" onclick="verifyCode()">ACTIVER MON ACCÈS</button>
+            <button class="btn-enroll" onclick="verifyCode()" id="btn-activate">ACTIVER MON ACCÈS</button>
         </div>
 
-        <!-- ESPACE ETUDIANT -->
         <div id="student-portal">
             <div class="card">
-                <h3><i class="fas fa-graduation-cap"></i> Mes Formations</h3>
+                <h3><i class="fas fa-graduation-cap"></i> <span id="txt-my-courses">Mes Formations</span></h3>
+                <div class="course-item"><i class="fas fa-book"></i> <span>Haitian Creole (Cultural Focus)</span></div>
                 <div class="course-item"><i class="fas fa-flag-usa"></i> <span>Anglais (Tous Niveaux)</span></div>
-                <div class="course-item"><i class="fas fa-flag"></i> <span>Espagnol Pratique</span></div>
-                <div class="course-item"><i class="fas fa-flag"></i> <span>Portugais Business</span></div>
-                <div class="course-item"><i class="fas fa-utensils"></i> <span>Cuisine Internationale</span></div>
-                <button class="btn-enroll" style="background: var(--bordeaux);">ACCÉDER AUX RESSOURCES</button>
+                <div class="course-item"><i class="fas fa-utensils"></i> <span id="txt-ck-title">Cuisine Internationale</span></div>
+                <button class="btn-enroll" style="background: var(--bordeaux);" id="btn-resources">ACCÉDER AUX RESSOURCES</button>
             </div>
 
             <div class="card">
                 <h3><i class="fas fa-comments"></i> Forum Étudiant</h3>
                 <div class="forum-box" id="forum-messages"></div>
-                <input type="text" id="forum-msg" placeholder="Écrire un message...">
-                <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="sendMessage()">PUBLIER</button>
+                <input type="text" id="forum-msg" placeholder="...">
+                <button class="btn-enroll" style="background: var(--gold); color: black;" onclick="sendMessage()" id="btn-publish">PUBLIER</button>
             </div>
 
-            <button class="btn-logout" onclick="logout()">
+            <button class="btn-logout" onclick="logout()" id="btn-logout">
                 <i class="fas fa-sign-out-alt"></i> Se déconnecter
             </button>
         </div>
-
     </div>
 
     <script type="module">
@@ -131,7 +141,66 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        const translations = {
+            fr: {
+                welcome: "Aurisme Academy", sub: "Votre portail vers l'excellence culinaire et linguistique.",
+                header: "Espace Étudiant", reg: "Inscription", 
+                note: "<b>Spécial Touriste :</b> Apprenez le Créole ou la cuisine locale pour une immersion totale !",
+                name: "Nom complet :", course: "Cours souhaité :", phone: "Numéro WhatsApp :", trans: "Numéro de transaction :",
+                btnCode: "DEMANDER MON CODE", btnProof: "ENVOYER LA PREUVE", btnAccess: "ACCÈS ÉTUDIANT",
+                codeT: "Code d'accès", codeI: "Entrez le code reçu pour débloquer vos cours :", btnAct: "ACTIVER MON ACCÈS",
+                myC: "Mes Formations", ck: "Cuisine & Culture", res: "ACCÉDER AUX RESSOURCES", pub: "PUBLIER", out: "Se déconnecter",
+                alert: "Veuillez remplir tous les champs."
+            },
+            en: {
+                welcome: "Aurisme Academy", sub: "Your gateway to culinary and linguistic excellence.",
+                header: "Student Area", reg: "Registration", 
+                note: "<b>Tourist Special:</b> Learn Haitian Creole or local cooking for a total cultural immersion!",
+                name: "Full Name:", course: "Selected Course:", phone: "WhatsApp Number:", trans: "Transaction ID:",
+                btnCode: "REQUEST MY CODE", btnProof: "SEND PAYMENT PROOF", btnAccess: "STUDENT ACCESS",
+                codeT: "Access Code", codeI: "Enter the code received to unlock your courses:", btnAct: "ACTIVATE ACCESS",
+                myC: "My Courses", ck: "Cooking & Culture", res: "ACCESS RESOURCES", pub: "PUBLISH", out: "Logout",
+                alert: "Please fill in all fields."
+            },
+            ht: {
+                welcome: "Aurisme Academy", sub: "Pòtay ou pou ekselans nan kizin ak lang.",
+                header: "Espace Etidyan", reg: "Enskripsyon", 
+                note: "<b>Espesyal Touris :</b> Aprann Kreyòl oswa kizin lakay pou w byen entegre nan kilti a !",
+                name: "Non konplè :", course: "Kou ou vle fè a :", phone: "Nimewo WhatsApp :", trans: "Nimewo tranzaksyon :",
+                btnCode: "MANDE KÒD MWEN", btnProof: "VOYE PRÈV PEYE", btnAccess: "KOTE ETIDYAN",
+                codeT: "Kòd Aksè", codeI: "Mete kòd ou resevwa a pou debloke kou yo :", btnAct: "AKTIVE AKSÈ MWEN",
+                myC: "Fòmasyon m yo", ck: "Kizin & Kilti", res: "ALE NAN RESOUS YO", pub: "PLEYE", out: "Dekonekte",
+                alert: "Tanpri ranpli tout bwat yo."
+            }
+        };
+
+        window.changeLang = function(lang) {
+            const t = translations[lang];
+            document.getElementById('txt-welcome-title').innerText = t.welcome;
+            document.getElementById('txt-welcome-sub').innerText = t.sub;
+            document.getElementById('txt-header-title').innerText = t.header;
+            document.getElementById('txt-reg-title').innerText = t.reg;
+            document.getElementById('txt-tourist-note').innerHTML = `<i class="fas fa-globe-americas"></i> ${t.note}`;
+            document.getElementById('lbl-name').innerText = t.name;
+            document.getElementById('lbl-course').innerText = t.course;
+            document.getElementById('lbl-phone').innerText = t.phone;
+            document.getElementById('lbl-trans').innerText = t.trans;
+            document.getElementById('btn-get-code').innerText = t.btnCode;
+            document.getElementById('btn-proof').innerText = t.btnProof;
+            document.getElementById('btn-access').innerText = t.btnAccess;
+            document.getElementById('txt-code-title').innerText = t.codeT;
+            document.getElementById('txt-code-info').innerText = t.codeI;
+            document.getElementById('btn-activate').innerText = t.btnAct;
+            document.getElementById('txt-my-courses').innerText = t.myC;
+            document.getElementById('txt-ck-title').innerText = t.ck;
+            document.getElementById('btn-resources').innerText = t.res;
+            document.getElementById('btn-publish').innerText = t.pub;
+            document.getElementById('btn-logout').innerText = t.out;
+            localStorage.setItem('aurisme_aca_lang', lang);
+        }
+
         window.onload = async () => {
+            changeLang(localStorage.getItem('aurisme_aca_lang') || 'fr');
             const savedCode = localStorage.getItem('aurisme_academy_code');
             if (savedCode) {
                 const docSnap = await getDoc(doc(db, "codes_acces", savedCode));
@@ -144,50 +213,28 @@
         };
 
         window.sendToWhatsApp = function() {
+            const lang = localStorage.getItem('aurisme_aca_lang') || 'fr';
             var name = document.getElementById('reg-name').value.trim();
             var choice = document.getElementById('reg-lang').value;
             var phone = document.getElementById('reg-phone').value.trim();
             var transaction = document.getElementById('reg-transaction').value.trim();
 
             if(!name || !phone || !transaction) { 
-                alert("Tous les champs sont obligatoires : Nom, WhatsApp et Numéro de transaction."); 
+                alert(translations[lang].alert); 
                 return; 
             }
 
-            var msg = encodeURIComponent(
-                "Bonjour Aurisme Academy,\n\n" +
-                "Je souhaite m'inscrire au cours : " + choice + "\n" +
-                "Nom complet : " + name + "\n" +
-                "Numéro WhatsApp : " + phone + "\n" +
-                "Numéro de transaction : " + transaction + "\n\n" +
-                "Je souhaite recevoir mon code d'accès maintenant."
-            );
-
+            var msg = encodeURIComponent(`*INSCRIPTION ACADEMY*\nCours: ${choice}\nNom: ${name}\nWA: ${phone}\nTrans: ${transaction}`);
             window.open("https://wa.me/50942017744?text=" + msg);
             document.getElementById('reg-section').style.display = 'none';
             document.getElementById('access-code-section').style.display = 'block';
         };
 
         window.sendProofToWhatsApp = function() {
+            const lang = localStorage.getItem('aurisme_aca_lang') || 'fr';
             var name = document.getElementById('reg-name').value.trim();
-            var choice = document.getElementById('reg-lang').value;
-            var phone = document.getElementById('reg-phone').value.trim();
-            var transaction = document.getElementById('reg-transaction').value.trim();
-
-            if(!name || !phone || !transaction) { 
-                alert("Tous les champs sont obligatoires : Nom, WhatsApp et Numéro de transaction."); 
-                return; 
-            }
-
-            var msg = encodeURIComponent(
-                "Bonjour Aurisme Academy,\n\n" +
-                "J'ai effectué le paiement pour le cours : " + choice + "\n\n" +
-                "Nom complet : " + name + "\n" +
-                "Numéro WhatsApp : " + phone + "\n" +
-                "Numéro de transaction : " + transaction + "\n\n" +
-                "Je vais envoyer la capture d'écran maintenant."
-            );
-
+            if(!name) { alert(translations[lang].alert); return; }
+            var msg = encodeURIComponent(`*PREUVE DE PAIEMENT*\nNom: ${name}\nJe vous envoie la capture d'écran...`);
             window.open("https://wa.me/50942017744?text=" + msg);
         };
 
@@ -239,10 +286,8 @@
         };
 
         window.logout = function() {
-            if(confirm("Voulez-vous vraiment vous déconnecter ?")) {
-                localStorage.removeItem('aurisme_academy_code');
-                location.reload();
-            }
+            localStorage.removeItem('aurisme_academy_code');
+            location.reload();
         };
     </script>
 </body>
