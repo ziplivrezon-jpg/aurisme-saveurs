@@ -26,15 +26,19 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
 .collapsible-content{display:none; padding:15px; text-align:left;}
 
-/* Checklist Style */
 .product-list-container { max-height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 10px;}
 .product-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: white; padding: 8px; border-radius: 8px; border-bottom: 1px solid #eee;}
 .product-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer;}
-.product-item input[type="number"] { width: 50px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
+.product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
 .product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500;}
 
 input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
 .btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
+
+.tourist-card { background: #fdf9f0; border: 1px solid var(--gold); padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; line-height: 1.4;}
+.tourist-card i { color: var(--gold); margin-right: 10px;}
+
+.footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
 </style>
 </head>
 <body>
@@ -72,11 +76,8 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
                 <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
                 <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option>Et autres</option>
             </select>
-            
             <label id="lbl-p-aur">Produits Aurisme (Cochez & Quantité):</label>
-            <div class="product-list-container" id="aurisme-list">
-                </div>
-            
+            <div class="product-list-container" id="aurisme-list"></div>
             <textarea id="market-others" placeholder="Autres produits..."></textarea>
             <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">COMMANDER WHATSAPP</button>
         </div>
@@ -86,8 +87,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-ti" class="collapsible-content">
             <label id="lbl-p-ti">Produits en Gros (Cochez & Quantité):</label>
-            <div class="product-list-container" id="ti-machann-list">
-                </div>
+            <div class="product-list-container" id="ti-machann-list"></div>
             <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">COMMANDER EN GROS</button>
         </div>
     </div>
@@ -95,11 +95,21 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <div class="collapsible-box" style="border-left-color: var(--gold);">
         <button class="collapsible-btn" onclick="toggleBox('box-tour')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-tour" class="collapsible-content">
+            <div class="tourist-card">
+                <i class="fas fa-info-circle"></i> <span id="tour-info">Safe transportation, guiding, and local assistance services for visitors.</span>
+            </div>
             <input type="text" id="tour-name" placeholder="Full Name / Nom Complet">
             <textarea id="tour-help" placeholder="How can we help you?"></textarea>
-            <button class="btn-order" style="background:var(--gold);" id="btn-tour" onclick="sendWhatsApp('Tourist Assistance')">GET HELP</button>
+            <button class="btn-order" style="background:var(--gold);" id="btn-tour" onclick="sendWhatsApp('Tourist Assistance')">GET ASSISTANCE</button>
         </div>
     </div>
+</div>
+
+<div class="footer-info">
+    <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121040.898858888!2d-72.37894175!3d18.54308895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e144342f02cb%3A0xa19468e8203f1604!2sPort-au-Prince!5e0!3m2!1sfr!2sht!4v1710000000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <br><br>
+    <a href="privacy.html" id="priv-link" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy / Confidentialité</a>
 </div>
 
 <script>
@@ -116,35 +126,34 @@ function renderProducts() {
         html += `<div class="product-item">
                     <input type="checkbox" class="prod-check" value="${p}" id="c-${i}">
                     <label for="c-${i}">${p}</label>
-                    <input type="number" class="prod-qty" value="1" min="1" id="q-${i}">
+                    <input type="number" class="prod-qty" value="1" min="1">
                  </div>`;
     });
     document.getElementById('aurisme-list').innerHTML = html;
-    document.getElementById('ti-machann-list').innerHTML = html.replace(/c-/g, 'ct-').replace(/q-/g, 'qt-');
+    document.getElementById('ti-machann-list').innerHTML = html.replace(/id="c-/g, 'id="ct-');
 }
 
 const translations = {
     fr: {
-        sec: "Service Vérifié & Livraison Sécurisée", title: "Aurisme Saveurs et Services",
-        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
-        m_lbl: "Choisir Marché:", p_aur: "Produits Aurisme (Cochez):", b_wa: "COMMANDER WHATSAPP", b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE"
+        sec: "Service Vérifié & Livraison Sécurisée", sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
+        m_lbl: "Choisir Marché:", p_aur: "Produits Aurisme (Cochez):", b_wa: "COMMANDER WHATSAPP", b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE",
+        t_info: "Services de transport sécurisé, guide et assistance locale pour les visiteurs."
     },
     en: {
-        sec: "Verified Service & Secured Delivery", title: "Aurisme Flavors and Services",
-        sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
-        m_lbl: "Choose Market:", p_aur: "Aurisme Products (Check):", b_wa: "ORDER VIA WHATSAPP", b_res: "ORDER BULK", b_tour: "GET ASSISTANCE"
+        sec: "Verified Service & Secured Delivery", sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
+        m_lbl: "Choose Market:", p_aur: "Aurisme Products (Check):", b_wa: "ORDER VIA WHATSAPP", b_res: "ORDER BULK", b_tour: "GET ASSISTANCE",
+        t_info: "Safe transportation, guiding, and local assistance services for visitors."
     },
     ht: {
-        sec: "Sèvis Verifye ak Livrezon an Sekirite", title: "Aurisme Saveurs ak Sèvis",
-        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
-        m_lbl: "Chwazi Mache:", p_aur: "Pwodwi Aurisme (Koche):", b_wa: "KOMANDE SOU WHATSAPP", b_res: "KOMANDE AN GWO", b_tour: "MANDE ED"
+        sec: "Sèvis Verifye ak Livrezon an Sekirite", sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
+        m_lbl: "Chwazi Mache:", p_aur: "Pwodwi Aurisme (Koche):", b_wa: "KOMANDE SOU WHATSAPP", b_res: "KOMANDE AN GWO", b_tour: "MANDE ED",
+        t_info: "Transpò an sekirite, gid, ak sèvis asistans lokal pou vizitè yo."
     }
 };
 
 function changeLanguage(lang) {
     const t = translations[lang];
     document.getElementById('sec-text').innerText = t.sec;
-    document.getElementById('main-title').innerText = t.title;
     document.getElementById('t-sup').innerText = t.sup;
     document.getElementById('t-res').innerText = t.res;
     document.getElementById('t-tour').innerText = t.tour;
@@ -153,6 +162,7 @@ function changeLanguage(lang) {
     document.getElementById('btn-sup').innerText = t.b_wa;
     document.getElementById('btn-res').innerText = t.b_res;
     document.getElementById('btn-tour').innerText = t.b_tour;
+    document.getElementById('tour-info').innerText = t.t_info;
     localStorage.setItem('lang', lang);
 }
 
@@ -171,7 +181,7 @@ function sendWhatsApp(service) {
     let others = document.getElementById('market-others').value;
     let msg = `*Aurisme Saveurs - Sèvis ${service}*\n`;
     if(service === 'Supermarché') msg += `*Mache:* ${market}\n`;
-    msg += `*Pwodwi chwazi:*\n- ${selected.join('\n- ')}\n`;
+    msg += `*Pwodwi chwazi:*\n- ${selected.length > 0 ? selected.join('\n- ') : 'Aucun'}\n`;
     if(others) msg += `*Lòt pwodwi:* ${others}`;
 
     window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
