@@ -75,8 +75,10 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
                 <option>Star Market</option>
                 <option>Bonjan Market</option>
                 <option>Juvénat Market</option>
-                <option>Déli Mart</option>
-                <option>Giant Supermarket</option>
+                <option>Ola Market</option>
+                <option>Barak Market</option>
+                <option>8a8 Market</option>
+                <option>Et autres</option>
             </select>
             <textarea id="market-list" placeholder="Liste des produits..."></textarea>
             <button class="btn-order" id="btn-sup" onclick="sendWA('Supermarché')">COMMANDER WHATSAPP</button>
@@ -88,7 +90,6 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         <div id="box-ti" class="collapsible-content">
             <label id="lbl-p">Veuillez choisir un produit:</label>
             <select id="resell-prod">
-                <option>Sable</option>
                 <option>Palmier</option>
                 <option>Sacristain</option>
                 <option>Coconuts</option>
@@ -99,6 +100,8 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
                 <option>Gâteau ti bol</option>
                 <option>Gâteau 12"</option>
                 <option>Cookies raisin</option>
+                <option>Donuts</option>
+                <option>Bobon kokolakay</option>
             </select>
             <input type="text" id="ph-qty" placeholder="Quantité souhaitée...">
             <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWA('Ti Machann')">COMMANDER EN GROS</button>
@@ -117,7 +120,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121016.91142562477!2d-72.3995663!3d18.5714486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e06385d56411%3A0xc3f8e653069e25e1!2sPort-au-Prince!5e0!3m2!1sfr!2sht!4v1709400000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15144.114757049432!2d-72.3333!3d18.5333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e14436815c0b%3A0xa643e9d8e7e9a8!2sPort-au-Prince!5e0!3m2!1sen!2sht!4v1700000000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
     <a href="privacy.html" id="priv-link" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy / Confidentialité</a>
 </div>
@@ -151,6 +154,7 @@ const translations = {
 
 function changeLanguage(lang) {
     const t = translations[lang];
+    if(!t) return;
     document.getElementById('sec-text').innerText = t.sec;
     document.getElementById('ad-text').innerText = t.ad;
     document.getElementById('main-title').innerText = t.title;
@@ -177,6 +181,7 @@ function sendWA(service) {
     const qty = document.getElementById('ph-qty').value;
     let msg = `Bonjour Aurisme, je souhaite commander via le service ${service}`;
     if(service === 'Ti Machann') msg += `: ${prod} (Quantité: ${qty})`;
+    if(service === 'Supermarché') msg += ` chez ${market}`;
     window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
 }
 
