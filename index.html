@@ -15,6 +15,11 @@ body{font-family:'Segoe UI',Tahoma,sans-serif;margin:0;background:#f8f8f8;text-a
 
 header{background:var(--bordeaux);color:white;padding:30px 20px 60px;border-bottom:4px solid var(--gold);}
 .logo-container img{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);background:white;}
+.celebrity-bar{background:white;padding:15px 0;display:flex;justify-content:center;gap:15px;border-bottom:1px solid #ddd;}
+.celeb-item{text-align:center;min-width:80px;}
+.celeb-item img{width:60px;height:60px;border-radius:50%;border:3px solid var(--gold);padding:2px;object-fit:cover;}
+.celeb-item p{font-size:11px;margin:5px 0 0;font-weight:bold;color:var(--bordeaux);}
+
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:-50px 20px 20px;}
 .menu-card{background:white;padding:25px;border-radius:20px;text-decoration:none;color:var(--navy);font-weight:bold;box-shadow:0 10px 20px rgba(0,0,0,0.1);border-bottom:4px solid var(--gold);}
 .menu-card i{font-size:35px;color:var(--bordeaux);margin-bottom:10px;}
@@ -31,24 +36,33 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 .lang-bar button{margin:3px;padding:6px 10px;border:none;border-radius:6px;cursor:pointer;}
 
 #trusted-bar{background:var(--navy);color:white;padding:8px;font-size:13px;font-weight:bold;}
+.scroll-list{border:1px solid #ddd;border-radius:10px;padding:10px;max-height:150px;overflow-y:auto;margin:10px 0;background:#fff;}
+.scroll-list label{display:block;padding:8px 0;font-size:14px;border-bottom:1px solid #eee;cursor:pointer;}
 </style>
 </head>
 
 <body>
 
-<div class="reklam-ticker">
-<p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p>
+<!-- REKLAM TICKER -->
+<div class="reklam-ticker"><p>🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
+
+<!-- CELEBRITY BAR -->
+<div class="celebrity-bar">
+<div class="celeb-item"><img src="client1.jpg" alt="C1"><p>Anniversaire</p></div>
+<div class="celeb-item"><img src="client2.jpg" alt="C2"><p>Félicitations</p></div>
+<div class="celeb-item"><img src="client3.jpg" alt="C3"><p>Top Client</p></div>
 </div>
 
+<!-- HEADER -->
 <header>
-<div class="logo-container"><img src="Logo.png"></div>
+<div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
 <h1 id="main-title">Aurisme Saveurs et Services</h1>
 </header>
 
-<div id="trusted-bar">
-🌍 Trusted Local Service – Safe • Professional • Reliable
-</div>
+<!-- TRUSTED BADGE -->
+<div id="trusted-bar">🌍 Trusted Local Service – Safe • Professional • Reliable</div>
 
+<!-- LANGUAGE BUTTONS -->
 <div class="lang-bar">
 <button onclick="changeLanguage('fr')">🇫🇷</button>
 <button onclick="changeLanguage('en')">🇺🇸</button>
@@ -58,6 +72,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <button onclick="changeLanguage('ht')">🇭🇹</button>
 </div>
 
+<!-- MENU GRID -->
 <div class="menu-grid">
 <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span>LIVRAISON</span></a>
 <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span>TAXI MOTO</span></a>
@@ -67,11 +82,74 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span>GALERIE</span></a>
 </div>
 
+<div class="container">
+
+<!-- SUPERMARCHÉ -->
+<div class="collapsible-box">
+<button class="collapsible-btn" onclick="toggleBox('market-content')">
+<span>🛒 Service Supermarché</span><i class="fas fa-chevron-down"></i>
+</button>
+<div id="market-content" class="collapsible-content">
+<label>Marché :</label>
+<select id="market-name">
+<option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
+<option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option>
+<option>Emile Market</option><option>Compas Market</option><option>Caribbean Supermarket</option>
+<option>Déli Mart</option><option>Autre...</option>
+</select>
+<label>Produits (Koche plizyè) :</label>
+<div class="scroll-list" id="super-list">
+<label><input type="checkbox" value="Sable"> Sable</label>
+<label><input type="checkbox" value="Cookies"> Cookies</label>
+<label><input type="checkbox" value="Pâtés"> Pâtés</label>
+<label><input type="checkbox" value="Palmier"> Palmier</label>
+<label><input type="checkbox" value="Sacristain"> Sacristain</label>
+<label><input type="checkbox" value="Coconuts"> Coconuts</label>
+<label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
+</div>
+<label>Date de livraison :</label>
+<input type="date" id="market-date">
+<textarea id="market-details" placeholder="Détails ou autres articles..."></textarea>
+<label>Paiement :</label>
+<select id="market-payment">
+<option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
+<option value="Cash">Cash</option><option value="Chèque">Chèque</option>
+</select>
+<button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
+</div>
+</div>
+
+<!-- TI MACHANN -->
+<div class="collapsible-box" style="border-left-color: var(--navy);">
+<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);">
+<span>🏪 Espace Ti Machann</span><i class="fas fa-chevron-down"></i>
+</button>
+<div id="reseller-content" class="collapsible-content">
+<label>Produits an gwo :</label>
+<div class="scroll-list" id="resell-list">
+<label><input type="checkbox" value="Sable"> Sable</label>
+<label><input type="checkbox" value="Cookies"> Cookies</label>
+<label><input type="checkbox" value="Pâtés"> Pâtés</label>
+<label><input type="checkbox" value="Palmier"> Palmier</label>
+<label><input type="checkbox" value="Sacristain"> Sacristain</label>
+<label><input type="checkbox" value="Coconuts"> Coconuts</label>
+<label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
+</div>
+<label>Format d'emballage :</label>
+<select id="package-format"><option>Boîte (Bwat)</option><option>Sachet (Sache)</option><option>Les deux (Deux)</option></select>
+<input type="text" id="resell-qty" placeholder="Kantite (Ex: 10 bwat, 50 sache...)">
+<label>Paiement :</label>
+<select id="resell-payment">
+<option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
+<option value="Cash">Cash</option><option value="Chèque">Chèque</option>
+</select>
+<button class="btn-order" style="background: var(--navy);" onclick="sendResellOrder()">COMMANDE GROS WHATSAPP</button>
+</div>
+</div>
+
 <!-- TOURIST -->
 <div class="collapsible-box" style="border-left-color:#DAA520;">
-<button class="collapsible-btn" onclick="toggleBox('tourist')">
-<span>🌍 Tourist Assistance</span><i class="fas fa-chevron-down"></i>
-</button>
+<button class="collapsible-btn" onclick="toggleBox('tourist')"><span>🌍 Tourist Assistance</span><i class="fas fa-chevron-down"></i></button>
 <div id="tourist" class="collapsible-content">
 <input type="text" placeholder="Full Name">
 <input type="text" placeholder="Hotel / Airbnb">
@@ -82,32 +160,48 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;b
 </div>
 </div>
 
+<!-- FOOTER -->
 <div class="footer-info">
 <p style="font-weight:bold;font-size:16px;">Aurisme Group</p>
 <p>📧 gâteaux.friandise@gmail.com</p>
 <p>📞 +509 4201-7744</p>
 <p>📍 Péguy-ville, rue A Qualo, Haïti</p>
 
-<!-- GOOGLE MAP ADDED -->
+<!-- GOOGLE MAP -->
 <div style="margin-top:20px;">
-<iframe
-src="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti&output=embed"
-width="100%" height="250"
-style="border:0;border-radius:20px;"
-loading="lazy"></iframe>
+<iframe src="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti&output=embed" width="100%" height="250" style="border:0;border-radius:20px;" loading="lazy"></iframe>
+<a href="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti" target="_blank" style="display:inline-block;margin-top:10px;background:#003366;color:white;padding:10px 15px;border-radius:10px;text-decoration:none;">📍 Get Directions</a>
+</div>
 
-<a href="https://www.google.com/maps?q=Peguy-Ville+Rue+A+Qualo+Haiti"
-target="_blank"
-style="display:inline-block;margin-top:10px;background:#003366;color:white;padding:10px 15px;border-radius:10px;text-decoration:none;">
-📍 Get Directions
-</a>
-</div>
-</div>
+</div> <!-- END CONTAINER -->
 
 <script>
 function toggleBox(id){
-let c=document.getElementById(id);
-c.style.display=(c.style.display==="block")?"none":"block";
+let content=document.getElementById(id);
+content.style.display=(content.style.display==="block")?"none":"block";
+}
+
+function sendOrder(){
+const market=document.getElementById('market-name').value;
+const date=document.getElementById('market-date').value;
+const details=document.getElementById('market-details').value;
+const pay=document.getElementById('market-payment').value;
+const checked=document.querySelectorAll('#super-list input:checked');
+let items=Array.from(checked).map(cb=>cb.value);
+if(items.length===0 && !details){alert("Tanpri chwazi yon pwodwi!");return;}
+let msg=`*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}%0A📅 Date: ${date}%0A🛒 Produits: ${items.join(", ")}%0A📝 Détails: ${details}%0A💳 Paiement: ${pay}`;
+window.open(`https://wa.me/50942017744?text=${msg}`);
+}
+
+function sendResellOrder(){
+const format=document.getElementById('package-format').value;
+const qty=document.getElementById('resell-qty').value;
+const pay=document.getElementById('resell-payment').value;
+const checked=document.querySelectorAll('#resell-list input:checked');
+let items=Array.from(checked).map(cb=>cb.value);
+if(items.length===0 || !qty){alert("Ranpli tout pati yo!");return;}
+let msg=`*COMMANDE TI MACHANN*%0A📦 Format: ${format}%0A🔢 Kantite: ${qty}%0A🍪 Produits: ${items.join(", ")}%0A💳 Paiement: ${pay}`;
+window.open(`https://wa.me/50942017744?text=${msg}`);
 }
 
 const translations={
