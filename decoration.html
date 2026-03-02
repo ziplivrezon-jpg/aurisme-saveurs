@@ -9,7 +9,10 @@
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #fcfcfc; text-align: center; color: #333; }
 
-        /* Banner Style */
+        /* Lang Bar */
+        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; }
+        .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
+
         header { background: linear-gradient(rgba(128,0,0,0.9), rgba(128,0,0,0.9)), url('https://www.transparenttextures.com/patterns/cubes.png'); 
                  color: white; padding: 50px 20px; border-bottom: 5px solid var(--gold); }
         header h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 3px; }
@@ -17,44 +20,33 @@
 
         .container { padding: 20px; max-width: 550px; margin: auto; }
 
-        /* Ti Bwat Ide Inspirasyon */
         .inspiration-box { 
             background: #fff; border-radius: 20px; padding: 20px; 
             margin-bottom: 30px; border: 2px solid var(--gold); text-align: left;
             box-shadow: 0 5px 15px rgba(218, 165, 32, 0.1);
         }
-        .inspiration-box h4 { color: var(--bordeaux); margin: 0 0 15px 0; text-align: center; text-transform: uppercase; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .inspiration-box h4 { color: var(--bordeaux); margin: 0 0 15px 0; text-align: center; text-transform: uppercase; font-size: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .idea-item { margin-bottom: 15px; padding-left: 10px; border-left: 3px solid var(--navy); }
         .idea-item b { color: var(--navy); display: block; font-size: 14px; }
         .idea-item span { font-size: 13px; color: #555; line-height: 1.4; }
 
-        /* Section Services */
         .service-section { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
-        .section-title { color: var(--bordeaux); font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .section-title { color: var(--bordeaux); font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; font-weight: bold; }
         .section-title i { color: var(--gold); }
 
         .item-list { text-align: left; }
         .item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #f9f9f9; padding-bottom: 10px; }
         .item i { background: var(--navy); color: white; padding: 10px; border-radius: 12px; font-size: 18px; }
-        .item h4 { margin: 0; color: var(--navy); font-size: 16px; }
-        .item p { margin: 3px 0 0; font-size: 13px; color: #666; }
+        .item h4 { margin: 0; color: var(--navy); font-size: 15px; }
+        .item p { margin: 3px 0 0; font-size: 12px; color: #666; }
 
-        /* Formulaire Ranje pou l Santre */
         .booking-box { background: var(--navy); color: white; border-radius: 25px; padding: 30px; text-align: left; box-shadow: 0 15px 35px rgba(0,51,102,0.2); }
-        .booking-box h3 { color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; }
-        label { font-size: 13px; display: block; margin-bottom: 5px; color: #ccc; margin-top: 10px; }
+        .booking-box h3 { color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; font-size: 18px; }
+        label { font-size: 12px; display: block; margin-bottom: 5px; color: #aaa; margin-top: 10px; font-weight: bold; }
         
-        /* Sa a asire tout champ yo pran tout lajè a epi yo santre */
         input, select, textarea { 
-            width: 100%; 
-            padding: 14px; 
-            margin-bottom: 10px; 
-            border-radius: 12px; 
-            border: none; 
-            font-size: 14px; 
-            color: #333; 
-            box-sizing: border-box; /* Trè enpòtan pou santraj la */
-            display: block;
+            width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 12px; 
+            border: none; font-size: 14px; color: #333; box-sizing: border-box; display: block; font-family: inherit;
         }
         
         .btn-whatsapp { 
@@ -64,86 +56,168 @@
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
 
-        .back-home { display: inline-block; margin: 30px 0; color: var(--bordeaux); text-decoration: none; font-weight: bold; }
+        .back-home { display: inline-block; margin: 30px 0; color: var(--bordeaux); text-decoration: none; font-weight: bold; font-size: 14px; }
     </style>
 </head>
 <body>
 
+    <div class="lang-bar">
+        <button onclick="changeLang('fr')">FR</button>
+        <button onclick="changeLang('en')">EN</button>
+        <button onclick="changeLang('ht')">HT</button>
+    </div>
+
     <header>
-        <h1>Déco & Traiteur</h1>
-        <p>Transformer vos rêves en réalité mémorable</p>
+        <h1 id="txt-h1">Déco & Traiteur</h1>
+        <p id="txt-sub">Transformer vos rêves en réalité mémorable</p>
     </header>
 
     <div class="container">
         
         <div class="inspiration-box">
-            <h4><i class="fas fa-lightbulb"></i> Idées & Inspirations Aurisme</h4>
+            <h4 id="txt-insp-title"><i class="fas fa-lightbulb"></i> Idées & Inspirations Aurisme</h4>
             <div class="idea-item">
-                <b>🌟 Thème "Royal Gold"</b>
-                <span>Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique.</span>
+                <b id="t1-h">🌟 Thème "Royal Gold"</b>
+                <span id="t1-d">Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique.</span>
             </div>
             <div class="idea-item">
-                <b>🎈 Thème "Garden Party"</b>
-                <span>Décoration champêtre, guirlandes lumineuses, et service de Finger Food.</span>
+                <b id="t2-h">🌴 Thème "Creole Chic"</b>
+                <span id="t2-d">Mélange de bois, tissus locaux et saveurs authentiques (Griot, Akra) haut de gamme.</span>
             </div>
             <div class="idea-item">
-                <b>💼 Thème "Corporate Chic"</b>
-                <span>Espace moderne, éclairage LED aux couleurs de l'entreprise, cocktail dînatoire.</span>
+                <b id="t3-h">💼 Thème "Corporate Chic"</b>
+                <span id="t3-d">Espace moderne, éclairage LED aux couleurs de l'entreprise, cocktail dînatoire.</span>
             </div>
         </div>
 
         <div class="service-section">
-            <div class="section-title"><i class="fas fa-magic"></i> <span>Décoration de Luxe</span></div>
+            <div class="section-title"><i class="fas fa-magic"></i> <span id="txt-serv-title">Prestations de Luxe</span></div>
             <div class="item-list">
-                <div class="item"><i class="fas fa-glass-cheers"></i><div><h4>Événements Sociaux</h4><p>Mariages, Baptêmes, Anniversaires.</p></div></div>
-                <div class="item"><i class="fas fa-building"></i><div><h4>Événements Corporatifs</h4><p>Lancements, Galas, Cocktails.</p></div></div>
+                <div class="item"><i class="fas fa-glass-cheers"></i><div><h4 id="s1-h">Événements Sociaux</h4><p id="s1-d">Mariages, Baptêmes, Anniversaires, Baby Shower.</p></div></div>
+                <div class="item"><i class="fas fa-building"></i><div><h4 id="s2-h">Événements Corporatifs</h4><p id="s2-d">Lancements de produits, Galas, Cocktails d'affaires.</p></div></div>
             </div>
         </div>
 
         <div class="booking-box">
-            <h3>Demander un Devis</h3>
+            <h3 id="txt-form-title">Demander un Devis</h3>
             
-            <label>Type d'événement:</label>
+            <label id="lbl-type">Type d'événement:</label>
             <select id="event-type">
-                <option>Mariage</option>
-                <option>Anniversaire</option>
-                <option>Baptême / Communion</option>
-                <option>Dîner Privé</option>
-                <option>Événement d'Affaires</option>
+                <option value="Mariage" id="opt-m">Mariage</option>
+                <option value="Anniversaire" id="opt-a">Anniversaire</option>
+                <option value="Baptême" id="opt-b">Baptême / Communion</option>
+                <option value="Dîner Privé" id="opt-d">Dîner Privé</option>
+                <option value="Business" id="opt-bz">Événement d'Affaires</option>
             </select>
 
-            <label>Service souhaité:</label>
+            <label id="lbl-serv">Service souhaité:</label>
             <select id="service-needed">
-                <option>Décoration uniquement</option>
-                <option>Traiteur uniquement</option>
-                <option>Service Complet (Déco + Traiteur)</option>
+                <option id="opt-s1">Décoration uniquement</option>
+                <option id="opt-s2">Traiteur uniquement</option>
+                <option id="opt-s3">Service Complet (Déco + Traiteur)</option>
             </select>
 
-            <label>Date prévue & Nombre d'invités:</label>
-            <input type="text" id="event-details" placeholder="Ex: 12 Juin 2026 - 100 personnes">
+            <label id="lbl-date">Date & Nombre d'invités:</label>
+            <input type="text" id="event-details" placeholder="Ex: 12 Juin 2026 - 100 pax">
 
-            <label>Détails ou Thème choisi (Ex: Royal Gold):</label>
-            <textarea id="event-desc" rows="3" placeholder="Inspiré d'un de nos thèmes oswa ide pa w..."></textarea>
+            <label id="lbl-desc">Détails ou Thème choisi:</label>
+            <textarea id="event-desc" rows="3" placeholder="Ex: Royal Gold / Creole Chic..."></textarea>
 
-            <label>Mode de Paiement Prévu:</label>
+            <label id="lbl-pay">Mode de Paiement Prévu:</label>
             <select id="deco-payment">
                 <option value="Natcash">Natcash</option>
                 <option value="Moncash">Moncash</option>
                 <option value="Cash">Cash</option>
-                <option value="Chèque">Chèque</option>
+                <option value="Zelle / PayPal">Zelle / PayPal (Intl)</option>
             </select>
 
             <button class="btn-whatsapp" onclick="bookEvent()">
-                <i class="fab fa-whatsapp"></i> OBTENIR MON DEVIS WHATSAPP
+                <i class="fab fa-whatsapp"></i> <span id="btn-txt">OBTENIR MON DEVIS WHATSAPP</span>
             </button>
         </div>
 
-        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> RETOUR À L'ACCUEIL</a>
+        <a href="index.html" class="back-home" id="txt-back"><i class="fas fa-arrow-left"></i> RETOUR À L'ACCUEIL</a>
     </div>
 
     <script>
+        const translations = {
+            fr: {
+                h1: "Déco & Traiteur", sub: "Transformer vos rêves en réalité mémorable",
+                insp: "Idées & Inspirations Aurisme",
+                t1h: "🌟 Thème 'Royal Gold'", t1d: "Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique.",
+                t2h: "🌴 Thème 'Creole Chic'", t2d: "Mélange de bois, tissus locaux et saveurs authentiques (Griot, Akra) haut de gamme.",
+                t3h: "💼 Thème 'Corporate Chic'", t3d: "Espace moderne, éclairage LED aux couleurs de l'entreprise, cocktail dînatoire.",
+                servT: "Prestations de Luxe", s1h: "Événements Sociaux", s1d: "Mariages, Baptêmes, Anniversaires, Baby Shower.",
+                s2h: "Événements Corporatifs", s2d: "Lancements de produits, Galas, Cocktails d'affaires.",
+                formT: "Demander un Devis", lType: "Type d'événement:", lServ: "Service souhaité:",
+                lDate: "Date & Nombre d'invités:", lDesc: "Détails ou Thème choisi:", lPay: "Mode de Paiement:",
+                btn: "OBTENIR MON DEVIS WHATSAPP", back: "RETOUR À L'ACCUEIL",
+                m: "Mariage", a: "Anniversaire", b: "Baptême / Communion", d: "Dîner Privé", bz: "Affaires",
+                s1: "Décoration uniquement", s2: "Traiteur uniquement", s3: "Service Complet"
+            },
+            en: {
+                h1: "Decor & Catering", sub: "Turning your dreams into memorable reality",
+                insp: "Aurisme Ideas & Inspirations",
+                t1h: "🌟 'Royal Gold' Theme", t1d: "Gold & White decor, crystal centerpieces, and gourmet buffet.",
+                t2h: "🌴 'Creole Chic' Theme", t2d: "Wood mix, local fabrics, and premium authentic flavors (Griot, Akra).",
+                t3h: "💼 'Corporate Chic' Theme", t3d: "Modern space, LED lighting in company colors, cocktail dinner.",
+                servT: "Luxury Services", s1h: "Social Events", s1d: "Weddings, Baptisms, Birthdays, Baby Showers.",
+                s2h: "Corporate Events", s2d: "Product launches, Galas, Business cocktails.",
+                formT: "Request a Quote", lType: "Event Type:", lServ: "Service Needed:",
+                lDate: "Date & Number of Guests:", lDesc: "Details or Chosen Theme:", lPay: "Payment Method:",
+                btn: "GET MY WHATSAPP QUOTE", back: "BACK TO HOME",
+                m: "Wedding", a: "Birthday", b: "Baptism / Communion", d: "Private Dinner", bz: "Business",
+                s1: "Decor only", s2: "Catering only", s3: "Full Service"
+            },
+            ht: {
+                h1: "Dekò & Tretè", sub: "Reyalize rèv ou yo ak yon fason espesyal",
+                insp: "Lide & Inspirasyon Aurisme",
+                t1h: "🌟 Tèm 'Royal Gold'", t1d: "Dekorasyon Or & Blan, bèl kristal sou tab yo, ak bon jan manje.",
+                t2h: "🌴 Tèm 'Creole Chic'", t2d: "Bèl bwa, twal peyi a ak bon gou griyo, akra nivo VIP.",
+                t3h: "💼 Tèm 'Corporate Chic'", t3d: "Espas modèn, bèl limyè ak koulè konpayi a, koktèl.",
+                servT: "Sèvis De Liks", s1h: "Fèt Sosyal", s1d: "Maryaj, Batèm, Anivèsè, Baby Shower.",
+                s2h: "Fèt Konpayi", s2d: "Lansman pwodwi, Gala, Koktèl daprè.",
+                formT: "Mande yon Devis", lType: "Kalite fèt la:", lServ: "Sèvis ou bezwen:",
+                lDate: "Dat ak Konbe moun:", lDesc: "Detay oswa Tèm ou vle:", lPay: "Fason w ap peye:",
+                btn: "JWENN DEVIS MWEN SOU WHATSAPP", back: "TOUNEN NAN AKÈY",
+                m: "Maryaj", a: "Anivèsè", b: "Batèm / Kominyon", d: "Dine Prive", bz: "Afè / Biznis",
+                s1: "Dekorasyon sèlman", s2: "Tretè sèlman", s3: "Sèvis Konplè"
+            }
+        };
+
+        function changeLang(lang) {
+            const t = translations[lang];
+            document.getElementById('txt-h1').innerText = t.h1;
+            document.getElementById('txt-sub').innerText = t.sub;
+            document.getElementById('txt-insp-title').innerHTML = `<i class="fas fa-lightbulb"></i> ${t.insp}`;
+            document.getElementById('t1-h').innerText = t.t1h; document.getElementById('t1-d').innerText = t.t1d;
+            document.getElementById('t2-h').innerText = t.t2h; document.getElementById('t2-d').innerText = t.t2d;
+            document.getElementById('t3-h').innerText = t.t3h; document.getElementById('t3-d').innerText = t.t3d;
+            document.getElementById('txt-serv-title').innerText = t.servT;
+            document.getElementById('s1-h').innerText = t.s1h; document.getElementById('s1-d').innerText = t.s1d;
+            document.getElementById('s2-h').innerText = t.s2h; document.getElementById('s2-d').innerText = t.s2d;
+            document.getElementById('txt-form-title').innerText = t.formT;
+            document.getElementById('lbl-type').innerText = t.lType;
+            document.getElementById('lbl-serv').innerText = t.lServ;
+            document.getElementById('lbl-date').innerText = t.lDate;
+            document.getElementById('lbl-desc').innerText = t.lDesc;
+            document.getElementById('lbl-pay').innerText = t.lPay;
+            document.getElementById('btn-txt').innerText = t.btn;
+            document.getElementById('txt-back').innerHTML = `<i class="fas fa-arrow-left"></i> ${t.back}`;
+            
+            // Dropdowns
+            document.getElementById('opt-m').innerText = t.m; document.getElementById('opt-a').innerText = t.a;
+            document.getElementById('opt-b').innerText = t.b; document.getElementById('opt-d').innerText = t.d;
+            document.getElementById('opt-bz').innerText = t.bz;
+            document.getElementById('opt-s1').innerText = t.s1; document.getElementById('opt-s2').innerText = t.s2;
+            document.getElementById('opt-s3').innerText = t.s3;
+
+            localStorage.setItem('aurisme_deco_lang', lang);
+        }
+
         function bookEvent() {
             const tel = "50942017744";
+            const lang = localStorage.getItem('aurisme_deco_lang') || 'fr';
             const type = document.getElementById('event-type').value;
             const service = document.getElementById('service-needed').value;
             const details = document.getElementById('event-details').value;
@@ -151,20 +225,22 @@
             const pay = document.getElementById('deco-payment').value;
             
             if(!details || !desc) {
-                alert("Tanpri bay kèk enfòmasyon sou dat ak sa ou bezwen an.");
+                alert(lang === 'ht' ? "Tanpri bay detay sou fèt la." : "Veuillez donner des détails sur l'événement.");
                 return;
             }
 
-            const msg = `*DEMANDE DE DEVIS - AURISME*%0A%0A` +
-                        `🎉 *Événement:* ${type}%0A` +
+            const msg = `*DEVIS DÉCO & TRAITEUR*%0A%0A` +
+                        `🎉 *Event:* ${type}%0A` +
                         `🛠️ *Service:* ${service}%0A` +
-                        `📅 *Date/Invités:* ${details}%0A` +
-                        `📝 *Détails:* ${desc}%0A` +
-                        `💳 *Paiement:* ${pay}%0A%0A` +
-                        `_Envoyé via l'App Aurisme_`;
+                        `📅 *Info:* ${details}%0A` +
+                        `📝 *Theme/Desc:* ${desc}%0A` +
+                        `💳 *Pay:* ${pay}%0A%0A` +
+                        `_Via Aurisme App_`;
 
             window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
+
+        window.onload = () => changeLang(localStorage.getItem('aurisme_deco_lang') || 'fr');
     </script>
 </body>
 </html>
