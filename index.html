@@ -9,13 +9,11 @@
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--green:#28a745;}
 body{font-family:'Segoe UI',Tahoma,sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
 
-/* BADGE SEKIRITE NAN TÈT */
-.security-header {background:var(--navy); color:white; padding:5px; font-size:12px; font-weight:bold; display:flex; justify-content:center; align-items:center; gap:8px;}
+.security-header {background:var(--navy); color:white; padding:8px; font-size:13px; font-weight:bold; display:flex; justify-content:center; align-items:center; gap:8px;}
 .security-header i {color: #4CAF50;}
 
 .lang-bar-fixed{position:sticky; top:0; background:white; padding:10px 0; display:flex; justify-content:center; z-index:9999; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
-.lang-bar-fixed button{margin:0 8px; padding:8px 15px; border:none; border-radius:20px; cursor:pointer; background:#eee; color:var(--navy); font-weight:bold; font-size:14px; transition:0.3s;}
-.lang-bar-fixed button:hover{background:var(--gold); color:white;}
+.lang-bar-fixed button{margin:0 8px; padding:8px 15px; border:none; border-radius:20px; cursor:pointer; background:#eee; color:var(--navy); font-weight:bold; font-size:14px;}
 
 .reklam-ticker{background:var(--gold); color:var(--bordeaux); font-weight:bold; padding:12px 0; overflow:hidden; white-space:nowrap; border-bottom:2px solid var(--bordeaux);}
 .reklam-ticker p{display:inline-block; padding-left:100%; animation:ticker 20s linear infinite; margin:0; font-size:16px; text-transform:uppercase;}
@@ -77,6 +75,14 @@ input, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; 
         </div>
     </div>
 
+    <div class="collapsible-box" style="border-left-color: var(--navy);">
+        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-ti" class="collapsible-content">
+            <input type="text" id="ph-qty" placeholder="Quantité souhaitée...">
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="window.open('https://wa.me/50942017744')">COMMANDER EN GROS</button>
+        </div>
+    </div>
+
     <div class="collapsible-box" style="border-left-color: var(--gold);">
         <button class="collapsible-btn" onclick="toggleBox('box2')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box2" class="collapsible-content">
@@ -105,28 +111,28 @@ const translations = {
         sec: "Service Vérifié & Livraison Sécurisée",
         ad: "🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟",
         title: "Aurisme Saveurs et Services",
-        sup: "🛒 Service Supermarché", tour: "🌍 Tourist Assistance",
+        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
         l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE",
-        b1: "COMMANDER WHATSAPP", b2: "DEMANDER DE L'AIDE",
-        ph1: "Liste des produits...", ph_n: "Nom Complet", ph_h: "Comment pouvons-nous vous aider?"
+        b1: "COMMANDER WHATSAPP", br: "COMMANDER EN GROS", b2: "DEMANDER DE L'AIDE",
+        ph1: "Liste des produits...", phq: "Quantité souhaitée...", ph_n: "Nom Complet", ph_h: "Comment pouvons-nous vous aider?"
     },
     en: {
         sec: "Verified Service & Secured Delivery",
         ad: "🌟 VETIHKAM THE BEST VETIVER PERFUME — AVAILABLE NOW! 🌟",
         title: "Aurisme Flavors and Services",
-        sup: "🛒 Supermarket Service", tour: "🌍 Tourist Assistance",
+        sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
         l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO & CATERING", g: "GALLERY",
-        b1: "ORDER VIA WHATSAPP", b2: "REQUEST ASSISTANCE",
-        ph1: "Product list...", ph_n: "Full Name", ph_h: "How can we help you?"
+        b1: "ORDER VIA WHATSAPP", br: "ORDER BULK", b2: "REQUEST ASSISTANCE",
+        ph1: "Product list...", phq: "Quantity desired...", ph_n: "Full Name", ph_h: "How can we help you?"
     },
     ht: {
         sec: "Sèvis Verifye ak Livrezon an Sekirite",
         ad: "🌟 VETIHKAM BON PARFEN VETIVÈ — LI DISPONIB KOUNYA! 🌟",
         title: "Aurisme Saveurs ak Sèvis",
-        sup: "🛒 Sèvis Sipèmache", tour: "🌍 Asistans Touris",
+        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
         l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO & TRAITEUR", g: "GALERI",
-        b1: "KOMANDE SOU WHATSAPP", b2: "MANDE ED",
-        ph1: "Lis pwodwi yo...", ph_n: "Non konplè", ph_h: "Kijan nou ka ede w?"
+        b1: "KOMANDE SOU WHATSAPP", br: "KOMANDE AN GWO", b2: "MANDE ED",
+        ph1: "Lis pwodwi yo...", phq: "Kantite ou bezwen...", ph_n: "Non konplè", ph_h: "Kijan nou ka ede w?"
     }
 };
 
@@ -136,6 +142,7 @@ function changeLanguage(lang) {
     document.getElementById('ad-text').innerText = t.ad;
     document.getElementById('main-title').innerText = t.title;
     document.getElementById('t-sup').innerText = t.sup;
+    document.getElementById('t-res').innerText = t.res;
     document.getElementById('t-tour').innerText = t.tour;
     document.getElementById('m-liv').innerText = t.l;
     document.getElementById('m-tax').innerText = t.t;
@@ -144,8 +151,10 @@ function changeLanguage(lang) {
     document.getElementById('m-dec').innerText = t.d;
     document.getElementById('m-gal').innerText = t.g;
     document.getElementById('btn1').innerText = t.b1;
+    document.getElementById('btn-res').innerText = t.br;
     document.getElementById('btn2').innerText = t.b2;
     document.getElementById('ph1').placeholder = t.ph1;
+    document.getElementById('ph-qty').placeholder = t.phq;
     document.getElementById('ph-name').placeholder = t.ph_n;
     document.getElementById('ph-help').placeholder = t.ph_h;
     localStorage.setItem('lang', lang);
