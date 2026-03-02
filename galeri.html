@@ -22,7 +22,7 @@
         .title-fancy { margin: 0 0 15px 0; font-size: 22px; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
         
         .nav-buttons { display: flex; gap: 10px; justify-content: center; align-items: center; }
-        .btn-nav { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 50px; font-size: 12px; background: var(--gold); color: var(--bordeaux); }
+        .btn-nav { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 50px; font-size: 12px; background: var(--gold); color: var(--bordeaux); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
         /* GRID */
         .container { padding: 15px; max-width: 1200px; margin: auto; }
@@ -34,9 +34,11 @@
         /* LIGHTBOX */
         #lightbox { position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         #lightbox img { max-width: 100%; max-height: 70%; border-radius: 10px; border: 2px solid var(--gold); }
-        .btn-order-img { background: #25D366; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 10px; text-decoration: none; margin-top: 15px; }
+        .btn-order-img { background: #25D366; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 10px; text-decoration: none; margin-top: 15px; font-size: 14px; }
 
-        .wa-float { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 999; text-decoration: none; border: 2px solid white; }
+        /* BOUTON FLOTTANT VERS CATALOGUE */
+        .wa-float { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999; text-decoration: none; border: 2px solid white; animation: pulse-wa 2s infinite; }
+        @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
         footer { text-align: center; padding: 30px; color: #888; font-size: 12px; }
     </style>
@@ -105,20 +107,20 @@
         <img id="lightbox-img" src="">
         <div class="lightbox-info">
             <a id="btn-wa-order" href="" class="btn-order-img" target="_blank">
-                <i class="fab fa-whatsapp"></i> <span id="txt-order-wa">Commander</span>
+                <i class="fab fa-whatsapp"></i> <span id="txt-order-wa">Je veux ce service</span>
             </a>
         </div>
     </div>
 
-    <a href="https://wa.me/50942017744" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/c/50942017744" class="wa-float" target="_blank" title="Catalogue Aurisme"><i class="fab fa-whatsapp"></i></a>
 
     <footer><p>&copy; 2026 Aurisme Saveurs</p></footer>
 
     <script>
         const translations = {
-            fr: { ticker: "✨ Aurisme Saveurs : Le goût allié à l'excellence ! ✨", title: "Nos Réalisations", home: "⬅ ACCUEIL", order: "Je veux ce service", waMsg: "Bonjour Aurisme, je suis intéressé par ce service : " },
-            en: { ticker: "✨ Aurisme Saveurs: Taste meets excellence! ✨", title: "Our Work", home: "⬅ HOME", order: "I want this service", waMsg: "Hello Aurisme, I am interested in this service: " },
-            ht: { ticker: "✨ Aurisme Saveurs : Gou ak Kalite ! ✨", title: "Travay Nou Yo", home: "⬅ AKÈY", order: "Mwen vle sèvis sa a", waMsg: "Bonjou Aurisme, mwen enterese nan sèvis sa a : " }
+            fr: { ticker: "✨ Aurisme Saveurs : Le goût allié à l'excellence ! ✨", title: "Nos Réalisations", home: "⬅ ACCUEIL", order: "Je veux ce service", waMsg: "Bonjour Aurisme, je suis intéressé par ce service vu dans votre galerie : " },
+            en: { ticker: "✨ Aurisme Saveurs: Taste meets excellence! ✨", title: "Our Work", home: "⬅ HOME", order: "I want this service", waMsg: "Hello Aurisme, I am interested in this service seen in your gallery: " },
+            ht: { ticker: "✨ Aurisme Saveurs : Gou ak Kalite ! ✨", title: "Travay Nou Yo", home: "⬅ AKÈY", order: "Mwen vle sa a", waMsg: "Bonjou Aurisme, mwen enterese nan sèvis sa a mwen wè nan galeri ou a : " }
         };
 
         function changeLang(lang) {
@@ -141,4 +143,4 @@
         window.onload = () => changeLang(localStorage.getItem('aurisme_gal_lang') || 'fr');
     </script>
 </body>
-</html>
+                                  </html>
