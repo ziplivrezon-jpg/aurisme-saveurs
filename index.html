@@ -6,7 +6,7 @@
 <title>Aurisme Saveurs et Services</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--green:#28a745;}
+:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;}
 body{font-family:'Segoe UI',Tahoma,sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
 
 .security-header {background:var(--navy); color:white; padding:8px; font-size:13px; font-weight:bold; display:flex; justify-content:center; align-items:center; gap:8px;}
@@ -30,7 +30,7 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
 .collapsible-content{display:none; padding:0 20px 20px 20px; text-align:left;}
 
-input, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
+input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box; font-family:inherit;}
 .btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
 
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin-top:30px; font-size:13px;}
@@ -68,34 +68,49 @@ input, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; 
     </div>
 
     <div class="collapsible-box">
-        <button class="collapsible-btn" onclick="toggleBox('box1')"><span id="t-sup">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
-        <div id="box1" class="collapsible-content">
-            <textarea id="ph1" placeholder="Liste des produits..."></textarea>
-            <button class="btn-order" id="btn1" onclick="window.open('https://wa.me/50942017744')">COMMANDER WHATSAPP</button>
+        <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-super" class="collapsible-content">
+            <label id="lbl-m">Choisir Marché:</label>
+            <select id="market-name">
+                <option>Star Market</option>
+                <option>Bonjan Market</option>
+                <option>Juvénat Market</option>
+                <option>Déli Mart</option>
+                <option>Giant Supermarket</option>
+            </select>
+            <textarea id="market-list" placeholder="Liste des produits..."></textarea>
+            <button class="btn-order" id="btn-sup" onclick="sendWA('Supermarché')">COMMANDER WHATSAPP</button>
         </div>
     </div>
 
     <div class="collapsible-box" style="border-left-color: var(--navy);">
         <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-ti" class="collapsible-content">
-            <input type="text" id="ph-qty" placeholder="Quantité souhaitée...">
-            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="window.open('https://wa.me/50942017744')">COMMANDER EN GROS</button>
+            <label id="lbl-p">Produit en Gros:</label>
+            <select id="resell-prod">
+                <option>Dlo an sachet</option>
+                <option>Ji (Jus)</option>
+                <option>Sik / Kafe</option>
+                <option>Pwodwi Netwayaj</option>
+            </select>
+            <input type="text" id="resell-qty" placeholder="Quantité (Egz: 50 rido)">
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWA('Ti Machann')">COMMANDER EN GROS</button>
         </div>
     </div>
 
     <div class="collapsible-box" style="border-left-color: var(--gold);">
-        <button class="collapsible-btn" onclick="toggleBox('box2')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
-        <div id="box2" class="collapsible-content">
-            <input type="text" id="ph-name" placeholder="Nom Complet / Full Name">
-            <textarea id="ph-help" placeholder="Besoin d'aide?"></textarea>
-            <button class="btn-order" style="background:var(--gold);" id="btn2" onclick="window.open('https://wa.me/50942017744')">DEMANDER DE L'AIDE</button>
+        <button class="collapsible-btn" onclick="toggleBox('box-tour')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-tour" class="collapsible-content">
+            <input type="text" id="tour-name" placeholder="Nom Complet / Full Name">
+            <textarea id="tour-help" placeholder="Besoin d'aide?"></textarea>
+            <button class="btn-order" style="background:var(--gold);" id="btn-tour" onclick="sendWA('Tourist Help')">DEMANDER DE L'AIDE</button>
         </div>
     </div>
 </div>
 
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
-    <iframe src="https://www.google.com/maps/embed?pb=" width="100%" height="200" style="border:0; border-radius:20px;"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15124.93482563332!2d-72.3082!3d18.5392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e14440076a59%3A0x63349927514f0460!2sPort-au-Prince%2C%20Ayiti!5e0!3m2!1sfr!2s!4v1700000000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
     <a href="privacy.html" id="priv-link" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy / Confidentialité</a>
 </div>
@@ -108,31 +123,22 @@ function toggleBox(id) {
 
 const translations = {
     fr: {
-        sec: "Service Vérifié & Livraison Sécurisée",
-        ad: "🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟",
-        title: "Aurisme Saveurs et Services",
-        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
+        sec: "Service Vérifié & Livraison Sécurisée", ad: "🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟",
+        title: "Aurisme Saveurs et Services", sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
         l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE",
-        b1: "COMMANDER WHATSAPP", br: "COMMANDER EN GROS", b2: "DEMANDER DE L'AIDE",
-        ph1: "Liste des produits...", phq: "Quantité souhaitée...", ph_n: "Nom Complet", ph_h: "Comment pouvons-nous vous aider?"
+        m_lbl: "Choisir Marché:", p_lbl: "Produit en Gros:", b_wa: "COMMANDER WHATSAPP", b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE"
     },
     en: {
-        sec: "Verified Service & Secured Delivery",
-        ad: "🌟 VETIHKAM THE BEST VETIVER PERFUME — AVAILABLE NOW! 🌟",
-        title: "Aurisme Flavors and Services",
-        sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
+        sec: "Verified Service & Secured Delivery", ad: "🌟 VETIHKAM THE BEST VETIVER PERFUME — AVAILABLE NOW! 🌟",
+        title: "Aurisme Flavors and Services", sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
         l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO & CATERING", g: "GALLERY",
-        b1: "ORDER VIA WHATSAPP", br: "ORDER BULK", b2: "REQUEST ASSISTANCE",
-        ph1: "Product list...", phq: "Quantity desired...", ph_n: "Full Name", ph_h: "How can we help you?"
+        m_lbl: "Choose Market:", p_lbl: "Wholesale Product:", b_wa: "ORDER VIA WHATSAPP", b_res: "ORDER BULK", b_tour: "REQUEST ASSISTANCE"
     },
     ht: {
-        sec: "Sèvis Verifye ak Livrezon an Sekirite",
-        ad: "🌟 VETIHKAM BON PARFEN VETIVÈ — LI DISPONIB KOUNYA! 🌟",
-        title: "Aurisme Saveurs ak Sèvis",
-        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
+        sec: "Sèvis Verifye ak Livrezon an Sekirite", ad: "🌟 VETIHKAM BON PARFEN VETIVÈ — LI DISPONIB KOUNYA! 🌟",
+        title: "Aurisme Saveurs ak Sèvis", sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
         l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO & TRAITEUR", g: "GALERI",
-        b1: "KOMANDE SOU WHATSAPP", br: "KOMANDE AN GWO", b2: "MANDE ED",
-        ph1: "Lis pwodwi yo...", phq: "Kantite ou bezwen...", ph_n: "Non konplè", ph_h: "Kijan nou ka ede w?"
+        m_lbl: "Chwazi Mache:", p_lbl: "Pwodwi an Gwo:", b_wa: "KOMANDE SOU WHATSAPP", b_res: "KOMANDE AN GWO", b_tour: "MANDE ED"
     }
 };
 
@@ -150,14 +156,16 @@ function changeLanguage(lang) {
     document.getElementById('m-pat').innerText = t.p;
     document.getElementById('m-dec').innerText = t.d;
     document.getElementById('m-gal').innerText = t.g;
-    document.getElementById('btn1').innerText = t.b1;
-    document.getElementById('btn-res').innerText = t.br;
-    document.getElementById('btn2').innerText = t.b2;
-    document.getElementById('ph1').placeholder = t.ph1;
-    document.getElementById('ph-qty').placeholder = t.phq;
-    document.getElementById('ph-name').placeholder = t.ph_n;
-    document.getElementById('ph-help').placeholder = t.ph_h;
+    document.getElementById('lbl-m').innerText = t.m_lbl;
+    document.getElementById('lbl-p').innerText = t.p_lbl;
+    document.getElementById('btn-sup').innerText = t.b_wa;
+    document.getElementById('btn-res').innerText = t.b_res;
+    document.getElementById('btn-tour').innerText = t.b_tour;
     localStorage.setItem('lang', lang);
+}
+
+function sendWA(service) {
+    window.open(`https://wa.me/50942017744?text=Service:${service}`);
 }
 
 window.onload = function() {
