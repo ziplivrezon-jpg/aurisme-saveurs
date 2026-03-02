@@ -47,6 +47,12 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 
 <div class="reklam-ticker"><p id="ad-text">🌟 VETIHKAM LE BON PARFUM VÉTIVER — DISPONIBLE MAINTENANT ! 🌟</p></div>
 
+<div class="celebrity-bar">
+<div class="celeb-item"><img src="client1.jpg" alt="C1"><p id="celebrity1">Anniversaire</p></div>
+<div class="celeb-item"><img src="client2.jpg" alt="C2"><p id="celebrity2">Félicitations</p></div>
+<div class="celeb-item"><img src="client3.jpg" alt="C3"><p id="celebrity3">Top Client</p></div>
+</div>
+
 <header>
 <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
 <h1 id="main-title">Aurisme Saveurs et Services</h1>
@@ -63,40 +69,87 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 </div>
 
 <div class="collapsible-box">
-<button class="collapsible-btn" onclick="toggleBox('market-content')">
-<span id="super-title">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i>
-</button>
+<button class="collapsible-btn" onclick="toggleBox('market-content')"><span id="super-title">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
 <div id="market-content" class="collapsible-content">
+<label>Marché :</label>
 <select id="market-name">
-<option>Star Market</option><option>Bonjan Market</option>
+<option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
+<option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option>
+<option>Emile Market</option><option>Compas Market</option><option>Caribbean Supermarket</option>
+<option>Déli Mart</option><option>Autre...</option>
 </select>
 <div class="scroll-list" id="super-list">
 <label><input type="checkbox" value="Sable"> Sable</label>
 <label><input type="checkbox" value="Cookies"> Cookies</label>
+<label><input type="checkbox" value="Pâtés"> Pâtés</label>
+<label><input type="checkbox" value="Palmier"> Palmier</label>
+<label><input type="checkbox" value="Sacristain"> Sacristain</label>
+<label><input type="checkbox" value="Coconuts"> Coconuts</label>
+<label><input type="checkbox" value="Cupcakes"> Cupcakes</label>
 </div>
 <input type="date" id="market-date">
 <textarea id="market-details" placeholder="Détails..."></textarea>
-<button class="btn-order" onclick="sendOrder()">WHATSAPP</button>
+<select id="market-payment">
+<option value="Natcash">Natcash</option><option value="Moncash">Moncash</option>
+<option value="Cash">Cash</option><option value="Chèque">Chèque</option>
+</select>
+<button class="btn-order" onclick="sendOrder()">COMMANDER VIA WHATSAPP</button>
 </div>
 </div>
 
 <div class="collapsible-box" style="border-left-color: var(--navy);">
-<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);">
-<span id="reseller-title">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i>
-</button>
+<button class="collapsible-btn" onclick="toggleBox('reseller-content')" style="color: var(--navy);"><span id="reseller-title">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
 <div id="reseller-content" class="collapsible-content">
+<div class="scroll-list" id="resell-list">
+<label><input type="checkbox" value="Sable"> Sable</label>
+<label><input type="checkbox" value="Cookies"> Cookies</label>
+<label><input type="checkbox" value="Pâtés"> Pâtés</label>
+</div>
+<select id="package-format"><option>Boîte (Bwat)</option><option>Sachet (Sache)</option></select>
 <input type="text" id="resell-qty" placeholder="Kantite...">
-<button class="btn-order" style="background: var(--navy);" onclick="sendResellOrder()">WHATSAPP</button>
+<button class="btn-order" style="background: var(--navy);" onclick="sendResellOrder()">COMMANDE GROS WHATSAPP</button>
 </div>
 </div>
 
+<div class="collapsible-box" style="border-left-color:#DAA520;">
+<button class="collapsible-btn" onclick="toggleBox('tourist')"><span id="tourist-title">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
+<div id="tourist" class="collapsible-content">
+<input type="text" id="tourist-name" placeholder="Full Name">
+<input type="text" id="tourist-hotel" placeholder="Hotel / Airbnb">
+<textarea id="tourist-details" placeholder="Details..."></textarea>
+<button class="btn-order" onclick="sendTouristOrder()">REQUEST VIA WHATSAPP</button>
+</div>
+</div>
+
+<div class="footer-info">
+<p style="font-weight:bold;font-size:16px;">Aurisme Group</p>
+<p>📧 gâteaux.friandise@gmail.com</p>
+<p>📞 +509 4201-7744</p>
+<p>📍 Péguy-ville, rue A Qualo, Haïti</p>
+
+<div style="margin-top:20px;">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.3!2d-72.2!3d18.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMwJzAwLjAiTiA3MsKwMTInMDAuMCJX!5e0!3m2!1sfr!2sht!4v1620000000000!5m2!1sfr!2sht" width="100%" height="250" style="border:0;border-radius:20px;" loading="lazy"></iframe>
+<br>
+<a href="https://maps.google.com" target="_blank" style="display:inline-block;margin-top:10px;background:#003366;color:white;padding:10px 15px;border-radius:10px;text-decoration:none;">📍 Get Directions</a>
+</div>
+
+<div class="social-mini">
+<a href="https://facebook.com/Zipservices" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://instagram.com/aurisme_saveurs" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/50942017744" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+<div style="margin-top:20px;">
+<a href="privacy.html" style="display:inline-block; background:#003366; color:white; padding:10px 20px; border-radius:25px; font-size:14px; font-weight:bold; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+🔒 Privacy Policy / Politique de Confidentialité
+</a>
+</div>
 </div>
 
 <script>
-// 1. FIX POU BWAT YO LOUVRI
+// 1. OUVRI/FENMEN BWAT YO
 function toggleBox(id) {
     var content = document.getElementById(id);
-    // Tcheke si l kache oswa l pa gen style ditou
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
     } else {
@@ -104,24 +157,24 @@ function toggleBox(id) {
     }
 }
 
-// 2. FIX POU LANG YO CHANJE
+// 2. SISTÈM LANG
 const langData = {
-    fr: { title: "Aurisme Saveurs et Services", market: "🛒 Service Supermarché", resell: "🏪 Espace Ti Machann", delivery: "LIVRAISON" },
-    ht: { title: "Aurisme Saveurs ak Sèvis", market: "🛒 Sèvis Sipèmache", resell: "🏪 Espas Ti Machann", delivery: "LIVREZON" },
-    en: { title: "Aurisme Flavors and Services", market: "🛒 Supermarket Service", resell: "🏪 Resellers Space", delivery: "DELIVERY" },
-    es: { title: "Aurisme Sabores y Servicios", market: "🛒 Servicio Supermercado", resell: "🏪 Espacio Revendedores", delivery: "ENTREGA" },
-    it: { title: "Aurisme Sapori e Servizi", market: "🛒 Servizio Supermercato", resell: "🏪 Spazio Rivenditori", delivery: "CONSEGNA" },
-    pt: { title: "Aurisme Sabores e Serviços", market: "🛒 Serviço Supermercado", resell: "🏪 Espaço Revendedor", delivery: "ENTREGA" }
+    fr: { title: "Aurisme Saveurs et Services", market: "🛒 Service Supermarché", resell: "🏪 Espace Ti Machann", tourist: "🌍 Tourist Assistance", deliv: "LIVRAISON" },
+    ht: { title: "Aurisme Saveurs ak Sèvis", market: "🛒 Sèvis Sipèmache", resell: "🏪 Espas Ti Machann", tourist: "🌍 Asistans Touris", deliv: "LIVREZON" },
+    en: { title: "Aurisme Flavors and Services", market: "🛒 Supermarket Service", resell: "🏪 Resellers Space", tourist: "🌍 Tourist Assistance", deliv: "DELIVERY" },
+    es: { title: "Aurisme Sabores y Servicios", market: "🛒 Servicio Supermercado", resell: "🏪 Espacio Revendedores", tourist: "🌍 Asistencia Turística", deliv: "ENTREGA" },
+    it: { title: "Aurisme Sapori e Servizi", market: "🛒 Servizio Supermercato", resell: "🏪 Spazio Rivenditori", tourist: "🌍 Assistenza Turistica", deliv: "CONSEGNA" },
+    pt: { title: "Aurisme Sabores e Serviços", market: "🛒 Serviço Supermercado", resell: "🏪 Espaço Revendedor", tourist: "🌍 Assistência Turística", deliv: "ENTREGA" }
 };
 
 function changeLanguage(lang) {
-    const data = langData[lang];
-    if (data) {
-        document.getElementById('main-title').innerText = data.title;
-        document.getElementById('super-title').innerText = data.market;
-        document.getElementById('reseller-title').innerText = data.resell;
-        document.getElementById('menu-livraison').innerText = data.delivery;
-        console.log("Langue changée en: " + lang); // Pou tcheke nan konsòl la
+    const d = langData[lang];
+    if(d) {
+        document.getElementById('main-title').innerText = d.title;
+        document.getElementById('super-title').innerText = d.market;
+        document.getElementById('reseller-title').innerText = d.resell;
+        document.getElementById('tourist-title').innerText = d.tourist;
+        document.getElementById('menu-livraison').innerText = d.deliv;
     }
 }
 
@@ -131,7 +184,17 @@ function sendOrder(){
     const msg = `*COMMANDE SUPERMARCHÉ*%0A📍 Lieu: ${market}`;
     window.open(`https://wa.me/50942017744?text=${msg}`);
 }
+function sendResellOrder(){
+    const qty = document.getElementById('resell-qty').value;
+    const msg = `*COMMANDE TI MACHANN*%0A🔢 Kantite: ${qty}`;
+    window.open(`https://wa.me/50942017744?text=${msg}`);
+}
+function sendTouristOrder(){
+    const name = document.getElementById('tourist-name').value;
+    const msg = `*TOURIST ASSISTANCE*%0A👤 Name: ${name}`;
+    window.open(`https://wa.me/50942017744?text=${msg}`);
+}
 </script>
 </body>
-  </html>
-  
+    </html>
+    
