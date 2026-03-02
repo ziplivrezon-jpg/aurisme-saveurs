@@ -90,7 +90,7 @@ input,select,textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #dd
 <div class="footer-info">
 <p id="footer-text">📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
 <div style="margin-top:20px;">
-<iframe src="https://www.google.com/maps/embed?pb=YOUR_MAP_ID" width="100%" height="200" style="border:0;border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d15143.208197771742!2d-72.28583!3d18.515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDMwJzU0LjAiTiA3MsKwMTcnMDkuMCJX!5e0!3m2!1sfr!2sht!4v1700000000000!5m2!1sfr!2sht" width="100%" height="200" style="border:0;border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
 </div>
 <div style="margin-top:20px;">
 <a href="privacy.html" id="privacy-link" style="display:inline-block; background:#003366; color:white; padding:10px 20px; border-radius:25px; font-size:14px; text-decoration:none;">🔒 Privacy Policy / Confidentialité</a>
@@ -124,35 +124,53 @@ const translations = {
         deliv: "DELIVERY", taxi: "MOTO TAXI", academy: "ACADEMY", bakery: "BAKERY", deco: "DECOR & CATERING", gallery: "GALLERY",
         lbl_market: "Choose Market:", lbl_qty: "Desired quantity:", btn_wa: "ORDER VIA WHATSAPP", btn_bulk: "ORDER BULK",
         btn_help: "REQUEST HELP", placeholder_list: "Product list...", placeholder_name: "Full Name", placeholder_help: "How can we help you?"
+    },
+    es: {
+        ad: "🌟 VETIHKAM EL MEJOR PERFUME DE VETIVER — ¡DISPONIBLE AHORA! 🌟",
+        title: "Aurisme Sabores y Servicios", market: "🛒 Servicio Supermercado", resell: "🏪 Espacio Revendedores", tourist: "🌍 Asistencia Turística",
+        deliv: "ENTREGA", taxi: "TAXI MOTO", academy: "ACADEMIA", bakery: "PASTELERÍA", deco: "DECO Y CATERING", gallery: "GALERÍA",
+        lbl_market: "Elegir Mercado:", lbl_qty: "Cantidad deseada:", btn_wa: "PEDIR POR WHATSAPP", btn_bulk: "PEDIR AL POR MAYOR",
+        btn_help: "SOLICITAR AYUDA", placeholder_list: "Lista de productos...", placeholder_name: "Nombre Completo", placeholder_help: "¿Cómo podemos ayudarte?"
+    },
+    it: {
+        ad: "🌟 VETIHKAM IL MIGLIOR PROFUMO DI VETIVER — DISPONIBILE ORA! 🌟",
+        title: "Aurisme Sapori e Servizi", market: "🛒 Servizio Supermercato", resell: "🏪 Spazio Rivenditori", tourist: "🌍 Assistenza Turistica",
+        deliv: "CONSEGNA", taxi: "TAXI MOTO", academy: "ACCADEMIA", bakery: "PASTICCERIA", deco: "DECORAZIONI", gallery: "GALLERIA",
+        lbl_market: "Scegli Mercato:", lbl_qty: "Quantità desiderata:", btn_wa: "ORDINA SU WHATSAPP", btn_bulk: "ORDINA ALL'INGROSSO",
+        btn_help: "CHIEDI AIUTO", placeholder_list: "Elenco prodotti...", placeholder_name: "Nome Completo", placeholder_help: "Come possiamo aiutarti?"
+    },
+    pt: {
+        ad: "🌟 VETIHKAM O MELHOR PERFUME DE VETIVER — DISPONÍVEL AGORA! 🌟",
+        title: "Aurisme Sabores e Serviços", market: "🛒 Serviço de Supermercado", resell: "🏪 Espaço Revendedor", tourist: "🌍 Assistência Turística",
+        deliv: "ENTREGA", taxi: "TÁXI MOTO", academy: "ACADEMIA", bakery: "PADARIA", deco: "DECORAÇÃO", gallery: "GALERIA",
+        lbl_market: "Escolha o Mercado:", lbl_qty: "Quantidade desejada:", btn_wa: "PEDIR VIA WHATSAPP", btn_bulk: "PEDIR EM ATACADO",
+        btn_help: "SOLICITAR AJUDA", placeholder_list: "Lista de produtos...", placeholder_name: "Nome Completo", placeholder_help: "Como podemos ajudar?"
     }
 };
 
 function changeLanguage(lang) {
-    const t = translations[lang] || translations['fr'];
-    
-    // Ticker Reklam
-    document.getElementById('ad-text').innerText = t.ad;
+    const t = translations[lang];
+    if(!t) return;
 
-    // Tit ak Menu
+    document.getElementById('ad-text').innerText = t.ad;
     document.getElementById('main-title').innerText = t.title;
     document.getElementById('super-title').innerText = t.market;
     document.getElementById('reseller-title').innerText = t.resell;
     document.getElementById('tourist-title').innerText = t.tourist;
-    
-    // TRADIKSYON GRID LA (Taxi, Pâtisserie, Galerie, etc.)
     document.getElementById('menu-livraison').innerText = t.deliv;
     document.getElementById('menu-taxi').innerText = t.taxi;
     document.getElementById('menu-academy').innerText = t.academy;
     document.getElementById('menu-patisserie').innerText = t.bakery;
     document.getElementById('menu-decoration').innerText = t.deco;
     document.getElementById('menu-galeri').innerText = t.gallery;
-
-    // Label ak Bouton
     document.getElementById('lbl-market').innerText = t.lbl_market;
     document.getElementById('lbl-qty').innerText = t.lbl_qty;
     document.getElementById('btn-super').innerText = t.btn_wa;
     document.getElementById('btn-resell').innerText = t.btn_bulk;
     document.getElementById('btn-tourist').innerText = t.btn_help;
+    document.getElementById('market-details').placeholder = t.placeholder_list;
+    document.getElementById('tourist-name').placeholder = t.placeholder_name;
+    document.getElementById('tourist-details').placeholder = t.placeholder_help;
 
     localStorage.setItem('selectedLang', lang);
 }
