@@ -1,15 +1,102 @@
-<!-- Nan seksyon gallery, chak img gen data-category -->
-<img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" alt="Traiteur 1" data-category="Traiteur" onclick="openModal(this)">
-<img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" alt="Décoration 2" data-category="Décoration" onclick="openModal(this)">
-<img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" alt="Gâteau 1" data-category="Gâteaux" onclick="openModal(this)">
-<img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" alt="Autre 1" data-category="Autre" onclick="openModal(this)">
-<!-- Repete pou tout 40 foto -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie Aurisme Saveurs</title>
+<style>
+body {margin:0; font-family: Arial,sans-serif; background:#f9f9f9;}
+header {background:#800000; color:white; padding:15px; display:flex; align-items:center;}
+header img {height:60px; margin-right:15px;}
+header h1 {margin:0; font-size:24px;}
+.lang-buttons {text-align:center; margin:10px;}
+.lang-buttons button {padding:8px 12px;margin:5px;border:none;cursor:pointer;background:#DAA520;color:white;border-radius:5px;}
+.back-btn {display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:#800000;color:white;text-decoration:none;border-radius:5px;}
+.gallery {display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:10px;}
+.gallery img {width:100%; border-radius:8px; cursor:pointer; transition: transform 0.3s;}
+.gallery img:hover {transform: scale(1.05);}
 
-<!-- Modal Content -->
+/* Modal ak animasyon */
+#modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; opacity:0; transition:opacity 0.3s;}
+#modal.show {display:flex; opacity:1;}
+#modal-content {position:relative; background:white; padding:15px; border-radius:8px; max-width:90%; max-height:90%; text-align:center; transform: translateY(-50px); transition:transform 0.3s;}
+#modal.show #modal-content {transform: translateY(0);}
+#modal-content img {max-width:100%; max-height:70vh; border-radius:8px;}
+#modal-content button {margin-top:10px; padding:8px 15px; background:#25D366; color:white; border:none; border-radius:5px; cursor:pointer;}
+#closeModal {position:absolute; top:5px; right:10px; font-size:20px; cursor:pointer; color:#800000;}
+#modal-category {font-weight:bold; margin-bottom:5px;}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="Logo.html"><img src="chemen/Logo.png" alt="Logo"></a>
+  <h1 id="title">Nos Réalisations</h1>
+</header>
+
+<div class="lang-buttons">
+    <button onclick="setLanguage('fr')">Français</button>
+    <button onclick="setLanguage('en')">English</button>
+    <button onclick="setLanguage('ht')">Kreyòl</button>
+</div>
+
+<a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
+
+<div class="gallery">
+<!-- Traiteur (12 images) -->
+<img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" alt="Traiteur 1" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg" alt="Traiteur 2" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg" alt="Traiteur 3" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg" alt="Traiteur 4" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg" alt="Traiteur 5" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg" alt="Traiteur 6" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg" alt="Traiteur 7" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg" alt="Traiteur 8" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg" alt="Traiteur 9" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg" alt="Traiteur 10" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg" alt="Traiteur 11" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg" alt="Traiteur 12" data-category="Traiteur" onclick="openModal(this)">
+
+<!-- Décoration (3 images) -->
+<img src="https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg" alt="Décoration 1" data-category="Décoration" onclick="openModal(this)">
+<img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" alt="Décoration 2" data-category="Décoration" onclick="openModal(this)">
+<img src="https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg" alt="Décoration 3" data-category="Décoration" onclick="openModal(this)">
+
+<!-- Gâteaux (14 images) -->
+<img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" alt="Gâteau 1" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/wyGtKsNL/wyGtKsNL.jpg" alt="Gâteau 2" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/mzDc6SPh/mzDc6SPh.jpg" alt="Gâteau 3" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/dLTCYn46/dLTCYn46.jpg" alt="Gâteau 4" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/PPGxmHQn/PPGxmHQn.jpg" alt="Gâteau 5" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/WD9m3zrd/WD9m3zrd.jpg" alt="Gâteau 6" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/tnGsCGrY/tnGsCGrY.jpg" alt="Gâteau 7" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/F7jjSD3v/F7jjSD3v.jpg" alt="Gâteau 8" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/ZCk80193/ZCk80193.jpg" alt="Gâteau 9" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/21dfLbzk/21dfLbzk.jpg" alt="Gâteau 10" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/dhcY0mcB/dhcY0mcB.jpg" alt="Gâteau 11" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/z3MNsYt1/z3MNsYt1.jpg" alt="Gâteau 12" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/Wdcv46Pc/Wdcv46Pc.jpg" alt="Gâteau 13" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/z3MNsYd9/z3MNsYd9.jpg" alt="Gâteau 14" data-category="Gâteaux" onclick="openModal(this)">
+
+<!-- Autre (11 images) -->
+<img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" alt="Autre 1" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qz5GcjvC/qz5GcjvC.jpg" alt="Autre 2" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/w3YZLxGh/w3YZLxGh.jpg" alt="Autre 3" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/hfSYZynN/hfSYZynN.jpg" alt="Autre 4" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/xqG7RrwR/xqG7RrwR.jpg" alt="Autre 5" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/gnDCY94L/gnDCY94L.jpg" alt="Autre 6" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/xJMZhBcr/xJMZhBcr.jpg" alt="Autre 7" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/ppsPs5ww/ppsPs5ww.jpg" alt="Autre 8" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/tYp0QR3M/tYp0QR3M.jpg" alt="Autre 9" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/WdKTvLb6/WdKTvLb6.jpg" alt="Autre 10" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qg000G4r/qg000G4r.jpg" alt="Autre 11" data-category="Autre" onclick="openModal(this)">
+</div>
+
+<!-- Modal -->
 <div id="modal">
   <div id="modal-content">
     <span id="closeModal" onclick="closeModal()">×</span>
-    <div style="font-weight:bold; margin-bottom:5px;" id="modal-category"></div> <!-- etikèt kategori -->
+    <div id="modal-category"></div>
     <img id="modal-img" src="">
     <br>
     <button id="whatsappBtn">Voye sou WhatsApp</button>
@@ -33,7 +120,7 @@ function openModal(img){
   currentCategory=img.getAttribute('data-category');
   const modal=document.getElementById('modal');
   document.getElementById('modal-img').src=currentImg;
-  document.getElementById('modal-category').innerText=currentCategory; // Montre kategori
+  document.getElementById('modal-category').innerText=currentCategory;
   modal.style.display='flex';
   setTimeout(()=>{ modal.classList.add('show'); },10);
 }
@@ -53,3 +140,6 @@ document.getElementById('whatsappBtn').addEventListener('click',()=>{
   window.open(`https://wa.me/50942017744?text=${msg}`,'_blank');
 });
 </script>
+
+</body>
+</html>
