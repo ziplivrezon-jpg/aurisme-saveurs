@@ -6,8 +6,39 @@
 <title>Aurisme Saveurs et Services</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;}
+:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
 body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
+
+/* REKLAM VETIHKAM ANIMÉ */
+.promo-banner {
+    background: var(--vetiver-green);
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 3px solid var(--gold);
+}
+.promo-scroll {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-text 15s linear infinite;
+}
+@keyframes scroll-text {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+.promo-banner a {
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    padding: 2px 8px;
+    margin-left: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
 
 .security-header {background:var(--navy); color:white; padding:8px; font-size:13px; font-weight:bold; display:flex; justify-content:center; align-items:center; gap:8px;}
 .security-header i {color: #4CAF50;}
@@ -51,6 +82,16 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <button onclick="changeLanguage('fr')">FR</button>
     <button onclick="changeLanguage('en')">EN</button>
     <button onclick="changeLanguage('ht')">HT</button>
+</div>
+
+<div class="promo-banner">
+    <div class="promo-scroll">
+        🌿 VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti - Fragrance Naturelle & Durable. 🌿 
+        <a href="https://wa.me/50942017744?text=Bonjou,%20mwen%20vle%20kòmande%20Parfum%20VETIHKAM">COMMANDER KOUNYA</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        🌿 VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti - Fragrance Naturelle & Durable. 🌿 
+        <a href="https://wa.me/50942017744?text=Bonjou,%20mwen%20vle%20kòmande%20Parfum%20VETIHKAM">COMMANDER KOUNYA</a>
+    </div>
 </div>
 
 <header>
@@ -108,13 +149,12 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121041.5947470477!2d-72.36836885!3d18.55012575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e19d7b973c5f%3A0xc39f8303f848a602!2sPort-au-Prince!5e0!3m2!1sen!2sht!4v1700000000000!5m2!1sen!2sht" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15143.123456789!2d-72.3!3d18.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sht!4v123456789" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
     <a href="privacy.html" id="priv-link" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy / Confidentialité</a>
 </div>
 
 <script>
-// LIS PWODWI YO KI MODIYE (RETIRE GATO TIBOL, 12", DONUTS, AK KOKOLAKAY)
 const products = ["Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"];
 
 function toggleBox(id) {
