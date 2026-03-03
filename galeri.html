@@ -6,22 +6,24 @@
 <title>Galerie Aurisme Saveurs</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;}
 body {margin:0; font-family: Arial,sans-serif; background:#f9f9f9;}
-header {background:var(--bordeaux); color:white; padding:10px; display:flex; align-items:center; border-bottom: 4px solid var(--gold);}
-header img {height:60px; width:60px; border-radius: 50%; background: white; object-fit: cover; border: 2px solid var(--gold);}
+header {background:#800000; color:white; padding:10px; display:flex; align-items:center; border-bottom: 4px solid #DAA520;}
+header img {height:60px; width:60px; border-radius: 50%; background: white; object-fit: cover; border: 2px solid #DAA520;}
 header h1 {margin-left:15px; font-size:20px; color:white;}
+.lang-buttons {text-align:center; margin:10px;}
+.lang-buttons button {padding:8px 12px;margin:5px;border:none;cursor:pointer;background:#DAA520;color:white;border-radius:5px; font-weight: bold;}
+.back-btn {display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:#800000;color:white;text-decoration:none;border-radius:5px; font-weight: bold;}
 
-/* REKLAM GATO (Gòch a Dwat sèlman) */
+/* REKLAM GATO GOCH A DWAT */
 .promo-container {
     width: 100%; 
     overflow: hidden; 
-    background: var(--gold); 
+    background: #DAA520; 
     color: white; 
     padding: 10px 0; 
     font-weight: bold;
     white-space: nowrap;
-    border-bottom: 2px solid var(--bordeaux);
+    border-bottom: 2px solid #800000;
 }
 .scroll-right {
     display: inline-block;
@@ -32,33 +34,43 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
     0% { transform: translateX(-100%); } 
     100% { transform: translateX(100%); } 
 }
-
 .promo-container a {
-    color: var(--bordeaux);
+    color: #800000;
     background: white;
     text-decoration: none;
-    padding: 3px 8px;
+    padding: 2px 8px;
     margin-left: 10px;
     border-radius: 5px;
     font-size: 12px;
 }
 
-.lang-buttons {text-align:center; margin:10px;}
-.lang-buttons button {padding:8px 12px;margin:5px;border:none;cursor:pointer;background:var(--gold);color:white;border-radius:5px; font-weight: bold;}
-.back-btn {display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:var(--bordeaux);color:white;text-decoration:none;border-radius:5px; font-weight: bold;}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 80px;
+}
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border: 1px solid #ddd;
+}
 
-.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px; margin-bottom: 80px; }
-.gallery img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; cursor: pointer; border: 1px solid #ddd; }
-
-/* Modal */
 #modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:10000; opacity:0; transition:opacity 0.3s;}
 #modal.show {display:flex; opacity:1;}
 #modal-content {position:relative; background:white; padding:15px; border-radius:12px; max-width:90%; text-align:center;}
 #modal-content img {max-width:100%; max-height:60vh; border-radius:8px;}
 #whatsappBtn {margin-top:15px; padding:12px; background:#25D366; color:white; border:none; border-radius:50px; cursor:pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
-#closeModal {position:absolute; top:-10px; right:-10px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor:pointer; color: var(--bordeaux);}
+#closeModal {position:absolute; top:-10px; right:-10px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor:pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3); color: #800000;}
 
-.wa-catalog-float { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; text-decoration: none; border: 2px solid white; animation: pulse 2s infinite; }
+.wa-catalog-float {
+  position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; text-decoration: none; border: 2px solid white; animation: pulse 2s infinite;
+}
 @keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);} 70% {box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);} 100% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);} }
 </style>
 </head>
@@ -82,9 +94,49 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
 <a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
 
 <div class="gallery">
-    <img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" data-category="Gâteaux" onclick="openModal(this)">
-    </div>
+<img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/HJJ3Ltrw/HJJ3Ltrw.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/6QcPYjwm/file-0000000079fc722f942aa6f53535dbb0.png" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/mgBfjFCc/ef97bf30-172e-11f1-b133-9d59c262e6d9.jpg" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg" data-category="Décoration" onclick="openModal(this)">
+<img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" data-category="Décoration" onclick="openModal(this)">
+<img src="https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg" data-category="Décoration" onclick="openModal(this)">
+<img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/wyGtKsNL/wyGtKsNL.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/mzDc6SPh/mzDc6SPh.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/dLTCYn46/dLTCYn46.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/PPGxmHQn/PPGxmHQn.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/WD9m3zrd/WD9m3zrd.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/tnGsCGrY/tnGsCGrY.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/F7jjSD3v/F7jjSD3v.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/ZCk80193/ZCk80193.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/21dfLbzk/21dfLbzk.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/dhcY0mcB/dhcY0mcB.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/z3MNsYt1/z3MNsYt1.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/Wdcv46Pc/Wdcv46Pc.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/z3MNsYd9/z3MNsYd9.jpg" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qz5GcjvC/qz5GcjvC.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/w3YZLxGh/w3YZLxGh.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/hfSYZynN/hfSYZynN.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/xqG7RrwR/xqG7RrwR.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/gnDCY94L/gnDCY94L.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/xJMZhBcr/xJMZhBcr.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/ppsPs5ww/ppsPs5ww.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/tYp0QR3M/tYp0QR3M.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/WdKTvLb6/WdKTvLb6.jpg" data-category="Autre" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qg000G4r/qg000G4r.jpg" data-category="Autre" onclick="openModal(this)">
+</div>
 
 <div id="modal">
   <div id="modal-content">
@@ -107,28 +159,18 @@ let currentCategory='';
 function setLanguage(lang){
   currentLang=lang;
   const t = {
-    fr: {
-        title:"Nos Réalisations", home:"Accueil", btn:"Commander",
-        g_txt: "🎂 Achetez un gâteau 5000 HTG, recevez 6 cupcakes gratuits !", g_buy: "EN PROFITER"
-    },
-    en: {
-        title:"Our Gallery", home:"Home", btn:"Order Now",
-        g_txt: "🎂 Buy a 5000 HTG cake, get 6 free cupcakes!", g_buy: "GET DEAL"
-    },
-    ht: {
-        title:"Galeri Nou", home:"Akèy", btn:"Mwen vle sa",
-        g_txt: "🎂 Achte yon gato 5000 HTG, jwenn 6 cupcakes gratis!", g_buy: "PWOFITE KOUNYA"
-    }
+    fr: {title:"Nos Réalisations", home:"Accueil", btn:"Commander", promo: "🎂 Achetez un gâteau d'anniversaire à 5000 HTG et recevez 6 cupcakes gratuits !", p_btn: "EN PROFITER"},
+    en: {title:"Our Gallery", home:"Home", btn:"Order Now", promo: "🎂 Buy a birthday cake for 5000 HTG and get 6 free cupcakes!", p_btn: "GET IT"},
+    ht: {title:"Galeri Nou", home:"Akèy", btn:"Mwen vle sa", promo: "🎂 Achte yon gato anniversaire 5000 HTG wap jwenn 6 cupcakes gratis !", p_btn: "PWOFITE"}
   };
-  
   document.getElementById("title").innerText = t[lang].title;
   document.getElementById("homeBtn").innerText = t[lang].home;
   document.getElementById("btnTxt").innerText = t[lang].btn;
-
-  // Mete reklam nan ajou (Gòch a Dwat)
-  let gHTML = `${t[lang].g_txt} <a href="https://wa.me/50942017744?text=PromoGato">${t[lang].g_buy}</a>`;
-  document.getElementById("promo-g").innerHTML = gHTML + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + gHTML;
-
+  
+  // Update Promo Banner with Translation
+  let pHTML = `${t[lang].promo} <a href="https://wa.me/50942017744?text=PromoGato">${t[lang].p_btn}</a>`;
+  document.getElementById("promo-g").innerHTML = pHTML + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + pHTML;
+  
   localStorage.setItem('lang_gal', lang);
 }
 
@@ -157,4 +199,5 @@ window.onload = () => setLanguage(localStorage.getItem('lang_gal') || 'fr');
 </script>
 
 </body>
-</html>
+    </html>
+    
