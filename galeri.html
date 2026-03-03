@@ -1,146 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie - Aurisme Saveurs</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; background: #fdfdfd; color: #333; }
-
-        /* LANG BAR */
-        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; }
-        .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
-
-        /* TICKER */
-        .reklam-ticker { background-color: var(--gold); color: var(--bordeaux); font-weight: bold; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--bordeaux); font-size: 13px; text-transform: uppercase; }
-        .reklam-ticker p { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; margin: 0; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-
-        header { background: var(--bordeaux); color: white; padding: 25px 15px; text-align: center; border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        .title-fancy { margin: 0 0 15px 0; font-size: 22px; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
-        
-        .nav-buttons { display: flex; gap: 10px; justify-content: center; align-items: center; }
-        .btn-nav { text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 50px; font-size: 12px; background: var(--gold); color: var(--bordeaux); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-
-        /* GRID */
-        .container { padding: 15px; max-width: 1200px; margin: auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-        .card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.05); border: 1px solid #eee; aspect-ratio: 1 / 1; cursor: pointer; }
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
-        .card:hover img { transform: scale(1.08); }
-
-        /* LIGHTBOX */
-        #lightbox { position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-        #lightbox img { max-width: 100%; max-height: 70%; border-radius: 10px; border: 2px solid var(--gold); }
-        .btn-order-img { background: #25D366; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 10px; text-decoration: none; margin-top: 15px; font-size: 14px; }
-
-        /* BOUTON FLOTTANT VERS CATALOGUE */
-        .wa-float { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999; text-decoration: none; border: 2px solid white; animation: pulse-wa 2s infinite; }
-        @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-
-        footer { text-align: center; padding: 30px; color: #888; font-size: 12px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie Aurisme Saveurs</title>
+<style>
+:root {--bordeaux:#800000; --gold:#DAA520;}
+body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;}
+header{background:var(--bordeaux);color:white;padding:15px;text-align:center;}
+.lang-buttons{text-align:center;margin:10px;}
+.lang-buttons button, .filter-btns button{padding:8px 12px;margin:5px;border:none;cursor:pointer;background:var(--gold);color:white;border-radius:5px;}
+.back-btn{display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:var(--bordeaux);color:white;text-decoration:none;border-radius:5px;}
+.filter-btns{text-align:center;margin:15px 0;}
+.section{padding:20px;}
+.section h2{color:var(--bordeaux);}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px,1fr));gap:10px;}
+.gallery img{width:100%;border-radius:8px;cursor:pointer;transition: transform 0.3s;}
+.gallery img:hover{transform: scale(1.05);}
+#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;z-index:1000;}
+#lightbox img{max-width:90%;max-height:90%;border-radius:10px;}
+#lightbox:target{display:flex;}
+</style>
 </head>
 <body>
 
-    <div class="lang-bar">
-        <button onclick="changeLang('fr')">FR</button>
-        <button onclick="changeLang('en')">EN</button>
-        <button onclick="changeLang('ht')">HT</button>
-    </div>
+<header>
+<h1 id="title">Nos Réalisations</h1>
+</header>
 
-    <div class="reklam-ticker">
-        <p id="txt-ticker">✨ Aurisme Saveurs : Le goût allié à l'excellence ! ✨</p>
-    </div>
+<div class="lang-buttons">
+    <button onclick="setLanguage('fr')">Français</button>
+    <button onclick="setLanguage('en')">English</button>
+    <button onclick="setLanguage('ht')">Kreyòl</button>
+</div>
 
-    <header>
-        <h1 class="title-fancy" id="txt-title">Nos Réalisations</h1><br>
-        <div class="nav-buttons">
-            <a href="index.html" class="btn-nav" id="txt-home">⬅ ACCUEIL</a>
-        </div>
-    </header>
+<a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
 
-    <div class="container">
-        <div class="grid">
-            <div class="card"><img src="https://i.imgur.com/Jvun9zx.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/7Yg5Uvq.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/xU0AesJ.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/cUigiKa.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/WYpN7GQ.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/YVCoaq3.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/KovCXkO.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/2QLwTiV.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/6BY5ZKb.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/UfiXbSt.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/Nngth2w.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/IBtzlJN.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/PPE5cPn.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/T5BOX3Z.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/Zbx9OQg.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/Pa2W6S0.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/zIZi8Z2.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/812ois6.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/8EqwOD2.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/kpO1c63.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/oVh53sZ.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/0lxLBh1.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/Y7dunM2.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/w6lN79J.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/75iAmDX.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/yG8UOa8.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/CGGKSLk.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/gknRoWt.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/64pbpt9.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/fgvBGGw.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/JVlN3wm.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/wdf5Rmi.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/Zzel4Gi.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://i.imgur.com/OuGHmSx.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-            <div class="card"><img src="https://imgur.com/Erh6imL.jpg" onclick="openLightbox(this.src)" loading="lazy"></div>
-        </div>
-    </div>
+<div class="filter-btns">
+    <button onclick="filterCategory('all')">Tout</button>
+    <button onclick="filterCategory('traiteur')">Traiteur</button>
+    <button onclick="filterCategory('deco')">Décoration</button>
+    <button onclick="filterCategory('gateau')">Gâteaux</button>
+    <button onclick="filterCategory('autre')">Autre</button>
+</div>
 
-    <div id="lightbox">
-        <span onclick="closeLightbox()" style="position:absolute; top:20px; right:20px; color:white; font-size:40px; cursor:pointer;">&times;</span>
-        <img id="lightbox-img" src="">
-        <div class="lightbox-info">
-            <a id="btn-wa-order" href="" class="btn-order-img" target="_blank">
-                <i class="fab fa-whatsapp"></i> <span id="txt-order-wa">Je veux ce service</span>
-            </a>
-        </div>
-    </div>
+<div id="gallery">
 
-    <a href="https://wa.me/c/50942017744" class="wa-float" target="_blank" title="Catalogue Aurisme"><i class="fab fa-whatsapp"></i></a>
+<!-- ================= Traiteur (12 images) ================= -->
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" alt="Traiteur 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg" alt="Traiteur 2" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg" alt="Traiteur 3" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg" alt="Traiteur 4" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg" alt="Traiteur 5" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg" alt="Traiteur 6" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg" alt="Traiteur 7" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg" alt="Traiteur 8" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg" alt="Traiteur 9" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg" alt="Traiteur 10" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg" alt="Traiteur 11" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item traiteur"><img src="https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg" alt="Traiteur 12" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
 
-    <footer><p>&copy; 2026 Aurisme Saveurs</p></footer>
+<!-- ================= Décoration (3 images) ================= -->
+<div class="gallery-item deco"><img src="https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg" alt="Décoration 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item deco"><img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" alt="Décoration 2" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<div class="gallery-item deco"><img src="https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg" alt="Décoration 3" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
 
-    <script>
-        const translations = {
-            fr: { ticker: "✨ Aurisme Saveurs : Le goût allié à l'excellence ! ✨", title: "Nos Réalisations", home: "⬅ ACCUEIL", order: "Je veux ce service", waMsg: "Bonjour Aurisme, je suis intéressé par ce service vu dans votre galerie : " },
-            en: { ticker: "✨ Aurisme Saveurs: Taste meets excellence! ✨", title: "Our Work", home: "⬅ HOME", order: "I want this service", waMsg: "Hello Aurisme, I am interested in this service seen in your gallery: " },
-            ht: { ticker: "✨ Aurisme Saveurs : Gou ak Kalite ! ✨", title: "Travay Nou Yo", home: "⬅ AKÈY", order: "Mwen vle sa a", waMsg: "Bonjou Aurisme, mwen enterese nan sèvis sa a mwen wè nan galeri ou a : " }
-        };
+<!-- ================= Gâteaux (14 images) ================= -->
+<div class="gallery-item gateau"><img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" alt="Gâteau 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<!-- ... Repliye pou tout 14 Gâteaux ak WhatsApp ... -->
 
-        function changeLang(lang) {
-            const t = translations[lang];
-            document.getElementById('txt-ticker').innerText = t.ticker;
-            document.getElementById('txt-title').innerText = t.title;
-            document.getElementById('txt-home').innerText = t.home;
-            document.getElementById('txt-order-wa').innerText = t.order;
-            localStorage.setItem('aurisme_gal_lang', lang);
-        }
+<!-- ================= Autre (11 images) ================= -->
+<div class="gallery-item autre"><img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" alt="Autre 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
+<!-- ... Repliye pou tout 11 Autre ak WhatsApp ... -->
 
-        function openLightbox(src) {
-            const lang = localStorage.getItem('aurisme_gal_lang') || 'fr';
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
-            document.getElementById('btn-wa-order').href = `https://wa.me/50942017744?text=${encodeURIComponent(translations[lang].waMsg + src)}`;
-        }
+</div>
 
-        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
-        window.onload = () => changeLang(localStorage.getItem('aurisme_gal_lang') || 'fr');
-    </script>
+<div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="">
+</div>
+
+<script>
+let currentLang = 'fr'; 
+
+function setLanguage(lang){
+    currentLang = lang; 
+    if(lang === "fr"){ document.getElementById("title").innerText = "Nos Réalisations"; document.getElementById("homeBtn").innerText = "Retour à l'accueil";}
+    if(lang === "en"){ document.getElementById("title").innerText = "Our Gallery"; document.getElementById("homeBtn").innerText = "Back to Home";}
+    if(lang === "ht"){ document.getElementById("title").innerText = "Galeri Nou"; document.getElementById("homeBtn").innerText = "Tounen nan Akèy";}
+}
+
+function filterCategory(category){
+    const items = document.querySelectorAll('.gallery-item');
+    items.forEach(item=>{
+        if(category==='all'){item.style.display='block';}
+        else{item.classList.contains(category)?item.style.display='block':item.style.display='none';}
+    });
+}
+
+function openLightbox(img){
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').style.display='flex';
+}
+
+function sendWhatsApp(imgSrc){
+    let msg = "";
+    if(currentLang === "fr"){ msg = `Bonjour, je souhaite choisir une salle avec cette photo ${imgSrc}`;}
+    else if(currentLang === "en"){ msg = `Hello, I want to choose a room with this photo ${imgSrc}`;}
+    else if(currentLang === "ht"){ msg = `Bonjou, mwen vle chwazi yon sal ak foto sa a ${imgSrc}`;}
+    msg = encodeURIComponent(msg);
+    window.open(`https://wa.me/50942017744?text=${msg}`, '_blank');
+}
+</script>
+
 </body>
-                                  </html>
+    </html>
