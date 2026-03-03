@@ -8,20 +8,20 @@
 <style>
 body {margin:0; font-family: Arial,sans-serif; background:#f9f9f9;}
 header {background:#800000; color:white; padding:10px; display:flex; align-items:center; border-bottom: 4px solid #DAA520;}
-header img {height:60px; width:auto; border-radius: 50%; background: white;}
-header h1 {margin-left:15px; font-size:24px; color:white;}
+header img {height:60px; width:60px; border-radius: 50%; background: white; object-fit: cover; border: 2px solid #DAA520;}
+header h1 {margin-left:15px; font-size:20px; color:white;}
 .lang-buttons {text-align:center; margin:10px;}
 .lang-buttons button {padding:8px 12px;margin:5px;border:none;cursor:pointer;background:#DAA520;color:white;border-radius:5px; font-weight: bold;}
 .back-btn {display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:#800000;color:white;text-decoration:none;border-radius:5px; font-weight: bold;}
-#promoBanner {background:#DAA520; color:white; text-align:center; padding:8px; font-weight:bold; font-size:16px; min-height: 40px;}
+#promoBanner {background:#DAA520; color:white; text-align:center; padding:8px; font-weight:bold; font-size:14px;}
 
-/* Grid responsive */
+/* Grid fòse sou 2 KOLON menm sou telefòn */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
-  margin-bottom: 80px; /* Pou bouton flote a pa kache imaj */
+  grid-template-columns: repeat(2, 1fr); /* Fòse 2 kolon */
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 80px;
 }
 
 .gallery img {
@@ -30,127 +30,97 @@ header h1 {margin-left:15px; font-size:24px; color:white;}
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.2s;
   border: 1px solid #ddd;
 }
 
-.gallery img:hover {
-  transform: scale(1.05);
-}
+.gallery img:active { transform: scale(0.95); }
 
 /* Modal */
-#modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:10000; opacity:0; transition:opacity 0.3s;}
-#modal.show {display:flex; opacity:1;}
-#modal-content {position:relative; background:white; padding:15px; border-radius:12px; max-width:90%; max-height:90%; text-align:center; transform: translateY(-50px); transition:transform 0.3s;}
-#modal.show #modal-content {transform: translateY(0);}
-#modal-content img {max-width:100%; max-height:65vh; border-radius:8px; border: 2px solid #DAA520;}
-#whatsappBtn {margin-top:15px; padding:12px 20px; background:#25D366; color:white; border:none; border-radius:50px; cursor:pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;}
-#closeModal {position:absolute; top:-15px; right:-15px; width: 35px; height: 35px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor:pointer; color:#800000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
-#modal-category {font-weight:bold; margin-bottom:10px; color: #800000; font-size: 18px;}
+#modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:10000;}
+#modal.show {display:flex;}
+#modal-content {position:relative; background:white; padding:15px; border-radius:12px; max-width:90%; text-align:center;}
+#modal-content img {max-width:100%; max-height:60vh; border-radius:8px;}
+#whatsappBtn {margin-top:15px; padding:12px; background:#25D366; color:white; border:none; border-radius:50px; cursor:pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
+#closeModal {position:absolute; top:-10px; right:-10px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor:pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3);}
 
-/* BOUTON FLOTTANT KATALÒG */
+/* Bouton Katalòg Flote */
 .wa-catalog-float {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 20px;
-  right: 20px;
-  background-color: #25D366;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  z-index: 9999;
-  text-decoration: none;
-  border: 3px solid white;
-  animation: pulse-wa 2s infinite;
+  position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; text-decoration: none; border: 2px solid white; animation: pulse 2s infinite;
 }
-
-@keyframes pulse-wa {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-
-@media screen and (max-width: 767px) {
-  .gallery {grid-template-columns: 1fr;}
-}
+@keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);} 70% {box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);} 100% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);} }
 </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="Logo Aurisme Saveurs">
+  <img src="Logo.png" alt="Logo">
   <h1 id="title">Nos Réalisations</h1>
 </header>
 
 <div id="promoBanner">Achte yon gato anniversaire 5000 HTG, wap jwenn demi douzaine cupcakes assortis gratis!</div>
 
 <div class="lang-buttons">
-    <button onclick="setLanguage('fr')">Français</button>
-    <button onclick="setLanguage('en')">English</button>
-    <button onclick="setLanguage('ht')">Kreyòl</button>
+    <button onclick="setLanguage('fr')">FR</button>
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('ht')">HT</button>
 </div>
 
 <a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
 
 <div class="gallery">
-    <img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" alt="Traiteur 1" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg" alt="Traiteur 2" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg" alt="Traiteur 3" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg" alt="Traiteur 4" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg" alt="Traiteur 5" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg" alt="Traiteur 6" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg" alt="Traiteur 7" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg" alt="Traiteur 8" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg" alt="Traiteur 9" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg" alt="Traiteur 10" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg" alt="Traiteur 11" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg" alt="Traiteur 12" data-category="Traiteur" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg" alt="Décoration 1" data-category="Décoration" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" alt="Décoration 2" data-category="Décoration" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg" alt="Décoration 3" data-category="Décoration" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" alt="Gâteau 1" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/wyGtKsNL/wyGtKsNL.jpg" alt="Gâteau 2" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/mzDc6SPh/mzDc6SPh.jpg" alt="Gâteau 3" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/dLTCYn46/dLTCYn46.jpg" alt="Gâteau 4" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/PPGxmHQn/PPGxmHQn.jpg" alt="Gâteau 5" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/WD9m3zrd/WD9m3zrd.jpg" alt="Gâteau 6" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/tnGsCGrY/tnGsCGrY.jpg" alt="Gâteau 7" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/F7jjSD3v/F7jjSD3v.jpg" alt="Gâteau 8" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/ZCk80193/ZCk80193.jpg" alt="Gâteau 9" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/21dfLbzk/21dfLbzk.jpg" alt="Gâteau 10" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/dhcY0mcB/dhcY0mcB.jpg" alt="Gâteau 11" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/z3MNsYt1/z3MNsYt1.jpg" alt="Gâteau 12" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/Wdcv46Pc/Wdcv46Pc.jpg" alt="Gâteau 13" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/z3MNsYd9/z3MNsYd9.jpg" alt="Gâteau 14" data-category="Gâteaux" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" alt="Autre 1" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/qz5GcjvC/qz5GcjvC.jpg" alt="Autre 2" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/w3YZLxGh/w3YZLxGh.jpg" alt="Autre 3" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/hfSYZynN/hfSYZynN.jpg" alt="Autre 4" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/xqG7RrwR/xqG7RrwR.jpg" alt="Autre 5" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/gnDCY94L/gnDCY94L.jpg" alt="Autre 6" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/xJMZhBcr/xJMZhBcr.jpg" alt="Autre 7" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/ppsPs5ww/ppsPs5ww.jpg" alt="Autre 8" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/tYp0QR3M/tYp0QR3M.jpg" alt="Autre 9" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/WdKTvLb6/WdKTvLb6.jpg" alt="Autre 10" data-category="Autre" onclick="openModal(this)">
-    <img src="https://i.postimg.cc/qg000G4r/qg000G4r.jpg" alt="Autre 11" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg" data-category="Traiteur" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg" data-category="Décoration" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" data-category="Décoration" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg" data-category="Décoration" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/wyGtKsNL/wyGtKsNL.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/mzDc6SPh/mzDc6SPh.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/dLTCYn46/dLTCYn46.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/PPGxmHQn/PPGxmHQn.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/WD9m3zrd/WD9m3zrd.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/tnGsCGrY/tnGsCGrY.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/F7jjSD3v/F7jjSD3v.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/ZCk80193/ZCk80193.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/21dfLbzk/21dfLbzk.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/dhcY0mcB/dhcY0mcB.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/z3MNsYt1/z3MNsYt1.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/Wdcv46Pc/Wdcv46Pc.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/z3MNsYd9/z3MNsYd9.jpg" data-category="Gâteaux" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/qz5GcjvC/qz5GcjvC.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/w3YZLxGh/w3YZLxGh.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/hfSYZynN/hfSYZynN.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/xqG7RrwR/xqG7RrwR.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/gnDCY94L/gnDCY94L.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/xJMZhBcr/xJMZhBcr.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/ppsPs5ww/ppsPs5ww.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/tYp0QR3M/tYp0QR3M.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/WdKTvLb6/WdKTvLb6.jpg" data-category="Autre" onclick="openModal(this)">
+    <img src="https://i.postimg.cc/qg000G4r/qg000G4r.jpg" data-category="Autre" onclick="openModal(this)">
 </div>
 
 <div id="modal">
   <div id="modal-content">
     <span id="closeModal" onclick="closeModal()">×</span>
-    <div id="modal-category"></div>
+    <div id="modal-category" style="font-weight:bold; margin-bottom:5px; color:#800000;"></div>
     <img id="modal-img" src="">
-    <br>
-    <button id="whatsappBtn"><i class="fab fa-whatsapp"></i> <span id="btnTxt">Voye sou WhatsApp</span></button>
+    <button id="whatsappBtn"><i class="fab fa-whatsapp"></i> <span id="btnTxt">Commander</span></button>
   </div>
 </div>
 
-<a href="https://wa.me/c/50942017744" class="wa-catalog-float" target="_blank" title="Catalogue WhatsApp">
+<a href="https://wa.me/c/50942017744" class="wa-catalog-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
 
@@ -159,59 +129,36 @@ let currentLang='fr';
 let currentImg='';
 let currentCategory='';
 
-const promoMessages = {
-  fr: "Achetez un gâteau anniversaire 5000 HTG, vous recevrez une demi-douzaine de cupcakes assortis gratuits !",
-  en: "Buy a birthday cake for 5000 HTG and get half a dozen assorted cupcakes free!",
-  ht: "Achte yon gato anniversaire 5000 HTG, wap jwenn demi douzaine cupcakes assortis gratis!"
-};
-
-const uiLabels = {
-    fr: { title: "Nos Réalisations", home: "Retour à l'accueil", btn: "Commander ce modèle" },
-    en: { title: "Our Gallery", home: "Back to Home", btn: "Order this model" },
-    ht: { title: "Galeri Nou", home: "Tounen nan Akèy", btn: "Mwen vle modèl sa a" }
-};
-
-let promoBanner = document.getElementById("promoBanner");
-
 function setLanguage(lang){
   currentLang=lang;
-  document.getElementById("title").innerText = uiLabels[lang].title;
-  document.getElementById("homeBtn").innerText = uiLabels[lang].home;
-  document.getElementById("btnTxt").innerText = uiLabels[lang].btn;
-  promoBanner.innerText = promoMessages[lang] || promoMessages['fr'];
-  localStorage.setItem('lang_preference', lang);
+  const t = {
+    fr: {title:"Nos Réalisations", home:"Accueil", btn:"Commander", promo: "Achetez un gâteau 5000 HTG, recevez 6 cupcakes gratuits !"},
+    en: {title:"Our Gallery", home:"Home", btn:"Order Now", promo: "Buy a 5000 HTG cake, get 6 free cupcakes!"},
+    ht: {title:"Galeri Nou", home:"Akèy", btn:"Mwen vle sa", promo: "Achte yon gato 5000 HTG, jwenn 6 cupcakes gratis!"}
+  };
+  document.getElementById("title").innerText = t[lang].title;
+  document.getElementById("homeBtn").innerText = t[lang].home;
+  document.getElementById("btnTxt").innerText = t[lang].btn;
+  document.getElementById("promoBanner").innerText = t[lang].promo;
+  localStorage.setItem('lang_gal', lang);
 }
 
 function openModal(img){
   currentImg=img.src;
   currentCategory=img.getAttribute('data-category');
-  const modal=document.getElementById('modal');
   document.getElementById('modal-img').src=currentImg;
   document.getElementById('modal-category').innerText=currentCategory;
-  modal.style.display='flex';
-  setTimeout(()=>{ modal.classList.add('show'); },10);
+  document.getElementById('modal').style.display='flex';
 }
 
-function closeModal(){ 
-  const modal=document.getElementById('modal');
-  modal.classList.remove('show');
-  setTimeout(()=>{ modal.style.display='none'; },300);
-}
+function closeModal(){ document.getElementById('modal').style.display='none'; }
 
 document.getElementById('whatsappBtn').addEventListener('click',()=>{
-  let msg='';
-  if(currentLang==='fr'){ msg=`Bonjour, je souhaite commander ce modèle (${currentCategory}) : ${currentImg}`;}
-  if(currentLang==='en'){ msg=`Hello, I want to order this model (${currentCategory}): ${currentImg}`;}
-  if(currentLang==='ht'){ msg=`Bonjou, mwen enterese nan modèl sa a (${currentCategory}) : ${currentImg}`;}
-  msg=encodeURIComponent(msg);
-  window.open(`https://wa.me/50942017744?text=${msg}`,'_blank');
+  let msg = `Bonjou Aurisme, mwen vle modèl sa a (${currentCategory}) : ${currentImg}`;
+  window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`,'_blank');
 });
 
-// Chaje lang otomatikman
-window.onload = () => {
-    const savedLang = localStorage.getItem('lang_preference') || 'fr';
-    setLanguage(savedLang);
-};
+window.onload = () => setLanguage(localStorage.getItem('lang_gal') || 'fr');
 </script>
 
 </body>
