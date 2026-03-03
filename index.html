@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -85,13 +86,8 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 </div>
 
 <div class="promo-banner">
-    <div class="promo-scroll">
-        🌿 VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti - Fragrance Naturelle & Durable. 🌿 
-        <a href="https://wa.me/50942017744?text=Bonjou,%20mwen%20vle%20kòmande%20Parfum%20VETIHKAM">COMMANDER KOUNYA</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        🌿 VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti - Fragrance Naturelle & Durable. 🌿 
-        <a href="https://wa.me/50942017744?text=Bonjou,%20mwen%20vle%20kòmande%20Parfum%20VETIHKAM">COMMANDER KOUNYA</a>
-    </div>
+    <div class="promo-scroll" id="promo-content">
+        </div>
 </div>
 
 <header>
@@ -182,7 +178,8 @@ const translations = {
         m_lbl: "Choisir Marché:", p_aur: "Produits Aurisme (Cochez):", b_wa: "COMMANDER WHATSAPP", 
         b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE", t_name: "Votre Nom Complet",
         l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE",
-        t_info: "Services de transport sécurisé, guide et assistance locale pour les visiteurs."
+        t_info: "Services de transport sécurisé, guide et assistance locale pour les visiteurs.",
+        v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ MAINTENANT"
     },
     en: {
         sec: "Verified Service & Secured Delivery", main: "Aurisme Flavors and Services",
@@ -190,7 +187,8 @@ const translations = {
         m_lbl: "Choose Market:", p_aur: "Aurisme Products (Check):", b_wa: "ORDER VIA WHATSAPP", 
         b_res: "ORDER BULK", b_tour: "GET ASSISTANCE", t_name: "Your Full Name",
         l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO & CATERING", g: "GALLERY",
-        t_info: "Safe transportation, guiding, and local assistance services for visitors."
+        t_info: "Safe transportation, guiding, and local assistance services for visitors.",
+        v_text: "VETIHKAM: The best Haitian VETIVER PERFUME", v_btn: "ORDER NOW"
     },
     ht: {
         sec: "Sèvis Verifye ak Livrezon an Sekirite", main: "Aurisme Saveurs ak Sèvis",
@@ -198,7 +196,8 @@ const translations = {
         m_lbl: "Chwazi Mache:", p_aur: "Pwodwi Aurisme (Koche):", b_wa: "KOMANDE SOU WHATSAPP", 
         b_res: "KOMANDE AN GWO", b_tour: "MANDE ED", t_name: "Non Konplè Ou",
         l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO & TRAITEUR", g: "GALERI",
-        t_info: "Transpò an sekirite, gid, ak sèvis asistans lokal pou vizitè yo."
+        t_info: "Transpò an sekirite, gid, ak sèvis asistans lokal pou vizitè yo.",
+        v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE KOUNYA"
     }
 };
 
@@ -223,6 +222,11 @@ function changeLanguage(lang) {
     document.getElementById('btn-tour').innerText = t.b_tour;
     document.getElementById('tour-info').innerText = t.t_info;
     document.getElementById('ti-name').placeholder = t.t_name;
+
+    // Mete reklam nan ajou ak lang lan
+    const promoHTML = `🌿 ${t.v_text} 🌿 <a href="https://wa.me/50942017744?text=Bonjou,%20mwen%20vle%20kòmande%20Parfum%20VETIHKAM">${t.v_btn}</a>`;
+    document.getElementById('promo-content').innerHTML = promoHTML + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + promoHTML;
+
     localStorage.setItem('lang', lang);
 }
 
