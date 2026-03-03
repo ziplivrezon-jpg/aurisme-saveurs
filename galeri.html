@@ -1,116 +1,55 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galerie Aurisme Saveurs</title>
-<style>
-:root {--bordeaux:#800000; --gold:#DAA520;}
-body{margin:0;font-family:Arial,sans-serif;background:#f9f9f9;}
-header{background:var(--bordeaux);color:white;padding:15px;text-align:center;}
-.lang-buttons{text-align:center;margin:10px;}
-.lang-buttons button, .filter-btns button{padding:8px 12px;margin:5px;border:none;cursor:pointer;background:var(--gold);color:white;border-radius:5px;}
-.back-btn{display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:var(--bordeaux);color:white;text-decoration:none;border-radius:5px;}
-.filter-btns{text-align:center;margin:15px 0;}
-.section{padding:20px;}
-.section h2{color:var(--bordeaux);}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px,1fr));gap:10px;}
-.gallery img{width:100%;border-radius:8px;cursor:pointer;transition: transform 0.3s;}
-.gallery img:hover{transform: scale(1.05);}
-#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;z-index:1000;}
-#lightbox img{max-width:90%;max-height:90%;border-radius:10px;}
-#lightbox:target{display:flex;}
-</style>
-</head>
-<body>
+<!-- Nan seksyon gallery, chak img gen data-category -->
+<img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" alt="Traiteur 1" data-category="Traiteur" onclick="openModal(this)">
+<img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" alt="Décoration 2" data-category="Décoration" onclick="openModal(this)">
+<img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" alt="Gâteau 1" data-category="Gâteaux" onclick="openModal(this)">
+<img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" alt="Autre 1" data-category="Autre" onclick="openModal(this)">
+<!-- Repete pou tout 40 foto -->
 
-<header>
-<h1 id="title">Nos Réalisations</h1>
-</header>
-
-<div class="lang-buttons">
-    <button onclick="setLanguage('fr')">Français</button>
-    <button onclick="setLanguage('en')">English</button>
-    <button onclick="setLanguage('ht')">Kreyòl</button>
-</div>
-
-<a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
-
-<div class="filter-btns">
-    <button onclick="filterCategory('all')">Tout</button>
-    <button onclick="filterCategory('traiteur')">Traiteur</button>
-    <button onclick="filterCategory('deco')">Décoration</button>
-    <button onclick="filterCategory('gateau')">Gâteaux</button>
-    <button onclick="filterCategory('autre')">Autre</button>
-</div>
-
-<div id="gallery">
-
-<!-- ================= Traiteur (12 images) ================= -->
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" alt="Traiteur 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg" alt="Traiteur 2" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/N2mM2CyF/N2mM2CyF.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg" alt="Traiteur 3" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/s1qHV69c/s1qHV69c.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg" alt="Traiteur 4" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/JsWTXsFs/JsWTXsFs.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg" alt="Traiteur 5" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/qzKbgsjm/qzKbgsjm.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg" alt="Traiteur 6" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/fJd2kcBC/fJd2kcBC.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg" alt="Traiteur 7" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/Tpb7hVtR/Tpb7hVtR.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg" alt="Traiteur 8" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/yWpxW9kQ/yWpxW9kQ.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg" alt="Traiteur 9" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/w34M3J7w/w34M3J7w.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg" alt="Traiteur 10" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/fJ3LdL9H/fJ3LdL9H.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg" alt="Traiteur 11" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/56H0z0CT/56H0z0CT.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item traiteur"><img src="https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg" alt="Traiteur 12" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/CzWKsgCg/CzWKsgCg.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-
-<!-- ================= Décoration (3 images) ================= -->
-<div class="gallery-item deco"><img src="https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg" alt="Décoration 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/gn1XJRn0/gn1XJRn0.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item deco"><img src="https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg" alt="Décoration 2" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/7G1dCgHC/7G1dCgHC.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<div class="gallery-item deco"><img src="https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg" alt="Décoration 3" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/CBCXZjhK/CBCXZjhK.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-
-<!-- ================= Gâteaux (14 images) ================= -->
-<div class="gallery-item gateau"><img src="https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg" alt="Gâteau 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/z32w5yNP/z32w5yNP.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<!-- ... Repliye pou tout 14 Gâteaux ak WhatsApp ... -->
-
-<!-- ================= Autre (11 images) ================= -->
-<div class="gallery-item autre"><img src="https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg" alt="Autre 1" onclick="openLightbox(this)"><button onclick="sendWhatsApp('https://i.postimg.cc/qzRLC94G/qzRLC94G.jpg')" style="margin-top:5px;background:#25D366;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">Voye nan WhatsApp</button></div>
-<!-- ... Repliye pou tout 11 Autre ak WhatsApp ... -->
-
-</div>
-
-<div id="lightbox" onclick="this.style.display='none'">
-    <img id="lightbox-img" src="">
+<!-- Modal Content -->
+<div id="modal">
+  <div id="modal-content">
+    <span id="closeModal" onclick="closeModal()">×</span>
+    <div style="font-weight:bold; margin-bottom:5px;" id="modal-category"></div> <!-- etikèt kategori -->
+    <img id="modal-img" src="">
+    <br>
+    <button id="whatsappBtn">Voye sou WhatsApp</button>
+  </div>
 </div>
 
 <script>
-let currentLang = 'fr'; 
+let currentLang='fr';
+let currentImg='';
+let currentCategory='';
 
 function setLanguage(lang){
-    currentLang = lang; 
-    if(lang === "fr"){ document.getElementById("title").innerText = "Nos Réalisations"; document.getElementById("homeBtn").innerText = "Retour à l'accueil";}
-    if(lang === "en"){ document.getElementById("title").innerText = "Our Gallery"; document.getElementById("homeBtn").innerText = "Back to Home";}
-    if(lang === "ht"){ document.getElementById("title").innerText = "Galeri Nou"; document.getElementById("homeBtn").innerText = "Tounen nan Akèy";}
+  currentLang=lang;
+  if(lang==='fr'){ document.getElementById("title").innerText="Nos Réalisations"; document.getElementById("homeBtn").innerText="Retour à l'accueil";}
+  if(lang==='en'){ document.getElementById("title").innerText="Our Gallery"; document.getElementById("homeBtn").innerText="Back to Home";}
+  if(lang==='ht'){ document.getElementById("title").innerText="Galeri Nou"; document.getElementById("homeBtn").innerText="Tounen nan Akèy";}
 }
 
-function filterCategory(category){
-    const items = document.querySelectorAll('.gallery-item');
-    items.forEach(item=>{
-        if(category==='all'){item.style.display='block';}
-        else{item.classList.contains(category)?item.style.display='block':item.style.display='none';}
-    });
+function openModal(img){
+  currentImg=img.src;
+  currentCategory=img.getAttribute('data-category');
+  const modal=document.getElementById('modal');
+  document.getElementById('modal-img').src=currentImg;
+  document.getElementById('modal-category').innerText=currentCategory; // Montre kategori
+  modal.style.display='flex';
+  setTimeout(()=>{ modal.classList.add('show'); },10);
 }
 
-function openLightbox(img){
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox').style.display='flex';
+function closeModal(){ 
+  const modal=document.getElementById('modal');
+  modal.classList.remove('show');
+  setTimeout(()=>{ modal.style.display='none'; },300);
 }
 
-function sendWhatsApp(imgSrc){
-    let msg = "";
-    if(currentLang === "fr"){ msg = `Bonjour, je souhaite choisir une salle avec cette photo ${imgSrc}`;}
-    else if(currentLang === "en"){ msg = `Hello, I want to choose a room with this photo ${imgSrc}`;}
-    else if(currentLang === "ht"){ msg = `Bonjou, mwen vle chwazi yon sal ak foto sa a ${imgSrc}`;}
-    msg = encodeURIComponent(msg);
-    window.open(`https://wa.me/50942017744?text=${msg}`, '_blank');
-}
+document.getElementById('whatsappBtn').addEventListener('click',()=>{
+  let msg='';
+  if(currentLang==='fr'){ msg=`Bonjour, je souhaite choisir une salle avec cette photo (${currentCategory}) ${currentImg}`;}
+  if(currentLang==='en'){ msg=`Hello, I want to choose a room with this photo (${currentCategory}) ${currentImg}`;}
+  if(currentLang==='ht'){ msg=`Bonjou, mwen vle chwazi yon sal (${currentCategory}) ak foto sa a ${currentImg}`;}
+  msg=encodeURIComponent(msg);
+  window.open(`https://wa.me/50942017744?text=${msg}`,'_blank');
+});
 </script>
-
-</body>
-    </html>
