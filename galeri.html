@@ -14,7 +14,7 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
 .lang-buttons button {padding:8px 12px;margin:5px;border:none;cursor:pointer;background:#DAA520;color:white;border-radius:5px; font-weight: bold;}
 .back-btn {display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:#800000;color:white;text-decoration:none;border-radius:5px; font-weight: bold;}
 
-/* REKLAM GATO GOCH A DWAT */
+/* REKLAM GATO - BOUK SANS FIN */
 .promo-container {
     width: 100%; 
     overflow: hidden; 
@@ -24,22 +24,23 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
     font-weight: bold;
     white-space: nowrap;
     border-bottom: 2px solid #800000;
+    display: flex;
 }
 .scroll-right {
     display: inline-block;
-    padding-right: 100%;
-    animation: scroll-r 20s linear infinite;
+    white-space: nowrap;
+    animation: scroll-continuous 25s linear infinite;
 }
-@keyframes scroll-r { 
-    0% { transform: translateX(-100%); } 
-    100% { transform: translateX(100%); } 
+@keyframes scroll-continuous { 
+    0% { transform: translateX(-50%); } 
+    100% { transform: translateX(0%); } 
 }
 .promo-container a {
     color: #800000;
     background: white;
     text-decoration: none;
     padding: 2px 8px;
-    margin-left: 10px;
+    margin: 0 15px;
     border-radius: 5px;
     font-size: 12px;
 }
@@ -57,7 +58,6 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s;
   border: 1px solid #ddd;
 }
 
@@ -66,12 +66,11 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
 #modal-content {position:relative; background:white; padding:15px; border-radius:12px; max-width:90%; text-align:center;}
 #modal-content img {max-width:100%; max-height:60vh; border-radius:8px;}
 #whatsappBtn {margin-top:15px; padding:12px; background:#25D366; color:white; border:none; border-radius:50px; cursor:pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
-#closeModal {position:absolute; top:-10px; right:-10px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor:pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3); color: #800000;}
+#closeModal {position:absolute; top:-10px; right:-10px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor:pointer; color: #800000;}
 
 .wa-catalog-float {
   position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; text-decoration: none; border: 2px solid white; animation: pulse 2s infinite;
 }
-@keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);} 70% {box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);} 100% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);} }
 </style>
 </head>
 <body>
@@ -159,17 +158,17 @@ let currentCategory='';
 function setLanguage(lang){
   currentLang=lang;
   const t = {
-    fr: {title:"Nos Réalisations", home:"Accueil", btn:"Commander", promo: "🎂 Achetez un gâteau d'anniversaire à 5000 HTG et recevez 6 cupcakes gratuits !", p_btn: "EN PROFITER"},
-    en: {title:"Our Gallery", home:"Home", btn:"Order Now", promo: "🎂 Buy a birthday cake for 5000 HTG and get 6 free cupcakes!", p_btn: "GET IT"},
+    fr: {title:"Nos Réalisations", home:"Accueil", btn:"Commander", promo: "🎂 Achetez un gâteau d'anniversaire à 5000 HTG, recevez 6 cupcakes gratuits !", p_btn: "PROFITER"},
+    en: {title:"Our Gallery", home:"Home", btn:"Order Now", promo: "🎂 Buy a birthday cake for 5000 HTG and get 6 free cupcakes!", p_btn: "GET DEAL"},
     ht: {title:"Galeri Nou", home:"Akèy", btn:"Mwen vle sa", promo: "🎂 Achte yon gato anniversaire 5000 HTG wap jwenn 6 cupcakes gratis !", p_btn: "PWOFITE"}
   };
   document.getElementById("title").innerText = t[lang].title;
   document.getElementById("homeBtn").innerText = t[lang].home;
   document.getElementById("btnTxt").innerText = t[lang].btn;
   
-  // Update Promo Banner with Translation
-  let pHTML = `${t[lang].promo} <a href="https://wa.me/50942017744?text=PromoGato">${t[lang].p_btn}</a>`;
-  document.getElementById("promo-g").innerHTML = pHTML + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + pHTML;
+  // Repete tèks la de fwa pou evite poz la
+  let singleText = `${t[lang].promo} <a href="https://wa.me/50942017744?text=PromoGato">${t[lang].p_btn}</a>`;
+  document.getElementById("promo-g").innerHTML = singleText + " &nbsp;&nbsp;&nbsp; " + singleText;
   
   localStorage.setItem('lang_gal', lang);
 }
@@ -199,5 +198,4 @@ window.onload = () => setLanguage(localStorage.getItem('lang_gal') || 'fr');
 </script>
 
 </body>
-    </html>
-    
+</html>
