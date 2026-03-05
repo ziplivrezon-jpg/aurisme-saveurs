@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Planifye ak Aurisme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+        
+        .admin-container { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--gold); padding-bottom: 15px; margin-bottom: 20px; }
+        h2 { color: var(--bordeaux); margin: 0; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: var(--navy); color: white; padding: 15px; border-radius: 10px; text-align: center; }
+        .stat-card span { font-size: 24px; font-weight: bold; display: block; color: var(--gold); }
+
+        .search-box { margin-bottom: 20px; position: relative; }
+        .search-box input { width: 100%; padding: 12px 40px 12px 15px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
+        .search-box i { position: absolute; right: 15px; top: 15px; color: #999; }
+
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th { background: #f8f9fa; color: var(--navy); text-align: left; padding: 12px; border-bottom: 2px solid #eee; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; }
+        tr:hover { background: #f9f9f9; }
+
+        .btn-wa { color: #25D366; text-decoration: none; font-weight: bold; font-size: 18px; }
+        .btn-delete { color: #dc3545; cursor: pointer; border: none; background: none; font-size: 16px; }
+        
+        .badge { padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .badge-sol { background: #fff3cd; color: #856404; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .admin-container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <header>
+        <h2><i class="fas fa-user-shield"></i> Admin Aurisme</h2>
+        <button onclick="window.location.reload()" style="background:none; border:none; cursor:pointer; color:var(--navy);"><i class="fas fa-sync-alt"></i></button>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">Total Inskripsyon<span id="stat-total">0</span></div>
+        <div class="stat-card">Valè Total Sòl<span id="stat-money">0 Gdes</span></div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Chèche yon kliyan pa non...">
+        <i class="fas fa-search"></i>
+    </div>
+
+    <div class="table-responsive">
+        <table id="adminTable">
+            <thead>
+                <tr>
+                    <th>Dat</th>
+                    <th>Kliyan</th>
+                    <th>Telefòn</th>
+                    <th>Sèvis</th>
+                    <th>Plan (Vèsman)</th>
+                    <th>Total Sòl</th>
+                    <th>Aksyon</th>
+                </tr>
+            </thead>
+            <tbody id="data-list">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // FIREBASE CONFIG (Sèvi ak menm config paj Sòl la)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
+        authDomain: "aurisme-saveurs.firebaseapp.com",
+        projectId: "aurisme-saveurs",
+        storageBucket: "aurisme-saveurs.appspot.com",
+        messagingSenderId: "365315354512",
+        appId: "1:365315354512:web:7f6d49480a4237f3944630"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Fonksyon pou rale done yo
+    async function fetchData() {
+        const querySnapshot = await db.collection("sol_inscriptions").orderBy("dat", "desc").get();
+        const tbody = document.getElementById('data-list');
+        tbody.innerHTML = "";
+        
+        let totalQty = 0;
+        let totalCash = 0;
+
+        querySnapshot.forEach((doc) => {
+            const item = doc.data();
+            totalQty++;
+            totalCash += Number(item.montan_total || 0);
+
+            const row = `
+                <tr id="row-${doc.id}">
+                    <td>${item.dat.split(',')[0]}</td>
+                    <td><strong>${item.non}</strong><br><small>${item.nif_cin || 'Pa gen ID'}</small></td>
+                    <td><a href="https://wa.me/${item.telefo.replace('+', '')}" class="btn-wa" target="_blank"><i class="fab fa-whatsapp"></i></a> ${item.telefo}</td>
+                    <td><span class="badge badge-sol">${item.sevis_chwazi}</span></td>
+                    <td>${item.vesman_chak_fwa} Gdes (${item.frekans})</td>
+                    <td><strong>${Number(item.montan_total).toLocaleString()} Gdes</strong></td>
+                    <td>
+                        <button class="btn-delete" onclick="deleteEntry('${doc.id}')"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+
+        document.getElementById('stat-total').innerText = totalQty;
+        document.getElementById('stat-money').innerText = totalCash.toLocaleString() + " Gdes";
+    }
+
+    // Fonksyon pou filtre tablo a
+    function filterTable() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.getElementById("data-list").getElementsByTagName("tr");
+        for (let row of rows) {
+            row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+        }
+    }
+
+    // Fonksyon pou efase
+    async function deleteEntry(id) {
+        if(confirm("Èske ou sèten ou vle efase kliyan sa a nan lis la?")) {
+            await db.collection("sol_inscriptions").doc(id).delete();
+            document.getElementById(`row-${id}`).remove();
+            fetchData(); // Update stats
+        }
+    }
+
+    window.onload = fetchData;
+</script>
+
+</body>
+</html>
