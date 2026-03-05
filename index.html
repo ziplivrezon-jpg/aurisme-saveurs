@@ -9,11 +9,7 @@
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
 body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
 
-/* REKLAM VETIHKAM ANIMÉ */
-.promo-banner {
-    background: var(--vetiver-green); color: white; overflow: hidden; white-space: nowrap;
-    padding: 10px 0; font-size: 15px; font-weight: bold; border-bottom: 3px solid var(--gold);
-}
+.promo-banner { background: var(--vetiver-green); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 15px; font-weight: bold; border-bottom: 3px solid var(--gold); }
 .promo-scroll { display: inline-block; padding-left: 100%; animation: scroll-text 15s linear infinite; }
 @keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 .promo-banner a { color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 2px 8px; margin-left: 10px; border-radius: 5px; text-transform: uppercase; font-size: 12px; }
@@ -31,14 +27,9 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .menu-card{background:white; padding:25px 10px; border-radius:20px; text-align:center; text-decoration:none; color:var(--navy); font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.1); border-bottom:4px solid var(--gold); display:flex; flex-direction:column; align-items:center;}
 .menu-card i{font-size:35px; color:var(--bordeaux); margin-bottom:10px;}
 
-.plan-box { 
-    background: linear-gradient(135deg, #fffcf2 0%, #fff9e6 100%); 
-    border: 2px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; 
-    display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); 
-    text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-.plan-emoji { font-size: 35px; margin-right: 15px; }
-.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px; white-space: nowrap; }
+/* PLANIFYE AK AURISME */
+.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
+.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px;}
 
 .collapsible-box{background:white; border-radius:20px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin:20px 10px; overflow:hidden; border-left:5px solid var(--bordeaux);}
 .collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
@@ -46,12 +37,17 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 
 .product-list-container { max-height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 10px;}
 .product-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: white; padding: 8px; border-radius: 8px; border-bottom: 1px solid #eee;}
+.product-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer;}
+.product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
 .product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500;}
+
 input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
 .btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
 
+.tourist-card { background: #fdf9f0; border: 1px solid var(--gold); padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; line-height: 1.4;}
+.tourist-card i { color: var(--gold); margin-right: 10px;}
+
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
-.map-container { margin: 20px 10px; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); }
 </style>
 </head>
 <body>
@@ -88,8 +84,8 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     </div>
 
     <div class="plan-box">
-        <div style="display: flex; align-items: center;">
-            <div class="plan-emoji">📅✨</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 30px;">📅✨</span>
             <div>
                 <h3 id="t-plan-title" style="margin:0; color:var(--navy); font-size:18px;">Planifye ak Aurisme</h3>
                 <p id="t-plan-desc" style="margin:5px 0 0; font-size:13px; color:#555;">Prepare evènman ou yo epi peye dousman dousman.</p>
@@ -102,38 +98,97 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-super" class="collapsible-content">
             <label id="lbl-m">Choisir Marché:</label>
-            <select id="market-select"><option>Star Market</option><option>Bonjan Market</option><option>Et autres</option></select>
+            <select id="market-select">
+                <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
+                <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option>Et autres</option>
+            </select>
+            <label id="lbl-p-aur">Produits Aurisme (Cochez & Quantité):</label>
             <div class="product-list-container" id="aurisme-list"></div>
             <textarea id="market-others" placeholder="Autres produits..."></textarea>
             <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">COMMANDER WHATSAPP</button>
         </div>
     </div>
 
-    <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.444!2d-72.285!3d18.545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMyJzQyLjAiTiA3MsKwMTcnMDYuMCJX!5e0!3m2!1sfr!2sht!4v1630000000000!5m2!1sfr!2sht" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div class="collapsible-box" style="border-left-color: var(--navy);">
+        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-ti" class="collapsible-content">
+            <input type="text" id="ti-name" placeholder="Votre Nom Complet">
+            <label id="lbl-p-ti">Produits en Gros (Cochez & Quantité):</label>
+            <div class="product-list-container" id="ti-machann-list"></div>
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">COMMANDER EN GROS</button>
+        </div>
+    </div>
+
+    <div class="collapsible-box" style="border-left-color: var(--gold);">
+        <button class="collapsible-btn" onclick="toggleBox('box-tour')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-tour" class="collapsible-content">
+            <div class="tourist-card">
+                <i class="fas fa-info-circle"></i> <span id="tour-info">Safe transportation, guiding, and local assistance services for visitors.</span>
+            </div>
+            <input type="text" id="tour-name" placeholder="Full Name / Nom Complet">
+            <textarea id="tour-help" placeholder="How can we help you?"></textarea>
+            <button class="btn-order" style="background:var(--gold);" id="btn-tour" onclick="sendWhatsApp('Tourist Assistance')">GET ASSISTANCE</button>
+        </div>
     </div>
 </div>
 
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
-    <p style="font-size: 10px; margin-top: 10px; opacity: 0.7;">© 2024 Aurisme Saveurs - Privacy Policy | Secured by Aurisme Tech</p>
+    <a href="privacy.html" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy</a>
 </div>
 
 <script>
-const products = ["Palmier", "Sacristain", "Coconuts", "Cookies", "Pâtés"];
-function toggleBox(id) { var content = document.getElementById(id); content.style.display = (content.style.display === "block") ? "none" : "block"; }
+const products = ["Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"];
+
+function toggleBox(id) {
+    var content = document.getElementById(id);
+    content.style.display = (content.style.display === "block") ? "none" : "block";
+}
+
 function renderProducts() {
     let html = '';
     products.forEach((p, i) => {
-        html += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1" style="width:50px;"></div>`;
+        html += `<div class="product-item">
+                    <input type="checkbox" class="prod-check" value="${p}" id="c-${i}">
+                    <label for="c-${i}">${p}</label>
+                    <input type="number" class="prod-qty" value="1" min="1">
+                 </div>`;
     });
     document.getElementById('aurisme-list').innerHTML = html;
+    document.getElementById('ti-machann-list').innerHTML = html.replace(/id="c-/g, 'id="ct-');
 }
 
 const translations = {
-    fr: { sec: "Service Vérifié & Livraison Sécurisée", main: "Aurisme Saveurs et Services", sup: "🛒 Service Supermarché", plan_t: "Planifye ak Aurisme", plan_d: "Préparez vos événements en payant petit à petit.", plan_b: "PARTICIPER", l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE", v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ" },
-    en: { sec: "Verified Service & Secured Delivery", main: "Aurisme Flavors", sup: "🛒 Supermarket", plan_t: "Plan with Aurisme", plan_d: "Plan events and pay in small installments.", plan_b: "JOIN NOW", l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO", g: "GALLERY", v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER" },
-    ht: { sec: "Sèvis Verifye ak Livrezon an Sekirite", main: "Aurisme Saveurs ak Sèvis", sup: "🛒 Sèvis Sipèmache", plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE", l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO", g: "GALERI", v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE" }
+    fr: {
+        sec: "Service Vérifié & Livraison Sécurisée", main: "Aurisme Saveurs et Services",
+        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", tour: "🌍 Tourist Assistance",
+        m_lbl: "Choisir Marché:", p_aur: "Produits Aurisme (Cochez):", b_wa: "COMMANDER WHATSAPP", 
+        b_res: "COMMANDER EN GROS", b_tour: "DEMANDER DE L'AIDE", t_name: "Votre Nom Complet",
+        l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE",
+        t_info: "Services de transport sécurisé, guide et assistance locale pour les visiteurs.",
+        v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ MAINTENANT",
+        plan_t: "Planifye ak Aurisme", plan_d: "Préparez vos événements en payant petit à petit.", plan_b: "PARTICIPER"
+    },
+    en: {
+        sec: "Verified Service & Secured Delivery", main: "Aurisme Flavors",
+        sup: "🛒 Supermarket Service", res: "🏪 Reseller Space", tour: "🌍 Tourist Assistance",
+        m_lbl: "Choose Market:", p_aur: "Aurisme Products:", b_wa: "ORDER WHATSAPP", 
+        b_res: "ORDER BULK", b_tour: "GET ASSISTANCE", t_name: "Your Full Name",
+        l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO", g: "GALLERY",
+        t_info: "Safe transportation, guiding, and local assistance services for visitors.",
+        v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER NOW",
+        plan_t: "Plan with Aurisme", plan_d: "Plan events and pay in installments.", plan_b: "JOIN NOW"
+    },
+    ht: {
+        sec: "Sèvis Verifye ak Livrezon an Sekirite", main: "Aurisme Saveurs ak Sèvis",
+        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", tour: "🌍 Asistans Touris",
+        m_lbl: "Chwazi Mache:", p_aur: "Pwodwi Aurisme:", b_wa: "KOMANDE SOU WHATSAPP", 
+        b_res: "KOMANDE AN GWO", b_tour: "MANDE ED", t_name: "Non Konplè Ou",
+        l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO", g: "GALERI",
+        t_info: "Transpò an sekirite, gid, ak sèvis asistans lokal pou vizitè yo.",
+        v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE KOUNYA",
+        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE"
+    }
 };
 
 function changeLanguage(lang) {
@@ -141,19 +196,36 @@ function changeLanguage(lang) {
     document.getElementById('sec-text').innerText = t.sec;
     document.getElementById('main-title').innerText = t.main;
     document.getElementById('t-sup').innerText = t.sup;
+    document.getElementById('t-res').innerText = t.res;
+    document.getElementById('t-tour').innerText = t.tour;
+    document.getElementById('m-liv').innerText = t.l;
+    document.getElementById('m-tax').innerText = t.t;
+    document.getElementById('m-aca').innerText = t.a;
+    document.getElementById('m-pat').innerText = t.p;
+    document.getElementById('m-dec').innerText = t.d;
+    document.getElementById('m-gal').innerText = t.g;
+    document.getElementById('btn-sup').innerText = t.b_wa;
+    document.getElementById('btn-res').innerText = t.b_res;
+    document.getElementById('btn-tour').innerText = t.b_tour;
+    document.getElementById('tour-info').innerText = t.t_info;
+    document.getElementById('ti-name').placeholder = t.t_name;
     document.getElementById('t-plan-title').innerText = t.plan_t;
     document.getElementById('t-plan-desc').innerText = t.plan_d;
     document.getElementById('t-plan-btn').innerText = t.plan_b;
-    document.getElementById('m-liv').innerText = t.l; document.getElementById('m-tax').innerText = t.t; document.getElementById('m-aca').innerText = t.a;
-    document.getElementById('m-pat').innerText = t.p; document.getElementById('m-dec').innerText = t.d; document.getElementById('m-gal').innerText = t.g;
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
     document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
 }
 
 function sendWhatsApp(service) {
-    const phone = "50942017744";
-    const msg = encodeURIComponent("Bonjour Aurisme, je souhaite commander le service: " + service);
-    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+    let selected = [];
+    let listId = (service === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
+    let container = document.getElementById(listId);
+    let checks = container.querySelectorAll('.prod-check');
+    let qtys = container.querySelectorAll('.prod-qty');
+    let name = (service === 'Ti Machann') ? document.getElementById('ti-name').value : "Client";
+    checks.forEach((c, i) => { if(c.checked) selected.push(`${c.value} (${qtys[i].value})`); });
+    let msg = `*Aurisme Saveurs - Sèvis ${service}*\n*Non:* ${name}\n*Pwodwi:* ${selected.join(', ')}`;
+    window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
 }
 
 window.onload = function() { renderProducts(); changeLanguage('ht'); };
