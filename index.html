@@ -70,6 +70,10 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 .tourist-card i { color: var(--gold); margin-right: 10px;}
 
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
+
+/* STYLE POU SEKSYON PLANIFYE A */
+.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
+.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); white-space: nowrap;}
 </style>
 </head>
 <body>
@@ -85,8 +89,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 </div>
 
 <div class="promo-banner">
-    <div class="promo-scroll" id="promo-content">
-        </div>
+    <div class="promo-scroll" id="promo-content"></div>
 </div>
 
 <header>
@@ -104,14 +107,12 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span id="m-gal">GALERIE</span></a>
     </div>
 
-    <div class="collapsible-box" style="border-left-color: var(--gold); background: #fffcf2;">
-        <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="text-align: left;">
-                <h3 id="t-sol-title" style="margin: 0; color: var(--navy); font-size: 18px;">💰 Sòl Prestige Aurisme</h3>
-                <p id="t-sol-desc" style="margin: 5px 0 0; font-size: 13px; color: #666;">Planifiez vos rêves (Mariage, Gâteau, Traiteur) ti pa ti pa.</p>
-            </div>
-            <a href="sol.html" id="btn-sol-link" style="background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 10px 15px; border-radius: 10px; font-weight: bold; font-size: 13px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">PARTICIPER</a>
+    <div class="plan-box">
+        <div>
+            <h3 id="t-plan-title" style="margin:0; color:var(--navy); font-size:18px;">✨ Planifye ak Aurisme</h3>
+            <p id="t-plan-desc" style="margin:5px 0 0; font-size:13px; color:#555;">Réservez vos événements et payez petit à petit.</p>
         </div>
+        <a href="sol.html" class="plan-btn-link" id="t-plan-btn">PARTICIPER</a>
     </div>
 
     <div class="collapsible-box">
@@ -189,7 +190,7 @@ const translations = {
         l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE",
         t_info: "Services de transport sécurisé, guide et assistance locale pour les visiteurs.",
         v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ MAINTENANT",
-        sol_t: "💰 Sòl Prestige Aurisme", sol_d: "Planifiez vos rêves (Mariage, Gâteau, Traiteur) ti pa ti pa.", sol_b: "PARTICIPER"
+        plan_t: "✨ Planifye ak Aurisme", plan_d: "Préparez vos événements en payant petit à petit.", plan_b: "PARTICIPER"
     },
     en: {
         sec: "Verified Service & Secured Delivery", main: "Aurisme Flavors and Services",
@@ -199,7 +200,7 @@ const translations = {
         l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO & CATERING", g: "GALLERY",
         t_info: "Safe transportation, guiding, and local assistance services for visitors.",
         v_text: "VETIHKAM: The best Haitian VETIVER PERFUME", v_btn: "ORDER NOW",
-        sol_t: "💰 Aurisme Prestige Sòl", sol_d: "Plan your dreams (Wedding, Cake, Catering) step by step.", sol_b: "JOIN NOW"
+        plan_t: "✨ Plan with Aurisme", plan_d: "Plan your events and pay in small installments.", plan_b: "JOIN NOW"
     },
     ht: {
         sec: "Sèvis Verifye ak Livrezon an Sekirite", main: "Aurisme Saveurs ak Sèvis",
@@ -209,7 +210,7 @@ const translations = {
         l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO & TRAITEUR", g: "GALERI",
         t_info: "Transpò an sekirite, gid, ak sèvis asistans lokal pou vizitè yo.",
         v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE KOUNYA",
-        sol_t: "💰 Sòl Prestige Aurisme", sol_d: "Planifye rèv ou (Maryaj, Gato, Traiteur) ti pa ti pa.", sol_b: "PATISIPE"
+        plan_t: "✨ Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE"
     }
 };
 
@@ -235,10 +236,10 @@ function changeLanguage(lang) {
     document.getElementById('tour-info').innerText = t.t_info;
     document.getElementById('ti-name').placeholder = t.t_name;
     
-    // NOUVO TRADIKSYON POU SOL
-    document.getElementById('t-sol-title').innerText = t.sol_t;
-    document.getElementById('t-sol-desc').innerText = t.sol_d;
-    document.getElementById('btn-sol-link').innerText = t.sol_b;
+    // TRADIKSYON PLANIFYE
+    document.getElementById('t-plan-title').innerText = t.plan_t;
+    document.getElementById('t-plan-desc').innerText = t.plan_d;
+    document.getElementById('t-plan-btn').innerText = t.plan_b;
 
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="https://wa.me/50942017744?text=Bonjou,%20mwen%20vle%20kòmande%20Parfum%20VETIHKAM">${t.v_btn}</a>`;
     document.getElementById('promo-content').innerHTML = promoHTML + "      " + promoHTML;
