@@ -49,9 +49,16 @@ body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;tex
 header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom:4px solid var(--gold);}
 .logo-container img{width:100px; height:100px; border-radius:50%; border:3px solid var(--gold); background:white; object-fit:cover;}
 
+/* STYLE POU VIDEYO */
+.video-container { width: 100%; background: #000; line-height: 0; overflow: hidden; border-bottom: 2px solid var(--gold); }
+video { width: 100%; max-height: 450px; object-fit: cover; }
+
 .menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:20px;}
 .menu-card{background:white; padding:25px 10px; border-radius:20px; text-align:center; text-decoration:none; color:var(--navy); font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.1); border-bottom:4px solid var(--gold); display:flex; flex-direction:column; align-items:center;}
 .menu-card i{font-size:35px; color:var(--bordeaux); margin-bottom:10px;}
+
+.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
+.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px;}
 
 .collapsible-box{background:white; border-radius:20px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin:20px 10px; overflow:hidden; border-left:5px solid var(--bordeaux);}
 .collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
@@ -70,10 +77,6 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 .tourist-card i { color: var(--gold); margin-right: 10px;}
 
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
-
-/* STYLE POU SEKSYON PLANIFYE A */
-.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
-.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); white-space: nowrap;}
 </style>
 </head>
 <body>
@@ -92,8 +95,16 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <div class="promo-scroll" id="promo-content"></div>
 </div>
 
+<div class="video-container">
+    <video controls poster="Logo.png">
+        <source src="1000265966.mp4" type="video/mp4">
+    </video>
+</div>
+
 <header>
-    <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
+    <div class="logo-container">
+        <a href="adminsol.html" style="text-decoration:none;"><img src="Logo.png" alt="Logo Aurisme"></a>
+    </div>
     <h1 id="main-title">Aurisme Saveurs et Services</h1>
 </header>
 
@@ -110,9 +121,9 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <div class="plan-box">
         <div>
             <h3 id="t-plan-title" style="margin:0; color:var(--navy); font-size:18px;">✨ Planifye ak Aurisme</h3>
-            <p id="t-plan-desc" style="margin:5px 0 0; font-size:13px; color:#555;">Réservez vos événements et payez petit à petit.</p>
+            <p id="t-plan-desc" style="margin:5px 0 0; font-size:13px; color:#555;">Prepare evènman ou yo epi peye dousman dousman.</p>
         </div>
-        <a href="sol.html" class="plan-btn-link" id="t-plan-btn">PARTICIPER</a>
+        <a href="sol.html" class="plan-btn-link" id="t-plan-btn">PATISIPE</a>
     </div>
 
     <div class="collapsible-box">
@@ -235,8 +246,6 @@ function changeLanguage(lang) {
     document.getElementById('btn-tour').innerText = t.b_tour;
     document.getElementById('tour-info').innerText = t.t_info;
     document.getElementById('ti-name').placeholder = t.t_name;
-    
-    // TRADIKSYON PLANIFYE
     document.getElementById('t-plan-title').innerText = t.plan_t;
     document.getElementById('t-plan-desc').innerText = t.plan_d;
     document.getElementById('t-plan-btn').innerText = t.plan_b;
