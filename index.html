@@ -51,6 +51,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 .btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
 
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
+.map-container { margin: 20px 10px; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); }
 </style>
 </head>
 <body>
@@ -107,10 +108,15 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
             <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">COMMANDER WHATSAPP</button>
         </div>
     </div>
+
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.444!2d-72.285!3d18.545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMyJzQyLjAiTiA3MsKwMTcnMDYuMCJX!5e0!3m2!1sfr!2sht!4v1630000000000!5m2!1sfr!2sht" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
 </div>
 
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
+    <p style="font-size: 10px; margin-top: 10px; opacity: 0.7;">© 2024 Aurisme Saveurs - Privacy Policy | Secured by Aurisme Tech</p>
 </div>
 
 <script>
@@ -123,11 +129,13 @@ function renderProducts() {
     });
     document.getElementById('aurisme-list').innerHTML = html;
 }
+
 const translations = {
     fr: { sec: "Service Vérifié & Livraison Sécurisée", main: "Aurisme Saveurs et Services", sup: "🛒 Service Supermarché", plan_t: "Planifye ak Aurisme", plan_d: "Préparez vos événements en payant petit à petit.", plan_b: "PARTICIPER", l: "LIVRAISON", t: "TAXI MOTO", a: "ACADEMY", p: "PÂTISSERIE", d: "DÉCO & TRAITEUR", g: "GALERIE", v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ" },
     en: { sec: "Verified Service & Secured Delivery", main: "Aurisme Flavors", sup: "🛒 Supermarket", plan_t: "Plan with Aurisme", plan_d: "Plan events and pay in small installments.", plan_b: "JOIN NOW", l: "DELIVERY", t: "MOTO TAXI", a: "ACADEMY", p: "BAKERY", d: "DECO", g: "GALLERY", v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER" },
     ht: { sec: "Sèvis Verifye ak Livrezon an Sekirite", main: "Aurisme Saveurs ak Sèvis", sup: "🛒 Sèvis Sipèmache", plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE", l: "LIVREZON", t: "TAKSI MOTO", a: "AKADEMI", p: "PATISERI", d: "DEKO", g: "GALERI", v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE" }
 };
+
 function changeLanguage(lang) {
     const t = translations[lang];
     document.getElementById('sec-text').innerText = t.sec;
@@ -141,6 +149,13 @@ function changeLanguage(lang) {
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
     document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
 }
+
+function sendWhatsApp(service) {
+    const phone = "50942017744";
+    const msg = encodeURIComponent("Bonjour Aurisme, je souhaite commander le service: " + service);
+    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+}
+
 window.onload = function() { renderProducts(); changeLanguage('ht'); };
 </script>
 </body>
