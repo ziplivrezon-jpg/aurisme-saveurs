@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sòl Aurisme - Multilingue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f8f8f8; text-align: center; padding-top: 60px; }
+        
+        /* Language Bar */
+        .lang-bar { position: fixed; top: 0; width: 100%; background: white; padding: 10px 0; display: flex; justify-content: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+        .lang-btn { border: 1px solid #ddd; background: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        .lang-btn.active { background: var(--bordeaux); color: white; border-color: var(--bordeaux); }
+
+        header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); }
+        .logo-container img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--gold); background: white; }
+
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+
+        .registration-box { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 25px; text-align: left; border-top: 5px solid var(--gold); }
+        .sol-card { background: white; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; border-left: 5px solid var(--gold); text-align: left; opacity: 0.5; pointer-events: none; transition: 0.3s; }
+        .sol-card.active { opacity: 1; pointer-events: auto; }
+        .sol-header { background: var(--navy); color: white; padding: 15px; font-weight: bold; }
+        
+        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; }
+        .btn-sol { background-color: var(--bordeaux); color: white; border: none; font-weight: bold; cursor: pointer; }
+        
+        .footer-info { background: #eee; padding: 20px; border-radius: 20px; margin-top: 30px; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-bar">
+        <button class="lang-btn active" onclick="setLanguage('fr', this)">🇫🇷 Français</button>
+        <button class="lang-btn" onclick="setLanguage('en', this)">🇺🇸 English</button>
+        <button class="lang-btn" onclick="setLanguage('ht', this)">🇭🇹 Kreyòl</button>
+    </div>
+
+    <header>
+        <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
+        <h1 id="txt-title">Sòl Aurisme Prestige</h1>
+        <p id="txt-subtitle" style="font-size: 13px;">Planifiez vos rêves petit à petit</p>
+    </header>
+
+    <div class="container" style="text-align: left;">
+        <a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:bold; font-size:13px;">
+            <i class="fas fa-home"></i> <span id="txt-back">Accueil</span>
+        </a>
+    </div>
+
+    <div class="container">
+        
+        <div class="registration-box">
+            <h2 id="txt-reg-title">1. Inscription</h2>
+            <label id="lbl-nom">Nom :</label><input type="text" id="u-nom" oninput="checkForm()">
+            <label id="lbl-prenom">Prénom :</label><input type="text" id="u-prenom" oninput="checkForm()">
+            <label id="lbl-email">Email :</label><input type="email" id="u-email" oninput="checkForm()">
+            <label id="lbl-id">ID (NIF/CIN) :</label><input type="text" id="u-id" oninput="checkForm()">
+        </div>
+
+        <p id="txt-hint" style="color: var(--bordeaux); font-weight: bold; font-size: 13px;">⚠️ Remplissez le formulaire pour activer.</p>
+
+        <div class="sol-card" id="card-traiteur">
+            <div class="sol-header"><i class="fas fa-utensils"></i> <span id="txt-sol1-title">Sòl Buffet Chef Aurisme</span></div>
+            <div class="sol-body">
+                <select id="freq-traiteur">
+                    <option value="Hebdomadaire" id="opt-hebdo1">Chak Semèn</option>
+                    <option value="Mensuel" id="opt-mens1">Chak Mwa</option>
+                </select>
+                <input type="number" id="amt-traiteur" placeholder="Montant (Gdes)">
+                <button class="btn-sol" id="btn-sol1" onclick="saveAndSend('Buffet Chef Aurisme', 'freq-traiteur', 'amt-traiteur')">S'INSCRIRE</button>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            <p>© Aurisme Group - <span id="txt-footer">Tous droits réservés</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Dictionnaire de traduction
+        const translations = {
+            fr: {
+                title: "Sòl Aurisme Prestige", subtitle: "Planifiez vos rêves petit à petit",
+                back: "Accueil", reg_title: "1. Inscription", nom: "Nom :",
+                prenom: "Prénom :", email: "Email :", id: "ID (NIF/CIN) :",
+                hint: "⚠️ Remplissez le formulaire pour activer.",
+                sol1_title: "Sòl Buffet Chef Aurisme", hebdo: "Chaque Semaine",
+                mens: "Chaque Mois", btn: "S'INSCRIRE", footer: "Tous droits réservés"
+            },
+            en: {
+                title: "Aurisme Prestige Sòl", subtitle: "Plan your dreams step by step",
+                back: "Home", reg_title: "1. Registration", nom: "Last Name:",
+                prenom: "First Name:", email: "Email:", id: "ID Number:",
+                hint: "⚠️ Fill the form to activate.",
+                sol1_title: "Chef Aurisme Buffet Sòl", hebdo: "Weekly",
+                mens: "Monthly", btn: "REGISTER NOW", footer: "All rights reserved"
+            },
+            ht: {
+                title: "Sòl Aurisme Prestige", subtitle: "Planifye rèv ou ti pa ti pa",
+                back: "Akèy", reg_title: "1. Enskripsyon", nom: "Non :",
+                prenom: "Prenon :", email: "Imèl :", id: "Nimewo Idantite :",
+                hint: "⚠️ Ranpli fòm lan pou debloke.",
+                sol1_title: "Sòl Buffet Chèf Aurisme", hebdo: "Chak Semèn",
+                mens: "Chak Mwa", btn: "ENSKRI KOUNYE A", footer: "Tout dwa rezève"
+            }
+        };
+
+        function setLanguage(lang, btn) {
+            // Chanje bouton aktif la
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Chanje tèks yo
+            const t = translations[lang];
+            document.getElementById('txt-title').innerText = t.title;
+            document.getElementById('txt-subtitle').innerText = t.subtitle;
+            document.getElementById('txt-back').innerText = t.back;
+            document.getElementById('txt-reg-title').innerText = t.reg_title;
+            document.getElementById('lbl-nom').innerText = t.nom;
+            document.getElementById('lbl-prenom').innerText = t.prenom;
+            document.getElementById('lbl-email').innerText = t.email;
+            document.getElementById('lbl-id').innerText = t.id;
+            document.getElementById('txt-hint').innerText = t.hint;
+            document.getElementById('txt-sol1-title').innerText = t.sol1_title;
+            document.getElementById('btn-sol1').innerText = t.btn;
+            document.getElementById('txt-footer').innerText = t.footer;
+            
+            // Tradui Opsyon Select yo
+            document.getElementById('opt-hebdo1').innerText = t.hebdo;
+            document.getElementById('opt-mens1').innerText = t.mens;
+        }
+
+        // --- Fonksyon Firebase ak chèk fòm (menm jan an) ---
+        function checkForm() {
+            const fields = ['u-nom', 'u-prenom', 'u-email', 'u-id'];
+            let allFilled = fields.every(id => document.getElementById(id).value.trim() !== "");
+            const cards = document.querySelectorAll('.sol-card');
+            const hint = document.getElementById('txt-hint');
+
+            if (allFilled) {
+                cards.forEach(c => c.classList.add('active'));
+                hint.style.opacity = "0";
+            } else {
+                cards.forEach(c => c.classList.remove('active'));
+                hint.style.opacity = "1";
+            }
+        }
+    </script>
+</body>
+</html>
