@@ -3,157 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sòl Aurisme Prestige - Enskripsyon</title>
+    <title>Sòl Aurisme Prestige</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f8f8f8; text-align: center; }
-        header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); }
-        .logo-container img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--gold); background: white; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; padding-top: 60px; }
         
-        .container { padding: 20px; max-width: 500px; margin: auto; }
-        .registration-box { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; border-top: 5px solid var(--gold); }
-        
-        .sol-card { background: white; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: left; overflow: hidden; border-left: 8px solid var(--gold); }
-        .sol-header { background: var(--navy); color: white; padding: 15px; font-weight: bold; }
-        .sol-body { padding: 20px; }
+        /* Language Bar */
+        .lang-bar { position: fixed; top: 0; width: 100%; background: white; padding: 10px 0; display: flex; justify-content: center; gap: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+        .lang-btn { border: 1px solid #ddd; background: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .lang-btn.active { background: var(--bordeaux); color: white; border-color: var(--bordeaux); }
 
-        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; }
-        label { font-size: 13px; font-weight: bold; color: #555; }
+        header { background-color: var(--bordeaux); color: white; padding: 20px; border-bottom: 4px solid var(--gold); }
+        .logo-container img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--gold); background: white; }
         
-        .total-box { background: #fffde7; border: 2px dashed var(--gold); padding: 15px; border-radius: 10px; margin-top: 10px; text-align: center; }
-        .total-box span { font-size: 20px; color: var(--bordeaux); font-weight: bold; }
-
-        .btn-sol { background-color: var(--bordeaux); color: white; border: none; font-weight: bold; cursor: pointer; padding: 15px; font-size: 16px; margin-top: 10px; }
-        .btn-home { text-decoration: none; color: var(--navy); font-weight: bold; display: inline-flex; align-items: center; gap: 8px; background: white; padding: 8px 15px; border-radius: 50px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 13px; margin: 15px 0; }
+        .container { padding: 15px; max-width: 450px; margin: auto; text-align: left; }
+        .box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; border-top: 5px solid var(--gold); }
+        
+        h3 { margin-top: 0; color: var(--navy); font-size: 18px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        label { font-size: 12px; font-weight: bold; display: block; margin-top: 12px; color: #555; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
+        
+        .btn-send { background: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-back { display: inline-flex; align-items: center; gap: 5px; text-decoration: none; color: var(--navy); font-weight: bold; font-size: 13px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
+    <div class="lang-bar">
+        <button class="lang-btn active" onclick="setLanguage('fr', this)">FR</button>
+        <button class="lang-btn" onclick="setLanguage('en', this)">EN</button>
+        <button class="lang-btn" onclick="setLanguage('ht', this)">HT</button>
+    </div>
+
     <header>
-        <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
-        <h1 id="txt-title">Sòl Aurisme Prestige</h1>
+        <div class="logo-container"><img src="Logo.png" alt="Logo"></div>
+        <h1 id="t-header">Sòl Aurisme Prestige</h1>
     </header>
 
-    <div style="max-width: 500px; margin: auto; text-align: left; padding: 0 20px;">
-        <a href="index.html" class="btn-home"><i class="fas fa-arrow-left"></i> TOUNEN NAN AKÈY</a>
-    </div>
-
     <div class="container">
-        <div class="registration-box">
-            <h3 style="margin-top:0;"><i class="fas fa-user-circle"></i> Enskripsyon</h3>
-            <label>Nom & Prénom:</label>
-            <input type="text" id="u-fullname" placeholder="Egz: Jean Pierre">
-            <label>NIF / CIN:</label>
-            <input type="text" id="u-id" placeholder="000-000-000-0">
-            <label>Téléphone WhatsApp:</label>
+        <a href="index.html" class="btn-back"><i class="fas fa-home"></i> <span id="t-home">Accueil</span></a>
+
+        <div class="box">
+            <h3 id="t-reg-title">1. Inscription</h3>
+            <label id="l-name">Nom Complet :</label>
+            <input type="text" id="u-name" placeholder="...">
+            
+            <label id="l-tel">WhatsApp :</label>
             <input type="tel" id="u-tel" placeholder="+509">
+            
+            <label id="l-id">NIF / CIN :</label>
+            <input type="text" id="u-id" placeholder="000-000-000-0">
         </div>
 
-        <div class="sol-card">
-            <div class="sol-header"><i class="fas fa-list-check"></i> Chwazi Sèvis & Plan ou</div>
-            <div class="sol-body">
-                <label>Ki Sèvis ou vle?</label>
-                <select id="sol-service" onchange="updateTotal()">
-                    <option value="Buffet Complet">Buffet Complet (Maryaj/Gwo Fèt)</option>
-                    <option value="Traiteur Simple">Traiteur Simple (Ti Resepsyon)</option>
-                    <option value="Décoration Luxe">Décoration Luxe</option>
-                    <option value="Gâteau Mariage">Gâteau Mariage (Etaj)</option>
-                    <option value="Gâteau Anniversaire">Gâteau Anniversaire Prestige</option>
-                    <option value="Service Complet (Tout)">Sèvis Konplè (Tout nèt)</option>
-                </select>
+        <div class="box">
+            <h3 id="t-sol-title">2. Détails du Sòl</h3>
+            
+            <label id="l-service">Sèvis :</label>
+            <select id="u-service">
+                <option value="Buffet Complet (Gwo Opsyon)" id="opt1">Buffet Complet (Gwo Opsyon)</option>
+                <option value="Traiteur Simple (Ti Opsyon)" id="opt2">Traiteur Simple (Ti Opsyon)</option>
+                <option value="Gato Maryaj Prestige" id="opt3">Gato Maryaj Prestige</option>
+                <option value="Gato Maryaj Simple" id="opt4">Gato Maryaj Simple</option>
+                <option value="Gato Anniversaire Prestige" id="opt5">Gato Anniversaire Prestige</option>
+                <option value="Gato Anniversaire Simple" id="opt6">Gato Anniversaire Simple</option>
+                <option value="Gato Graduation" id="opt7">Gato Graduation</option>
+                <option value="Gato Baptême" id="opt8">Gato Baptême</option>
+                <option value="Gato Baby Shower" id="opt9">Gato Baby Shower</option>
+                <option value="Décoration Luxe" id="opt10">Décoration Luxe</option>
+            </select>
 
-                <label>Frekans Pèman:</label>
-                <select id="sol-freq">
-                    <option>Chak Semèn</option>
-                    <option>Chak Kenzèn (15 jou)</option>
-                    <option>Chak Mwa</option>
-                </select>
+            <label id="l-total">Montant Total du Sòl (Gdes) :</label>
+            <input type="number" id="u-total">
 
-                <label>Kantite kòb w ap bay chak fwa (Gdes):</label>
-                <input type="number" id="sol-amt" placeholder="Egz: 2500" oninput="updateTotal()">
+            <label id="l-pay">Versement par période (Gdes) :</label>
+            <input type="number" id="u-pay">
 
-                <label>Pandan konbe tan (Konbe vèsman)?</label>
-                <input type="number" id="sol-duration" placeholder="Egz: 10 vèsman" oninput="updateTotal()">
+            <label id="l-freq">Fréquence :</label>
+            <select id="u-freq">
+                <option value="Semaine" id="f1">Chaque Semaine</option>
+                <option value="15 jours" id="f2">Chaque 15 jours</option>
+                <option value="Mois" id="f3">Chaque Mois</option>
+            </select>
 
-                <div class="total-box">
-                    <p style="margin:0; font-size:12px; font-weight:bold;">VALÈ TOTAL SÒL LA</p>
-                    <span id="display-total">0</span> <small>Gdes</small>
-                </div>
-
-                <button class="btn-sol" onclick="saveToFirebase()">KÒMANSE SÒL SA A</button>
-            </div>
+            <button class="btn-send" onclick="sendData()">
+                <i class="fab fa-whatsapp"></i> <span id="t-btn">S'INSCRIRE</span>
+            </button>
         </div>
     </div>
 
-    <script>
-        // CONFIG FIREBASE
-        const firebaseConfig = {
-            apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",
-            authDomain: "aurisme-saveurs.firebaseapp.com",
-            projectId: "aurisme-saveurs",
-            storageBucket: "aurisme-saveurs.appspot.com",
-            messagingSenderId: "365315354512",
-            appId: "1:365315354512:web:7f6d49480a4237f3944630"
+<script>
+    const translations = {
+        fr: {
+            header: "Sòl Aurisme Prestige", home: "Accueil", reg: "1. Inscription", 
+            sol: "2. Détails du Sòl", name: "Nom Complet :", tel: "WhatsApp :", 
+            id: "NIF / CIN :", serv: "Service :", total: "Montant Total (Gdes) :", 
+            pay: "Versement (Gdes) :", freq: "Fréquence :", btn: "S'INSCRIRE",
+            o1: "Buffet Complet", o2: "Traiteur Simple", o3: "Gâteau Mariage Prestige", 
+            o4: "Gâteau Mariage Simple", o5: "Gâteau Anniversaire Prestige", 
+            o6: "Gâteau Anniversaire Simple", o7: "Gâteau Graduation", 
+            o8: "Gâteau Baptême", o9: "Gâteau Baby Shower", o10: "Décoration Luxe",
+            f1: "Chaque Semaine", f2: "Chaque 15 jours", f3: "Chaque Mois"
+        },
+        en: {
+            header: "Aurisme Prestige Savings", home: "Home", reg: "1. Registration", 
+            sol: "2. Savings Details", name: "Full Name:", tel: "WhatsApp:", 
+            id: "ID (NIF/CIN):", serv: "Service:", total: "Total Amount (Gdes):", 
+            pay: "Payment (Gdes):", freq: "Frequency:", btn: "REGISTER NOW",
+            o1: "Full Buffet", o2: "Simple Catering", o3: "Prestige Wedding Cake", 
+            o4: "Simple Wedding Cake", o5: "Prestige Birthday Cake", 
+            o6: "Simple Birthday Cake", o7: "Graduation Cake", 
+            o8: "Baptism Cake", o9: "Baby Shower Cake", o10: "Luxury Decoration",
+            f1: "Weekly", f2: "Every 15 days", f3: "Monthly"
+        },
+        ht: {
+            header: "Sòl Aurisme Prestige", home: "Akèy", reg: "1. Enskripsyon", 
+            sol: "2. Detay Sòl la", name: "Non Konplè :", tel: "WhatsApp :", 
+            id: "NIF / CIN :", serv: "Sèvis :", total: "Montan Total (Gdes) :", 
+            pay: "Vèsman (Gdes) :", freq: "Frekans :", btn: "ENSKRI KOUNYA",
+            o1: "Buffet Complet", o2: "Traiteur Simple", o3: "Gato Maryaj Prestige", 
+            o4: "Gato Maryaj Simple", o5: "Gato Anniversaire Prestige", 
+            o6: "Gato Anniversaire Simple", o7: "Gato Graduation", 
+            o8: "Gato Baptême", o9: "Gato Baby Shower", o10: "Deko Luxe",
+            f1: "Chak Semèn", f2: "Chak 15 jou", f3: "Chak Mwa"
+        }
+    };
+
+    function setLanguage(lang, btn) {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const t = translations[lang];
+        document.getElementById('t-header').innerText = t.header;
+        document.getElementById('t-home').innerText = t.home;
+        document.getElementById('t-reg-title').innerText = t.reg;
+        document.getElementById('t-sol-title').innerText = t.sol;
+        document.getElementById('l-name').innerText = t.name;
+        document.getElementById('l-tel').innerText = t.tel;
+        document.getElementById('l-id').innerText = t.id;
+        document.getElementById('l-service').innerText = t.serv;
+        document.getElementById('l-total').innerText = t.total;
+        document.getElementById('l-pay').innerText = t.pay;
+        document.getElementById('l-freq').innerText = t.freq;
+        document.getElementById('t-btn').innerText = t.btn;
+        for(let i=1; i<=10; i++) document.getElementById('opt'+i).innerText = t['o'+i];
+        for(let i=1; i<=3; i++) document.getElementById('f'+i).innerText = t['f'+i];
+    }
+
+    // FIREBASE
+    const firebaseConfig = { apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", authDomain: "aurisme-saveurs.firebaseapp.com", projectId: "aurisme-saveurs", storageBucket: "aurisme-saveurs.appspot.com", messagingSenderId: "365315354512", appId: "1:365315354512:web:7f6d49480a4237f3944630" };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function sendData() {
+        const d = { 
+            nom: document.getElementById('u-name').value, 
+            tel: document.getElementById('u-tel').value, 
+            serv: document.getElementById('u-service').value, 
+            total: document.getElementById('u-total').value,
+            peman: document.getElementById('u-pay').value,
+            dat: new Date().toLocaleString()
         };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        // Fonksyon pou kalkile total la otomatikman
-        function updateTotal() {
-            const amt = document.getElementById('sol-amt').value || 0;
-            const duration = document.getElementById('sol-duration').value || 0;
-            const total = amt * duration;
-            document.getElementById('display-total').innerText = total.toLocaleString();
-        }
-
-        async function saveToFirebase() {
-            const name = document.getElementById('u-fullname').value;
-            const tel = document.getElementById('u-tel').value;
-            const iden = document.getElementById('u-id').value;
-            const service = document.getElementById('sol-service').value;
-            const freq = document.getElementById('sol-freq').value;
-            const amt = document.getElementById('sol-amt').value;
-            const dur = document.getElementById('sol-duration').value;
-            const total = amt * dur;
-
-            if(!name || !tel || !amt || !dur) {
-                alert("Tanpri ranpli tout bwat yo!");
-                return;
-            }
-
-            const data = {
-                kliyan: name,
-                telefon: tel,
-                nif_cin: iden,
-                sevis: service,
-                frekans: freq,
-                vesman: amt,
-                kantite_vesman: dur,
-                total_sol: total,
-                dat: new Date().toLocaleString()
-            };
-
-            try {
-                await db.collection("sol_inscriptions").add(data);
-                
-                // Prepare mesaj WhatsApp
-                let msg = `*NOUVO ENSKRIPSYON SÒL AURISME*%0A`;
-                msg += `👤 *Kliyan:* ${name}%0A`;
-                msg += `📞 *Tel:* ${tel}%0A`;
-                msg += `🏆 *Sèvis:* ${service}%0A`;
-                msg += `🔄 *Plan:* ${amt} Gdes / ${freq}%0A`;
-                msg += `⏳ *Peryòd:* ${dur} vèsman%0A`;
-                msg += `💰 *TOTAL DWE:* ${total} Gdes%0A`;
-                
-                window.open(`https://wa.me/50942017744?text=${msg}`);
-            } catch (e) {
-                alert("Errè: Done yo pa sove.");
-            }
-        }
-    </script>
+        if(!d.nom || !d.total) return alert("Ranpli fòm nan!");
+        await db.collection("sol_inscriptions").add(d);
+        window.open(`https://wa.me/50942017744?text=Enskripsyon Sòl: ${d.nom} - ${d.serv} - Total: ${d.total} Gdes`);
+    }
+</script>
 </body>
 </html>
