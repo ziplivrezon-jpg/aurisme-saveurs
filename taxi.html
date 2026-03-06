@@ -31,6 +31,7 @@
         .btn-navette { background: var(--bordeaux); color: white; }
 
         .safety-box { background: #fffde7; border: 1px solid var(--gold); padding: 15px; border-radius: 15px; font-size: 13px; margin-top: 10px; text-align: left; }
+        .urgent-badge { background: #ffeded; color: #d32f2f; padding: 5px 10px; border-radius: 5px; font-size: 12px; display: inline-block; margin-bottom: 10px; font-weight: bold; border: 1px solid #d32f2f; }
         .icon-section { font-size: 40px; color: var(--gold); display: block; text-align: center; margin-bottom: 10px; }
     </style>
 </head>
@@ -103,10 +104,25 @@
             <i class="fas fa-shuttle-van icon-section" style="color: var(--navy);"></i>
             <h2 id="txt-navette-title">NAVETTE AÉROPORT</h2>
             
+            <div class="urgent-badge" id="badge-anti-blokus"><i class="fas fa-bolt"></i> Option Anti-Blokus disponible</div>
+
             <label id="lbl-nav-type">Type de Réservation :</label>
             <select class="zone-select" id="navette-type">
                 <option value="Hôtel vers Aéroport" id="opt-h-a">Hôtel ➔ Aéroport</option>
                 <option value="Aéroport vers Hôtel" id="opt-a-h">Aéroport ➔ Hôtel</option>
+            </select>
+
+            <label id="lbl-vehicle">Véhicule souhaité :</label>
+            <select class="zone-select" id="vehicle-type">
+                <option value="Machin (Confort)">Machin (Confort + Valises)</option>
+                <option value="Moto Express (Anti-Blokus)">Moto Express (Anti-Blokus)</option>
+            </select>
+
+            <label id="lbl-luggage">Nombre de bagages :</label>
+            <select class="zone-select" id="luggage-count">
+                <option value="Aucun">Aucun (Sac à dos uniquement)</option>
+                <option value="1 Valise">1 Valise (Moyenne)</option>
+                <option value="2 valises ou plus">2 valises ou plus (Machin recommandé)</option>
             </select>
 
             <label id="lbl-hotel">Nom de l'Hôtel & Heure :</label>
@@ -146,6 +162,7 @@
                 btnN: "RÉSERVER LA NAVETTE", btnC: "APPEL DIRECT",
                 choose: "-- Choisir un trajet --", h_a: "Hôtel ➔ Aéroport", a_h: "Aéroport ➔ Hôtel",
                 hotel: "Nom de l'Hôtel & Heure :",
+                vehicle: "Véhicule souhaité :", luggage: "Bagages :",
                 safety: "<strong><i class='fas fa-lock'></i> SÉCURITÉ AURISME :</strong><br>Tous nos chauffeurs sont certifiés. Partagez votre trajet.",
                 shareMsg: "Je suis en route avec Aurisme Taxi Moto.\nVers: "
             },
@@ -158,6 +175,7 @@
                 btnN: "BOOK SHUTTLE", btnC: "DIRECT CALL",
                 choose: "-- Choose a route --", h_a: "Hotel ➔ Airport", a_h: "Airport ➔ Hotel",
                 hotel: "Hotel Name & Time:",
+                vehicle: "Vehicle Type:", luggage: "Luggage:",
                 safety: "<strong><i class='fas fa-lock'></i> AURISME SAFETY:</strong><br>All drivers are certified. Share your trip for safety.",
                 shareMsg: "I am on my way with Aurisme Taxi Moto.\nTo: "
             },
@@ -170,6 +188,7 @@
                 btnN: "REZÈVE NAVÈT LA", btnC: "RELE DIRÈK",
                 choose: "-- Chwazi yon kous --", h_a: "Otèl ➔ Eyèpòt", a_h: "Eyèpòt ➔ Otèl",
                 hotel: "Non Otèl & Lè:",
+                vehicle: "Kalite Transpò:", luggage: "Kantite Valiz:",
                 safety: "<strong><i class='fas fa-lock'></i> SEKIRITE AURISME:</strong><br>Tout chofè nou yo sètifye. Pataje kous ou pou sekirite w.",
                 shareMsg: "Mwen nan wout ak Aurisme Taxi Moto.\nZòn: "
             }
@@ -187,6 +206,8 @@
             document.getElementById('lbl-pay-nav').innerText = t.pay;
             document.getElementById('lbl-nav-type').innerText = t.route;
             document.getElementById('lbl-hotel').innerText = t.hotel;
+            document.getElementById('lbl-vehicle').innerText = t.vehicle;
+            document.getElementById('lbl-luggage').innerText = t.luggage;
             document.getElementById('btn-moto').innerText = t.btnM;
             document.getElementById('btn-share').innerText = t.btnS;
             document.getElementById('btn-nav').innerText = t.btnN;
@@ -200,7 +221,6 @@
 
         function orderWhatsApp(type) {
             var tel = "50942017744";
-            var lang = localStorage.getItem('aurisme_moto_lang') || 'fr';
             var msg = "";
 
             if(type === 'Moto') {
@@ -211,9 +231,11 @@
                 msg = `*RESERVATION TAXI MOTO*\n📍 Route: ${zone}\n🗣 Driver Lang: ${dLang}\n🏍 Info: ${info}\n💳 Pay: ${pay}`;
             } else {
                 var voyage = document.getElementById('navette-type').value;
+                var vehicule = document.getElementById('vehicle-type').value;
+                var luggage = document.getElementById('luggage-count').value;
                 var hotel = document.getElementById('hotel-info').value || "N/A";
                 var pay = document.getElementById('navette-payment').value;
-                msg = `*RESERVATION NAVETTE*\n🚐 Type: ${voyage}\n🏨 Hotel/Time: ${hotel}\n💳 Pay: ${pay}`;
+                msg = `*RESERVATION NAVETTE*\n🚐 Type: ${voyage}\n🚗 Véhicule: ${vehicule}\n🧳 Bagages: ${luggage}\n🏨 Hotel/Time: ${hotel}\n💳 Pay: ${pay}`;
             }
             window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent(msg));
         }
