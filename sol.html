@@ -171,26 +171,32 @@
 
     async function sendData() {
         const nom = document.getElementById('u-name').value;
-        const tel = document.getElementById('u-tel').value;
+        const tel_client = document.getElementById('u-tel').value;
+        const nif_cin = document.getElementById('u-id').value || "N/A";
         const serv = document.getElementById('u-service').value;
         const total = document.getElementById('u-total').value;
         const peman = document.getElementById('u-pay').value;
-        const freq = document.getElementById('u-freq').value;
+        const freq = document.getElementById('u-freq').options[document.getElementById('u-freq').selectedIndex].text;
 
         if(!nom || !total || !peman) {
-            alert("Tanpri ranpli tout bwat yo!");
+            alert("Tanpri ranpli Non, Montan Total ak Vèsman!");
             return;
         }
 
-        const d = { nom, tel, serv, total, peman, freq, dat: new Date().toLocaleString() };
+        const d = { nom, tel_client, nif_cin, serv, total, peman, freq, dat: new Date().toLocaleString() };
 
         try {
+            // Sove nan Firebase
             await db.collection("sol_inscriptions").add(d);
-            const waMsg = `*INSCRIPTION SÒL AURISME*\n👤 Nom: ${nom}\n🎁 Sèvis: ${serv}\n💰 Total: ${total} Gdes\n📅 Vèsman: ${peman} Gdes (${freq})`;
-            window.open(`https://wa.me/50942017744?text=${encodeURIComponent(waMsg)}`);
+            
+            // Louvri WhatsApp ak nimewo 50942017744 la
+            const waNum = "50942017744";
+            const waMsg = `*NOUVEL ENSKRIPSYON SÒL*\n\n👤 *Non:* ${nom}\n📞 *WhatsApp:* ${tel_client}\n🆔 *ID:* ${nif_cin}\n🎁 *Sèvis:* ${serv}\n💰 *Montan Total:* ${total} Gdes\n📅 *Vèsman:* ${peman} Gdes\n🔄 *Frekans:* ${freq}`;
+            
+            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(waMsg)}`);
         } catch(e) {
             console.error(e);
-            alert("Erreur Firebase. Verifikasyon koneksyon.");
+            alert("Gen yon erè nan sistèm nan. Verifye koneksyon w.");
         }
     }
 
@@ -200,4 +206,5 @@
     };
 </script>
 </body>
-</html>
+    </html>
+    
