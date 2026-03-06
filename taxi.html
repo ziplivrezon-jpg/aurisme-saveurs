@@ -9,7 +9,6 @@
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #25D366; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; color: #333; }
         
-        /* Lang Bar */
         .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .lang-bar button { border: none; background: #eee; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: bold; color: var(--navy); }
 
@@ -57,7 +56,7 @@
             <label id="lbl-route">Votre Itinéraire / Zone :</label>
             <select class="zone-select" id="zone-list">
                 <option value="Non spécifiée" id="opt-choose">-- Choisir un trajet --</option>
-                <optgroup label="Zones Principales" id="grp-main">
+                <optgroup label="Zones Principales">
                     <option value="Péguy-Ville">Péguy-Ville</option>
                     <option value="Pétion-Ville">Pétion-Ville</option>
                     <option value="Laboule / Thomassin">Laboule / Thomassin</option>
@@ -65,21 +64,6 @@
                     <option value="Route de Frères">Route de Frères</option>
                     <option value="Tabarre">Tabarre</option>
                 </optgroup>
-                <optgroup label="Autres / Tourist" id="grp-tour">
-                    <option value="Aéroport / Airport">Aéroport / Airport</option>
-                    <option value="Kenscoff">Kenscoff</option>
-                    <option value="Malpasse / Frontière">Malpasse / Frontière</option>
-                </optgroup>
-            </select>
-
-            <label id="lbl-driver">Infos Chauffeur & Plaque (Optionnel) :</label>
-            <input type="text" id="driver-info" class="input-field" placeholder="Ex: Jean / Plaque: AA-0000">
-
-            <label id="lbl-lang">Langue du Chauffeur (Tourist):</label>
-            <select class="zone-select" id="driver-lang">
-                <option value="Kreyòl">Kreyòl</option>
-                <option value="Français">Français</option>
-                <option value="English">English</option>
             </select>
 
             <label id="lbl-pay-moto">Mode de Paiement :</label>
@@ -87,16 +71,15 @@
                 <option value="Natcash">Natcash</option>
                 <option value="Moncash">Moncash</option>
                 <option value="Cash">Cash</option>
-                <option value="Chèque">Chèque</option>
-                <option value="Zelle/PayPal">Zelle / PayPal (Intl)</option>
+                <option value="Zelle/PayPal">Zelle / PayPal</option>
             </select>
 
             <button onclick="orderWhatsApp('Moto')" class="btn-action btn-whatsapp">
                 <i class="fab fa-whatsapp"></i> <span id="btn-moto">COMMANDER MOTO</span>
             </button>
 
-            <button onclick="shareTrip()" class="btn-action btn-share">
-                <i class="fas fa-user-shield"></i> <span id="btn-share">PARTAGER À MA FAMILLE</span>
+            <button onclick="shareTrip('Moto')" class="btn-action btn-share">
+                <i class="fas fa-user-shield"></i> <span id="btn-share-moto">PARTAGER À MA FAMILLE</span>
             </button>
         </div>
 
@@ -104,7 +87,7 @@
             <i class="fas fa-shuttle-van icon-section" style="color: var(--navy);"></i>
             <h2 id="txt-navette-title">NAVETTE AÉROPORT</h2>
             
-            <div class="urgent-badge" id="badge-anti-blokus"><i class="fas fa-bolt"></i> Option Anti-Blokus disponible</div>
+            <div class="urgent-badge"><i class="fas fa-bolt"></i> Option Anti-Blokus (Moto) disponible</div>
 
             <label id="lbl-nav-type">Type de Réservation :</label>
             <select class="zone-select" id="navette-type">
@@ -118,26 +101,15 @@
                 <option value="Moto Express (Anti-Blokus)">Moto Express (Anti-Blokus)</option>
             </select>
 
-            <label id="lbl-luggage">Nombre de bagages :</label>
-            <select class="zone-select" id="luggage-count">
-                <option value="Aucun">Aucun (Sac à dos uniquement)</option>
-                <option value="1 Valise">1 Valise (Moyenne)</option>
-                <option value="2 valises ou plus">2 valises ou plus (Machin recommandé)</option>
-            </select>
-
             <label id="lbl-hotel">Nom de l'Hôtel & Heure :</label>
             <input type="text" id="hotel-info" class="input-field" placeholder="Ex: Karibe Hôtel / 10:00 AM">
 
-            <label id="lbl-pay-nav">Mode de Paiement :</label>
-            <select class="zone-select" id="navette-payment">
-                <option value="Natcash">Natcash</option>
-                <option value="Moncash">Moncash</option>
-                <option value="Cash">Cash</option>
-                <option value="Zelle/PayPal">Zelle / PayPal</option>
-            </select>
-
             <button onclick="orderWhatsApp('Navette')" class="btn-action btn-navette">
                 <i class="fas fa-calendar-check"></i> <span id="btn-nav">RÉSERVER LA NAVETTE</span>
+            </button>
+
+            <button onclick="shareTrip('Navette')" class="btn-action btn-share">
+                <i class="fas fa-user-shield"></i> <span id="btn-share-nav">PARTAGER À MA FAMILLE</span>
             </button>
         </div>
 
@@ -156,41 +128,26 @@
             fr: {
                 header: "Services Transport Aurisme",
                 motoT: "TAXI MOTO SÉCURISÉ", navT: "NAVETTE AÉROPORT",
-                route: "Votre Itinéraire / Zone :", driver: "Infos Chauffeur (Optionnel) :",
-                lang: "Langue du Chauffeur :", pay: "Mode de Paiement :",
-                btnM: "COMMANDER MOTO", btnS: "PARTAGER À MA FAMILLE",
-                btnN: "RÉSERVER LA NAVETTE", btnC: "APPEL DIRECT",
-                choose: "-- Choisir un trajet --", h_a: "Hôtel ➔ Aéroport", a_h: "Aéroport ➔ Hôtel",
-                hotel: "Nom de l'Hôtel & Heure :",
-                vehicle: "Véhicule souhaité :", luggage: "Bagages :",
-                safety: "<strong><i class='fas fa-lock'></i> SÉCURITÉ AURISME :</strong><br>Tous nos chauffeurs sont certifiés. Partagez votre trajet.",
-                shareMsg: "Je suis en route avec Aurisme Taxi Moto.\nVers: "
+                btnM: "COMMANDER MOTO", btnN: "RÉSERVER LA NAVETTE",
+                btnS: "PARTAGER À MA FAMILLE",
+                shareMsgM: "Je suis en route avec Aurisme Taxi Moto vers: ",
+                shareMsgN: "Je prends une Navette Aurisme (Aéroport). Type: "
             },
             en: {
                 header: "Aurisme Transport Services",
                 motoT: "SECURE MOTO TAXI", navT: "AIRPORT SHUTTLE",
-                route: "Your Route / Area:", driver: "Driver Info (Optional):",
-                lang: "Driver's Language:", pay: "Payment Method:",
-                btnM: "ORDER MOTO", btnS: "SHARE WITH FAMILY",
-                btnN: "BOOK SHUTTLE", btnC: "DIRECT CALL",
-                choose: "-- Choose a route --", h_a: "Hotel ➔ Airport", a_h: "Airport ➔ Hotel",
-                hotel: "Hotel Name & Time:",
-                vehicle: "Vehicle Type:", luggage: "Luggage:",
-                safety: "<strong><i class='fas fa-lock'></i> AURISME SAFETY:</strong><br>All drivers are certified. Share your trip for safety.",
-                shareMsg: "I am on my way with Aurisme Taxi Moto.\nTo: "
+                btnM: "ORDER MOTO", btnN: "BOOK SHUTTLE",
+                btnS: "SHARE WITH FAMILY",
+                shareMsgM: "I am on my way with Aurisme Taxi Moto to: ",
+                shareMsgN: "I am taking an Aurisme Shuttle (Airport). Type: "
             },
             ht: {
                 header: "Sèvis Transpò Aurisme",
                 motoT: "TAKSI MOTO AN SEKIRITE", navT: "NAVÈT EYÈPÒT",
-                route: "Itinerè / Zòn ou:", driver: "Enfo Chofè (Si w vle):",
-                lang: "Lang Chofè a pale:", pay: "Fason w ap peye:",
-                btnM: "KOMANDE MOTO", btnS: "PATAJE AK FANMI M",
-                btnN: "REZÈVE NAVÈT LA", btnC: "RELE DIRÈK",
-                choose: "-- Chwazi yon kous --", h_a: "Otèl ➔ Eyèpòt", a_h: "Eyèpòt ➔ Otèl",
-                hotel: "Non Otèl & Lè:",
-                vehicle: "Kalite Transpò:", luggage: "Kantite Valiz:",
-                safety: "<strong><i class='fas fa-lock'></i> SEKIRITE AURISME:</strong><br>Tout chofè nou yo sètifye. Pataje kous ou pou sekirite w.",
-                shareMsg: "Mwen nan wout ak Aurisme Taxi Moto.\nZòn: "
+                btnM: "KOMANDE MOTO", btnN: "REZÈVE NAVÈT LA",
+                btnS: "PATAJE AK FANMI M",
+                shareMsgM: "Mwen nan wout ak Aurisme Taxi Moto pou m ale: ",
+                shareMsgN: "Mwen pran yon Navèt Aurisme (Eyèpòt). Tip: "
             }
         };
 
@@ -199,52 +156,30 @@
             document.getElementById('txt-header').innerText = t.header;
             document.getElementById('txt-moto-title').innerText = t.motoT;
             document.getElementById('txt-navette-title').innerText = t.navT;
-            document.getElementById('lbl-route').innerText = t.route;
-            document.getElementById('lbl-driver').innerText = t.driver;
-            document.getElementById('lbl-lang').innerText = t.lang;
-            document.getElementById('lbl-pay-moto').innerText = t.pay;
-            document.getElementById('lbl-pay-nav').innerText = t.pay;
-            document.getElementById('lbl-nav-type').innerText = t.route;
-            document.getElementById('lbl-hotel').innerText = t.hotel;
-            document.getElementById('lbl-vehicle').innerText = t.vehicle;
-            document.getElementById('lbl-luggage').innerText = t.luggage;
             document.getElementById('btn-moto').innerText = t.btnM;
-            document.getElementById('btn-share').innerText = t.btnS;
             document.getElementById('btn-nav').innerText = t.btnN;
-            document.getElementById('btn-call').innerText = t.btnC;
-            document.getElementById('opt-choose').innerText = t.choose;
-            document.getElementById('opt-h-a').innerText = t.h_a;
-            document.getElementById('opt-a-h').innerText = t.a_h;
-            document.getElementById('safety-txt').innerHTML = t.safety;
+            document.getElementById('btn-share-moto').innerText = t.btnS;
+            document.getElementById('btn-share-nav').innerText = t.btnS;
             localStorage.setItem('aurisme_moto_lang', lang);
         }
 
         function orderWhatsApp(type) {
             var tel = "50942017744";
-            var msg = "";
-
-            if(type === 'Moto') {
-                var zone = document.getElementById('zone-list').value;
-                var info = document.getElementById('driver-info').value || "N/A";
-                var dLang = document.getElementById('driver-lang').value;
-                var pay = document.getElementById('moto-payment').value;
-                msg = `*RESERVATION TAXI MOTO*\n📍 Route: ${zone}\n🗣 Driver Lang: ${dLang}\n🏍 Info: ${info}\n💳 Pay: ${pay}`;
-            } else {
-                var voyage = document.getElementById('navette-type').value;
-                var vehicule = document.getElementById('vehicle-type').value;
-                var luggage = document.getElementById('luggage-count').value;
-                var hotel = document.getElementById('hotel-info').value || "N/A";
-                var pay = document.getElementById('navette-payment').value;
-                msg = `*RESERVATION NAVETTE*\n🚐 Type: ${voyage}\n🚗 Véhicule: ${vehicule}\n🧳 Bagages: ${luggage}\n🏨 Hotel/Time: ${hotel}\n💳 Pay: ${pay}`;
-            }
+            var msg = (type === 'Moto') ? 
+                `*RESERVATION TAXI MOTO*\n📍 Zone: ${document.getElementById('zone-list').value}` :
+                `*RESERVATION NAVETTE*\n🚐 Type: ${document.getElementById('navette-type').value}\n🚗 Véhicule: ${document.getElementById('vehicle-type').value}\n🏨 Hotel: ${document.getElementById('hotel-info').value}`;
             window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent(msg));
         }
 
-        function shareTrip() {
+        function shareTrip(type) {
             var lang = localStorage.getItem('aurisme_moto_lang') || 'fr';
-            var zone = document.getElementById('zone-list').value;
-            var info = document.getElementById('driver-info').value || "...";
-            var textMsg = translations[lang].shareMsg + zone + "\n🏍 Chauffeur: " + info;
+            var textMsg = "";
+            
+            if(type === 'Moto') {
+                textMsg = translations[lang].shareMsgM + document.getElementById('zone-list').value;
+            } else {
+                textMsg = translations[lang].shareMsgN + document.getElementById('navette-type').value + " (" + document.getElementById('vehicle-type').value + ")";
+            }
 
             if (navigator.share) {
                 navigator.share({ title: 'Aurisme Safety', text: textMsg }).catch(console.error);
