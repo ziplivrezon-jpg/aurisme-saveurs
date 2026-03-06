@@ -25,9 +25,7 @@
         h3 { margin-top: 0; color: var(--navy); font-size: 19px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
         label { font-size: 13px; font-weight: 700; display: block; margin-top: 15px; color: #444; }
         input, select { width: 100%; padding: 14px; margin-top: 6px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; transition: 0.3s; }
-        input:focus { border-color: var(--gold); outline: none; background: var(--light-gold); }
-
-        /* Summary Box */
+        
         .summary { background: var(--light-gold); border: 1px dashed var(--gold); padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 14px; color: var(--bordeaux); display: none; }
 
         .btn-send { background: var(--bordeaux); color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 12px rgba(128, 0, 0, 0.3); }
@@ -38,9 +36,9 @@
 <body>
 
     <div class="lang-bar">
-        <button class="lang-btn active" onclick="setLanguage('fr', this)">FR</button>
-        <button class="lang-btn" onclick="setLanguage('en', this)">EN</button>
-        <button class="lang-btn" onclick="setLanguage('ht', this)">HT</button>
+        <button id="btn-fr" class="lang-btn active" onclick="setLanguage('fr', this)">FR</button>
+        <button id="btn-en" class="lang-btn" onclick="setLanguage('en', this)">EN</button>
+        <button id="btn-ht" class="lang-btn" onclick="setLanguage('ht', this)">HT</button>
     </div>
 
     <header>
@@ -77,10 +75,10 @@
             </select>
 
             <label id="l-total">Montant Total du Sòl (Gdes) :</label>
-            <input type="number" id="u-total" oninput="calculateSol()" placeholder="Egz: 50000">
+            <input type="number" id="u-total" oninput="calculateSol()" placeholder="...">
 
             <label id="l-pay">Versement par période (Gdes) :</label>
-            <input type="number" id="u-pay" oninput="calculateSol()" placeholder="Egz: 5000">
+            <input type="number" id="u-pay" oninput="calculateSol()" placeholder="...">
 
             <label id="l-freq">Fréquence :</label>
             <select id="u-freq" onchange="calculateSol()">
@@ -106,70 +104,100 @@
             sol: "2. Détails du Sòl", name: "Nom Complet :", tel: "WhatsApp :", 
             id: "NIF / CIN :", serv: "Service :", total: "Montant Total (Gdes) :", 
             pay: "Versement (Gdes) :", freq: "Fréquence :", btn: "S'INSCRIRE AU SÒL",
-            res: "Votre plan durera environ "
+            res: "Votre plan durera environ ", f1: "Chaque Semaine", f2: "Chaque 15 jours", f3: "Chaque Mois"
+        },
+        en: {
+            header: "Aurisme Prestige Savings", home: "Home", reg: "1. Registration", 
+            sol: "2. Savings Details", name: "Full Name:", tel: "WhatsApp:", 
+            id: "ID (NIF/CIN):", serv: "Service:", total: "Total Amount (Gdes):", 
+            pay: "Payment (Gdes):", freq: "Frequency:", btn: "REGISTER NOW",
+            res: "Your plan will last about ", f1: "Weekly", f2: "Every 15 days", f3: "Monthly"
         },
         ht: {
             header: "Sòl Aurisme Prestige", home: "Akèy", reg: "1. Enskripsyon", 
             sol: "2. Detay Sòl la", name: "Non Konplè :", tel: "WhatsApp :", 
             id: "NIF / CIN :", serv: "Sèvis :", total: "Montan Total (Gdes) :", 
             pay: "Vèsman (Gdes) :", freq: "Frekans :", btn: "ENSKRI NAN SÒL LA",
-            res: "Plan ou a ap dire anviwon "
+            res: "Plan ou a ap dire anviwon ", f1: "Chak Semèn", f2: "Chak 15 jou", f3: "Chak Mwa"
         }
     };
-
-    function calculateSol() {
-        const total = document.getElementById('u-total').value;
-        const pay = document.getElementById('u-pay').value;
-        const summary = document.getElementById('sol-summary');
-        const text = document.getElementById('summary-text');
-        
-        if (total > 0 && pay > 0) {
-            const rounds = Math.ceil(total / pay);
-            const freq = document.getElementById('u-freq').value;
-            const lang = localStorage.getItem('aurisme_lang') || 'fr';
-            summary.style.display = "block";
-            text.innerText = translations[lang].res + rounds + " " + freq + "(s).";
-        } else {
-            summary.style.display = "none";
-        }
-    }
 
     function setLanguage(lang, btn) {
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         localStorage.setItem('aurisme_lang', lang);
+        
         const t = translations[lang];
-        // ... (met à jour les textes comme ton code original)
         document.getElementById('t-header').innerText = t.header;
+        document.getElementById('t-home').innerText = t.home;
+        document.getElementById('t-reg-title').innerText = t.reg;
+        document.getElementById('t-sol-title').innerText = t.sol;
+        document.getElementById('l-name').innerText = t.name;
+        document.getElementById('l-tel').innerText = t.tel;
+        document.getElementById('l-id').innerText = t.id;
+        document.getElementById('l-service').innerText = t.serv;
+        document.getElementById('l-total').innerText = t.total;
+        document.getElementById('l-pay').innerText = t.pay;
+        document.getElementById('l-freq').innerText = t.freq;
         document.getElementById('t-btn').innerText = t.btn;
+        document.getElementById('f1').innerText = t.f1;
+        document.getElementById('f2').innerText = t.f2;
+        document.getElementById('f3').innerText = t.f3;
+        
         calculateSol();
     }
 
-    // FIREBASE (Gardé tel quel)
+    function calculateSol() {
+        const total = parseFloat(document.getElementById('u-total').value);
+        const pay = parseFloat(document.getElementById('u-pay').value);
+        const summary = document.getElementById('sol-summary');
+        const text = document.getElementById('summary-text');
+        const lang = localStorage.getItem('aurisme_lang') || 'fr';
+        
+        if (total > 0 && pay > 0) {
+            const rounds = Math.ceil(total / pay);
+            const freq = document.getElementById('u-freq').options[document.getElementById('u-freq').selectedIndex].text;
+            summary.style.display = "block";
+            text.innerText = translations[lang].res + rounds + " " + freq.toLowerCase() + ".";
+        } else {
+            summary.style.display = "none";
+        }
+    }
+
+    // FIREBASE
     const firebaseConfig = { apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", authDomain: "aurisme-saveurs.firebaseapp.com", projectId: "aurisme-saveurs", storageBucket: "aurisme-saveurs.appspot.com", messagingSenderId: "365315354512", appId: "1:365315354512:web:7f6d49480a4237f3944630" };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
     async function sendData() {
-        const d = { 
-            nom: document.getElementById('u-name').value, 
-            tel: document.getElementById('u-tel').value, 
-            serv: document.getElementById('u-service').value, 
-            total: document.getElementById('u-total').value,
-            peman: document.getElementById('u-pay').value,
-            freq: document.getElementById('u-freq').value,
-            dat: new Date().toLocaleString()
-        };
-        if(!d.nom || !d.total || !d.peman) return alert("Tanpri ranpli tout bwat yo!");
-        
+        const nom = document.getElementById('u-name').value;
+        const tel = document.getElementById('u-tel').value;
+        const serv = document.getElementById('u-service').value;
+        const total = document.getElementById('u-total').value;
+        const peman = document.getElementById('u-pay').value;
+        const freq = document.getElementById('u-freq').value;
+
+        if(!nom || !total || !peman) {
+            alert("Tanpri ranpli tout bwat yo!");
+            return;
+        }
+
+        const d = { nom, tel, serv, total, peman, freq, dat: new Date().toLocaleString() };
+
         try {
             await db.collection("sol_inscriptions").add(d);
-            const waMsg = `*INSCRIPTION SÒL AURISME*\n👤 Nom: ${d.nom}\n🎁 Sèvis: ${d.serv}\n💰 Total: ${d.total} Gdes\n📅 Vèsman: ${d.peman} Gdes (${d.freq})`;
+            const waMsg = `*INSCRIPTION SÒL AURISME*\n👤 Nom: ${nom}\n🎁 Sèvis: ${serv}\n💰 Total: ${total} Gdes\n📅 Vèsman: ${peman} Gdes (${freq})`;
             window.open(`https://wa.me/50942017744?text=${encodeURIComponent(waMsg)}`);
         } catch(e) {
-            alert("Erreur de connexion Firebase.");
+            console.error(e);
+            alert("Erreur Firebase. Verifikasyon koneksyon.");
         }
     }
+
+    window.onload = () => {
+        const savedLang = localStorage.getItem('aurisme_lang') || 'fr';
+        setLanguage(savedLang, document.getElementById('btn-' + savedLang));
+    };
 </script>
 </body>
 </html>
