@@ -9,6 +9,9 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --bg: #F8F9FA; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; overflow-x: hidden; }
@@ -51,10 +54,13 @@
 
         /* MODALS */
         .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center; padding: 20px; }
-        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 8px solid var(--gold); }
+        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 380px; text-align: center; border-top: 8px solid var(--gold); }
         .modal-btn { width: 100%; padding: 15px; margin-top: 10px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; }
         .btn-google { background: #f1f1f1; color: #333; }
         .btn-whatsapp { background: var(--bordeaux); color: white; }
+
+        /* MAP STYLE */
+        #map { height: 220px; width: 100%; border-radius: 15px; margin: 15px 0; border: 2px solid var(--gold); z-index: 5; }
 
         /* TOURIST TIP */
         .tourist-badge { background: #e3f2fd; color: #0d47a1; padding: 10px; border-radius: 10px; font-size: 12px; margin-top: 15px; display: flex; align-items: center; gap: 8px; font-style: italic; }
@@ -124,9 +130,11 @@
 
     <div id="trackModal" class="modal">
         <div class="modal-content">
-            <i class="fas fa-truck-loading" style="font-size: 40px; color: var(--gold);"></i>
-            <h3 id="trackStatus">...</h3>
-            <div id="trackDetails" style="text-align: left; margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 12px; font-size: 14px;"></div>
+            <h3 id="trackStatus" style="color: var(--navy); margin-bottom: 5px;">Recherche...</h3>
+            
+            <div id="map"></div>
+
+            <div id="trackDetails" style="text-align: left; margin-bottom: 15px; padding: 12px; background: #f9f9f9; border-radius: 12px; font-size: 13px;"></div>
             <button class="modal-btn btn-whatsapp" onclick="closeModal()" id="btn-close-track">Fermer</button>
         </div>
     </div>
@@ -137,6 +145,15 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const myPhone = "50942017744";
+
+        let map, marker;
+
+        // Icône personnalisée Moto
+        const motoIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40]
+        });
 
         const translations = {
             fr: {
@@ -210,19 +227,31 @@
             const lang = localStorage.getItem('aurisme_liv_lang') || 'fr';
             if(!id) return;
 
-            const statusH3 = document.getElementById('trackStatus');
-            const detailsP = document.getElementById('trackDetails');
             document.getElementById('trackModal').style.display = 'flex';
-            statusH3.innerText = translations[lang].search;
+            document.getElementById('trackStatus').innerText = translations[lang].search;
+
+            if (!map) {
+                map = L.map('map').setView([18.5392, -72.2854], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                marker = L.marker([18.5392, -72.2854], { icon: motoIcon }).addTo(map);
+            }
+
+            setTimeout(() => { map.invalidateSize(); }, 300);
 
             db.collection("orders_tracking").doc(id).onSnapshot((doc) => {
                 if (doc.exists) {
                     const d = doc.data();
-                    statusH3.innerText = d.status;
-                    detailsP.innerHTML = `<strong>Courier:</strong> ${d.courier}<br><strong>Update:</strong> ${d.lastUpdate}`;
+                    document.getElementById('trackStatus').innerText = d.status;
+                    document.getElementById('trackDetails').innerHTML = `<strong>Livreur:</strong> ${d.courier}<br><strong>Dernière position:</strong> ${d.lastUpdate}`;
+                    
+                    if (d.lat && d.lng) {
+                        const pos = [d.lat, d.lng];
+                        marker.setLatLng(pos);
+                        map.panTo(pos);
+                    }
                 } else {
-                    statusH3.innerText = translations[lang].noId;
-                    detailsP.innerText = "...";
+                    document.getElementById('trackStatus').innerText = translations[lang].noId;
+                    document.getElementById('trackDetails').innerText = "Veuillez entrer un ID valide.";
                 }
             });
         }
@@ -249,4 +278,5 @@
         window.onload = () => changeLang(localStorage.getItem('aurisme_liv_lang') || 'fr');
     </script>
 </body>
-</html>
+            </html>
+                    
