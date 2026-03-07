@@ -9,20 +9,19 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #27ae60; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; overflow: hidden; }
         
-        /* Sidebar */
         .sidebar { width: 320px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); z-index: 10; overflow-y: auto; height: 100vh; }
         
         .brand-container { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--gold); }
-        .admin-logo { width: 85px; height: auto; max-height: 85px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.1)); }
-        .brand-name { color: var(--bordeaux); font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
+        .admin-logo { width: 85px; height: auto; max-height: 85px; margin-bottom: 10px; filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.1)); }
+        .brand-name { color: var(--bordeaux); font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0; }
         .brand-sub { font-size: 10px; color: var(--navy); display: block; font-weight: bold; }
 
-        /* Dashboard Stats */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .stat-card { background: #f9f9f9; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
         .stat-card span { display: block; font-size: 9px; color: #666; text-transform: uppercase; font-weight: bold; }
@@ -30,16 +29,13 @@
 
         h3 { font-size: 13px; color: var(--navy); margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 10px; text-transform: uppercase; }
         .form-group { margin-bottom: 10px; }
-        label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; color: var(--navy); }
         input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 13px; }
         
-        .btn-update { width: 100%; background: var(--navy); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 5px; }
-        .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 5px; }
-        .btn-download { width: 100%; background: #555; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-update { width: 100%; background: var(--navy); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-download { width: 100%; background: #e74c3c; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         
-        .history-item { padding: 8px 0; border-bottom: 1px dotted #eee; font-size: 12px; }
-
-        /* Map */
+        .history-item { padding: 8px 0; border-bottom: 1px dotted #eee; font-size: 11px; }
         #adminMap { flex: 1; height: 100%; }
         hr { border: 0; border-top: 1px solid #eee; margin: 15px 0; }
     </style>
@@ -48,7 +44,7 @@
 
     <div class="sidebar">
         <div class="brand-container">
-            <img src="Logo.png" alt="Logo Aurisme" class="admin-logo">
+            <img src="Logo.png" alt="Logo" class="admin-logo" id="logoImg">
             <h1 class="brand-name">Aurisme Saveurs</h1>
             <span class="brand-sub">Et Services</span>
         </div>
@@ -56,29 +52,24 @@
         <div class="stats-grid">
             <div class="stat-card"><span>Saveurs</span><b id="stat-commande">0</b></div>
             <div class="stat-card"><span>Services</span><b id="stat-livraison">0</b></div>
-            <div class="stat-card" style="grid-column: span 2;"><span>Chiffre d'Affaires (HTG)</span><b id="stat-total">0</b></div>
+            <div class="stat-card" style="grid-column: span 2;"><span>Total (HTG)</span><b id="stat-total">0</b></div>
         </div>
 
         <h3><i class="fas fa-truck"></i> Suivi Livraison</h3>
+        <div class="form-group"><input type="text" id="orderID" placeholder="ID AUR-101"></div>
         <div class="form-group">
-            <label>ID COMMANDE</label>
-            <input type="text" id="orderID" placeholder="AUR-101">
-        </div>
-        <div class="form-group">
-            <label>STATUT</label>
             <select id="orderStatus">
                 <option value="📦 Préparation">📦 Préparation</option>
                 <option value="🛵 En route">🛵 En route</option>
                 <option value="✅ Livré">✅ Livré</option>
-                <option value="❌ Annulé">❌ Annulé</option>
             </select>
         </div>
-        <button class="btn-update" onclick="updateOrder()">Mise à jour Carte</button>
+        <button class="btn-update" onclick="updateOrder()">Mise à jour</button>
         
         <hr>
 
-        <h3><i class="fas fa-wallet"></i> Enregistrer une Vente</h3>
-        <div class="form-group"><input type="text" id="venteNom" placeholder="Nom Client"></div>
+        <h3><i class="fas fa-wallet"></i> Nouvel Enregistrement</h3>
+        <div class="form-group"><input type="text" id="venteNom" placeholder="Client / Détails"></div>
         <div class="form-group">
             <select id="venteCat">
                 <option value="Saveurs">Aurisme Saveurs (Gâteaux)</option>
@@ -86,21 +77,20 @@
             </select>
         </div>
         <div class="form-group"><input type="number" id="venteMontant" placeholder="Montant HTG"></div>
-        <button class="btn-save" onclick="soveVente()">Sove nan Dashboard</button>
+        <button class="btn-save" onclick="soveVente()">Sove</button>
 
         <hr>
 
-        <h3><i class="fas fa-history"></i> Dènye Lavant</h3>
+        <h3><i class="fas fa-file-pdf"></i> Rapò PDF</h3>
         <div id="ti-lis-istorik"></div>
-        <button class="btn-download" onclick="downloadData()"><i class="fas fa-file-download"></i> Telechaje Lis la (TXT)</button>
-        
+        <button class="btn-download" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Telechaje Lis la (PDF)</button>
         <br><br>
     </div>
 
     <div id="adminMap"></div>
 
     <script>
-        // FIREBASE (Ranplase ak enfòmasyon ou yo)
+        // CONFIG FIREBASE (Rete menm jan an)
         const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -130,14 +120,13 @@
 
         function updateDashboard() {
             let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
-            let total = 0, saveurs = 0, services = 0;
-            let htmlIstwa = "";
+            let total = 0, saveurs = 0, services = 0, htmlIstwa = "";
 
             data.slice().reverse().forEach((v, index) => {
                 total += v.mnt;
                 if(v.cat === "Saveurs") saveurs++;
                 if(v.cat === "Services") services++;
-                if(index < 5) htmlIstwa += `<div class="history-item"><b>${v.nom}</b>: ${v.mnt} HTG <br><small>${v.date}</small></div>`;
+                if(index < 5) htmlIstwa += `<div class="history-item"><b>${v.nom}</b>: ${v.mnt} HTG</div>`;
             });
 
             document.getElementById('stat-total').innerText = total.toLocaleString();
@@ -146,18 +135,42 @@
             document.getElementById('ti-lis-istorik').innerHTML = htmlIstwa || "Okenn lavant.";
         }
 
-        function downloadData() {
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
             let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
-            if(data.length === 0) return alert("Pa gen anyen pou telechaje!");
+
+            if (data.length === 0) return alert("Pa gen anyen pou telechaje!");
+
+            doc.setFontSize(18);
+            doc.setTextColor(128, 0, 0);
+            doc.text("AURISME SAVEURS ET SERVICES", 105, 20, { align: "center" });
             
-            let tèks = "RAPÒ LAVANT AURISME SAVEURS ET SERVICES\n\n";
-            data.forEach(v => { tèks += `${v.date} - ${v.nom} (${v.cat}): ${v.mnt} HTG\n`; });
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text("Rapò Aktivite Jenerale", 105, 28, { align: "center" });
             
-            let blob = new Blob([tèks], { type: "text/plain" });
-            let link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "lavant_aurisme.txt";
-            link.click();
+            doc.line(20, 32, 190, 32);
+
+            let y = 45;
+            let totalHTG = 0;
+            doc.setFontSize(10);
+            doc.setTextColor(0);
+
+            data.forEach((v, i) => {
+                if(y > 270) { doc.addPage(); y = 20; }
+                doc.text(`${i+1}. ${v.date} - ${v.nom} (${v.cat})`, 20, y);
+                doc.text(`${v.mnt.toLocaleString()} HTG`, 170, y, { align: "right" });
+                totalHTG += v.mnt;
+                y += 8;
+            });
+
+            doc.line(20, y + 2, 190, y + 2);
+            doc.setFont("helvetica", "bold");
+            doc.text(`TOTAL JENERAL:`, 20, y + 10);
+            doc.text(`${totalHTG.toLocaleString()} HTG`, 170, y + 10, { align: "right" });
+
+            doc.save("Rapo_Aurisme.pdf");
         }
 
         async function updateOrder() {
@@ -180,5 +193,5 @@
         });
     </script>
 </body>
-    </html>
-    
+                                    </html>
+                                    
