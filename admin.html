@@ -12,47 +12,57 @@
 
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #27ae60; }
-        body { font-family: sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; overflow: hidden; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; overflow: hidden; }
         
-        /* Sidebar avec Scroll */
+        /* Sidebar */
         .sidebar { width: 320px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); z-index: 10; overflow-y: auto; height: 100vh; }
-        h2 { color: var(--bordeaux); font-size: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-top: 0; text-transform: uppercase; }
-        h3 { font-size: 13px; color: var(--navy); margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 10px; text-transform: uppercase; }
         
-        /* Dashboard Mini Cards */
+        .brand-container { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--gold); }
+        .admin-logo { width: 85px; height: auto; max-height: 85px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.1)); }
+        .brand-name { color: var(--bordeaux); font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
+        .brand-sub { font-size: 10px; color: var(--navy); display: block; font-weight: bold; }
+
+        /* Dashboard Stats */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .stat-card { background: #f9f9f9; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
         .stat-card span { display: block; font-size: 9px; color: #666; text-transform: uppercase; font-weight: bold; }
         .stat-card b { font-size: 15px; color: var(--bordeaux); }
 
-        .form-group { margin-bottom: 12px; }
+        h3 { font-size: 13px; color: var(--navy); margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 10px; text-transform: uppercase; }
+        .form-group { margin-bottom: 10px; }
         label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; color: var(--navy); }
         input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 13px; }
         
         .btn-update { width: 100%; background: var(--navy); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 5px; }
         .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 5px; }
-        .btn-update:hover, .btn-save:hover { opacity: 0.8; }
+        .btn-download { width: 100%; background: #555; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        
+        .history-item { padding: 8px 0; border-bottom: 1px dotted #eee; font-size: 12px; }
 
         /* Map */
         #adminMap { flex: 1; height: 100%; }
-        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 15px 0; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <h2><i class="fas fa-utensils"></i> Aurisme Saveurs</h2>
+        <div class="brand-container">
+            <img src="Logo.png" alt="Logo Aurisme" class="admin-logo">
+            <h1 class="brand-name">Aurisme Saveurs</h1>
+            <span class="brand-sub">Et Services</span>
+        </div>
         
         <div class="stats-grid">
-            <div class="stat-card"><span>Livraisons</span><b id="stat-livraison">0</b></div>
-            <div class="stat-card"><span>Commandes</span><b id="stat-commande">0</b></div>
+            <div class="stat-card"><span>Saveurs</span><b id="stat-commande">0</b></div>
+            <div class="stat-card"><span>Services</span><b id="stat-livraison">0</b></div>
             <div class="stat-card" style="grid-column: span 2;"><span>Chiffre d'Affaires (HTG)</span><b id="stat-total">0</b></div>
         </div>
 
         <h3><i class="fas fa-truck"></i> Suivi Livraison</h3>
         <div class="form-group">
             <label>ID COMMANDE</label>
-            <input type="text" id="orderID" placeholder="Ex: AUR-101">
+            <input type="text" id="orderID" placeholder="AUR-101">
         </div>
         <div class="form-group">
             <label>STATUT</label>
@@ -63,127 +73,112 @@
                 <option value="❌ Annulé">❌ Annulé</option>
             </select>
         </div>
-        <div class="form-group">
-            <label>NOM DU COURRIER</label>
-            <input type="text" id="courierName" placeholder="Nom du livreur">
-        </div>
-        <button class="btn-update" onclick="updateOrder()">Mettre à jour la Carte</button>
+        <button class="btn-update" onclick="updateOrder()">Mise à jour Carte</button>
         
         <hr>
 
         <h3><i class="fas fa-wallet"></i> Enregistrer une Vente</h3>
+        <div class="form-group"><input type="text" id="venteNom" placeholder="Nom Client"></div>
         <div class="form-group">
-            <label>CLIENT / ÉVÉNEMENT</label>
-            <input type="text" id="venteNom" placeholder="Nom ou description">
-        </div>
-        <div class="form-group">
-            <label>CATÉGORIE SERVICE</label>
             <select id="venteCat">
                 <option value="Saveurs">Aurisme Saveurs (Gâteaux)</option>
-                <option value="Services">Aurisme Services (Livraison/Catering)</option>
+                <option value="Services">Aurisme Services (Logistique)</option>
             </select>
         </div>
-        <div class="form-group">
-            <label>MONTANT TOTAL (HTG)</label>
-            <input type="number" id="venteMontant" placeholder="0.00">
-        </div>
-        <button class="btn-save" onclick="soveVente()">Sove nan Istorik</button>
+        <div class="form-group"><input type="number" id="venteMontant" placeholder="Montant HTG"></div>
+        <button class="btn-save" onclick="soveVente()">Sove nan Dashboard</button>
 
         <hr>
-        <div id="activeDrivers">
-            <p style="font-size: 11px; color: #888; text-align: center;">Mise à jour en temps réel...</p>
-        </div>
+
+        <h3><i class="fas fa-history"></i> Dènye Lavant</h3>
+        <div id="ti-lis-istorik"></div>
+        <button class="btn-download" onclick="downloadData()"><i class="fas fa-file-download"></i> Telechaje Lis la (TXT)</button>
+        
+        <br><br>
     </div>
 
     <div id="adminMap"></div>
 
     <script>
-        // CONFIG FIREBASE (Sèvi ak enfòmasyon ou yo)
+        // FIREBASE (Ranplase ak enfòmasyon ou yo)
         const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Init Carte
         const map = L.map('adminMap').setView([18.5392, -72.2854], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         const markers = {};
-        const motoIcon = L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png',
-            iconSize: [35, 35]
-        });
+        const motoIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png', iconSize: [35, 35] });
 
-        // --- DASHBOARD ---
-        window.onload = function() {
-            updateDashboard();
-        };
+        window.onload = updateDashboard;
 
         function soveVente() {
             const nom = document.getElementById('venteNom').value;
             const cat = document.getElementById('venteCat').value;
             const mnt = parseFloat(document.getElementById('venteMontant').value);
-
-            if (!nom || isNaN(mnt)) return alert("Ranpli tout bwat yo!");
+            if (!nom || isNaN(mnt)) return alert("Ranpli tout pati yo!");
 
             let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
-            data.push({ nom, cat, mnt, date: new Date().toLocaleDateString() });
+            data.push({ nom, cat, mnt, date: new Date().toLocaleString() });
             localStorage.setItem('aurisme_stats', JSON.stringify(data));
 
             document.getElementById('venteNom').value = "";
             document.getElementById('venteMontant').value = "";
-            
             updateDashboard();
-            alert("Vente enregistrée avec succès !");
         }
 
         function updateDashboard() {
             let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
             let total = 0, saveurs = 0, services = 0;
+            let htmlIstwa = "";
 
-            data.forEach(v => {
+            data.slice().reverse().forEach((v, index) => {
                 total += v.mnt;
                 if(v.cat === "Saveurs") saveurs++;
                 if(v.cat === "Services") services++;
+                if(index < 5) htmlIstwa += `<div class="history-item"><b>${v.nom}</b>: ${v.mnt} HTG <br><small>${v.date}</small></div>`;
             });
 
             document.getElementById('stat-total').innerText = total.toLocaleString();
             document.getElementById('stat-commande').innerText = saveurs;
             document.getElementById('stat-livraison').innerText = services;
+            document.getElementById('ti-lis-istorik').innerHTML = htmlIstwa || "Okenn lavant.";
         }
 
-        // --- FIREBASE TRACKING ---
+        function downloadData() {
+            let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
+            if(data.length === 0) return alert("Pa gen anyen pou telechaje!");
+            
+            let tèks = "RAPÒ LAVANT AURISME SAVEURS ET SERVICES\n\n";
+            data.forEach(v => { tèks += `${v.date} - ${v.nom} (${v.cat}): ${v.mnt} HTG\n`; });
+            
+            let blob = new Blob([tèks], { type: "text/plain" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "lavant_aurisme.txt";
+            link.click();
+        }
+
         async function updateOrder() {
             const id = document.getElementById('orderID').value.trim().toUpperCase();
             const status = document.getElementById('orderStatus').value;
-            const courier = document.getElementById('courierName').value;
-
-            if(!id) return alert("Entrez un ID !");
-
-            await db.collection("orders_tracking").doc(id).set({
-                status: status,
-                courier: courier,
-                lastUpdate: new Date().toLocaleString()
-            }, { merge: true });
-
-            alert("Commande " + id + " mise à jour !");
+            if(!id) return alert("Antre ID a!");
+            await db.collection("orders_tracking").doc(id).set({ status, lastUpdate: new Date().toLocaleString() }, { merge: true });
+            alert("Mise à jour OK!");
         }
 
         db.collection("orders_tracking").onSnapshot((snapshot) => {
             snapshot.docChanges().forEach((change) => {
                 const data = change.doc.data();
                 const id = change.doc.id;
-
                 if (data.lat && data.lng) {
-                    if (markers[id]) {
-                        markers[id].setLatLng([data.lat, data.lng]);
-                    } else {
-                        markers[id] = L.marker([data.lat, data.lng], {icon: motoIcon})
-                                      .addTo(map)
-                                      .bindPopup("<b>" + id + "</b><br>Statut: " + data.status);
-                    }
+                    if (markers[id]) { markers[id].setLatLng([data.lat, data.lng]); }
+                    else { markers[id] = L.marker([data.lat, data.lng], {icon: motoIcon}).addTo(map).bindPopup("<b>" + id + "</b>"); }
                 }
             });
         });
     </script>
 </body>
-</html>
+    </html>
+    
