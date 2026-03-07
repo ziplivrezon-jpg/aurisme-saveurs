@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Aurisme Saveurs</title>
+    <title>Admin - Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -11,36 +11,51 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
-        body { font-family: sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; }
+        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #27ae60; }
+        body { font-family: sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; overflow: hidden; }
         
-        /* Sidebar */
-        .sidebar { width: 300px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); z-index: 10; }
-        h2 { color: var(--bordeaux); font-size: 18px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        /* Sidebar avec Scroll */
+        .sidebar { width: 320px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); z-index: 10; overflow-y: auto; height: 100vh; }
+        h2 { color: var(--bordeaux); font-size: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-top: 0; text-transform: uppercase; }
+        h3 { font-size: 13px; color: var(--navy); margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 10px; text-transform: uppercase; }
         
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; color: var(--navy); }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        /* Dashboard Mini Cards */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: #f9f9f9; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
+        .stat-card span { display: block; font-size: 9px; color: #666; text-transform: uppercase; font-weight: bold; }
+        .stat-card b { font-size: 15px; color: var(--bordeaux); }
+
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; color: var(--navy); }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 13px; }
         
-        .btn-update { width: 100%; background: var(--navy); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-update:hover { background: var(--bordeaux); }
+        .btn-update { width: 100%; background: var(--navy); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 5px; }
+        .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 5px; }
+        .btn-update:hover, .btn-save:hover { opacity: 0.8; }
 
         /* Map */
         #adminMap { flex: 1; height: 100%; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <h2><i class="fas fa-shield-alt"></i> Panel Aurisme</h2>
+        <h2><i class="fas fa-utensils"></i> Aurisme Saveurs</h2>
         
-        <div class="form-group">
-            <label>ID COMMANDE (ex: AUR-2026)</label>
-            <input type="text" id="orderID" placeholder="ID de la commande">
+        <div class="stats-grid">
+            <div class="stat-card"><span>Livraisons</span><b id="stat-livraison">0</b></div>
+            <div class="stat-card"><span>Commandes</span><b id="stat-commande">0</b></div>
+            <div class="stat-card" style="grid-column: span 2;"><span>Chiffre d'Affaires (HTG)</span><b id="stat-total">0</b></div>
         </div>
 
+        <h3><i class="fas fa-truck"></i> Suivi Livraison</h3>
         <div class="form-group">
-            <label>STATUT DE LIVRAISON</label>
+            <label>ID COMMANDE</label>
+            <input type="text" id="orderID" placeholder="Ex: AUR-101">
+        </div>
+        <div class="form-group">
+            <label>STATUT</label>
             <select id="orderStatus">
                 <option value="📦 Préparation">📦 Préparation</option>
                 <option value="🛵 En route">🛵 En route</option>
@@ -48,41 +63,95 @@
                 <option value="❌ Annulé">❌ Annulé</option>
             </select>
         </div>
-
         <div class="form-group">
-            <label>NOM DU LIVREUR</label>
+            <label>NOM DU COURRIER</label>
             <input type="text" id="courierName" placeholder="Nom du livreur">
         </div>
-
-        <button class="btn-update" onclick="updateOrder()">Mettre à jour / Créer</button>
+        <button class="btn-update" onclick="updateOrder()">Mettre à jour la Carte</button>
         
         <hr>
+
+        <h3><i class="fas fa-wallet"></i> Enregistrer une Vente</h3>
+        <div class="form-group">
+            <label>CLIENT / ÉVÉNEMENT</label>
+            <input type="text" id="venteNom" placeholder="Nom ou description">
+        </div>
+        <div class="form-group">
+            <label>CATÉGORIE SERVICE</label>
+            <select id="venteCat">
+                <option value="Saveurs">Aurisme Saveurs (Gâteaux)</option>
+                <option value="Services">Aurisme Services (Livraison/Catering)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>MONTANT TOTAL (HTG)</label>
+            <input type="number" id="venteMontant" placeholder="0.00">
+        </div>
+        <button class="btn-save" onclick="soveVente()">Sove nan Istorik</button>
+
+        <hr>
         <div id="activeDrivers">
-            <p style="font-size: 12px; color: #666;">Livreurs actifs sur la carte...</p>
+            <p style="font-size: 11px; color: #888; text-align: center;">Mise à jour en temps réel...</p>
         </div>
     </div>
 
     <div id="adminMap"></div>
 
     <script>
-        // CONFIG FIREBASE (Utilise la même que ta page client)
+        // CONFIG FIREBASE (Sèvi ak enfòmasyon ou yo)
         const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
         // Init Carte
-        const map = L.map('adminMap').setView([18.5392, -72.2854], 14);
+        const map = L.map('adminMap').setView([18.5392, -72.2854], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-        const markers = {}; // Pour stocker les marqueurs des livreurs
-
-        // Icône Moto
+        const markers = {};
         const motoIcon = L.icon({
             iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png',
             iconSize: [35, 35]
         });
 
-        // 1. Fonction pour mettre à jour Firestore
+        // --- DASHBOARD ---
+        window.onload = function() {
+            updateDashboard();
+        };
+
+        function soveVente() {
+            const nom = document.getElementById('venteNom').value;
+            const cat = document.getElementById('venteCat').value;
+            const mnt = parseFloat(document.getElementById('venteMontant').value);
+
+            if (!nom || isNaN(mnt)) return alert("Ranpli tout bwat yo!");
+
+            let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
+            data.push({ nom, cat, mnt, date: new Date().toLocaleDateString() });
+            localStorage.setItem('aurisme_stats', JSON.stringify(data));
+
+            document.getElementById('venteNom').value = "";
+            document.getElementById('venteMontant').value = "";
+            
+            updateDashboard();
+            alert("Vente enregistrée avec succès !");
+        }
+
+        function updateDashboard() {
+            let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
+            let total = 0, saveurs = 0, services = 0;
+
+            data.forEach(v => {
+                total += v.mnt;
+                if(v.cat === "Saveurs") saveurs++;
+                if(v.cat === "Services") services++;
+            });
+
+            document.getElementById('stat-total').innerText = total.toLocaleString();
+            document.getElementById('stat-commande').innerText = saveurs;
+            document.getElementById('stat-livraison').innerText = services;
+        }
+
+        // --- FIREBASE TRACKING ---
         async function updateOrder() {
             const id = document.getElementById('orderID').value.trim().toUpperCase();
             const status = document.getElementById('orderStatus').value;
@@ -99,7 +168,6 @@
             alert("Commande " + id + " mise à jour !");
         }
 
-        // 2. Afficher TOUS les livreurs en temps réel sur la carte admin
         db.collection("orders_tracking").onSnapshot((snapshot) => {
             snapshot.docChanges().forEach((change) => {
                 const data = change.doc.data();
@@ -111,12 +179,11 @@
                     } else {
                         markers[id] = L.marker([data.lat, data.lng], {icon: motoIcon})
                                       .addTo(map)
-                                      .bindPopup("<b>" + id + "</b><br>" + data.courier);
+                                      .bindPopup("<b>" + id + "</b><br>Statut: " + data.status);
                     }
                 }
             });
         });
     </script>
 </body>
-    </html>
-        
+</html>
