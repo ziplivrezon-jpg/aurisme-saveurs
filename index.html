@@ -126,133 +126,138 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
     <p><strong>📍 Péguy-ville, Rue Aguallo</strong></p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.504268686738!2d-72.2891!3d18.5147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e19036c1e36f%3A0x67878d2d64536735!2sP%C3%A9guy-Ville%2C%20P%C3%A9tion-Ville!5e0!3m2!1sfr!2sht!4v1700000000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
-    <a href="privacy.html" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Règleman sou Konfidansyalite</a>
-    <p style="font-size: 10px; color: #999; margin-top: 15px;">Sekirize pa Aurisme Tech</p>
+    <a href="privacy.html" id="t-priv" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Règleman sou Konfidansyalite</a>
+    <p id="t-tech" style="font-size: 10px; color: #999; margin-top: 15px;">Sekirize pa Aurisme Tech</p>
 </div>
 
 <script>
-const products = ["Gato ti bòl", "Gato 12\"", "Palmier", "Sacristain", "Kokonat", "Cookies", "Lang bèf", "Pate", "Cupcakes", "Cookies rezen"];
+let currentLang = 'ht';
+
+const products = {
+    ht: ["Gato ti bòl", "Gato 12\"", "Palmier", "Sacristain", "Kokonat", "Cookies", "Lang bèf", "Pate", "Cupcakes", "Cookies rezen"],
+    fr: ["Gâteau ti bol", "Gâteau 12\"", "Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"],
+    en: ["Small Bowl Cake", "12\" Cake", "Palmier", "Sacristain", "Coconuts", "Cookies", "Beef Tongue Pastry", "Patties", "Cupcakes", "Raisin Cookies"]
+};
+
+const translations = {
+    fr: { 
+        main: "Aurisme Saveurs et Services", rank: "Excellent Service - 4.8/5", rank_c: "Basé sur +500 commandes",
+        v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDER",
+        liv: "LIVRAISON", tax: "TAXI MOTO", aca: "ACADÉMIE", pat: "PÂTISSERIE", dec: "DÉCO & TRAITEUR", gal: "GALERIE",
+        plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
+        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", lbl_m: "Choisir Marché:", opt_o: "Et autres",
+        m_ph: "Si c'est un autre marché, écrivez son nom ici...", p_list: "Liste des autres produits dont vous avez besoin...",
+        lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER SUR WHATSAPP",
+        n_ph: "Votre Nom Complet", lbl_p_g: "Produits en Gros (Cochez & Quantité):", 
+        ti_ph: "Liste des autres produits en gros dont vous avez besoin...", btn_r: "COMMANDER EN GROS",
+        priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
+    },
+    en: { 
+        main: "Aurisme Flavors & Services", rank: "Excellent Service - 4.8/5", rank_c: "Based on +500 orders",
+        v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER NOW",
+        liv: "DELIVERY", tax: "MOTO TAXI", aca: "ACADEMY", pat: "PASTRY", dec: "DECO & CATERING", gal: "GALLERY",
+        plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
+        sup: "🛒 Supermarket Service", res: "🏪 Small Vendor Space", lbl_m: "Select Market:", opt_o: "Others",
+        m_ph: "If it's another market, write its name here...", p_list: "List other products you need...",
+        lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER ON WHATSAPP",
+        n_ph: "Your Full Name", lbl_p_g: "Wholesale Products (Check & Qty):", 
+        ti_ph: "List other wholesale products you need...", btn_r: "ORDER WHOLESALE",
+        priv: "🔒 Privacy Policy", tech: "Secured by Aurisme Tech"
+    },
+    ht: { 
+        main: "Aurisme Saveurs ak Sèvis", rank: "Sèvis Ekselan - 4.8/5", rank_c: "Baze sou +500 kòmand",
+        v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE",
+        liv: "LIVREZON", tax: "TAKSI MOTO", aca: "AKADEMI", pat: "PATISRI", dec: "DEKO & TRAITEUR", gal: "GALERI",
+        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE",
+        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò",
+        m_ph: "Si se yon lòt mache, ekri non l isit la...", p_list: "Lis lòt pwodwi ou bezwen yo...",
+        lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE SOU WHATSAPP",
+        n_ph: "Non konplè ou", lbl_p_g: "Pwodwi an Gwo (Koche & Kantite):", 
+        ti_ph: "Lis lòt pwodwi ou bezwen an gwo yo...", btn_r: "KOMANDE AN GWO",
+        priv: "🔒 Règleman sou Konfidansyalite", tech: "Sekirize pa Aurisme Tech"
+    }
+};
 
 function toggleBox(id) {
     var content = document.getElementById(id);
     content.style.display = (content.style.display === "block") ? "none" : "block";
 }
 
-function renderProducts() {
+function renderProducts(lang) {
+    let list = products[lang];
     let html = '';
-    products.forEach((p, i) => {
+    list.forEach((p, i) => {
         html += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
     });
     document.getElementById('aurisme-list').innerHTML = html;
     document.getElementById('ti-machann-list').innerHTML = html.replace(/id="c-/g, 'id="ct-');
 }
 
-const translations = {
-    fr: { 
-        main: "Aurisme Saveurs et Services", 
-        rank: "Excellent Service - 4.8/5", 
-        rank_c: "Basé sur +500 commandes",
-        v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", 
-        v_btn: "COMMANDER",
-        liv: "LIVRAISON", tax: "TAXI MOTO", aca: "ACADÉMIE", pat: "PÂTISSERIE", dec: "DÉCO & TRAITEUR", gal: "GALERIE",
-        plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
-        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann",
-        lbl_m: "Choisir Marché:", opt_o: "Et autres", lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER WHATSAPP",
-        lbl_n: "Votre Nom Complet", lbl_p_g: "Produits en Gros (Cochez & Quantité):", btn_r: "COMMANDER EN GROS",
-        priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
-    },
-    en: { 
-        main: "Aurisme Flavors & Services", 
-        rank: "Excellent Service - 4.8/5", 
-        rank_c: "Based on +500 orders",
-        v_text: "VETIHKAM: Best Haitian VETIVER", 
-        v_btn: "ORDER NOW",
-        liv: "DELIVERY", tax: "MOTO TAXI", aca: "ACADEMY", pat: "PASTRY", dec: "DECO & CATERING", gal: "GALLERY",
-        plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
-        sup: "🛒 Supermarket Service", res: "🏪 Small Vendor Space",
-        lbl_m: "Select Market:", opt_o: "Others", lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER ON WHATSAPP",
-        lbl_n: "Your Full Name", lbl_p_g: "Wholesale Products (Check & Qty):", btn_r: "ORDER WHOLESALE",
-        priv: "🔒 Privacy Policy", tech: "Secured by Aurisme Tech"
-    },
-    ht: { 
-        main: "Aurisme Saveurs ak Sèvis", 
-        rank: "Sèvis Ekselan - 4.8/5", 
-        rank_c: "Baze sou +500 kòmand",
-        v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", 
-        v_btn: "KOMANDE",
-        liv: "LIVREZON", tax: "TAKSI MOTO", aca: "AKADEMI", pat: "PATISRI", dec: "DEKO & TRAITEUR", gal: "GALERI",
-        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE",
-        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann",
-        lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò", lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE SOU WHATSAPP",
-        lbl_n: "Non konplè ou", lbl_p_g: "Pwodwi an Gwo (Koche & Kantite):", btn_r: "KOMANDE AN GWO",
-        priv: "🔒 Règleman sou Konfidansyalite", tech: "Sekirize pa Aurisme Tech"
-    }
-};
-
 function changeLanguage(lang) {
+    currentLang = lang;
     const t = translations[lang];
     document.getElementById('main-title').innerText = t.main;
     document.getElementById('rank-txt').innerText = t.rank;
     document.getElementById('rank-count').innerText = t.rank_c;
-    
-    // Meni
     document.getElementById('m-liv').innerText = t.liv;
     document.getElementById('m-tax').innerText = t.tax;
     document.getElementById('m-aca').innerText = t.aca;
     document.getElementById('m-pat').innerText = t.pat;
     document.getElementById('m-dec').innerText = t.dec;
     document.getElementById('m-gal').innerText = t.gal;
-
-    // Plan
     document.getElementById('t-plan-title').innerText = t.plan_t;
     document.getElementById('t-plan-desc').innerText = t.plan_d;
     document.getElementById('t-plan-btn').innerText = t.plan_b;
-
-    // Sèvis
     document.getElementById('t-sup').innerText = t.sup;
     document.getElementById('t-res').innerText = t.res;
     document.getElementById('lbl-market').innerText = t.lbl_m;
     document.getElementById('opt-others').innerText = t.opt_o;
+    document.getElementById('market-name-other').placeholder = t.m_ph;
+    document.getElementById('market-others-list').placeholder = t.p_list;
     document.getElementById('lbl-prod-aur').innerText = t.lbl_p_a;
     document.getElementById('btn-sup').innerText = t.btn_s;
-    document.getElementById('ti-name').placeholder = t.lbl_n;
+    document.getElementById('ti-name').placeholder = t.n_ph;
     document.getElementById('lbl-prod-gros').innerText = t.lbl_p_g;
+    document.getElementById('ti-others-list').placeholder = t.ti_ph;
     document.getElementById('btn-res').innerText = t.btn_r;
-
+    document.getElementById('t-priv').innerText = t.priv;
+    document.getElementById('t-tech').innerText = t.tech;
+    
+    renderProducts(lang);
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
     document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
 }
 
-function sendWhatsApp(service) {
+function sendWhatsApp(serviceType) {
     let selected = [];
-    let listId = (service === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
-    let textListId = (service === 'Supermarché') ? 'market-others-list' : 'ti-others-list';
-    
+    let listId = (serviceType === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
+    let textListId = (serviceType === 'Supermarché') ? 'market-others-list' : 'ti-others-list';
     let container = document.getElementById(listId);
     let checks = container.querySelectorAll('.prod-check');
     let qtys = container.querySelectorAll('.prod-qty');
-    
-    let market = document.getElementById('market-select').value;
-    let otherMarket = document.getElementById('market-name-other').value;
-    let finalMarket = (otherMarket) ? otherMarket : market;
-
-    let name = (service === 'Ti Machann') ? document.getElementById('ti-name').value : "Kliyan";
+    let finalMarket = document.getElementById('market-name-other').value || document.getElementById('market-select').value;
+    let name = (serviceType === 'Ti Machann') ? document.getElementById('ti-name').value : "Client";
     let othersList = document.getElementById(textListId).value;
 
     checks.forEach((c, i) => { if(c.checked) selected.push(`${c.value} (${qtys[i].value})`); });
     
-    let msg = `*Aurisme Saveurs - Sèvis ${service}*\n`;
-    if(service === 'Supermarché') msg += `*Mache:* ${finalMarket}\n`;
-    msg += `*Non:* ${name}\n*Pwodwi:* ${selected.join(', ')}`;
-    if(othersList) msg += `\n*Lòt pwodwi:* ${othersList}`;
+    let msg = `*Aurisme Saveurs - ${serviceType}*\n`;
+    if(serviceType === 'Supermarché') msg += `*Market:* ${finalMarket}\n`;
+    msg += `*Name:* ${name}\n*Products:* ${selected.join(', ')}`;
+    if(othersList) msg += `\n*Others:* ${othersList}`;
     
     window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
 }
 
-window.onload = function() { renderProducts(); changeLanguage('ht'); };
+window.onload = function() {
+    let userLang = navigator.language || navigator.userLanguage; 
+    let startLang = 'ht'; 
+    if (userLang.includes('fr')) startLang = 'fr';
+    if (userLang.includes('en')) startLang = 'en';
+    changeLanguage(startLang);
+};
 </script>
 </body>
-                </html>
-                
+</html>
