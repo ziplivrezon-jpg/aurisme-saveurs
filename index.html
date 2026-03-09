@@ -24,8 +24,9 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .menu-card{background:white; padding:25px 10px; border-radius:20px; text-align:center; text-decoration:none; color:var(--navy); font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.1); border-bottom:4px solid var(--gold); display:flex; flex-direction:column; align-items:center;}
 .menu-card i{font-size:35px; color:var(--bordeaux); margin-bottom:10px;}
 
-.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
-.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px;}
+/* Kad Planifye a ki rann pi piti e pi bèl */
+.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 12px 15px; border-radius: 15px; margin: 15px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 6px solid var(--gold); text-align: left; box-shadow: 0 3px 8px rgba(0,0,0,0.05);}
+.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 13px;}
 
 .collapsible-box{background:white; border-radius:20px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin:20px 10px; overflow:hidden; border-left:5px solid var(--bordeaux);}
 .collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
@@ -76,11 +77,11 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     </div>
 
     <div class="plan-box">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 30px;">📅✨</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 22px;">📅</span>
             <div>
-                <h3 id="t-plan-title" style="margin:0; color:var(--navy); font-size:18px;">Planifye ak Aurisme</h3>
-                <p id="t-plan-desc" style="margin:5px 0 0; font-size:13px; color:#555;">Prepare evènman ou yo epi peye dousman dousman.</p>
+                <h3 id="t-plan-title" style="margin:0; color:var(--navy); font-size:15px;">Planifye ak Aurisme</h3>
+                <p id="t-plan-desc" style="margin:2px 0 0; font-size:11px; color:#555;">Prepare evènman ou yo epi peye dousman.</p>
             </div>
         </div>
         <a href="sol.html" class="plan-btn-link" id="t-plan-btn">PATISIPE</a>
@@ -126,7 +127,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
     <p><strong>📍 Péguy-ville, Rue Aguallo</strong></p>
-    <iframe src="https://www.google.com/maps/embed" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="http://googleusercontent.com/maps.google.com/3" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
     <a href="privacy.html" id="t-priv" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Règleman sou Konfidansyalite</a>
     <p id="t-tech" style="font-size: 10px; color: #999; margin-top: 15px;">Sekirize pa Aurisme Tech</p>
@@ -170,7 +171,7 @@ const translations = {
         main: "Aurisme Saveurs ak Sèvis", rank: "Sèvis Ekselan - 4.8/5", rank_c: "Baze sou +500 kòmand",
         v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE",
         liv: "LIVREZON", tax: "TAKSI MOTO", aca: "AKADEMI", pat: "PATISRI", dec: "DEKO & TRAITEUR", gal: "GALERI",
-        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE",
+        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman.", plan_b: "PATISIPE",
         sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò",
         m_ph: "Si se yon lòt mache, ekri non l isit la...", p_list: "Lis lòt pwodwi ou bezwen yo...",
         lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE SOU WHATSAPP",
