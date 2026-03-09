@@ -6,91 +6,108 @@
 <title>Galerie Aurisme Saveurs</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-body {margin:0; font-family: Arial,sans-serif; background:#f9f9f9;}
-header {background:#800000; color:white; padding:10px; display:flex; align-items:center; border-bottom: 4px solid #DAA520;}
-header img {height:60px; width:60px; border-radius: 50%; background: white; object-fit: cover; border: 2px solid #DAA520;}
-header h1 {margin-left:15px; font-size:20px; color:white;}
-.lang-buttons {text-align:center; margin:10px;}
-.lang-buttons button {padding:8px 12px;margin:5px;border:none;cursor:pointer;background:#DAA520;color:white;border-radius:5px; font-weight: bold;}
-.back-btn {display:block;width:150px;margin:15px auto;text-align:center;padding:10px;background:#800000;color:white;text-decoration:none;border-radius:5px; font-weight: bold;}
+/* STYLE JENERAL */
+body {margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f4f4; color: #333; overflow-x: hidden;}
+header {background:#800000; color:white; padding:10px; display:flex; align-items:center; border-bottom: 4px solid #DAA520; position: sticky; top: 0; z-index: 1000;}
+header img {height:50px; width:50px; border-radius: 50%; background: white; object-fit: cover; border: 2px solid #DAA520;}
+header h1 {margin-left:15px; font-size:18px; color:white; text-transform: uppercase;}
 
-/* REKLAM GATO - BOUK SANS FIN */
-.promo-container {
-    width: 100%; 
-    overflow: hidden; 
-    background: #DAA520; 
-    color: white; 
-    padding: 10px 0; 
-    font-weight: bold;
-    white-space: nowrap;
-    border-bottom: 2px solid #800000;
-    display: flex;
-}
-.scroll-right {
-    display: inline-block;
-    white-space: nowrap;
-    animation: scroll-continuous 25s linear infinite;
-}
-@keyframes scroll-continuous { 
-    0% { transform: translateX(-50%); } 
-    100% { transform: translateX(0%); } 
-}
-.promo-container a {
-    color: #800000;
-    background: white;
-    text-decoration: none;
-    padding: 2px 8px;
-    margin: 0 15px;
-    border-radius: 5px;
-    font-size: 12px;
-}
+/* LOADING SPINNER */
+#loader-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 40000; transition: opacity 0.5s ease; }
+.spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #800000; border-right: 4px solid #DAA520; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.fade-out { opacity: 0; pointer-events: none; }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  padding: 8px;
-  margin-bottom: 80px;
-}
-.gallery img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-}
+/* POP-UP PROMO */
+#promo-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 50000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
+#promo-popup.show { display: flex; opacity: 1; }
+.popup-content { background: white; width: 85%; max-width: 350px; padding: 25px; border-radius: 20px; text-align: center; position: relative; border: 3px solid #DAA520; }
+.popup-content h2 { color: #800000; margin: 10px 0; font-size: 20px; }
+.popup-content p { font-size: 14px; margin-bottom: 20px; color: #444; }
+.btn-popup-wa { display: block; background: #25D366; color: white; text-decoration: none; padding: 12px; border-radius: 10px; font-weight: bold; }
+.close-popup { position: absolute; top: -15px; right: -15px; background: #800000; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border: 2px solid white; }
 
-#modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:10000; opacity:0; transition:opacity 0.3s;}
+/* LANG & NAVIGATION */
+.nav-section { text-align:center; padding: 10px; background: white; border-bottom: 1px solid #ddd; }
+.lang-buttons button {padding:8px 12px; margin:2px; border:1px solid #DAA520; cursor:pointer; background:white; color:#800000; border-radius:20px; font-weight: bold; font-size: 11px;}
+.lang-buttons button.active { background:#DAA520; color:white; }
+.back-btn {display:inline-block; width:160px; margin:10px auto; text-align:center; padding:8px; background:#800000; color:white; text-decoration:none; border-radius:20px; font-weight: bold; font-size: 12px;}
+
+/* OFFRES STYLE TOURIST */
+.offers-section { padding: 15px 10px; }
+.offers-grid { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; scroll-snap-type: x mandatory; }
+.offers-grid::-webkit-scrollbar { display: none; }
+.offer-card { min-width: 250px; background: linear-gradient(135deg, #800000, #4a0000); color: white; padding: 15px; border-radius: 15px; border: 2px solid #DAA520; scroll-snap-align: start; position: relative; }
+.offer-card h4 { margin: 0; font-size: 15px; color: #DAA520; }
+.offer-card p { font-size: 11px; margin: 5px 0 10px; }
+.btn-get-offer { background: white; color: #800000; border: none; padding: 5px 12px; border-radius: 12px; font-weight: bold; font-size: 10px; cursor: pointer; }
+
+/* SEARCH & FILTER */
+.search-container { padding: 0 15px 10px; text-align: center; }
+.search-input { width: 100%; max-width: 350px; padding: 12px; border: 2px solid #ddd; border-radius: 25px; outline: none; }
+.filter-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
+.filter-btn { background: white; border: 1px solid #ddd; padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+.filter-btn.active { background: #800000; color: white; border-color: #800000; }
+
+/* GALERI GRID */
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 8px; margin-bottom: 80px; }
+.gallery img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; cursor: pointer; border: 1px solid #eee; }
+
+/* MODAL */
+#modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:20000; opacity:0; transition:opacity 0.3s;}
 #modal.show {display:flex; opacity:1;}
-#modal-content {position:relative; background:white; padding:15px; border-radius:12px; max-width:90%; text-align:center;}
-#modal-content img {max-width:100%; max-height:60vh; border-radius:8px;}
-#whatsappBtn {margin-top:15px; padding:12px; background:#25D366; color:white; border:none; border-radius:50px; cursor:pointer; font-weight: bold; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
-#closeModal {position:absolute; top:-10px; right:-10px; width: 30px; height: 30px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor:pointer; color: #800000;}
-
-.wa-catalog-float {
-  position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; text-decoration: none; border: 2px solid white; animation: pulse 2s infinite;
-}
+#modal-content {position:relative; background:white; padding:15px; border-radius:15px; max-width:90%; text-align:center;}
+#modal-content img {max-width:100%; max-height:50vh; border-radius:10px;}
+#whatsappBtn {margin-top:15px; padding:12px; background:#25D366; color:white; border:none; border-radius:10px; cursor:pointer; font-weight: bold; width: 100%;}
+.wa-catalog-float { position: fixed; width: 55px; height: 55px; bottom: 20px; right: 20px; background: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-decoration: none; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 </style>
 </head>
 <body>
+
+<div id="loader-container"><div class="spinner"></div></div>
+
+<div id="promo-popup">
+    <div class="popup-content">
+        <span class="close-popup" onclick="closePopup()">×</span>
+        <i class="fas fa-gift" style="font-size: 35px; color: #DAA520;"></i>
+        <h2 id="popTitle">OFFRE SPÉCIALE!</h2>
+        <p id="popDesc">Achte yon gato 5000 HTG epi resevwa 6 cupcakes gratis!</p>
+        <a href="https://wa.me/50942017744?text=Mwen vle pwofite promo 6 cupcakes la" class="btn-popup-wa" id="popBtn">PWOFITE KOUNYE A</a>
+    </div>
+</div>
 
 <header>
   <img src="Logo.png" alt="Logo">
   <h1 id="title">Nos Réalisations</h1>
 </header>
 
-<div class="promo-container">
-    <div class="scroll-right" id="promo-g"></div>
+<div class="nav-section">
+    <div class="lang-buttons">
+        <button id="btn-fr" onclick="setLanguage('fr')">FR</button>
+        <button id="btn-en" onclick="setLanguage('en')">EN</button>
+        <button id="btn-ht" onclick="setLanguage('ht')">HT</button>
+    </div>
+    <a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
 </div>
 
-<div class="lang-buttons">
-    <button onclick="setLanguage('fr')">FR</button>
-    <button onclick="setLanguage('en')">EN</button>
-    <button onclick="setLanguage('ht')">HT</button>
+<div class="offers-section">
+    <h3 style="color: #800000; font-size: 14px; margin-bottom:10px;" id="offresTitle"><i class="fas fa-tag"></i> Offres Spéciales</h3>
+    <div class="offers-grid" id="offers-list">
+        </div>
 </div>
 
-<a href="index.html" class="back-btn" id="homeBtn">Retour à l'accueil</a>
+<div class="search-container">
+    <input type="text" id="searchInput" class="search-input" placeholder="Chèche..." onkeyup="searchGallery()">
+</div>
+
+<div class="filter-container">
+    <button class="filter-btn active" onclick="filterGallery('All', this)">Tout</button>
+    <button class="filter-btn" onclick="filterGallery('Gâteaux', this)">Gâteaux</button>
+    <button class="filter-btn" onclick="filterGallery('Traiteur', this)">Traiteur</button>
+    <button class="filter-btn" onclick="filterGallery('Décoration', this)">Décoration</button>
+    <button class="filter-btn" onclick="filterGallery('Autre', this)">Autre</button>
+</div>
 
 <div class="gallery">
 <img src="https://i.postimg.cc/VJctgn1h/VJctgn1h.jpg" data-category="Traiteur" onclick="openModal(this)">
@@ -144,63 +161,99 @@ header h1 {margin-left:15px; font-size:20px; color:white;}
 
 <div id="modal">
   <div id="modal-content">
-    <span id="closeModal" onclick="closeModal()">×</span>
+    <span onclick="closeModal()" style="position:absolute; top:-10px; right:-10px; width:30px; height:30px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; cursor:pointer; color:#800000; border:1px solid #ddd;">×</span>
     <div id="modal-category" style="font-weight:bold; color:#800000; margin-bottom:5px;"></div>
     <img id="modal-img" src="">
     <button id="whatsappBtn"><i class="fab fa-whatsapp"></i> <span id="btnTxt">Commander</span></button>
   </div>
 </div>
 
-<a href="https://wa.me/c/50942017744" class="wa-catalog-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<a href="https://wa.me/c/50942017744" class="wa-catalog-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-let currentLang='fr';
-let currentImg='';
-let currentCategory='';
+let currentLang = 'fr';
+let currentImg = '';
+let currentCategory = '';
 
-function setLanguage(lang){
-  currentLang=lang;
-  const t = {
-    fr: {title:"Nos Réalisations", home:"Accueil", btn:"Commander", promo: "🎂 Achetez un gâteau d'anniversaire à 5000 HTG, recevez 6 cupcakes gratuits !", p_btn: "PROFITER"},
-    en: {title:"Our Gallery", home:"Home", btn:"Order Now", promo: "🎂 Buy a birthday cake for 5000 HTG and get 6 free cupcakes!", p_btn: "GET DEAL"},
-    ht: {title:"Galeri Nou", home:"Akèy", btn:"Mwen vle sa", promo: "🎂 Achte yon gato anniversaire 5000 HTG wap jwenn 6 cupcakes gratis !", p_btn: "PWOFITE"}
-  };
-  document.getElementById("title").innerText = t[lang].title;
-  document.getElementById("homeBtn").innerText = t[lang].home;
-  document.getElementById("btnTxt").innerText = t[lang].btn;
-  
-  let singleText = `${t[lang].promo} <a href="https://wa.me/50942017744?text=PromoGato">${t[lang].p_btn}</a>`;
-  document.getElementById("promo-g").innerHTML = singleText + " &nbsp;&nbsp;&nbsp; " + singleText;
-  
-  localStorage.setItem('lang_gal', lang);
+const trans = {
+    fr: { title: "Nos Réalisations", home: "Accueil", btn: "Commander", search: "Rechercher...", offres: "Offres Spéciales", popH: "OFFRE SPÉCIALE!", popP: "Achetez un gâteau de 5000 HTG et recevez 6 cupcakes gratuits!", popB: "PROFITER", p1: "Promo Gâteau: 6 cupcakes offerts!", p2: "Zip Services: -10% livraison" },
+    en: { title: "Our Gallery", home: "Home", btn: "Order Now", search: "Search...", offres: "Special Offers", popH: "SPECIAL OFFER!", popP: "Buy a 5000 HTG cake and get 6 free cupcakes!", popB: "GET DEAL", p1: "Cake Promo: 6 free cupcakes!", p2: "Zip Services: 10% off" },
+    ht: { title: "Galeri Nou", home: "Akèy", btn: "Mwen vle sa", search: "Chèche yon modèl...", offres: "Offres Spéciales", popH: "OFRIS ESPESYAL!", popP: "Achte yon gato 5000 HTG epi resevwa 6 cupcakes gratis!", popB: "PWOFITE", p1: "Promo Gato: 6 cupcakes gratis!", p2: "Zip Services: 10% rabè" }
+};
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-buttons button').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + lang).classList.add('active');
+    document.getElementById("title").innerText = trans[lang].title;
+    document.getElementById("homeBtn").innerText = trans[lang].home;
+    document.getElementById("btnTxt").innerText = trans[lang].btn;
+    document.getElementById("searchInput").placeholder = trans[lang].search;
+    document.getElementById("offresTitle").innerHTML = `<i class="fas fa-tag"></i> ${trans[lang].offres}`;
+    document.getElementById("popTitle").innerText = trans[lang].popH;
+    document.getElementById("popDesc").innerText = trans[lang].popP;
+    document.getElementById("popBtn").innerText = trans[lang].popB;
+
+    document.getElementById('offers-list').innerHTML = `
+        <div class="offer-card"><h4>${trans[lang].p1}</h4><p>Pwofite jodi a!</p><button class="btn-get-offer" onclick="window.open('https://wa.me/50942017744?text=Promo Gato')">${trans[lang].popB}</button></div>
+        <div class="offer-card" style="background:linear-gradient(135deg, #003366, #001a33);"><h4>${trans[lang].p2}</h4><p>Livrezon rapid.</p><button class="btn-get-offer" onclick="window.open('https://wa.me/50942017744?text=Promo Livrezon')">${trans[lang].popB}</button></div>
+    `;
+    localStorage.setItem('lang_gal', lang);
 }
 
-function openModal(img){
-  currentImg=img.src;
-  currentCategory=img.getAttribute('data-category');
-  document.getElementById('modal-img').src=currentImg;
-  document.getElementById('modal-category').innerText=currentCategory;
-  const modal = document.getElementById('modal');
-  modal.style.display='flex';
-  setTimeout(()=> modal.classList.add('show'), 10);
+function showPopup() {
+    if (!sessionStorage.getItem('popupShown')) {
+        setTimeout(() => {
+            const p = document.getElementById('promo-popup');
+            p.style.display = 'flex';
+            setTimeout(() => p.classList.add('show'), 10);
+            sessionStorage.setItem('popupShown', 'true');
+        }, 1500);
+    }
+}
+function closePopup() {
+    const p = document.getElementById('promo-popup');
+    p.classList.remove('show');
+    setTimeout(() => p.style.display = 'none', 400);
 }
 
-function closeModal(){ 
-  const modal = document.getElementById('modal');
-  modal.classList.remove('show');
-  setTimeout(()=> modal.style.display='none', 300);
+function filterGallery(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery img').forEach(img => {
+        img.style.display = (category === 'All' || img.getAttribute('data-category') === category) ? 'block' : 'none';
+    });
 }
 
-document.getElementById('whatsappBtn').addEventListener('click',()=>{
-  let msg = `Bonjou Aurisme, mwen ta renmen kòmande modèl sa a (${currentCategory}) : ${currentImg}`;
-  window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`,'_blank');
+function searchGallery() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    document.querySelectorAll('.gallery img').forEach(img => {
+        img.style.display = img.getAttribute('data-category').toLowerCase().includes(input) ? 'block' : 'none';
+    });
+}
+
+function openModal(img) {
+    currentImg = img.src; currentCategory = img.getAttribute('data-category');
+    document.getElementById('modal-img').src = currentImg;
+    document.getElementById('modal-category').innerText = currentCategory;
+    const m = document.getElementById('modal');
+    m.style.display = 'flex'; setTimeout(() => m.classList.add('show'), 10);
+}
+function closeModal() {
+    const m = document.getElementById('modal');
+    m.classList.remove('show'); setTimeout(() => m.style.display = 'none', 300);
+}
+
+document.getElementById('whatsappBtn').addEventListener('click', () => {
+    window.open(`https://wa.me/50942017744?text=${encodeURIComponent('Mwen vle kòmande modèl ' + currentCategory + ' sa a : ' + currentImg)}`, '_blank');
 });
 
-window.onload = () => setLanguage(localStorage.getItem('lang_gal') || 'fr');
+window.onload = () => {
+    setLanguage(localStorage.getItem('lang_gal') || 'fr');
+    showPopup();
+    setTimeout(() => { document.getElementById("loader-container").classList.add("fade-out"); }, 600);
+};
 </script>
-
 </body>
-    </html>
+        </html>
     
