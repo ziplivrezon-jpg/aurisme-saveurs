@@ -37,15 +37,11 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
 .product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500;}
 
-/* RANKING STYLE */
-.ranking-box { background: white; margin: 20px 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.ranking-stars { color: var(--gold); font-size: 18px; margin-bottom: 5px; }
-
 input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
 .btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
 
-.tourist-card { background: #fdf9f0; border: 1px solid var(--gold); padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; line-height: 1.4;}
-.tourist-card i { color: var(--gold); margin-right: 10px;}
+.ranking-box { background: white; margin: 20px 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.ranking-stars { color: var(--gold); font-size: 18px; margin-bottom: 5px; }
 
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
 </style>
@@ -93,14 +89,17 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <div class="collapsible-box">
         <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-super" class="collapsible-content">
-            <label id="lbl-m">Choisir Marché:</label>
+            <label>Choisir Marché:</label>
             <select id="market-select">
                 <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
                 <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option>Et autres</option>
             </select>
-            <label id="lbl-p-aur">Produits Aurisme (Cochez & Quantité):</label>
+            <input type="text" id="market-name-other" placeholder="Si se yon lòt mache, ekri non l isit la...">
+            
+            <label>Produits Aurisme (Cochez & Quantité):</label>
             <div class="product-list-container" id="aurisme-list"></div>
-            <textarea id="market-others" placeholder="Autres produits..."></textarea>
+            
+            <textarea id="market-others-list" placeholder="Lis lòt pwodwi ou bezwen yo..."></textarea>
             <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">COMMANDER WHATSAPP</button>
         </div>
     </div>
@@ -109,21 +108,11 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-ti" class="collapsible-content">
             <input type="text" id="ti-name" placeholder="Votre Nom Complet">
-            <label id="lbl-p-ti">Produits en Gros (Cochez & Quantité):</label>
+            <label>Produits en Gros (Cochez & Quantité):</label>
             <div class="product-list-container" id="ti-machann-list"></div>
+            
+            <textarea id="ti-others-list" placeholder="Lis lòt pwodwi ou bezwen an gwo yo..."></textarea>
             <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">COMMANDER EN GROS</button>
-        </div>
-    </div>
-
-    <div class="collapsible-box" style="border-left-color: var(--gold);">
-        <button class="collapsible-btn" onclick="toggleBox('box-tour')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
-        <div id="box-tour" class="collapsible-content">
-            <div class="tourist-card">
-                <i class="fas fa-info-circle"></i> <span id="tour-info">Safe transportation, guiding, and local assistance services for visitors.</span>
-            </div>
-            <input type="text" id="tour-name" placeholder="Full Name / Nom Complet">
-            <textarea id="tour-help" placeholder="How can we help you?"></textarea>
-            <button class="btn-order" style="background:var(--gold);" id="btn-tour" onclick="sendWhatsApp('Tourist Assistance')">GET ASSISTANCE</button>
         </div>
     </div>
 
@@ -177,12 +166,27 @@ function changeLanguage(lang) {
 function sendWhatsApp(service) {
     let selected = [];
     let listId = (service === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
+    let textListId = (service === 'Supermarché') ? 'market-others-list' : 'ti-others-list';
+    
     let container = document.getElementById(listId);
     let checks = container.querySelectorAll('.prod-check');
     let qtys = container.querySelectorAll('.prod-qty');
+    
+    // Mache a
+    let market = document.getElementById('market-select').value;
+    let otherMarket = document.getElementById('market-name-other').value;
+    let finalMarket = (otherMarket) ? otherMarket : market;
+
     let name = (service === 'Ti Machann') ? document.getElementById('ti-name').value : "Client";
+    let othersList = document.getElementById(textListId).value;
+
     checks.forEach((c, i) => { if(c.checked) selected.push(`${c.value} (${qtys[i].value})`); });
-    let msg = `*Aurisme Saveurs - Sèvis ${service}*\n*Non:* ${name}\n*Pwodwi:* ${selected.join(', ')}`;
+    
+    let msg = `*Aurisme Saveurs - Sèvis ${service}*\n`;
+    if(service === 'Supermarché') msg += `*Mache:* ${finalMarket}\n`;
+    msg += `*Non:* ${name}\n*Pwodwi:* ${selected.join(', ')}`;
+    if(othersList) msg += `\n*Lòt pwodwi:* ${othersList}`;
+    
     window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
 }
 
