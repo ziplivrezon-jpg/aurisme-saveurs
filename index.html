@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ht">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,12 +67,12 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 
 <div class="container">
     <div class="menu-grid">
-        <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span id="m-liv">LIVRAISON</span></a>
-        <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span id="m-tax">TAXI MOTO</span></a>
-        <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span id="m-aca">ACADEMY</span></a>
-        <a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span id="m-pat">PÂTISSERIE</span></a>
-        <a href="decoration.html" class="menu-card"><i class="fas fa-utensils"></i><span id="m-dec">DÉCO & TRAITEUR</span></a>
-        <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span id="m-gal">GALERIE</span></a>
+        <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span id="m-liv">LIVREZON</span></a>
+        <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span id="m-tax">TAKSI MOTO</span></a>
+        <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span id="m-aca">AKADEMI</span></a>
+        <a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span id="m-pat">PATISRI</span></a>
+        <a href="decoration.html" class="menu-card"><i class="fas fa-utensils"></i><span id="m-dec">DEKO & TRAITEUR</span></a>
+        <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span id="m-gal">GALERI</span></a>
     </div>
 
     <div class="plan-box">
@@ -87,32 +87,32 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     </div>
 
     <div class="collapsible-box">
-        <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Service Supermarché</span> <i class="fas fa-chevron-down"></i></button>
+        <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Sèvis Sipèmache</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-super" class="collapsible-content">
-            <label>Choisir Marché:</label>
+            <label id="lbl-market">Chwazi Mache:</label>
             <select id="market-select">
                 <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
-                <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option>Et autres</option>
+                <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option id="opt-others">Ak lòt ankò</option>
             </select>
             <input type="text" id="market-name-other" placeholder="Si se yon lòt mache, ekri non l isit la...">
             
-            <label>Produits Aurisme (Cochez & Quantité):</label>
+            <label id="lbl-prod-aur">Pwodwi Aurisme (Koche & Kantite):</label>
             <div class="product-list-container" id="aurisme-list"></div>
             
             <textarea id="market-others-list" placeholder="Lis lòt pwodwi ou bezwen yo..."></textarea>
-            <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">COMMANDER WHATSAPP</button>
+            <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">KOMANDE SOU WHATSAPP</button>
         </div>
     </div>
 
     <div class="collapsible-box" style="border-left-color: var(--navy);">
-        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
+        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espas Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-ti" class="collapsible-content">
-            <input type="text" id="ti-name" placeholder="Votre Nom Complet">
-            <label>Produits en Gros (Cochez & Quantité):</label>
+            <input type="text" id="ti-name" placeholder="Non konplè ou">
+            <label id="lbl-prod-gros">Pwodwi an Gwo (Koche & Kantite):</label>
             <div class="product-list-container" id="ti-machann-list"></div>
             
             <textarea id="ti-others-list" placeholder="Lis lòt pwodwi ou bezwen an gwo yo..."></textarea>
-            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">COMMANDER EN GROS</button>
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">KOMANDE AN GWO</button>
         </div>
     </div>
 
@@ -128,12 +128,12 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
     <p><strong>📍 Péguy-ville, Rue Aguallo</strong></p>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.504268686738!2d-72.2891!3d18.5147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e19036c1e36f%3A0x67878d2d64536735!2sP%C3%A9guy-Ville%2C%20P%C3%A9tion-Ville!5e0!3m2!1sfr!2sht!4v1700000000000" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
     <br><br>
-    <a href="privacy.html" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Privacy Policy</a>
-    <p style="font-size: 10px; color: #999; margin-top: 15px;">Sécurisé par Aurisme Tech</p>
+    <a href="privacy.html" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Règleman sou Konfidansyalite</a>
+    <p style="font-size: 10px; color: #999; margin-top: 15px;">Sekirize pa Aurisme Tech</p>
 </div>
 
 <script>
-const products = ["Gâteau ti bol", "Gâteau 12\"", "Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"];
+const products = ["Gato ti bòl", "Gato 12\"", "Palmier", "Sacristain", "Kokonat", "Cookies", "Lang bèf", "Pate", "Cupcakes", "Cookies rezen"];
 
 function toggleBox(id) {
     var content = document.getElementById(id);
@@ -150,15 +150,77 @@ function renderProducts() {
 }
 
 const translations = {
-    fr: { main: "Aurisme Saveurs et Services", rank: "Excellent Service - 4.8/5", v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ" },
-    en: { main: "Aurisme Flavors", rank: "Excellent Service - 4.8/5", v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER" },
-    ht: { main: "Aurisme Saveurs ak Sèvis", rank: "Sèvis Ekselan - 4.8/5", v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE" }
+    fr: { 
+        main: "Aurisme Saveurs et Services", 
+        rank: "Excellent Service - 4.8/5", 
+        rank_c: "Basé sur +500 commandes",
+        v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", 
+        v_btn: "COMMANDER",
+        liv: "LIVRAISON", tax: "TAXI MOTO", aca: "ACADÉMIE", pat: "PÂTISSERIE", dec: "DÉCO & TRAITEUR", gal: "GALERIE",
+        plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
+        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann",
+        lbl_m: "Choisir Marché:", opt_o: "Et autres", lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER WHATSAPP",
+        lbl_n: "Votre Nom Complet", lbl_p_g: "Produits en Gros (Cochez & Quantité):", btn_r: "COMMANDER EN GROS",
+        priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
+    },
+    en: { 
+        main: "Aurisme Flavors & Services", 
+        rank: "Excellent Service - 4.8/5", 
+        rank_c: "Based on +500 orders",
+        v_text: "VETIHKAM: Best Haitian VETIVER", 
+        v_btn: "ORDER NOW",
+        liv: "DELIVERY", tax: "MOTO TAXI", aca: "ACADEMY", pat: "PASTRY", dec: "DECO & CATERING", gal: "GALLERY",
+        plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
+        sup: "🛒 Supermarket Service", res: "🏪 Small Vendor Space",
+        lbl_m: "Select Market:", opt_o: "Others", lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER ON WHATSAPP",
+        lbl_n: "Your Full Name", lbl_p_g: "Wholesale Products (Check & Qty):", btn_r: "ORDER WHOLESALE",
+        priv: "🔒 Privacy Policy", tech: "Secured by Aurisme Tech"
+    },
+    ht: { 
+        main: "Aurisme Saveurs ak Sèvis", 
+        rank: "Sèvis Ekselan - 4.8/5", 
+        rank_c: "Baze sou +500 kòmand",
+        v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", 
+        v_btn: "KOMANDE",
+        liv: "LIVREZON", tax: "TAKSI MOTO", aca: "AKADEMI", pat: "PATISRI", dec: "DEKO & TRAITEUR", gal: "GALERI",
+        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman dousman.", plan_b: "PATISIPE",
+        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann",
+        lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò", lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE SOU WHATSAPP",
+        lbl_n: "Non konplè ou", lbl_p_g: "Pwodwi an Gwo (Koche & Kantite):", btn_r: "KOMANDE AN GWO",
+        priv: "🔒 Règleman sou Konfidansyalite", tech: "Sekirize pa Aurisme Tech"
+    }
 };
 
 function changeLanguage(lang) {
     const t = translations[lang];
     document.getElementById('main-title').innerText = t.main;
     document.getElementById('rank-txt').innerText = t.rank;
+    document.getElementById('rank-count').innerText = t.rank_c;
+    
+    // Meni
+    document.getElementById('m-liv').innerText = t.liv;
+    document.getElementById('m-tax').innerText = t.tax;
+    document.getElementById('m-aca').innerText = t.aca;
+    document.getElementById('m-pat').innerText = t.pat;
+    document.getElementById('m-dec').innerText = t.dec;
+    document.getElementById('m-gal').innerText = t.gal;
+
+    // Plan
+    document.getElementById('t-plan-title').innerText = t.plan_t;
+    document.getElementById('t-plan-desc').innerText = t.plan_d;
+    document.getElementById('t-plan-btn').innerText = t.plan_b;
+
+    // Sèvis
+    document.getElementById('t-sup').innerText = t.sup;
+    document.getElementById('t-res').innerText = t.res;
+    document.getElementById('lbl-market').innerText = t.lbl_m;
+    document.getElementById('opt-others').innerText = t.opt_o;
+    document.getElementById('lbl-prod-aur').innerText = t.lbl_p_a;
+    document.getElementById('btn-sup').innerText = t.btn_s;
+    document.getElementById('ti-name').placeholder = t.lbl_n;
+    document.getElementById('lbl-prod-gros').innerText = t.lbl_p_g;
+    document.getElementById('btn-res').innerText = t.btn_r;
+
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
     document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
 }
@@ -172,12 +234,11 @@ function sendWhatsApp(service) {
     let checks = container.querySelectorAll('.prod-check');
     let qtys = container.querySelectorAll('.prod-qty');
     
-    // Mache a
     let market = document.getElementById('market-select').value;
     let otherMarket = document.getElementById('market-name-other').value;
     let finalMarket = (otherMarket) ? otherMarket : market;
 
-    let name = (service === 'Ti Machann') ? document.getElementById('ti-name').value : "Client";
+    let name = (service === 'Ti Machann') ? document.getElementById('ti-name').value : "Kliyan";
     let othersList = document.getElementById(textListId).value;
 
     checks.forEach((c, i) => { if(c.checked) selected.push(`${c.value} (${qtys[i].value})`); });
@@ -193,4 +254,5 @@ function sendWhatsApp(service) {
 window.onload = function() { renderProducts(); changeLanguage('ht'); };
 </script>
 </body>
-</html>
+                </html>
+                
