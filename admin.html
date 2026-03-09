@@ -35,6 +35,10 @@
         .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-download { width: 100%; background: #e74c3c; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         
+        /* New Style for Links Section */
+        .link-box { background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 8px; margin-top: 10px; }
+        .btn-link-bio { display: block; text-align: center; background: var(--bordeaux); color: white; text-decoration: none; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: bold; margin-top: 5px; }
+
         .history-item { padding: 8px 0; border-bottom: 1px dotted #eee; font-size: 11px; }
         #adminMap { flex: 1; height: 100%; }
         hr { border: 0; border-top: 1px solid #eee; margin: 15px 0; }
@@ -84,13 +88,23 @@
         <h3><i class="fas fa-file-pdf"></i> Rapò PDF</h3>
         <div id="ti-lis-istorik"></div>
         <button class="btn-download" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Telechaje Lis la (PDF)</button>
+        
+        <hr>
+
+        <div class="link-box">
+            <h3 style="margin-top:0; border-left: 3px solid var(--navy);"><i class="fas fa-external-link-alt"></i> Vitrin Piblik</h3>
+            <p style="font-size: 10px; color: #666; margin: 5px 0;">Kopi lyen sa a pou kliyan yo:</p>
+            <input type="text" value="https://tourist.com/p/17401" readonly style="font-size: 10px; background: #f0f0f0; border: 1px dashed #ccc; cursor: pointer;" onclick="this.select(); document.execCommand('copy'); alert('Lyen an kopye!');">
+            <a href="https://tourist.com/p/17401" target="_blank" class="btn-link-bio">OUVRI PAJ TOURIST</a>
+        </div>
+        
         <br><br>
     </div>
 
     <div id="adminMap"></div>
 
     <script>
-        // CONFIG FIREBASE (Rete menm jan an)
+        // Tout script yo rete menm jan an, pa gen anyen ki chanje nan Firebase oswa Lojik Map la.
         const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
@@ -193,5 +207,4 @@
         });
     </script>
 </body>
-                                    </html>
-                                    
+</html>
