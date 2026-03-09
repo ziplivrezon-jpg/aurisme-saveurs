@@ -9,8 +9,6 @@
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
 body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
 
-/* NOU RETIRE SECURITY HEADER LA NAN CSS LA TOU */
-
 .promo-banner { background: var(--vetiver-green); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 15px; font-weight: bold; border-bottom: 3px solid var(--gold); }
 .promo-scroll { display: inline-block; padding-left: 100%; animation: scroll-text 15s linear infinite; }
 @keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
@@ -26,12 +24,6 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .menu-card{background:white; padding:25px 10px; border-radius:20px; text-align:center; text-decoration:none; color:var(--navy); font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.1); border-bottom:4px solid var(--gold); display:flex; flex-direction:column; align-items:center;}
 .menu-card i{font-size:35px; color:var(--bordeaux); margin-bottom:10px;}
 
-/* STYLE POU SEKSYON RANKING NAN */
-.ranking-section { background: white; margin: 20px 10px; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; }
-.ranking-stars { color: var(--gold); font-size: 20px; margin-bottom: 10px; }
-.ranking-text { font-size: 14px; color: var(--navy); font-weight: bold; }
-.ranking-count { font-size: 12px; color: #888; display: block; margin-top: 5px; }
-
 .plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; margin: 20px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--gold); text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
 .plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 12px 18px; border-radius: 10px; font-weight: bold; font-size: 14px;}
 
@@ -45,8 +37,15 @@ header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom
 .product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
 .product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500;}
 
+/* RANKING STYLE */
+.ranking-box { background: white; margin: 20px 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.ranking-stars { color: var(--gold); font-size: 18px; margin-bottom: 5px; }
+
 input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
 .btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
+
+.tourist-card { background: #fdf9f0; border: 1px solid var(--gold); padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; line-height: 1.4;}
+.tourist-card i { color: var(--gold); margin-right: 10px;}
 
 .footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
 </style>
@@ -99,20 +98,40 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
                 <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
                 <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option>Et autres</option>
             </select>
+            <label id="lbl-p-aur">Produits Aurisme (Cochez & Quantité):</label>
             <div class="product-list-container" id="aurisme-list"></div>
             <textarea id="market-others" placeholder="Autres produits..."></textarea>
             <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">COMMANDER WHATSAPP</button>
         </div>
     </div>
 
-    <div class="ranking-section">
-        <div class="ranking-stars">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+    <div class="collapsible-box" style="border-left-color: var(--navy);">
+        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espace Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-ti" class="collapsible-content">
+            <input type="text" id="ti-name" placeholder="Votre Nom Complet">
+            <label id="lbl-p-ti">Produits en Gros (Cochez & Quantité):</label>
+            <div class="product-list-container" id="ti-machann-list"></div>
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">COMMANDER EN GROS</button>
         </div>
-        <span class="ranking-text" id="rank-text">Sèvis Ekselan - 4.8/5</span>
-        <span class="ranking-count" id="rank-count">Baze sou plis pase 500 kòmand</span>
     </div>
 
+    <div class="collapsible-box" style="border-left-color: var(--gold);">
+        <button class="collapsible-btn" onclick="toggleBox('box-tour')"><span id="t-tour">🌍 Tourist Assistance</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-tour" class="collapsible-content">
+            <div class="tourist-card">
+                <i class="fas fa-info-circle"></i> <span id="tour-info">Safe transportation, guiding, and local assistance services for visitors.</span>
+            </div>
+            <input type="text" id="tour-name" placeholder="Full Name / Nom Complet">
+            <textarea id="tour-help" placeholder="How can we help you?"></textarea>
+            <button class="btn-order" style="background:var(--gold);" id="btn-tour" onclick="sendWhatsApp('Tourist Assistance')">GET ASSISTANCE</button>
+        </div>
+    </div>
+
+    <div class="ranking-box">
+        <div class="ranking-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+        <strong id="rank-txt">Sèvis Ekselan - 4.8/5</strong><br>
+        <small id="rank-count">Baze sou +500 kòmand</small>
+    </div>
 </div>
 
 <div class="footer-info">
@@ -125,7 +144,6 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 </div>
 
 <script>
-// Menm JS la rete, mwen jis ajoute tradiksyon pou Ranking lan
 const products = ["Gâteau ti bol", "Gâteau 12\"", "Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"];
 
 function toggleBox(id) {
@@ -139,30 +157,32 @@ function renderProducts() {
         html += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
     });
     document.getElementById('aurisme-list').innerHTML = html;
+    document.getElementById('ti-machann-list').innerHTML = html.replace(/id="c-/g, 'id="ct-');
 }
 
 const translations = {
-    fr: { main: "Aurisme Saveurs et Services", rank: "Service Excellent - 4.8/5", count: "Basé sur plus de 500 commandes", v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ" },
-    en: { main: "Aurisme Flavors", rank: "Excellent Service - 4.8/5", count: "Based on over 500 orders", v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER" },
-    ht: { main: "Aurisme Saveurs ak Sèvis", rank: "Sèvis Ekselan - 4.8/5", count: "Baze sou plis pase 500 kòmand", v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE" }
+    fr: { main: "Aurisme Saveurs et Services", rank: "Excellent Service - 4.8/5", v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDEZ" },
+    en: { main: "Aurisme Flavors", rank: "Excellent Service - 4.8/5", v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER" },
+    ht: { main: "Aurisme Saveurs ak Sèvis", rank: "Sèvis Ekselan - 4.8/5", v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE" }
 };
 
 function changeLanguage(lang) {
     const t = translations[lang];
     document.getElementById('main-title').innerText = t.main;
-    document.getElementById('rank-text').innerText = t.rank;
-    document.getElementById('rank-count').innerText = t.count;
+    document.getElementById('rank-txt').innerText = t.rank;
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
     document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
 }
 
 function sendWhatsApp(service) {
     let selected = [];
-    let container = document.getElementById('aurisme-list');
+    let listId = (service === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
+    let container = document.getElementById(listId);
     let checks = container.querySelectorAll('.prod-check');
     let qtys = container.querySelectorAll('.prod-qty');
+    let name = (service === 'Ti Machann') ? document.getElementById('ti-name').value : "Client";
     checks.forEach((c, i) => { if(c.checked) selected.push(`${c.value} (${qtys[i].value})`); });
-    let msg = `*Aurisme Saveurs - Sèvis ${service}*\n*Pwodwi:* ${selected.join(', ')}`;
+    let msg = `*Aurisme Saveurs - Sèvis ${service}*\n*Non:* ${name}\n*Pwodwi:* ${selected.join(', ')}`;
     window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
 }
 
