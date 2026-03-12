@@ -5,51 +5,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chat & Voice - Aurisme Saveurs et Services</title>
 <style>
-  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; }
-  header { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; border-bottom:2px solid #007BFF; background:#fff; }
-  header img { height:60px; }
-  header .company-name { font-size:20px; font-weight:bold; color:#007BFF; margin-left:10px; }
-  header a { text-decoration:none; background:#28a745; color:white; padding:10px 20px; border-radius:5px; font-weight:bold; }
-  
-  #messages { border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px; margin:10px 20px; background:#fff; border-radius:5px; }
-  .message { padding:5px 10px; border-radius:5px; margin-bottom:5px; max-width:80%; }
-  .message.mine { background:#007BFF; color:white; margin-left:auto; }
-  .message.other { background:#e0e0e0; color:black; margin-right:auto; }
-  
-  #input { width:70%; padding:8px; margin:10px 20px; border-radius:5px; border:1px solid #ccc; }
-  #send { padding:8px 12px; margin-left:10px; border-radius:5px; background:#007BFF; color:white; border:none; cursor:pointer; }
-  #call { margin:10px 20px; padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; cursor:pointer; }
-  h2 { margin-left:20px; color:#007BFF; }
+  :root {
+    --primary-color: #0056b3;
+    --whatsapp-color: #25D366;
+    --bg-light: #f0f2f5;
+    --white: #ffffff;
+    --gray: #65676b;
+  }
+
+  body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; padding: 0; 
+    background-color: var(--bg-light); 
+    display: flex; flex-direction: column; height: 100vh;
+  }
+
+  header { 
+    display: flex; align-items: center; justify-content: space-between; 
+    padding: 12px 20px; background: var(--white); 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 10;
+  }
+  header .brand { display: flex; align-items: center; }
+  header img { height: 50px; border-radius: 8px; }
+  header .company-name { font-size: 18px; font-weight: 700; color: var(--primary-color); margin-left: 12px; }
+  header .nav-link { text-decoration: none; background: var(--primary-color); color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; }
+
+  .chat-container {
+    flex: 1; display: flex; flex-direction: column;
+    max-width: 800px; margin: 15px auto; width: 95%;
+    background: var(--white); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  /* Bara pou apèl yo */
+  .call-bar {
+    background: #f8f9fa; padding: 12px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+  .action-buttons { display: flex; gap: 10px; }
+
+  .btn-action {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 15px; border-radius: 20px;
+    font-size: 13px; font-weight: bold; text-decoration: none;
+    border: none; cursor: pointer; transition: 0.3s; color: white;
+  }
+  #call { background: #ccc; } /* Gri pa defo jiskaske l pare */
+  .btn-whatsapp { background: var(--whatsapp-color); }
+  .btn-action:hover { transform: translateY(-2px); opacity: 0.9; }
+
+  #messages { 
+    flex: 1; padding: 20px; overflow-y: auto; 
+    background: #e5ddd5; display: flex; flex-direction: column;
+  }
+
+  .message { 
+    padding: 10px 15px; border-radius: 18px; margin-bottom: 10px; 
+    max-width: 75%; font-size: 15px; position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  .message.mine { background: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .message.other { background: var(--white); color: #333; align-self: flex-start; border-bottom-left-radius: 4px; }
+
+  .input-area { padding: 15px; background: var(--white); display: flex; align-items: center; border-top: 1px solid #eee; }
+  #input { flex: 1; padding: 12px 18px; border-radius: 25px; border: 1px solid #ddd; outline: none; }
+  #send { background: var(--primary-color); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; margin-left: 10px; cursor: pointer; }
 </style>
 </head>
 <body>
 
-<!-- Header ak Logo + Non Konpayi + Bouton Home -->
 <header>
-  <div style="display:flex; align-items:center;">
-    <img src="Logo.png" alt="Logo Konpayi">
+  <div class="brand">
+    <img src="Logo.png" alt="Logo">
     <span class="company-name">Aurisme Saveurs et Services</span>
   </div>
-  <a href="index.html">Tounen sou Akèy</a>
+  <a href="index.html" class="nav-link">Akèy</a>
 </header>
 
-<h2>Chat</h2>
-<div id="messages"></div>
-<input type="text" id="input" placeholder="Ekri mesaj ou...">
-<button id="send">Voye</button>
+<div class="chat-container">
+  <div class="call-bar">
+    <span style="color: var(--gray); font-size: 14px; font-weight: 600;">Kontakte nou:</span>
+    <div class="action-buttons">
+      <button id="call" class="btn-action">📞 Apèl</button>
+      <a id="whatsapp-btn" href="#" target="_blank" class="btn-action btn-whatsapp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" width="16"> WhatsApp
+      </a>
+    </div>
+  </div>
+  
+  <div id="messages"></div>
 
-<h2>Voice Call</h2>
-<button id="call">Klike pou Voice Call</button>
+  <div class="input-area">
+    <input type="text" id="input" placeholder="Ekri yon mesaj...">
+    <button id="send">➤</button>
+  </div>
+</div>
 
-<!-- Firebase JS -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<!-- Twilio JS SDK -->
 <script src="https://sdk.twilio.com/js/client/v1.13/twilio.min.js"></script>
 
 <script>
-  // === Firebase Config ===
+  // === CONFIGURATIONS ===
   const firebaseConfig = {
     apiKey: "API_KEY",
     authDomain: "PROJECT_ID.firebaseapp.com",
@@ -62,61 +120,61 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 
+  const currentUserId = 'user_123';
+  const myWhatsAppNumber = "509XXXXXXXX"; // Mete nimewo w la
+
+  // WhatsApp Link
+  document.getElementById('whatsapp-btn').href = `https://wa.me/${myWhatsAppNumber}?text=Bonjou%20Aurisme%20Saveurs%2C%20mwen%20ta%20renmen%20pale%20ak%20yon%20moun.`;
+
+  // === CHAT LOGIC ===
   const messagesDiv = document.getElementById('messages');
   const input = document.getElementById('input');
   const sendBtn = document.getElementById('send');
 
-  const currentUserId = 'user_123'; // mete id itilizatè w la
-
-  // Voye mesaj
-  sendBtn.addEventListener('click', () => {
+  function sendMessage() {
     const text = input.value.trim();
     if(text) {
       db.ref('messages').push({ text, timestamp: Date.now(), sender: currentUserId });
       input.value = '';
     }
-  });
+  }
 
-  // Resevwa mesaj an tan reyèl
+  sendBtn.onclick = sendMessage;
+  input.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+
   db.ref('messages').on('child_added', snapshot => {
     const msg = snapshot.val();
     const div = document.createElement('div');
     div.textContent = msg.text;
-    div.classList.add('message');
-    if(msg.sender === currentUserId) div.classList.add('mine');
-    else div.classList.add('other');
+    div.className = `message ${msg.sender === currentUserId ? 'mine' : 'other'}`;
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
   });
 
-  // === Twilio Voice Call ===
-  const callBtn = document.getElementById('call');
+  // === TWILIO VOICE ===
   let device;
+  async function initTwilio() {
+    try {
+      const res = await fetch('/api/get-token'); // Sa a ap mache sou Vercel si w kreye api/get-token.js
+      const data = await res.json();
+      device = new Twilio.Device(data.token, { debug: true });
 
-  async function setupVoiceCall() {
-    const res = await fetch('/api/get-twilio-token');
-    const data = await res.json();
-    const token = data.token;
-
-    device = new Twilio.Device(token, { debug: true });
-
-    device.on('ready', () => console.log('Twilio Device ready'));
-    device.on('error', err => console.error('Device error:', err));
-    device.on('incoming', conn => {
-      if(confirm("Ou gen yon apèl! Reponn?")) conn.accept();
-    });
+      device.on('ready', () => {
+        const btn = document.getElementById('call');
+        btn.style.background = "#0056b3";
+        btn.innerText = "📞 Apèl Dirèk";
+      });
+    } catch (e) { console.log("Twilio pa ka chaje kounye a."); }
   }
+  initTwilio();
 
-  setupVoiceCall();
-
-  callBtn.addEventListener('click', () => {
-    if(!device) return alert('Device pa pare');
-    const params = { To: 'user_1' }; // ranplase ak id itilizatè ou vle rele
-    const conn = device.connect(params);
-    conn.on('accept', () => console.log('Apèl konekte'));
-    conn.on('disconnect', () => console.log('Apèl fini'));
-  });
+  document.getElementById('call').onclick = () => {
+    if(device && device.status() === 'ready') {
+      device.connect({ To: 'admin_aurisme' });
+    } else {
+      alert("Sistèm apèl dirèk la ap prepare. Sèvi ak WhatsApp pou kounye a.");
+    }
+  };
 </script>
-
 </body>
 </html>
