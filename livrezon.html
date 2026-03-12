@@ -15,54 +15,35 @@
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --bg: #F8F9FA; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; overflow-x: hidden; }
-
-        /* LANG BAR */
         .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; }
         .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
-
-        /* HEADER */
         .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .back-btn { font-size: 24px; color: var(--bordeaux); text-decoration: none; }
         .logo-small { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); }
         .header-title { font-weight: bold; color: var(--navy); font-size: 14px; text-transform: uppercase; }
-
         .container { padding: 20px; max-width: 500px; margin: auto; }
-
-        /* SUIVI DE COMMANDE */
         .tracking-card { background: white; padding: 20px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--gold); }
         .tracking-card h3 { margin: 0 0 10px 0; font-size: 15px; color: var(--navy); text-transform: uppercase; }
         .tracking-input-group { display: flex; gap: 10px; }
         .tracking-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 14px; }
         .btn-track { background: var(--navy); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-
-        /* BOUTONS PRINCIPAUX */
         .section-title { font-size: 14px; font-weight: bold; margin: 20px 0 10px; color: var(--bordeaux); text-align: left; display: block; text-transform: uppercase; letter-spacing: 1px; }
-        .main-card { padding: 20px; border-radius: 20px; color: white; display: flex; justify-content: space-between; align-items: center; text-decoration: none; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: 0.3s; }
+        .main-card { padding: 20px; border-radius: 20px; color: white; display: flex; justify-content: space-between; align-items: center; text-decoration: none; margin-bottom: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; border: none; width: 100%; text-align: left; }
         .main-card h3 { margin: 0; font-size: 18px; }
         .main-card p { margin: 5px 0 0; font-size: 13px; opacity: 0.9; }
         .main-card i { font-size: 28px; }
-        .main-card:active { transform: scale(0.96); }
         .bg-bordeaux { background: linear-gradient(135deg, var(--bordeaux), #a00000); }
         .bg-navy { background: linear-gradient(135deg, var(--navy), #004080); }
         .bg-gold { background: linear-gradient(135deg, var(--gold), #b8860b); color: var(--bordeaux) !important; }
-
-        /* GRID CATÉGORIES */
         .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
         .cat-box { background: white; padding: 15px 5px; border-radius: 15px; text-align: center; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 11px; font-weight: bold; transition: 0.2s; border: 1px solid transparent; }
         .cat-box i { font-size: 24px; display: block; margin-bottom: 8px; }
-        .cat-box:hover { border-color: var(--gold); }
-
-        /* MODALS */
         .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center; padding: 20px; }
         .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 380px; text-align: center; border-top: 8px solid var(--gold); }
         .modal-btn { width: 100%; padding: 15px; margin-top: 10px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; }
         .btn-google { background: #f1f1f1; color: #333; }
         .btn-whatsapp { background: var(--bordeaux); color: white; }
-
-        /* MAP STYLE */
-        #map { height: 220px; width: 100%; border-radius: 15px; margin: 15px 0; border: 2px solid var(--gold); z-index: 5; }
-
-        /* TOURIST TIP */
+        #map { height: 220px; width: 100%; border-radius: 15px; margin: 15px 0; border: 2px solid var(--gold); }
         .tourist-badge { background: #e3f2fd; color: #0d47a1; padding: 10px; border-radius: 10px; font-size: 12px; margin-top: 15px; display: flex; align-items: center; gap: 8px; font-style: italic; }
     </style>
 </head>
@@ -90,55 +71,49 @@
         </div>
 
         <span class="section-title" id="sec-exp">Expéditions Spéciales</span>
-        <a href="javascript:void(0)" onclick="sendToFirebaseLivrezon('Livraison de Colis', 'Enveloppes, documents & paquets')" class="main-card bg-navy">
+        <button onclick="sendToFirebaseLivrezon('Livraison de Colis', 'Enveloppes, documents & paquets')" class="main-card bg-navy">
             <div><h3 id="t-colis">Livraison de Colis</h3><p id="d-colis">Enveloppes, documents & paquets</p></div>
             <i class="fas fa-box-open"></i>
-        </a>
+        </button>
 
         <span class="section-title" id="sec-achat">Achats & Courses</span>
         <div class="categories-grid">
-            <div class="cat-box" onclick="sendOrder('Restaurants')"><i class="fas fa-utensils" style="color: var(--bordeaux);"></i><span id="cat-res">Restaurant</span></div>
-            <div class="cat-box" onclick="sendOrder('Supermarchés')"><i class="fas fa-shopping-basket" style="color: #27AE60;"></i><span id="cat-mkt">Marché</span></div>
-            <div class="cat-box" onclick="sendOrder('Pharmacies')"><i class="fas fa-pills" style="color: #2980B9;"></i><span id="cat-pha">Pharmacie</span></div>
+            <div class="cat-box" onclick="openOrderModal('Restaurants')"><i class="fas fa-utensils" style="color: var(--bordeaux);"></i><span id="cat-res">Restaurant</span></div>
+            <div class="cat-box" onclick="openOrderModal('Supermarchés')"><i class="fas fa-shopping-basket" style="color: #27AE60;"></i><span id="cat-mkt">Marché</span></div>
+            <div class="cat-box" onclick="openOrderModal('Pharmacies')"><i class="fas fa-pills" style="color: #2980B9;"></i><span id="cat-pha">Pharmacie</span></div>
         </div>
 
-        <a href="javascript:void(0)" onclick="sendToFirebaseLivrezon('Conciergerie', 'Récupération de clés, dossiers, pressing')" class="main-card bg-bordeaux">
+        <button onclick="sendToFirebaseLivrezon('Conciergerie', 'Récupération de clés, dossiers, pressing')" class="main-card bg-bordeaux">
             <div><h3 id="t-conc">Conciergerie & Courses</h3><p id="d-conc">Récupération de clés, dossiers, pressing</p></div>
             <i class="fas fa-paper-plane"></i>
-        </a>
+        </button>
 
-        <a href="javascript:void(0)" onclick="sendToFirebaseLivrezon('Custom', 'Demande Personnalisée Urgent')" class="main-card bg-gold">
-            <div><h3 id="t-custom">Demande Personnalisée</h3><p id="d-custom">Tout autre type de livraison urgente</p></div>
+        <button onclick="sendToFirebaseLivrezon('Custom', 'Demande Personnalisée Urgent')" class="main-card bg-gold">
+            <div><h3 id="t-custom">Demande Personnalisée</h3><p id="d-custom">Tout type de livraison urgente</p></div>
             <i class="fas fa-plus-circle"></i>
-        </a>
-
-        <div class="tourist-badge" id="txt-tourist-tip">
-            <i class="fas fa-info-circle"></i>
-            <span>Specify your Hotel Lobby or Airbnb location for faster delivery.</span>
-        </div>
+        </button>
     </div>
 
     <div id="choiceModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle" style="color: var(--navy);">Service Client</h3>
-            <p id="modalSub" style="font-size: 14px; color: #666; margin-bottom: 20px;">Comment souhaitez-vous continuer ?</p>
-            <button class="modal-btn btn-google" id="btnGoogle"><i class="fab fa-google"></i> <span id="txt-google">Rechercher via Google</span></button>
-            <button class="modal-btn btn-whatsapp" id="btnAurisme"><i class="fab fa-whatsapp"></i> <span id="txt-wa">Commander</span></button>
-            <p onclick="closeModal()" id="txt-cancel" style="margin-top:20px; cursor:pointer; color:#999; text-decoration: underline; font-size: 13px;">Annuler</p>
+            <p id="modalSub">Comment souhaitez-vous continuer ?</p>
+            <button class="modal-btn btn-google" id="btnGoogle"><i class="fab fa-google"></i> <span id="txt-google">Trouver sur Maps</span></button>
+            <button class="modal-btn btn-whatsapp" id="btnConfirmOrder"><i class="fas fa-check"></i> <span id="txt-wa">Commander</span></button>
+            <p onclick="closeModal()" id="txt-cancel" style="margin-top:20px; cursor:pointer; color:#999; text-decoration: underline;">Annuler</p>
         </div>
     </div>
 
     <div id="trackModal" class="modal">
         <div class="modal-content">
-            <h3 id="trackStatus" style="color: var(--navy); margin-bottom: 5px;">Recherche...</h3>
+            <h3 id="trackStatus" style="color: var(--navy);">Recherche...</h3>
             <div id="map"></div>
-            <div id="trackDetails" style="text-align: left; margin-bottom: 15px; padding: 12px; background: #f9f9f9; border-radius: 12px; font-size: 13px;"></div>
-            <button class="modal-btn btn-whatsapp" onclick="closeModal()" id="btn-close-track">Fermer</button>
+            <div id="trackDetails" style="text-align: left; padding: 12px; background: #f9f9f9; border-radius: 12px; font-size: 13px;"></div>
+            <button class="modal-btn btn-whatsapp" onclick="closeModal()">Fermer</button>
         </div>
     </div>
 
     <script>
-        // CONFIG FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyCjOguIuH9o5VOu05ZKJ_nWPYKlYx-BKcc",
             authDomain: "aurisme-system.firebaseapp.com",
@@ -150,57 +125,17 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const myPhone = "50942017744";
 
         let map, marker;
-        const motoIcon = L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png',
-            iconSize: [40, 40],
-            iconAnchor: [20, 40]
-        });
+        const motoIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png', iconSize: [40, 40], iconAnchor: [20, 40] });
 
         const translations = {
-            fr: {
-                header: "Logistique & Livraison", trackT: "🔎 Suivi de votre colis", trackB: "Suivre",
-                secExp: "Expéditions Spéciales", secAchat: "Achats & Courses",
-                tColis: "Livraison de Colis", dColis: "Enveloppes, documents & paquets",
-                catRes: "Restaurant", catMkt: "Marché", catPha: "Pharmacie",
-                tConc: "Conciergerie & Courses", dConc: "Récupération de clés, dossiers...",
-                tCust: "Demande Personnalisée", dCust: "Livraison urgente sur mesure",
-                tip: "Précisez le lobby de votre hôtel ou Airbnb pour une livraison rapide.",
-                modalSub: "Comment souhaitez-vous continuer ?", btnG: "Trouver sur Maps", btnW: "Commander",
-                cancel: "Annuler", search: "Recherche en cours...", noId: "ID Introuvable",
-                close: "Fermer la fenêtre"
-            },
-            en: {
-                header: "Logistics & Delivery", trackT: "🔎 Track your package", trackB: "Track",
-                secExp: "Special Shipments", secAchat: "Shopping & Errands",
-                tColis: "Parcel Delivery", dColis: "Envelopes, documents & packages",
-                catRes: "Restaurant", catMkt: "Market", catPha: "Pharmacy",
-                tConc: "Concierge & Errands", dConc: "Key pickup, documents, laundry...",
-                tCust: "Custom Request", dCust: "Tailor-made urgent delivery",
-                tip: "Specify your Hotel Lobby or Airbnb for faster delivery.",
-                modalSub: "How would you like to proceed?", btnG: "Find on Maps", btnW: "Order",
-                cancel: "Cancel", search: "Searching...", noId: "ID Not Found",
-                close: "Close Window"
-            },
-            ht: {
-                header: "Lojistik ak Livrezon", trackT: "🔎 Swiv koli ou", trackB: "Swiv li",
-                secExp: "Expdisyon Spesyal", secAchat: "Achat ak Komisyon",
-                tColis: "Livrezon Koli", dColis: "Anvlòp, dokiman ak pake",
-                catRes: "Restoran", catMkt: "Mache", catPha: "Famasi",
-                tConc: "Konsyejeri & Komisyon", dConc: "Rekipere kle, dosye, elatriye...",
-                tCust: "Demann Spesyal", dCust: "Livrezon ijan sou mezi",
-                tip: "Presize Lobby otèl ou oswa Airbnb pou livrezon an fèt pi vit.",
-                modalSub: "Kijan ou vle kontinye ?", btnG: "Chache sou Maps", btnW: "Kòmande",
-                cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID sa",
-                close: "Fèmen fenèt la"
-            }
+            fr: { header: "Logistique & Livraison", trackT: "🔎 Suivi de colis", trackB: "Suivre", secExp: "Expéditions", secAchat: "Achats", tColis: "Colis", dColis: "Documents & Paquets", catRes: "Restaurant", catMkt: "Marché", catPha: "Pharmacie", tConc: "Conciergerie", dConc: "Courses diverses", tCust: "Personnalisé", dCust: "Sur mesure", modalSub: "Continuer ?", btnG: "Maps", btnW: "Commander", cancel: "Annuler", search: "Recherche...", noId: "ID Introuvable" },
+            ht: { header: "Lojistik & Livrezon", trackT: "🔎 Swiv koli", trackB: "Swiv li", secExp: "Expdisyon", secAchat: "Achat", tColis: "Koli", dColis: "Pake & Dokiman", catRes: "Restoran", catMkt: "Mache", catPha: "Famasi", tConc: "Konsyejeri", dConc: "Komisyon", tCust: "Spesyal", dCust: "Sou mezi", modalSub: "Kijan ou vle kontinye ?", btnG: "Maps", btnW: "Kòmande", cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID" }
         };
 
         function changeLang(lang) {
-            const t = translations[lang];
-            if(!t) return;
+            const t = translations[lang] || translations['fr'];
             document.getElementById('txt-header').innerText = t.header;
             document.getElementById('txt-track-title').innerText = t.trackT;
             document.getElementById('btn-track-action').innerText = t.trackB;
@@ -215,53 +150,18 @@
             document.getElementById('d-conc').innerText = t.dConc;
             document.getElementById('t-custom').innerText = t.tCust;
             document.getElementById('d-custom').innerText = t.dCust;
-            document.getElementById('txt-tourist-tip').querySelector('span').innerText = t.tip;
             document.getElementById('modalSub').innerText = t.modalSub;
             document.getElementById('txt-google').innerText = t.btnG;
             document.getElementById('txt-wa').innerText = t.btnW;
             document.getElementById('txt-cancel').innerText = t.cancel;
-            document.getElementById('btn-close-track').innerText = t.close;
-            localStorage.setItem('aurisme_liv_lang', lang);
+            localStorage.setItem('aurisme_lang', lang);
         }
 
-        async function trackOrder() {
-            const id = document.getElementById('trackID').value.trim().toUpperCase();
-            const lang = localStorage.getItem('aurisme_liv_lang') || 'fr';
-            if(!id) return;
-
-            document.getElementById('trackModal').style.display = 'flex';
-            document.getElementById('trackStatus').innerText = translations[lang].search;
-
-            if (!map) {
-                map = L.map('map').setView([18.5392, -72.2854], 15);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-                marker = L.marker([18.5392, -72.2854], { icon: motoIcon }).addTo(map);
-            }
-
-            setTimeout(() => { map.invalidateSize(); }, 300);
-
-            db.collection("orders_tracking").doc(id).onSnapshot((doc) => {
-                if (doc.exists) {
-                    const d = doc.data();
-                    document.getElementById('trackStatus').innerText = d.status;
-                    document.getElementById('trackDetails').innerHTML = `<strong>Livreur:</strong> ${d.courier}<br><strong>Dernière position:</strong> ${d.lastUpdate}`;
-                    if (d.lat && d.lng) {
-                        const pos = [d.lat, d.lng];
-                        marker.setLatLng(pos);
-                        map.panTo(pos);
-                    }
-                } else {
-                    document.getElementById('trackStatus').innerText = translations[lang].noId;
-                    document.getElementById('trackDetails').innerText = "Entrez un ID valide.";
-                }
-            });
-        }
-
-        function sendOrder(service) {
+        function openOrderModal(service) {
             document.getElementById('modalTitle').innerText = service;
             document.getElementById('choiceModal').style.display = 'flex';
             document.getElementById('btnGoogle').onclick = () => window.open(`https://www.google.com/maps/search/${encodeURIComponent(service)}`);
-            document.getElementById('btnAurisme').onclick = () => sendToFirebaseLivrezon(service, `Achat/Course: ${service}`);
+            document.getElementById('btnConfirmOrder').onclick = () => sendToFirebaseLivrezon(service, `Achat/Course: ${service}`);
         }
 
         async function sendToFirebaseLivrezon(service, details) {
@@ -273,17 +173,33 @@
                     dat: new Date().toLocaleString(),
                     estati: "nouvo"
                 });
-                alert("Kòmand ou an voye ak siksè nan panèl Aurisme!");
+                alert("Kòmand ou an voye ak siksè!");
                 closeModal();
-            } catch (error) {
-                console.error("Error: ", error);
-                alert("Erè nan voye kòmand lan.");
+            } catch (e) { alert("Erè nan voye kòmand."); }
+        }
+
+        async function trackOrder() {
+            const id = document.getElementById('trackID').value.trim().toUpperCase();
+            if(!id) return;
+            document.getElementById('trackModal').style.display = 'flex';
+            if (!map) {
+                map = L.map('map').setView([18.5392, -72.2854], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                marker = L.marker([18.5392, -72.2854], { icon: motoIcon }).addTo(map);
             }
+            setTimeout(() => map.invalidateSize(), 300);
+            db.collection("orders_tracking").doc(id).onSnapshot(doc => {
+                if (doc.exists) {
+                    const d = doc.data();
+                    document.getElementById('trackStatus').innerText = d.status;
+                    document.getElementById('trackDetails').innerHTML = `Livreur: ${d.courier}<br>Maj: ${d.lastUpdate}`;
+                    if(d.lat) { marker.setLatLng([d.lat, d.lng]); map.panTo([d.lat, d.lng]); }
+                } else { document.getElementById('trackStatus').innerText = "ID Introuvable"; }
+            });
         }
 
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        window.onload = () => changeLang(localStorage.getItem('aurisme_liv_lang') || 'ht');
+        window.onload = () => changeLang(localStorage.getItem('aurisme_lang') || 'ht');
     </script>
 </body>
-    </html>
-    
+</html>
