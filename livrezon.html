@@ -44,7 +44,6 @@
         .btn-google { background: #f1f1f1; color: #333; }
         .btn-whatsapp { background: var(--bordeaux); color: white; }
         #map { height: 220px; width: 100%; border-radius: 15px; margin: 15px 0; border: 2px solid var(--gold); }
-        .tourist-badge { background: #e3f2fd; color: #0d47a1; padding: 10px; border-radius: 10px; font-size: 12px; margin-top: 15px; display: flex; align-items: center; gap: 8px; font-style: italic; }
     </style>
 </head>
 <body>
@@ -108,7 +107,7 @@
         <div class="modal-content">
             <h3 id="trackStatus" style="color: var(--navy);">Recherche...</h3>
             <div id="map"></div>
-            <div id="trackDetails" style="text-align: left; padding: 12px; background: #f9f9f9; border-radius: 12px; font-size: 13px;"></div>
+            <div id="trackDetails" style="text-align: left; padding: 12px; background: #f9f9f9; border-radius: 12px; font-size: 13px; margin-bottom: 10px;"></div>
             <button class="modal-btn btn-whatsapp" onclick="closeModal()">Fermer</button>
         </div>
     </div>
@@ -123,15 +122,22 @@
             appId: "1:161670089924:web:adb80cf04646ac956fcd91"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         const db = firebase.firestore();
 
         let map, marker;
-        const motoIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png', iconSize: [40, 40], iconAnchor: [20, 40] });
+        const motoIcon = L.icon({ 
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png', 
+            iconSize: [40, 40], 
+            iconAnchor: [20, 40] 
+        });
 
         const translations = {
             fr: { header: "Logistique & Livraison", trackT: "🔎 Suivi de colis", trackB: "Suivre", secExp: "Expéditions", secAchat: "Achats", tColis: "Colis", dColis: "Documents & Paquets", catRes: "Restaurant", catMkt: "Marché", catPha: "Pharmacie", tConc: "Conciergerie", dConc: "Courses diverses", tCust: "Personnalisé", dCust: "Sur mesure", modalSub: "Continuer ?", btnG: "Maps", btnW: "Commander", cancel: "Annuler", search: "Recherche...", noId: "ID Introuvable" },
-            ht: { header: "Lojistik & Livrezon", trackT: "🔎 Swiv koli", trackB: "Swiv li", secExp: "Expdisyon", secAchat: "Achat", tColis: "Koli", dColis: "Pake & Dokiman", catRes: "Restoran", catMkt: "Mache", catPha: "Famasi", tConc: "Konsyejeri", dConc: "Komisyon", tCust: "Spesyal", dCust: "Sou mezi", modalSub: "Kijan ou vle kontinye ?", btnG: "Maps", btnW: "Kòmande", cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID" }
+            ht: { header: "Lojistik & Livrezon", trackT: "🔎 Swiv koli", trackB: "Swiv li", secExp: "Expdisyon", secAchat: "Achat", tColis: "Koli", dColis: "Pake & Dokiman", catRes: "Restoran", catMkt: "Mache", catPha: "Famasi", tConc: "Konsyejeri", dConc: "Komisyon", tCust: "Spesyal", dCust: "Sou mezi", modalSub: "Kijan ou vle kontinye ?", btnG: "Maps", btnW: "Kòmande", cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID" },
+            en: { header: "Logistics & Delivery", trackT: "🔎 Track Package", trackB: "Track", secExp: "Shipping", secAchat: "Shopping", tColis: "Package", dColis: "Docs & Parcels", catRes: "Restaurant", catMkt: "Market", catPha: "Pharmacy", tConc: "Concierge", dConc: "Errands", tCust: "Custom", dCust: "Tailor-made", modalSub: "How to continue?", btnG: "Maps", btnW: "Order", cancel: "Cancel", search: "Searching...", noId: "ID Not Found" }
         };
 
         function changeLang(lang) {
@@ -160,8 +166,15 @@
         function openOrderModal(service) {
             document.getElementById('modalTitle').innerText = service;
             document.getElementById('choiceModal').style.display = 'flex';
-            document.getElementById('btnGoogle').onclick = () => window.open(`https://www.google.com/maps/search/${encodeURIComponent(service)}`);
-            document.getElementById('btnConfirmOrder').onclick = () => sendToFirebaseLivrezon(service, `Achat/Course: ${service}`);
+            
+            // Korije URL la ak backticks ``
+            document.getElementById('btnGoogle').onclick = () => {
+                window.open(`https://www.google.com/maps/search/${encodeURIComponent(service)}`);
+            };
+            
+            document.getElementById('btnConfirmOrder').onclick = () => {
+                sendToFirebaseLivrezon(service, `Achat/Course: ${service}`);
+            };
         }
 
         async function sendToFirebaseLivrezon(service, details) {
@@ -175,31 +188,56 @@
                 });
                 alert("Kòmand ou an voye ak siksè!");
                 closeModal();
-            } catch (e) { alert("Erè nan voye kòmand."); }
+            } catch (e) { 
+                console.error(e);
+                alert("Erè nan voye kòmand."); 
+            }
         }
 
         async function trackOrder() {
             const id = document.getElementById('trackID').value.trim().toUpperCase();
             if(!id) return;
+
             document.getElementById('trackModal').style.display = 'flex';
+            
             if (!map) {
                 map = L.map('map').setView([18.5392, -72.2854], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
                 marker = L.marker([18.5392, -72.2854], { icon: motoIcon }).addTo(map);
             }
+
             setTimeout(() => map.invalidateSize(), 300);
+
+            // Koute chanjman nan Firestore
             db.collection("orders_tracking").doc(id).onSnapshot(doc => {
                 if (doc.exists) {
                     const d = doc.data();
-                    document.getElementById('trackStatus').innerText = d.status;
-                    document.getElementById('trackDetails').innerHTML = `Livreur: ${d.courier}<br>Maj: ${d.lastUpdate}`;
-                    if(d.lat) { marker.setLatLng([d.lat, d.lng]); map.panTo([d.lat, d.lng]); }
-                } else { document.getElementById('trackStatus').innerText = "ID Introuvable"; }
+                    document.getElementById('trackStatus').innerText = d.status || "An kous...";
+                    document.getElementById('trackDetails').innerHTML = `
+                        <b>Livreur:</b> ${d.courier || 'N/A'}<br>
+                        <b>Maj:</b> ${d.lastUpdate || 'Kounye a'}
+                    `;
+                    if(d.lat && d.lng) { 
+                        const pos = [d.lat, d.lng];
+                        marker.setLatLng(pos); 
+                        map.panTo(pos); 
+                    }
+                } else { 
+                    document.getElementById('trackStatus').innerText = "ID Introuvable";
+                    document.getElementById('trackDetails').innerText = "Verifye kòd la ankò.";
+                }
             });
         }
 
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        window.onload = () => changeLang(localStorage.getItem('aurisme_lang') || 'ht');
+        function closeModal() { 
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); 
+        }
+
+        window.onload = () => {
+            const savedLang = localStorage.getItem('aurisme_lang') || 'ht';
+            changeLang(savedLang);
+        };
     </script>
 </body>
-</html>
+            </html>
+        
