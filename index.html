@@ -1,91 +1,313 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ht">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurisme Saveurs et Services</title>
-    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-      (function(){
-          // Public Key ou a
-          emailjs.init("-QYhlIQKH8q-aZkZa");
-      })();
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurisme Saveurs et Services</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f4f4f4; }
-        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { color: #333; text-align: center; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        button:hover { background-color: #218838; }
-    </style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+      emailjs.init("-QYhlIQKH8q-aZkZa");
+  })();
+</script>
+
+<style>
+:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
+body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
+
+.promo-banner { background: var(--vetiver-green); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 15px; font-weight: bold; border-bottom: 3px solid var(--gold); }
+.promo-scroll { display: inline-block; padding-left: 100%; animation: scroll-text 15s linear infinite; }
+@keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+.promo-banner a { color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 2px 8px; margin-left: 10px; border-radius: 5px; text-transform: uppercase; font-size: 12px; }
+
+.lang-bar-fixed{position:sticky; top:0; background:white; padding:10px 0; display:flex; justify-content:center; z-index:9999; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.lang-bar-fixed button{margin:0 8px; padding:8px 15px; border:none; border-radius:20px; cursor:pointer; background:#eee; color:var(--navy); font-weight:bold; font-size:14px;}
+
+header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom:4px solid var(--gold);}
+.logo-container img{width:100px; height:100px; border-radius:50%; border:3px solid var(--gold); background:white; object-fit:cover; cursor: default;}
+
+.menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:20px;}
+.menu-card{background:white; padding:25px 10px; border-radius:20px; text-align:center; text-decoration:none; color:var(--navy); font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.1); border-bottom:4px solid var(--gold); display:flex; flex-direction:column; align-items:center;}
+.menu-card i{font-size:35px; color:var(--bordeaux); margin-bottom:10px;}
+
+.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 12px 15px; border-radius: 15px; margin: 15px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 6px solid var(--gold); text-align: left; box-shadow: 0 3px 8px rgba(0,0,0,0.05);}
+.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 13px;}
+
+.collapsible-box{background:white; border-radius:20px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin:20px 10px; overflow:hidden; border-left:5px solid var(--bordeaux);}
+.collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
+.collapsible-content{display:none; padding:15px; text-align:left;}
+
+.product-list-container { max-height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 10px;}
+.product-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: white; padding: 8px; border-radius: 8px; border-bottom: 1px solid #eee;}
+.product-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer;}
+.product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
+.product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500;}
+
+input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
+.btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
+
+.ranking-box { background: white; margin: 20px 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.ranking-stars { color: var(--gold); font-size: 18px; margin-bottom: 5px; }
+
+.footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
+
+.chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end; }
+.chat-button { background-color: var(--bordeaux); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 2px solid var(--gold); transition: 0.3s; }
+.chat-window { width: 320px; height: 450px; background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); margin-bottom: 15px; display: none; overflow: hidden; border: 1px solid var(--gold); }
+.chat-window iframe { width: 100%; height: 100%; border: none; }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Fè yon Kòmand - Aurisme Saveurs</h2>
-    
-    <form id="komand-form">
-        <div class="form-group">
-            <label for="nom_kliyan">Non ou:</label>
-            <input type="text" id="nom_kliyan" name="nom_kliyan" placeholder="Ekri non ou" required>
-        </div>
-
-        <div class="form-group">
-            <label for="telefon">Telefòn:</label>
-            <input type="tel" id="telefon" name="telefon" placeholder="Nimewo telefòn ou" required>
-        </div>
-
-        <div class="form-group">
-            <label for="sevis_chwazi">Sèvis ou bezwen:</label>
-            <select id="sevis_chwazi" name="sevis_chwazi">
-                <option value="Livrezon Express">Livrezon Express</option>
-                <option value="Patisri Artisanale">Patisri Artisanale</option>
-                <option value="Taxi Service">Taxi Service</option>
-                <option value="Sol Prestige">Sol Prestige (Savings)</option>
-                <option value="Dekorasyon">Dekorasyon</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="message">Detay kòmand lan:</label>
-            <textarea id="message" name="message" rows="4" placeholder="Kisa ou bezwen egzakteman? (Adrès, kantite, elatriye)" required></textarea>
-        </div>
-
-        <button type="submit" id="btn-voye">Voye Kòmand</button>
-    </form>
+<div class="lang-bar-fixed">
+    <button onclick="changeLanguage('fr')">FR</button>
+    <button onclick="changeLanguage('en')">EN</button>
+    <button onclick="changeLanguage('ht')">HT</button>
 </div>
 
-<script type="text/javascript">
-  const btn = document.getElementById('btn-voye');
+<div class="promo-banner">
+    <div class="promo-scroll" id="promo-content"></div>
+</div>
 
-  document.getElementById('komand-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+<header>
+    <div class="logo-container">
+        <img src="Logo.png" alt="Logo Aurisme">
+    </div>
+    <h1 id="main-title">Aurisme Saveurs et Services</h1>
+</header>
 
-    btn.textContent = 'Ap voye...';
+<div class="container">
+    <div class="menu-grid">
+        <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span id="m-liv">LIVREZON</span></a>
+        <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span id="m-tax">TAKSI MOTO</span></a>
+        <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span id="m-aca">AKADEMI</span></a>
+        <a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span id="m-pat">PATISRI</span></a>
+        <a href="decoration.html" class="menu-card"><i class="fas fa-utensils"></i><span id="m-dec">DEKO & TRAITEUR</span></a>
+        <a href="galeri.html" class="menu-card"><i class="fas fa-images"></i><span id="m-gal">GALERI</span></a>
+    </div>
+
+    <div class="plan-box">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 22px;">📅</span>
+            <div>
+                <h3 id="t-plan-title" style="margin:0; color:var(--navy); font-size:15px;">Planifye ak Aurisme</h3>
+                <p id="t-plan-desc" style="margin:2px 0 0; font-size:11px; color:#555;">Prepare evènman ou yo epi peye dousman.</p>
+            </div>
+        </div>
+        <a href="sol.html" class="plan-btn-link" id="t-plan-btn">PATISIPE</a>
+    </div>
+
+    <div class="collapsible-box">
+        <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Sèvis Sipèmache</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-super" class="collapsible-content">
+            <input type="text" id="super-name" placeholder="Non ou ak Telefòn ou" required>
+            
+            <label id="lbl-market">Chwazi Mache:</label>
+            <select id="market-select">
+                <option>Star Market</option><option>Bonjan Market</option><option>Juvénat Market</option>
+                <option>Ola Market</option><option>Barak Market</option><option>8a8 Market</option><option id="opt-others">Ak lòt ankò</option>
+            </select>
+            <input type="text" id="market-name-other" placeholder="Si se yon lòt mache, ekri non l isit la...">
+            
+            <label id="lbl-prod-aur">Pwodwi Aurisme (Koche & Kantite):</label>
+            <div class="product-list-container" id="aurisme-list"></div>
+            
+            <textarea id="market-others-list" placeholder="Lis lòt pwodwi ou bezwen yo..."></textarea>
+            <button class="btn-order" id="btn-sup" onclick="voyeEmailJS('Sipèmache')">KOMANDE KOUNYA</button>
+        </div>
+    </div>
+
+    <div class="collapsible-box" style="border-left-color: var(--navy);">
+        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">🏪 Espas Ti Machann</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-ti" class="collapsible-content">
+            <input type="text" id="ti-name" placeholder="Non konplè ou ak Telefòn">
+            <label id="lbl-prod-gros">Pwodwi an Gwo (Koche & Kantite):</label>
+            <div class="product-list-container" id="ti-machann-list"></div>
+            
+            <textarea id="ti-others-list" placeholder="Lis lòt pwodwi ou bezwen an gwo yo..."></textarea>
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="voyeEmailJS('Ti Machann')">KOMANDE AN GWO</button>
+        </div>
+    </div>
+
+    <div class="ranking-box">
+        <div class="ranking-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+        <strong id="rank-txt">Sèvis Ekselan - 4.8/5</strong><br>
+        <small id="rank-count">Baze sou +500 kòmand</small>
+    </div>
+</div>
+
+<div class="footer-info">
+    <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
+    <p><strong>📍 Péguy-ville, Rue Aguallo</strong></p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.35!2d-72.28!3d18.53!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDMxJzQ4LjAiTiA3MsKwMTYnNDguMCJX!5e0!3m2!1sfr!2sht!4v1620000000000!5m2!1sfr!2sht" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    <br><br>
+    <a href="privacy.html" id="t-priv" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Règleman sou Konfidansyalite</a>
+    <p id="t-tech" style="font-size: 10px; color: #999; margin-top: 15px;">Sekirize pa Aurisme Tech</p>
+</div>
+
+<div class="chat-widget">
+    <div class="chat-window" id="chat-window">
+        <iframe src="chat.html"></iframe>
+    </div>
+    <div class="chat-button" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </div>
+</div>
+
+<script>
+let currentLang = 'ht';
+
+function toggleChat() {
+    const chatWin = document.getElementById('chat-window');
+    chatWin.style.display = (chatWin.style.display === "block") ? "none" : "block";
+}
+
+const products = {
+    ht: ["Gato ti bòl", "Gato 12\"", "Palmier", "Sacristain", "Kokonat", "Cookies", "Lang bèf", "Pate", "Cupcakes", "Cookies rezen"],
+    fr: ["Gâteau ti bol", "Gâteau 12\"", "Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"],
+    en: ["Small Bowl Cake", "12\" Cake", "Palmier", "Sacristain", "Coconuts", "Cookies", "Beef Tongue Pastry", "Patties", "Cupcakes", "Raisin Cookies"]
+};
+
+const translations = {
+    fr: { 
+        main: "Aurisme Saveurs et Services", rank: "Excellent Service - 4.8/5", rank_c: "Basé sur +500 commandes",
+        v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDER",
+        liv: "LIVRAISON", tax: "TAXI MOTO", aca: "ACADÉMIE", pat: "PÂTISSERIE", dec: "DÉCO & TRAITEUR", gal: "GALERIE",
+        plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
+        sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", lbl_m: "Choisir Marché:", opt_o: "Et autres",
+        m_ph: "Si c'est un autre marché, écrivez son nom ici...", p_list: "Liste des autres produits dont vous avez besoin...",
+        lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER",
+        n_ph: "Votre Nom Complet", lbl_p_g: "Produits en Gros (Cochez & Quantité):", 
+        ti_ph: "Liste des autres produits en gros dont vous avez besoin...", btn_r: "COMMANDER EN GROS",
+        priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
+    },
+    en: { 
+        main: "Aurisme Flavors & Services", rank: "Excellent Service - 4.8/5", rank_c: "Based on +500 orders",
+        v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER NOW",
+        liv: "DELIVERY", tax: "MOTO TAXI", aca: "ACADEMY", pat: "PASTRY", dec: "DECO & CATERING", gal: "GALLERY",
+        plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
+        sup: "🛒 Supermarket Service", res: "🏪 Small Vendor Space", lbl_m: "Select Market:", opt_o: "Others",
+        m_ph: "If it's another market, write its name here...", p_list: "List other products you need...",
+        lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER NOW",
+        n_ph: "Your Full Name", lbl_p_g: "Wholesale Products (Check & Qty):", 
+        ti_ph: "List other wholesale products you need...", btn_r: "ORDER WHOLESALE",
+        priv: "🔒 Privacy Policy", tech: "Secured by Aurisme Tech"
+    },
+    ht: { 
+        main: "Aurisme Saveurs ak Sèvis", rank: "Sèvis Ekselan - 4.8/5", rank_c: "Baze sou +500 kòmand",
+        v_text: "VETIHKAM : Bon PARFUN VETIVER Ayiti a", v_btn: "KOMANDE",
+        liv: "LIVREZON", tax: "TAKSI MOTO", aca: "AKADEMI", pat: "PATISRI", dec: "DEKO & TRAITEUR", gal: "GALERI",
+        plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman.", plan_b: "PATISIPE",
+        sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò",
+        m_ph: "Si se yon lòt mache, ekri non l isit la...", p_list: "Lis lòt pwodwi ou bezwen yo...",
+        lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE KOUNYA",
+        n_ph: "Non konplè ou", lbl_p_g: "Pwodwi an Gwo (Koche & Kantite):", 
+        ti_ph: "Lis lòt pwodwi ou bezwen an gwo yo...", btn_r: "KOMANDE AN GWO",
+        priv: "🔒 Règleman sou Konfidansyalite", tech: "Sekirize pa Aurisme Tech"
+    }
+};
+
+function toggleBox(id) {
+    var content = document.getElementById(id);
+    content.style.display = (content.style.display === "block") ? "none" : "block";
+}
+
+function renderProducts(lang) {
+    let list = products[lang];
+    let html = '';
+    list.forEach((p, i) => {
+        html += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
+    });
+    document.getElementById('aurisme-list').innerHTML = html;
+    document.getElementById('ti-machann-list').innerHTML = html.replace(/id="c-/g, 'id="ct-');
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    const t = translations[lang];
+    document.getElementById('main-title').innerText = t.main;
+    document.getElementById('rank-txt').innerText = t.rank;
+    document.getElementById('rank-count').innerText = t.rank_c;
+    document.getElementById('m-liv').innerText = t.liv;
+    document.getElementById('m-tax').innerText = t.tax;
+    document.getElementById('m-aca').innerText = t.aca;
+    document.getElementById('m-pat').innerText = t.pat;
+    document.getElementById('m-dec').innerText = t.dec;
+    document.getElementById('m-gal').innerText = t.gal;
+    document.getElementById('t-plan-title').innerText = t.plan_t;
+    document.getElementById('t-plan-desc').innerText = t.plan_d;
+    document.getElementById('t-plan-btn').innerText = t.plan_b;
+    document.getElementById('t-sup').innerText = t.sup;
+    document.getElementById('t-res').innerText = t.res;
+    document.getElementById('lbl-market').innerText = t.lbl_m;
+    document.getElementById('opt-others').innerText = t.opt_o;
+    document.getElementById('market-name-other').placeholder = t.m_ph;
+    document.getElementById('market-others-list').placeholder = t.p_list;
+    document.getElementById('lbl-prod-aur').innerText = t.lbl_p_a;
+    document.getElementById('btn-sup').innerText = t.btn_s;
+    document.getElementById('ti-name').placeholder = t.n_ph;
+    document.getElementById('lbl-prod-gros').innerText = t.lbl_p_g;
+    document.getElementById('ti-others-list').placeholder = t.ti_ph;
+    document.getElementById('btn-res').innerText = t.btn_r;
+    document.getElementById('t-priv').innerText = t.priv;
+    document.getElementById('t-tech').innerText = t.tech;
+    
+    renderProducts(lang);
+    const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
+    document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
+}
+
+// FONKSYON EMAILJS RANPLASE FIREBASE
+function voyeEmailJS(serviceType) {
+    let btn = (serviceType === 'Sipèmache') ? document.getElementById('btn-sup') : document.getElementById('btn-res');
+    let originalText = btn.innerText;
+    btn.innerText = "Ap voye...";
     btn.disabled = true;
 
-    const serviceID = 'Aurisme-Saveurs';
-    const templateID = 'template_lahimq8';
+    let selected = "";
+    let listId = (serviceType === 'Sipèmache') ? 'aurisme-list' : 'ti-machann-list';
+    let textListId = (serviceType === 'Sipèmache') ? 'market-others-list' : 'ti-others-list';
+    let container = document.getElementById(listId);
+    let checks = container.querySelectorAll('.prod-check');
+    let qtys = container.querySelectorAll('.prod-qty');
+    
+    let finalMarket = (serviceType === 'Sipèmache') ? (document.getElementById('market-name-other').value || document.getElementById('market-select').value) : "Espas Ti Machann";
+    let name = (serviceType === 'Sipèmache') ? document.getElementById('super-name').value : document.getElementById('ti-name').value;
+    let othersList = document.getElementById(textListId).value;
 
-    // Voye done yo bay EmailJS
-    emailjs.sendForm(serviceID, templateID, this)
-      .then(() => {
-        btn.textContent = 'Voye Kòmand';
-        btn.disabled = false;
-        alert('Mèsi! Aurisme Saveurs resevwa kòmand ou an, n ap kontakte w talè.');
-        this.reset();
-      }, (err) => {
-        btn.textContent = 'Voye Kòmand';
-        btn.disabled = false;
-        alert("Gen yon pwoblèm: " + JSON.stringify(err));
-      });
-  });
+    checks.forEach((c, i) => { 
+        if(c.checked) selected += c.value + " (" + qtys[i].value + "), "; 
+    });
+
+    const params = {
+        nom_kliyan: name || "Kliyan Aurisme",
+        sevis_chwazi: serviceType + " - " + finalMarket,
+        telefon: "Gade nan mesaj la",
+        message: "Pwodwi koche: " + selected + "\nLòt pwodwi: " + othersList
+    };
+
+    emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
+        .then(function() {
+            alert("Mèsi! Aurisme Saveurs resevwa kòmand ou an.");
+            document.getElementById(textListId).value = "";
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }, function(err) {
+            alert("Gen yon pwoblèm: " + JSON.stringify(err));
+            btn.innerText = originalText;
+            btn.disabled = false;
+        });
+}
+
+window.onload = function() {
+    let userLang = navigator.language || navigator.userLanguage; 
+    let startLang = 'ht'; 
+    if (userLang.includes('fr')) startLang = 'fr';
+    if (userLang.includes('en')) startLang = 'en';
+    changeLanguage(startLang);
+};
 </script>
-
 </body>
 </html>
