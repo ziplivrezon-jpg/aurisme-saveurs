@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aurisme Saveurs et Services</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
 <style>
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
 body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
@@ -106,7 +109,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
             <div class="product-list-container" id="aurisme-list"></div>
             
             <textarea id="market-others-list" placeholder="Lis lòt pwodwi ou bezwen yo..."></textarea>
-            <button class="btn-order" id="btn-sup" onclick="sendWhatsApp('Supermarché')">KOMANDE SOU WHATSAPP</button>
+            <button class="btn-order" id="btn-sup" onclick="sendToFirebase('Supermarché')">KOMANDE KOUNYA</button>
         </div>
     </div>
 
@@ -118,7 +121,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
             <div class="product-list-container" id="ti-machann-list"></div>
             
             <textarea id="ti-others-list" placeholder="Lis lòt pwodwi ou bezwen an gwo yo..."></textarea>
-            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendWhatsApp('Ti Machann')">KOMANDE AN GWO</button>
+            <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="sendToFirebase('Ti Machann')">KOMANDE AN GWO</button>
         </div>
     </div>
 
@@ -148,9 +151,21 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 </div>
 
 <script>
+// CONFIG FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyCjOguIuH9o5VOu05ZKJ_nWPYKlYx-BKcc",
+  authDomain: "aurisme-system.firebaseapp.com",
+  projectId: "aurisme-system",
+  storageBucket: "aurisme-system.firebasestorage.app",
+  messagingSenderId: "161670089924",
+  appId: "1:161670089924:web:adb80cf04646ac956fcd91"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 let currentLang = 'ht';
 
-// Fonksyon pou louvri/fèmen chat
 function toggleChat() {
     const chatWin = document.getElementById('chat-window');
     chatWin.style.display = (chatWin.style.display === "block") ? "none" : "block";
@@ -170,7 +185,7 @@ const translations = {
         plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
         sup: "🛒 Service Supermarché", res: "🏪 Espace Ti Machann", lbl_m: "Choisir Marché:", opt_o: "Et autres",
         m_ph: "Si c'est un autre marché, écrivez son nom ici...", p_list: "Liste des autres produits dont vous avez besoin...",
-        lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER SUR WHATSAPP",
+        lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER",
         n_ph: "Votre Nom Complet", lbl_p_g: "Produits en Gros (Cochez & Quantité):", 
         ti_ph: "Liste des autres produits en gros dont vous avez besoin...", btn_r: "COMMANDER EN GROS",
         priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
@@ -182,7 +197,7 @@ const translations = {
         plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
         sup: "🛒 Supermarket Service", res: "🏪 Small Vendor Space", lbl_m: "Select Market:", opt_o: "Others",
         m_ph: "If it's another market, write its name here...", p_list: "List other products you need...",
-        lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER ON WHATSAPP",
+        lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER NOW",
         n_ph: "Your Full Name", lbl_p_g: "Wholesale Products (Check & Qty):", 
         ti_ph: "List other wholesale products you need...", btn_r: "ORDER WHOLESALE",
         priv: "🔒 Privacy Policy", tech: "Secured by Aurisme Tech"
@@ -194,7 +209,7 @@ const translations = {
         plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman.", plan_b: "PATISIPE",
         sup: "🛒 Sèvis Sipèmache", res: "🏪 Espas Ti Machann", lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò",
         m_ph: "Si se yon lòt mache, ekri non l isit la...", p_list: "Lis lòt pwodwi ou bezwen yo...",
-        lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE SOU WHATSAPP",
+        lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE KOUNYA",
         n_ph: "Non konplè ou", lbl_p_g: "Pwodwi an Gwo (Koche & Kantite):", 
         ti_ph: "Lis lòt pwodwi ou bezwen an gwo yo...", btn_r: "KOMANDE AN GWO",
         priv: "🔒 Règleman sou Konfidansyalite", tech: "Sekirize pa Aurisme Tech"
@@ -251,25 +266,46 @@ function changeLanguage(lang) {
     document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
 }
 
-function sendWhatsApp(serviceType) {
+// NOUVO FONKSYON POU FIREBASE
+async function sendToFirebase(serviceType) {
+    let btn = (serviceType === 'Supermarché') ? document.getElementById('btn-sup') : document.getElementById('btn-res');
+    let originalText = btn.innerText;
+    btn.innerText = "Chaje...";
+    btn.disabled = true;
+
     let selected = [];
     let listId = (serviceType === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
     let textListId = (serviceType === 'Supermarché') ? 'market-others-list' : 'ti-others-list';
     let container = document.getElementById(listId);
     let checks = container.querySelectorAll('.prod-check');
     let qtys = container.querySelectorAll('.prod-qty');
-    let finalMarket = document.getElementById('market-name-other').value || document.getElementById('market-select').value;
+    
+    let finalMarket = (serviceType === 'Supermarché') ? (document.getElementById('market-name-other').value || document.getElementById('market-select').value) : "N/A";
     let name = (serviceType === 'Ti Machann') ? document.getElementById('ti-name').value : "Client";
     let othersList = document.getElementById(textListId).value;
 
-    checks.forEach((c, i) => { if(c.checked) selected.push(`${c.value} (${qtys[i].value})`); });
-    
-    let msg = `*Aurisme Saveurs - ${serviceType}*\n`;
-    if(serviceType === 'Supermarché') msg += `*Market:* ${finalMarket}\n`;
-    msg += `*Name:* ${name}\n*Products:* ${selected.join(', ')}`;
-    if(othersList) msg += `\n*Others:* ${othersList}`;
-    
-    window.open(`https://wa.me/50942017744?text=${encodeURIComponent(msg)}`);
+    checks.forEach((c, i) => { if(c.checked) selected.push({pwodwi: c.value, kantite: qtys[i].value}); });
+
+    try {
+        await db.collection("komand").add({
+            service: serviceType,
+            market: finalMarket,
+            kliyan: name || "Anonyme",
+            pwodwi_chwazi: selected,
+            lot_pwodwi: othersList,
+            dat: new Date().toLocaleString(),
+            estati: "nouvo"
+        });
+        alert("Kòmand ou an voye ak siksè!");
+        // Reset fòm nan
+        if(othersList) document.getElementById(textListId).value = "";
+    } catch (error) {
+        console.error("Error: ", error);
+        alert("Gen yon erè, tanpri eseye ankò.");
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
 }
 
 window.onload = function() {
@@ -281,5 +317,5 @@ window.onload = function() {
 };
 </script>
 </body>
-            </html>
-            
+    </html>
+    
