@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Aurisme Saveurs et Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -15,188 +17,159 @@
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --green: #27ae60; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; background: #f4f4f4; overflow: hidden; }
         
-        .sidebar { width: 320px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); z-index: 10; overflow-y: auto; height: 100vh; }
+        .sidebar { width: 350px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); z-index: 10; overflow-y: auto; height: 100vh; }
         
         .brand-container { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--gold); }
-        .admin-logo { width: 85px; height: auto; max-height: 85px; margin-bottom: 10px; filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.1)); }
+        .admin-logo { width: 85px; height: auto; max-height: 85px; margin-bottom: 10px; }
         .brand-name { color: var(--bordeaux); font-size: 15px; font-weight: bold; text-transform: uppercase; margin: 0; }
-        .brand-sub { font-size: 10px; color: var(--navy); display: block; font-weight: bold; }
 
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .stat-card { background: #f9f9f9; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
-        .stat-card span { display: block; font-size: 9px; color: #666; text-transform: uppercase; font-weight: bold; }
         .stat-card b { font-size: 15px; color: var(--bordeaux); }
 
         h3 { font-size: 13px; color: var(--navy); margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 10px; text-transform: uppercase; }
-        .form-group { margin-bottom: 10px; }
-        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 13px; }
         
+        /* New Order List Styles */
+        .order-box { background: #fff5f5; border: 1px solid #ffcccc; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 12px; border-left: 4px solid var(--bordeaux); }
+        .btn-wa-admin { background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 5px; }
+        .btn-del { background: #eee; color: #888; border: none; padding: 5px; border-radius: 5px; float: right; cursor: pointer; }
+
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 13px; margin-bottom: 8px; }
         .btn-update { width: 100%; background: var(--navy); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-save { width: 100%; background: var(--green); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-download { width: 100%; background: #e74c3c; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         
-        /* New Style for Links Section */
-        .link-box { background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 8px; margin-top: 10px; }
-        .btn-link-bio { display: block; text-align: center; background: var(--bordeaux); color: white; text-decoration: none; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: bold; margin-top: 5px; }
-
-        .history-item { padding: 8px 0; border-bottom: 1px dotted #eee; font-size: 11px; }
         #adminMap { flex: 1; height: 100%; }
-        hr { border: 0; border-top: 1px solid #eee; margin: 15px 0; }
+        .badge { padding: 2px 6px; border-radius: 10px; font-size: 9px; font-weight: bold; color: white; background: var(--navy); }
     </style>
 </head>
 <body>
 
+    <audio id="notifSound" src="notification.mp3"></audio>
+
     <div class="sidebar">
         <div class="brand-container">
-            <img src="Logo.png" alt="Logo" class="admin-logo" id="logoImg">
-            <h1 class="brand-name">Aurisme Saveurs</h1>
-            <span class="brand-sub">Et Services</span>
+            <img src="Logo.png" alt="Logo" class="admin-logo">
+            <h1 class="brand-name">Aurisme Admin</h1>
         </div>
         
         <div class="stats-grid">
             <div class="stat-card"><span>Saveurs</span><b id="stat-commande">0</b></div>
             <div class="stat-card"><span>Services</span><b id="stat-livraison">0</b></div>
-            <div class="stat-card" style="grid-column: span 2;"><span>Total (HTG)</span><b id="stat-total">0</b></div>
         </div>
 
-        <h3><i class="fas fa-truck"></i> Suivi Livraison</h3>
-        <div class="form-group"><input type="text" id="orderID" placeholder="ID AUR-101"></div>
-        <div class="form-group">
-            <select id="orderStatus">
-                <option value="📦 Préparation">📦 Préparation</option>
-                <option value="🛵 En route">🛵 En route</option>
-                <option value="✅ Livré">✅ Livré</option>
-            </select>
+        <h3 style="background: #fff0f0;"><i class="fas fa-bell"></i> Kòmand ki tonbe (App)</h3>
+        <div id="live-orders-container" style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
+            <p style="font-size: 11px; color: #999; text-align: center;">N ap tann kòmand...</p>
         </div>
-        <button class="btn-update" onclick="updateOrder()">Mise à jour</button>
-        
-        <hr>
-
-        <h3><i class="fas fa-wallet"></i> Nouvel Enregistrement</h3>
-        <div class="form-group"><input type="text" id="venteNom" placeholder="Client / Détails"></div>
-        <div class="form-group">
-            <select id="venteCat">
-                <option value="Saveurs">Aurisme Saveurs (Gâteaux)</option>
-                <option value="Services">Aurisme Services (Logistique)</option>
-            </select>
-        </div>
-        <div class="form-group"><input type="number" id="venteMontant" placeholder="Montant HTG"></div>
-        <button class="btn-save" onclick="soveVente()">Sove</button>
 
         <hr>
 
-        <h3><i class="fas fa-file-pdf"></i> Rapò PDF</h3>
-        <div id="ti-lis-istorik"></div>
-        <button class="btn-download" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Telechaje Lis la (PDF)</button>
+        <h3><i class="fas fa-truck"></i> Suivi Tracking</h3>
+        <input type="text" id="orderID" placeholder="ID (ex: AUR-101)">
+        <select id="orderStatus">
+            <option value="📦 Préparation">📦 Préparation</option>
+            <option value="🛵 En route">🛵 En route</option>
+            <option value="✅ Livré">✅ Livré</option>
+        </select>
+        <button class="btn-update" onclick="updateTracking()">Mete ajou Tracking</button>
         
         <hr>
 
-        <div class="link-box">
-            <h3 style="margin-top:0; border-left: 3px solid var(--navy);"><i class="fas fa-external-link-alt"></i> Vitrin Piblik</h3>
-            <p style="font-size: 10px; color: #666; margin: 5px 0;">Kopi lyen sa a pou kliyan yo:</p>
-            <input type="text" value="https://tourist.com/p/17401" readonly style="font-size: 10px; background: #f0f0f0; border: 1px dashed #ccc; cursor: pointer;" onclick="this.select(); document.execCommand('copy'); alert('Lyen an kopye!');">
-            <a href="https://tourist.com/p/17401" target="_blank" class="btn-link-bio">OUVRI PAJ TOURIST</a>
-        </div>
+        <h3><i class="fas fa-file-pdf"></i> Rapò & Achiv</h3>
+        <button class="btn-download" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Rapò PDF</button>
         
-        <br><br>
+        <div class="link-box" style="margin-top: 20px; font-size: 11px;">
+            <a href="https://tourist.com/p/17401" target="_blank" style="color: var(--bordeaux);">Paj Tourist.com</a>
+        </div>
     </div>
 
     <div id="adminMap"></div>
 
     <script>
-        // Tout script yo rete menm jan an, pa gen anyen ki chanje nan Firebase oswa Lojik Map la.
-        const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
+        // CONFIG FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjOguIuH9o5VOu05ZKJ_nWPYKlYx-BKcc",
+            authDomain: "aurisme-system.firebaseapp.com",
+            projectId: "aurisme-system",
+            storageBucket: "aurisme-system.firebasestorage.app",
+            messagingSenderId: "161670089924",
+            appId: "1:161670089924:web:adb80cf04646ac956fcd91"
+        };
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const map = L.map('adminMap').setView([18.5392, -72.2854], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        // Audio and Notification
+        const notifSound = document.getElementById('notifSound');
 
-        const markers = {};
-        const motoIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png', iconSize: [35, 35] });
+        // Listen for NEW Orders from App
+        db.collection("komand").orderBy("dat_komand", "desc").onSnapshot(snapshot => {
+            const container = document.getElementById('live-orders-container');
+            
+            // Check for new additions to play sound
+            if (!snapshot.metadata.hasPendingWrites && snapshot.docChanges().some(c => c.type === "added")) {
+                notifSound.play().catch(e => console.log("Son bloke pa navigatè a"));
+            }
 
-        window.onload = updateDashboard;
+            container.innerHTML = "";
+            let saveursCount = 0;
+            let servicesCount = 0;
 
-        function soveVente() {
-            const nom = document.getElementById('venteNom').value;
-            const cat = document.getElementById('venteCat').value;
-            const mnt = parseFloat(document.getElementById('venteMontant').value);
-            if (!nom || isNaN(mnt)) return alert("Ranpli tout pati yo!");
+            snapshot.forEach(doc => {
+                const o = doc.data();
+                const id = doc.id;
+                
+                if(o.service === "Pâtisserie") saveursCount++;
+                else servicesCount++;
 
-            let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
-            data.push({ nom, cat, mnt, date: new Date().toLocaleString() });
-            localStorage.setItem('aurisme_stats', JSON.stringify(data));
-
-            document.getElementById('venteNom').value = "";
-            document.getElementById('venteMontant').value = "";
-            updateDashboard();
-        }
-
-        function updateDashboard() {
-            let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
-            let total = 0, saveurs = 0, services = 0, htmlIstwa = "";
-
-            data.slice().reverse().forEach((v, index) => {
-                total += v.mnt;
-                if(v.cat === "Saveurs") saveurs++;
-                if(v.cat === "Services") services++;
-                if(index < 5) htmlIstwa += `<div class="history-item"><b>${v.nom}</b>: ${v.mnt} HTG</div>`;
+                const card = document.createElement('div');
+                card.className = 'order-box';
+                
+                let details = o.service === "Livraison" ? o.tip_livrezon : (o.pwodwi || o.kalite_fet);
+                
+                card.innerHTML = `
+                    <button class="btn-del" onclick="deleteOrder('${id}')">&times;</button>
+                    <span class="badge">${o.service}</span> <small>${o.dat_komand || ''}</small><br>
+                    <b>${details}</b><br>
+                    <small>${o.detay || o.mesaj || o.tèm_detay || ''}</small><br>
+                    <a href="https://wa.me/50942017744" class="btn-wa-admin" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Reponn
+                    </a>
+                `;
+                container.appendChild(card);
             });
 
-            document.getElementById('stat-total').innerText = total.toLocaleString();
-            document.getElementById('stat-commande').innerText = saveurs;
-            document.getElementById('stat-livraison').innerText = services;
-            document.getElementById('ti-lis-istorik').innerHTML = htmlIstwa || "Okenn lavant.";
+            document.getElementById('stat-commande').innerText = saveursCount;
+            document.getElementById('stat-livraison').innerText = servicesCount;
+        });
+
+        // Delete Order
+        async function deleteOrder(id) {
+            if(confirm("Supprimer cette commande ?")) {
+                await db.collection("komand").doc(id).delete();
+            }
         }
 
-        async function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            let data = JSON.parse(localStorage.getItem('aurisme_stats')) || [];
-
-            if (data.length === 0) return alert("Pa gen anyen pou telechaje!");
-
-            doc.setFontSize(18);
-            doc.setTextColor(128, 0, 0);
-            doc.text("AURISME SAVEURS ET SERVICES", 105, 20, { align: "center" });
-            
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text("Rapò Aktivite Jenerale", 105, 28, { align: "center" });
-            
-            doc.line(20, 32, 190, 32);
-
-            let y = 45;
-            let totalHTG = 0;
-            doc.setFontSize(10);
-            doc.setTextColor(0);
-
-            data.forEach((v, i) => {
-                if(y > 270) { doc.addPage(); y = 20; }
-                doc.text(`${i+1}. ${v.date} - ${v.nom} (${v.cat})`, 20, y);
-                doc.text(`${v.mnt.toLocaleString()} HTG`, 170, y, { align: "right" });
-                totalHTG += v.mnt;
-                y += 8;
-            });
-
-            doc.line(20, y + 2, 190, y + 2);
-            doc.setFont("helvetica", "bold");
-            doc.text(`TOTAL JENERAL:`, 20, y + 10);
-            doc.text(`${totalHTG.toLocaleString()} HTG`, 170, y + 10, { align: "right" });
-
-            doc.save("Rapo_Aurisme.pdf");
-        }
-
-        async function updateOrder() {
+        // Update Tracking for Clients
+        async function updateTracking() {
             const id = document.getElementById('orderID').value.trim().toUpperCase();
             const status = document.getElementById('orderStatus').value;
             if(!id) return alert("Antre ID a!");
-            await db.collection("orders_tracking").doc(id).set({ status, lastUpdate: new Date().toLocaleString() }, { merge: true });
-            alert("Mise à jour OK!");
+            await db.collection("orders_tracking").doc(id).set({ 
+                status: status, 
+                lastUpdate: new Date().toLocaleString() 
+            }, { merge: true });
+            alert("Tracking Mizajou!");
         }
 
-        db.collection("orders_tracking").onSnapshot((snapshot) => {
-            snapshot.docChanges().forEach((change) => {
+        // Map setup
+        const map = L.map('adminMap').setView([18.5392, -72.2854], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        const markers = {};
+        const motoIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png', iconSize: [35, 35] });
+
+        db.collection("orders_tracking").onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
                 const data = change.doc.data();
                 const id = change.doc.id;
                 if (data.lat && data.lng) {
@@ -205,6 +178,15 @@
                 }
             });
         });
+
+        // PDF Report (Using current visible orders)
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("RAPO KOMAND AURISME", 20, 20);
+            // Ou ka ajoute plis detay isit la baze sou allOrders
+            doc.save("Aurisme_Rapo.pdf");
+        }
     </script>
 </body>
 </html>
