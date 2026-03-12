@@ -6,8 +6,8 @@
     <title>Aurisme - Livraison & Suivi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -90,7 +90,7 @@
         </div>
 
         <span class="section-title" id="sec-exp">Expéditions Spéciales</span>
-        <a href="javascript:void(0)" onclick="directWhatsApp('order_colis')" class="main-card bg-navy">
+        <a href="javascript:void(0)" onclick="sendToFirebaseLivrezon('Livraison de Colis', 'Enveloppes, documents & paquets')" class="main-card bg-navy">
             <div><h3 id="t-colis">Livraison de Colis</h3><p id="d-colis">Enveloppes, documents & paquets</p></div>
             <i class="fas fa-box-open"></i>
         </a>
@@ -102,12 +102,12 @@
             <div class="cat-box" onclick="sendOrder('Pharmacies')"><i class="fas fa-pills" style="color: #2980B9;"></i><span id="cat-pha">Pharmacie</span></div>
         </div>
 
-        <a href="javascript:void(0)" onclick="sendOrder('Conciergerie')" class="main-card bg-bordeaux">
+        <a href="javascript:void(0)" onclick="sendToFirebaseLivrezon('Conciergerie', 'Récupération de clés, dossiers, pressing')" class="main-card bg-bordeaux">
             <div><h3 id="t-conc">Conciergerie & Courses</h3><p id="d-conc">Récupération de clés, dossiers, pressing</p></div>
             <i class="fas fa-paper-plane"></i>
         </a>
 
-        <a href="javascript:void(0)" onclick="directWhatsApp('order_custom')" class="main-card bg-gold">
+        <a href="javascript:void(0)" onclick="sendToFirebaseLivrezon('Custom', 'Demande Personnalisée Urgent')" class="main-card bg-gold">
             <div><h3 id="t-custom">Demande Personnalisée</h3><p id="d-custom">Tout autre type de livraison urgente</p></div>
             <i class="fas fa-plus-circle"></i>
         </a>
@@ -123,7 +123,7 @@
             <h3 id="modalTitle" style="color: var(--navy);">Service Client</h3>
             <p id="modalSub" style="font-size: 14px; color: #666; margin-bottom: 20px;">Comment souhaitez-vous continuer ?</p>
             <button class="modal-btn btn-google" id="btnGoogle"><i class="fab fa-google"></i> <span id="txt-google">Rechercher via Google</span></button>
-            <button class="modal-btn btn-whatsapp" id="btnAurisme"><i class="fab fa-whatsapp"></i> <span id="txt-wa">Commander via WhatsApp</span></button>
+            <button class="modal-btn btn-whatsapp" id="btnAurisme"><i class="fab fa-whatsapp"></i> <span id="txt-wa">Commander</span></button>
             <p onclick="closeModal()" id="txt-cancel" style="margin-top:20px; cursor:pointer; color:#999; text-decoration: underline; font-size: 13px;">Annuler</p>
         </div>
     </div>
@@ -131,9 +131,7 @@
     <div id="trackModal" class="modal">
         <div class="modal-content">
             <h3 id="trackStatus" style="color: var(--navy); margin-bottom: 5px;">Recherche...</h3>
-            
             <div id="map"></div>
-
             <div id="trackDetails" style="text-align: left; margin-bottom: 15px; padding: 12px; background: #f9f9f9; border-radius: 12px; font-size: 13px;"></div>
             <button class="modal-btn btn-whatsapp" onclick="closeModal()" id="btn-close-track">Fermer</button>
         </div>
@@ -141,14 +139,20 @@
 
     <script>
         // CONFIG FIREBASE
-        const firebaseConfig = { apiKey: "AIza...", projectId: "aurisme-app", appId: "1:..." };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjOguIuH9o5VOu05ZKJ_nWPYKlYx-BKcc",
+            authDomain: "aurisme-system.firebaseapp.com",
+            projectId: "aurisme-system",
+            storageBucket: "aurisme-system.firebasestorage.app",
+            messagingSenderId: "161670089924",
+            appId: "1:161670089924:web:adb80cf04646ac956fcd91"
+        };
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const myPhone = "50942017744";
 
         let map, marker;
-
-        // Icône personnalisée Moto
         const motoIcon = L.icon({
             iconUrl: 'https://cdn-icons-png.flaticon.com/512/713/713422.png',
             iconSize: [40, 40],
@@ -164,10 +168,9 @@
                 tConc: "Conciergerie & Courses", dConc: "Récupération de clés, dossiers...",
                 tCust: "Demande Personnalisée", dCust: "Livraison urgente sur mesure",
                 tip: "Précisez le lobby de votre hôtel ou Airbnb pour une livraison rapide.",
-                modalSub: "Comment souhaitez-vous continuer ?", btnG: "Trouver sur Maps", btnW: "Commander via WhatsApp",
+                modalSub: "Comment souhaitez-vous continuer ?", btnG: "Trouver sur Maps", btnW: "Commander",
                 cancel: "Annuler", search: "Recherche en cours...", noId: "ID Introuvable",
-                close: "Fermer la fenêtre", msgColis: "Bonjour Aurisme, je souhaite envoyer un COLIS ou un PAQUET",
-                msgCustom: "Bonjour, j'ai besoin d'un service de livraison personnalisé"
+                close: "Fermer la fenêtre"
             },
             en: {
                 header: "Logistics & Delivery", trackT: "🔎 Track your package", trackB: "Track",
@@ -177,10 +180,9 @@
                 tConc: "Concierge & Errands", dConc: "Key pickup, documents, laundry...",
                 tCust: "Custom Request", dCust: "Tailor-made urgent delivery",
                 tip: "Specify your Hotel Lobby or Airbnb for faster delivery.",
-                modalSub: "How would you like to proceed?", btnG: "Find on Maps", btnW: "Order via WhatsApp",
+                modalSub: "How would you like to proceed?", btnG: "Find on Maps", btnW: "Order",
                 cancel: "Cancel", search: "Searching...", noId: "ID Not Found",
-                close: "Close Window", msgColis: "Hello Aurisme, I want to send a PARCEL or PACKAGE",
-                msgCustom: "Hello, I need a custom delivery service"
+                close: "Close Window"
             },
             ht: {
                 header: "Lojistik ak Livrezon", trackT: "🔎 Swiv koli ou", trackB: "Swiv li",
@@ -190,15 +192,15 @@
                 tConc: "Konsyejeri & Komisyon", dConc: "Rekipere kle, dosye, elatriye...",
                 tCust: "Demann Spesyal", dCust: "Livrezon ijan sou mezi",
                 tip: "Presize Lobby otèl ou oswa Airbnb pou livrezon an fèt pi vit.",
-                modalSub: "Kijan ou vle kontinye ?", btnG: "Chache sou Maps", btnW: "Kòmande sou WhatsApp",
+                modalSub: "Kijan ou vle kontinye ?", btnG: "Chache sou Maps", btnW: "Kòmande",
                 cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID sa",
-                close: "Fèmen fenèt la", msgColis: "Bonjou Aurisme, mwen vle voye yon KOLI oswa yon PAKE",
-                msgCustom: "Bonjou, mwen bezwen yon sèvis livrezon pèsonalize"
+                close: "Fèmen fenèt la"
             }
         };
 
         function changeLang(lang) {
             const t = translations[lang];
+            if(!t) return;
             document.getElementById('txt-header').innerText = t.header;
             document.getElementById('txt-track-title').innerText = t.trackT;
             document.getElementById('btn-track-action').innerText = t.trackB;
@@ -243,7 +245,6 @@
                     const d = doc.data();
                     document.getElementById('trackStatus').innerText = d.status;
                     document.getElementById('trackDetails').innerHTML = `<strong>Livreur:</strong> ${d.courier}<br><strong>Dernière position:</strong> ${d.lastUpdate}`;
-                    
                     if (d.lat && d.lng) {
                         const pos = [d.lat, d.lng];
                         marker.setLatLng(pos);
@@ -251,32 +252,38 @@
                     }
                 } else {
                     document.getElementById('trackStatus').innerText = translations[lang].noId;
-                    document.getElementById('trackDetails').innerText = "Veuillez entrer un ID valide.";
+                    document.getElementById('trackDetails').innerText = "Entrez un ID valide.";
                 }
             });
         }
 
         function sendOrder(service) {
-            const lang = localStorage.getItem('aurisme_liv_lang') || 'fr';
             document.getElementById('modalTitle').innerText = service;
             document.getElementById('choiceModal').style.display = 'flex';
             document.getElementById('btnGoogle').onclick = () => window.open(`https://www.google.com/maps/search/${encodeURIComponent(service)}`);
-            document.getElementById('btnAurisme').onclick = () => directWhatsApp(`order_service`, service);
+            document.getElementById('btnAurisme').onclick = () => sendToFirebaseLivrezon(service, `Achat/Course: ${service}`);
         }
 
-        function directWhatsApp(mode, extra = "") {
-            const lang = localStorage.getItem('aurisme_liv_lang') || 'fr';
-            let txt = "";
-            if(mode === 'order_colis') txt = translations[lang].msgColis;
-            else if(mode === 'order_custom') txt = translations[lang].msgCustom;
-            else txt = `${translations[lang].header}: *${extra}*`;
-            
-            window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(txt)}`);
+        async function sendToFirebaseLivrezon(service, details) {
+            try {
+                await db.collection("komand").add({
+                    service: "Livraison",
+                    tip_livrezon: service,
+                    detay: details,
+                    dat: new Date().toLocaleString(),
+                    estati: "nouvo"
+                });
+                alert("Kòmand ou an voye ak siksè nan panèl Aurisme!");
+                closeModal();
+            } catch (error) {
+                console.error("Error: ", error);
+                alert("Erè nan voye kòmand lan.");
+            }
         }
 
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        window.onload = () => changeLang(localStorage.getItem('aurisme_liv_lang') || 'fr');
+        window.onload = () => changeLang(localStorage.getItem('aurisme_liv_lang') || 'ht');
     </script>
 </body>
-            </html>
-                    
+    </html>
+    
