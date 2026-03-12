@@ -17,6 +17,11 @@
 <style>
 :root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
 body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
+.promo-banner { background: var(--vetiver-green); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 15px; font-weight: bold; border-bottom: 3px solid var(--gold); }
+.promo-scroll { display: inline-block; padding-left: 100%; animation: scroll-text 15s linear infinite; }
+@keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+.lang-bar-fixed{position:sticky; top:0; background:white; padding:10px 0; display:flex; justify-content:center; z-index:9999; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.lang-bar-fixed button{margin:0 8px; padding:8px 15px; border:none; border-radius:20px; cursor:pointer; background:#eee; color:var(--navy); font-weight:bold; font-size:14px;}
 header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom:4px solid var(--gold);}
 .logo-container img{width:100px; height:100px; border-radius:50%; border:3px solid var(--gold); background:white; object-fit:cover;}
 .menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:20px;}
@@ -33,6 +38,12 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 </head>
 <body>
 
+<div class="lang-bar-fixed">
+    <button onclick="changeLanguage('fr')">FR</button>
+    <button onclick="changeLanguage('en')">EN</button>
+    <button onclick="changeLanguage('ht')">HT</button>
+</div>
+
 <header>
     <div class="logo-container"><img src="Logo.png" alt="Logo Aurisme"></div>
     <h1 id="main-title">Aurisme Saveurs et Services</h1>
@@ -40,14 +51,14 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 
 <div class="container">
     <div class="menu-grid">
-        <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span>LIVREZON</span></a>
-        <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span>TAKSI MOTO</span></a>
-        <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span>AKADEMI</span></a>
-        <a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span>PATISRI</span></a>
+        <a href="livrezon.html" class="menu-card"><i class="fas fa-truck"></i><span id="m-liv">LIVREZON</span></a>
+        <a href="taxi.html" class="menu-card"><i class="fas fa-motorcycle"></i><span id="m-tax">TAKSI MOTO</span></a>
+        <a href="academy.html" class="menu-card"><i class="fas fa-graduation-cap"></i><span id="m-aca">AKADEMI</span></a>
+        <a href="patisserie.html" class="menu-card"><i class="fas fa-birthday-cake"></i><span id="m-pat">PATISRI</span></a>
     </div>
 
     <div class="collapsible-box">
-        <button class="collapsible-btn" onclick="toggleBox('box-super')"><span>🛒 Sèvis Sipèmache</span> <i class="fas fa-chevron-down"></i></button>
+        <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Sèvis Sipèmache</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-super" class="collapsible-content">
             <input type="text" id="super-name" placeholder="Non ou ak Telefòn ou" required>
             <select id="market-select">
@@ -61,6 +72,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 </div>
 
 <script>
+let currentLang = 'ht';
 const products = ["Gato ti bòl", "Palmier", "Kokonat", "Pate", "Cookies"];
 
 function toggleBox(id) {
@@ -77,15 +89,15 @@ function renderProducts() {
 }
 
 function voyeEmailJS(serviceType) {
-    const btn = document.getElementById('btn-sup');
-    const originalText = btn.innerText;
+    let btn = document.getElementById('btn-sup');
+    let originalText = btn.innerText;
     btn.innerText = "Ap voye...";
     btn.disabled = true;
 
     let selected = "";
-    const container = document.getElementById('aurisme-list');
-    const checks = container.querySelectorAll('.prod-check');
-    const qtys = container.querySelectorAll('.prod-qty');
+    let container = document.getElementById('aurisme-list');
+    let checks = container.querySelectorAll('.prod-check');
+    let qtys = container.querySelectorAll('.prod-qty');
     
     checks.forEach((c, i) => { 
         if(c.checked) selected += c.value + " (" + qtys[i].value + "), "; 
@@ -97,11 +109,8 @@ function voyeEmailJS(serviceType) {
         message: "Pwodwi: " + selected + "\nLòt: " + document.getElementById('market-others-list').value
     };
 
-    // VERIFIKASYON FINAL ID YO
-    const serviceID = "Aurisme-Saveurs";
-    const templateID = "template_lahimq8";
-
-    emailjs.send(serviceID, templateID, params)
+    // SERVICE ID KORIJE EGZAKTEMAN JAN L YE NAN DASHBOARD
+    emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
         .then(function() {
             alert("Mèsi! Aurisme Saveurs resevwa kòmand ou an.");
             btn.innerText = originalText;
@@ -113,7 +122,7 @@ function voyeEmailJS(serviceType) {
         });
 }
 
-window.onload = renderProducts;
+window.onload = function() { renderProducts(); };
 </script>
 </body>
 </html>
