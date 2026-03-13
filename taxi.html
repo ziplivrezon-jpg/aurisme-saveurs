@@ -3,68 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Déco & Traiteur - Aurisme</title>
+    <title>Taxi Moto & Navette - Aurisme</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
       (function(){
-          emailjs.init("-QYhlIQKH8q-aZkZa");
+          emailjs.init("-QYhlIQKH8q-aZkZa"); // ID piblik ou
       })();
     </script>
 
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #fcfcfc; text-align: center; color: #333; }
-
-        /* Lang Bar */
-        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
-
-        header { background: linear-gradient(rgba(128,0,0,0.9), rgba(128,0,0,0.9)), url('https://www.transparenttextures.com/patterns/cubes.png'); 
-                 color: white; padding: 50px 20px; border-bottom: 5px solid var(--gold); }
-        header h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 3px; }
-        header p { color: var(--gold); font-style: italic; margin-top: 10px; }
-
-        .container { padding: 20px; max-width: 550px; margin: auto; }
-
-        .inspiration-box { 
-            background: #fff; border-radius: 20px; padding: 20px; 
-            margin-bottom: 30px; border: 2px solid var(--gold); text-align: left;
-            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.1);
-        }
-        .inspiration-box h4 { color: var(--bordeaux); margin: 0 0 15px 0; text-align: center; text-transform: uppercase; font-size: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .idea-item { margin-bottom: 15px; padding-left: 10px; border-left: 3px solid var(--navy); }
-        .idea-item b { color: var(--navy); display: block; font-size: 14px; }
-        .idea-item span { font-size: 13px; color: #555; line-height: 1.4; }
-
-        .service-section { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
-        .section-title { color: var(--bordeaux); font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; font-weight: bold; }
-        .section-title i { color: var(--gold); }
-
-        .item-list { text-align: left; }
-        .item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #f9f9f9; padding-bottom: 10px; }
-        .item i { background: var(--navy); color: white; padding: 10px; border-radius: 12px; font-size: 18px; }
-        .item h4 { margin: 0; color: var(--navy); font-size: 15px; }
-        .item p { margin: 3px 0 0; font-size: 12px; color: #666; }
-
-        .booking-box { background: var(--navy); color: white; border-radius: 25px; padding: 30px; text-align: left; box-shadow: 0 15px 35px rgba(0,51,102,0.2); }
-        .booking-box h3 { color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; font-size: 18px; }
-        label { font-size: 12px; display: block; margin-bottom: 5px; color: #aaa; margin-top: 10px; font-weight: bold; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f4f4f4; text-align: center; color: #333; }
         
-        input, select, textarea { 
-            width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 12px; 
-            border: none; font-size: 14px; color: #333; box-sizing: border-box; display: block; font-family: inherit;
-        }
-        
-        .btn-voye { 
-            background: var(--gold); color: var(--bordeaux); border: none; padding: 18px; 
-            width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; 
-            font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
-        }
+        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .lang-bar button { border: none; background: #eee; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: bold; color: var(--navy); }
 
-        .back-home { display: inline-block; margin: 30px 0; color: var(--bordeaux); text-decoration: none; font-weight: bold; font-size: 14px; }
+        header { background: var(--bordeaux); color: white; padding: 25px; border-bottom: 4px solid var(--gold); position: relative; }
+        .btn-back { position: absolute; left: 15px; top: 30px; color: white; text-decoration: none; font-size: 20px; }
+
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; text-align: left; border-top: 5px solid var(--gold); }
+        .card h2 { text-align: center; color: var(--bordeaux); margin-top: 0; font-size: 20px; }
+        
+        label { font-weight: bold; font-size: 14px; color: var(--navy); display: block; margin-top: 15px; }
+        .input-field, .zone-select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid #ddd; font-size: 15px; margin-top: 5px; box-sizing: border-box; font-family: inherit; }
+
+        .btn-action { width: 100%; padding: 16px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; font-size: 16px; margin-top: 15px; border: none; cursor: pointer; transition: 0.3s; }
+        .btn-email { background: var(--gold); color: var(--bordeaux); }
+        .btn-share { background: #eee; color: #333; border: 1px solid #ccc; }
+        .btn-call { background: var(--navy); color: white; margin: 20px auto 0 auto; width: 90%; } 
+        .btn-navette { background: var(--bordeaux); color: white; }
+
+        .safety-box { background: #fffde7; border: 1px solid var(--gold); padding: 15px; border-radius: 15px; font-size: 13px; margin-top: 10px; text-align: left; }
+        .urgent-badge { background: #ffeded; color: #d32f2f; padding: 5px 10px; border-radius: 5px; font-size: 12px; display: inline-block; margin-bottom: 10px; font-weight: bold; border: 1px solid #d32f2f; }
+        .icon-section { font-size: 40px; color: var(--gold); display: block; text-align: center; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -76,200 +51,192 @@
     </div>
 
     <header>
-        <h1 id="txt-h1">Déco & Traiteur</h1>
-        <p id="txt-sub">Transformer vos rêves en réalité mémorable</p>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i></a>
+        <h1 id="txt-header">Services Transport Aurisme</h1>
     </header>
 
     <div class="container">
         
-        <div class="inspiration-box">
-            <h4 id="txt-insp-title"><i class="fas fa-lightbulb"></i> Idées & Inspirations Aurisme</h4>
-            <div class="idea-item">
-                <b id="t1-h">🌟 Thème "Royal Gold"</b>
-                <span id="t1-d">Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique.</span>
-            </div>
-            <div class="idea-item">
-                <b id="t2-h">🌴 Thème "Creole Chic"</b>
-                <span id="t2-d">Mélange de bois, tissus locaux et saveurs authentiques (Griot, Akra) haut de gamme.</span>
-            </div>
-            <div class="idea-item">
-                <b id="t3-h">💼 Thème "Corporate Chic"</b>
-                <span id="t3-d">Espace moderne, éclairage LED aux couleurs de l'entreprise, cocktail dînatoire.</span>
-            </div>
-        </div>
-
-        <div class="service-section">
-            <div class="section-title"><i class="fas fa-magic"></i> <span id="txt-serv-title">Prestations de Luxe</span></div>
-            <div class="item-list">
-                <div class="item"><i class="fas fa-glass-cheers"></i><div><h4 id="s1-h">Événements Sociaux</h4><p id="s1-d">Mariages, Baptêmes, Anniversaires, Baby Shower.</p></div></div>
-                <div class="item"><i class="fas fa-building"></i><div><h4 id="s2-h">Événements Corporatifs</h4><p id="s2-d">Lancements de produits, Galas, Cocktails d'affaires.</p></div></div>
-            </div>
-        </div>
-
-        <div class="booking-box">
-            <h3 id="txt-form-title">Demander un Devis</h3>
+        <div class="card">
+            <i class="fas fa-motorcycle icon-section"></i>
+            <h2 id="txt-moto-title">TAXI MOTO SÉCURISÉ</h2>
             
-            <label id="lbl-name">Nom Complet / Non ou:</label>
-            <input type="text" id="client-name" placeholder="Ex: Marie Laurence">
-            
-            <label id="lbl-phone">WhatsApp / Téléphone:</label>
-            <input type="tel" id="client-phone" placeholder="Ex: +509 3737 0000">
+            <label id="lbl-name-moto">Nom Complet :</label>
+            <input type="text" id="moto-client-name" class="input-field" placeholder="Votre nom">
 
-            <label id="lbl-type">Type d'événement:</label>
-            <select id="event-type">
-                <option value="Mariage" id="opt-m">Mariage</option>
-                <option value="Aniversaire" id="opt-a">Anniversaire</option>
-                <option value="Baptême" id="opt-b">Baptême / Communion</option>
-                <option value="Dîner Privé" id="opt-d">Dîner Privé</option>
-                <option value="Business" id="opt-bz">Événement d'Affaires</option>
+            <label id="lbl-route">Votre Itinéraire / Zone :</label>
+            <select class="zone-select" id="zone-list">
+                <option value="Non spécifiée" id="opt-choose">-- Choisir un trajet --</option>
+                <optgroup label="Zones Principales">
+                    <option value="Péguy-Ville">Péguy-Ville</option>
+                    <option value="Pétion-Ville">Pétion-Ville</option>
+                    <option value="Laboule / Thomassin">Laboule / Thomassin</option>
+                    <option value="Delmas">Delmas</option>
+                    <option value="Route de Frères">Route de Frères</option>
+                    <option value="Tabarre">Tabarre</option>
+                </optgroup>
             </select>
 
-            <label id="lbl-serv">Service souhaité:</label>
-            <select id="service-needed">
-                <option id="opt-s1">Décoration uniquement</option>
-                <option id="opt-s2">Traiteur uniquement</option>
-                <option id="opt-s3">Service Complet (Déco + Traiteur)</option>
-            </select>
-
-            <label id="lbl-date">Date & Nombre d'invités:</label>
-            <input type="text" id="event-details" placeholder="Ex: 12 Juin 2026 - 100 pax">
-
-            <label id="lbl-desc">Détails ou Thème choisi:</label>
-            <textarea id="event-desc" rows="3" placeholder="Ex: Royal Gold / Creole Chic..."></textarea>
-
-            <label id="lbl-pay">Mode de Paiement Prévu:</label>
-            <select id="deco-payment">
+            <label id="lbl-pay-moto">Mode de Paiement :</label>
+            <select class="zone-select" id="moto-payment">
                 <option value="Natcash">Natcash</option>
                 <option value="Moncash">Moncash</option>
                 <option value="Cash">Cash</option>
-                <option value="Zelle / PayPal">Zelle / PayPal (Intl)</option>
+                <option value="Zelle/PayPal">Zelle / PayPal</option>
             </select>
 
-            <button class="btn-voye" onclick="voyeDevisEmail()">
-                <i class="fas fa-paper-plane"></i> <span id="btn-txt">OBTENIR MON DEVIS</span>
+            <button onclick="sendTransportEmail('Moto')" class="btn-action btn-email">
+                <i class="fas fa-envelope"></i> <span id="btn-moto">COMMANDER MOTO</span>
+            </button>
+
+            <button onclick="shareTrip('Moto')" class="btn-action btn-share">
+                <i class="fas fa-user-shield"></i> <span id="btn-share-moto">PARTAGER À MA FAMILLE</span>
             </button>
         </div>
 
-        <a href="index.html" class="back-home" id="txt-back"><i class="fas fa-arrow-left"></i> RETOUR À L'ACCUEIL</a>
+        <div class="card" style="border-top: 5px solid var(--navy);">
+            <i class="fas fa-shuttle-van icon-section" style="color: var(--navy);"></i>
+            <h2 id="txt-navette-title">NAVETTE AÉROPORT</h2>
+            
+            <div class="urgent-badge"><i class="fas fa-bolt"></i> Option Anti-Blokus (Moto) disponible</div>
+
+            <label id="lbl-name-nav">Nom Complet :</label>
+            <input type="text" id="nav-client-name" class="input-field" placeholder="Votre nom">
+
+            <label id="lbl-nav-type">Type de Réservation :</label>
+            <select class="zone-select" id="navette-type">
+                <option value="Hôtel vers Aéroport" id="opt-h-a">Hôtel ➔ Aéroport</option>
+                <option value="Aéroport vers Hôtel" id="opt-a-h">Aéroport ➔ Hôtel</option>
+            </select>
+
+            <label id="lbl-vehicle">Véhicule souhaité :</label>
+            <select class="zone-select" id="vehicle-type">
+                <option value="Machin (Confort)">Machin (Confort + Valises)</option>
+                <option value="Moto Express (Anti-Blokus)">Moto Express (Anti-Blokus)</option>
+            </select>
+
+            <label id="lbl-hotel">Nom de l'Hôtel & Heure :</label>
+            <input type="text" id="hotel-info" class="input-field" placeholder="Ex: Karibe Hôtel / 10:00 AM">
+
+            <button onclick="sendTransportEmail('Navette')" class="btn-action btn-navette">
+                <i class="fas fa-envelope"></i> <span id="btn-nav">RÉSERVER LA NAVETTE</span>
+            </button>
+
+            <button onclick="shareTrip('Navette')" class="btn-action btn-share">
+                <i class="fas fa-user-shield"></i> <span id="btn-share-nav">PARTAGER À MA FAMILLE</span>
+            </button>
+        </div>
+
+        <a href="tel:+50942017744" class="btn-action btn-call">
+            <i class="fas fa-phone-alt"></i> <span id="btn-call">APPEL DIRECT</span>
+        </a>
+
+        <div class="safety-box" id="safety-txt">
+            <p><strong><i class="fas fa-lock"></i> SÉCURITÉ AURISME :</strong><br>
+            Tous nos chauffeurs sont certifiés. Partagez votre trajet pour votre sécurité.</p>
+        </div>
     </div>
 
     <script>
         const translations = {
             fr: {
-                h1: "Déco & Traiteur", sub: "Transformer vos rêves en réalité mémorable",
-                insp: "Idées & Inspirations Aurisme",
-                t1h: "🌟 Thème 'Royal Gold'", t1d: "Décoration Or & Blanc, centres de table en cristal, et buffet gastronomique.",
-                t2h: "🌴 Thème 'Creole Chic'", t2d: "Mélange de bois, tissus locaux et saveurs authentiques (Griot, Akra) haut de gamme.",
-                t3h: "💼 Thème 'Corporate Chic'", t3d: "Espace moderne, éclairage LED aux couleurs de l'entreprise, cocktail dînatoire.",
-                servT: "Prestations de Luxe", s1h: "Événements Sociaux", s1d: "Mariages, Baptêmes, Anniversaires, Baby Shower.",
-                s2h: "Événements Corporatifs", s2d: "Lancements de produits, Galas, Cocktails d'affaires.",
-                formT: "Demander un Devis", lType: "Type d'événement:", lServ: "Service souhaité:",
-                lDate: "Date & Nombre d'invités:", lDesc: "Détails ou Thème choisi:", lPay: "Mode de Paiement:",
-                btn: "OBTENIR MON DEVIS", back: "RETOUR À L'ACCUEIL",
-                m: "Mariage", a: "Anniversaire", b: "Baptême / Communion", d: "Dîner Privé", bz: "Affaires",
-                s1: "Décoration uniquement", s2: "Traiteur uniquement", s3: "Service Complet",
-                lName: "Nom Complet:", lPhone: "WhatsApp / Téléphone:"
+                header: "Services Transport Aurisme",
+                motoT: "TAXI MOTO SÉCURISÉ", navT: "NAVETTE AÉROPORT",
+                btnM: "COMMANDER MOTO", btnN: "RÉSERVER LA NAVETTE",
+                btnS: "PARTAGER À MA FAMILLE",
+                lName: "Nom Complet :", success: "Demande envoyée avec succès !",
+                shareMsgM: "Je suis en route avec Aurisme Taxi Moto vers: ",
+                shareMsgN: "Je prends une Navette Aurisme (Aéroport). Type: "
             },
             en: {
-                h1: "Decor & Catering", sub: "Turning your dreams into memorable reality",
-                insp: "Aurisme Ideas & Inspirations",
-                t1h: "🌟 'Royal Gold' Theme", t1d: "Gold & White decor, crystal centerpieces, and gourmet buffet.",
-                t2h: "🌴 'Creole Chic' Theme", t2d: "Wood mix, local fabrics, and premium authentic flavors (Griot, Akra).",
-                t3h: "💼 'Corporate Chic' Theme", t3d: "Modern space, LED lighting in company colors, cocktail dinner.",
-                servT: "Luxury Services", s1h: "Social Events", s1d: "Weddings, Baptisms, Birthdays, Baby Showers.",
-                s2h: "Corporate Events", s2d: "Product launches, Galas, Business cocktails.",
-                formT: "Request a Quote", lType: "Event Type:", lServ: "Service Needed:",
-                lDate: "Date & Number of Guests:", lDesc: "Details or Chosen Theme:", lPay: "Payment Method:",
-                btn: "GET MY QUOTE", back: "BACK TO HOME",
-                m: "Wedding", a: "Birthday", b: "Baptism / Communion", d: "Private Dinner", bz: "Business",
-                s1: "Decor only", s2: "Catering only", s3: "Full Service",
-                lName: "Full Name:", lPhone: "WhatsApp / Phone:"
+                header: "Aurisme Transport Services",
+                motoT: "SECURE MOTO TAXI", navT: "AIRPORT SHUTTLE",
+                btnM: "ORDER MOTO", btnN: "BOOK SHUTTLE",
+                btnS: "SHARE WITH FAMILY",
+                lName: "Full Name:", success: "Request sent successfully!",
+                shareMsgM: "I am on my way with Aurisme Taxi Moto to: ",
+                shareMsgN: "I am taking an Aurisme Shuttle (Airport). Type: "
             },
             ht: {
-                h1: "Dekò & Tretè", sub: "Reyalize rèv ou yo ak yon fason espesyal",
-                insp: "Lide & Inspirasyon Aurisme",
-                t1h: "🌟 Tèm 'Royal Gold'", t1d: "Dekorasyon Or & Blan, bèl kristal sou tab yo, ak bon jan manje.",
-                t2h: "🌴 Tèm 'Creole Chic'", t2d: "Bèl bwa, twal peyi a ak bon gou griyo, akra nivo VIP.",
-                t3h: "💼 Tèm 'Corporate Chic'", t3d: "Espas modèn, bèl limyè ak koulè konpayi a, koktèl.",
-                servT: "Sèvis De Liks", s1h: "Fèt Sosyal", s1d: "Maryaj, Batèm, Anivèsè, Baby Shower.",
-                s2h: "Fèt Konpayi", s2d: "Lansman pwodwi, Gala, Koktèl daprè.",
-                formT: "Mande yon Devis", lType: "Kalite fèt la:", lServ: "Sèvis ou bezwen:",
-                lDate: "Dat ak Konbe moun:", lDesc: "Detay oswa Tèm ou vle:", lPay: "Fason w ap peye:",
-                btn: "JWENN DEVIS MWEN", back: "TOUNEN NAN AKÈY",
-                m: "Maryaj", a: "Anivèsè", b: "Batèm / Kominyon", d: "Dine Prive", bz: "Afè / Biznis",
-                s1: "Dekorasyon sèlman", s2: "Tretè sèlman", s3: "Sèvis Konplè",
-                lName: "Non Konplè:", lPhone: "WhatsApp / Telefòn:"
+                header: "Sèvis Transpò Aurisme",
+                motoT: "TAKSI MOTO AN SEKIRITE", navT: "NAVÈT EYÈPÒT",
+                btnM: "KOMANDE MOTO", btnN: "REZÈVE NAVÈT LA",
+                btnS: "PATAJE AK FANMI M",
+                lName: "Non Konplè :", success: "Demand lan voye byen pwòp!",
+                shareMsgM: "Mwen nan wout ak Aurisme Taxi Moto pou m ale: ",
+                shareMsgN: "Mwen pran yon Navèt Aurisme (Eyèpòt). Tip: "
             }
         };
 
         function changeLang(lang) {
             const t = translations[lang];
-            document.getElementById('txt-h1').innerText = t.h1;
-            document.getElementById('txt-sub').innerText = t.sub;
-            document.getElementById('txt-insp-title').innerHTML = `<i class="fas fa-lightbulb"></i> ${t.insp}`;
-            document.getElementById('t1-h').innerText = t.t1h; document.getElementById('t1-d').innerText = t.t1d;
-            document.getElementById('t2-h').innerText = t.t2h; document.getElementById('t2-d').innerText = t.t2d;
-            document.getElementById('t3-h').innerText = t.t3h; document.getElementById('t3-d').innerText = t.t3d;
-            document.getElementById('txt-serv-title').innerText = t.servT;
-            document.getElementById('s1-h').innerText = t.s1h; document.getElementById('s1-d').innerText = t.s1d;
-            document.getElementById('s2-h').innerText = t.s2h; document.getElementById('s2-d').innerText = t.s2d;
-            document.getElementById('txt-form-title').innerText = t.formT;
-            document.getElementById('lbl-name').innerText = t.lName;
-            document.getElementById('lbl-phone').innerText = t.lPhone;
-            document.getElementById('lbl-type').innerText = t.lType;
-            document.getElementById('lbl-serv').innerText = t.lServ;
-            document.getElementById('lbl-date').innerText = t.lDate;
-            document.getElementById('lbl-desc').innerText = t.lDesc;
-            document.getElementById('lbl-pay').innerText = t.lPay;
-            document.getElementById('btn-txt').innerText = t.btn;
-            document.getElementById('txt-back').innerHTML = `<i class="fas fa-arrow-left"></i> ${t.back}`;
-            
-            document.getElementById('opt-m').innerText = t.m; document.getElementById('opt-a').innerText = t.a;
-            document.getElementById('opt-b').innerText = t.b; document.getElementById('opt-d').innerText = t.d;
-            document.getElementById('opt-bz').innerText = t.bz;
-            document.getElementById('opt-s1').innerText = t.s1; document.getElementById('opt-s2').innerText = t.s2;
-            document.getElementById('opt-s3').innerText = t.s3;
-
-            localStorage.setItem('aurisme_deco_lang', lang);
+            document.getElementById('txt-header').innerText = t.header;
+            document.getElementById('txt-moto-title').innerText = t.motoT;
+            document.getElementById('txt-navette-title').innerText = t.navT;
+            document.getElementById('btn-moto').innerText = t.btnM;
+            document.getElementById('btn-nav').innerText = t.btnN;
+            document.getElementById('btn-share-moto').innerText = t.btnS;
+            document.getElementById('btn-share-nav').innerText = t.btnS;
+            document.getElementById('lbl-name-moto').innerText = t.lName;
+            document.getElementById('lbl-name-nav').innerText = t.lName;
+            localStorage.setItem('aurisme_moto_lang', lang);
         }
 
-        function voyeDevisEmail() {
-            const nom = document.getElementById('client-name').value;
-            const phone = document.getElementById('client-phone').value;
-            const type = document.getElementById('event-type').value;
-            const service = document.getElementById('service-needed').value;
-            const details = document.getElementById('event-details').value;
-            const desc = document.getElementById('event-desc').value;
-            const pay = document.getElementById('deco-payment').value;
-            const lang = localStorage.getItem('aurisme_deco_lang') || 'fr';
+        function sendTransportEmail(type) {
+            let params = {};
+            let lang = localStorage.getItem('aurisme_moto_lang') || 'fr';
 
-            if(!nom || !phone || !details || !desc) {
-                alert(lang === 'ht' ? "Tanpri ranpli tout bwat yo." : "Veuillez remplir tous les champs.");
-                return;
+            if(type === 'Moto') {
+                const name = document.getElementById('moto-client-name').value;
+                const zone = document.getElementById('zone-list').value;
+                const pay = document.getElementById('moto-payment').value;
+                if(!name || zone === "Non spécifiée") { alert("SVP ranpli enfòmasyon yo"); return; }
+                
+                params = {
+                    nom_kliyan: name,
+                    sevis_chwazi: "Taxi Moto Aurisme",
+                    message: `📍 Itinéraire: ${zone}\n💳 Paiement: ${pay}`
+                };
+            } else {
+                const name = document.getElementById('nav-client-name').value;
+                const navType = document.getElementById('navette-type').value;
+                const vehicle = document.getElementById('vehicle-type').value;
+                const hotel = document.getElementById('hotel-info').value;
+                if(!name || !hotel) { alert("SVP ranpli enfòmasyon yo"); return; }
+
+                params = {
+                    nom_kliyan: name,
+                    sevis_chwazi: "Navette Aéroport Aurisme",
+                    message: `🚐 Type: ${navType}\n🚗 Véhicule: ${vehicle}\n🏨 Détails: ${hotel}`
+                };
             }
 
-            const params = {
-                nom_kliyan: nom,
-                sevis_chwazi: "Déco & Traiteur",
-                message: `WhatsApp/Tel: ${phone}\n` +
-                         `Type Event: ${type}\n` +
-                         `Service: ${service}\n` +
-                         `Date/Moun: ${details}\n` +
-                         `Détails: ${desc}\n` +
-                         `Paiement: ${pay}`
-            };
-
             emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
-                .then(function() {
-                    alert(lang === 'ht' ? "Mèsi! Demand ou an voye ak siksè." : "Merci! Votre demande a été envoyée avec succès.");
-                    document.getElementById('event-details').value = "";
-                    document.getElementById('event-desc').value = "";
-                }, function(err) {
-                    alert("Erè: " + JSON.stringify(err));
+                .then(() => {
+                    alert(translations[lang].success);
+                }, (err) => {
+                    alert("Erreur: " + JSON.stringify(err));
                 });
         }
 
-        window.onload = () => changeLang(localStorage.getItem('aurisme_deco_lang') || 'fr');
+        function shareTrip(type) {
+            var lang = localStorage.getItem('aurisme_moto_lang') || 'fr';
+            var textMsg = "";
+            if(type === 'Moto') {
+                textMsg = translations[lang].shareMsgM + document.getElementById('zone-list').value;
+            } else {
+                textMsg = translations[lang].shareMsgN + document.getElementById('navette-type').value + " (" + document.getElementById('vehicle-type').value + ")";
+            }
+            if (navigator.share) {
+                navigator.share({ title: 'Aurisme Safety', text: textMsg }).catch(console.error);
+            } else {
+                window.open("https://wa.me/?text=" + encodeURIComponent(textMsg));
+            }
+        }
+
+        window.onload = function() {
+            changeLang(localStorage.getItem('aurisme_moto_lang') || 'fr');
+        };
     </script>
 </body>
 </html>
