@@ -6,6 +6,13 @@
     <title>Aurisme - Livraison & Suivi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+          emailjs.init("-QYhlIQKH8q-aZkZa");
+      })();
+    </script>
+
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -14,7 +21,7 @@
 
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --bg: #F8F9FA; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: #333; overflow-x: hidden; text-align: center; }
         .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; }
         .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
@@ -23,7 +30,7 @@
         .header-title { font-weight: bold; color: var(--navy); font-size: 14px; text-transform: uppercase; }
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .tracking-card { background: white; padding: 20px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--gold); }
-        .tracking-card h3 { margin: 0 0 10px 0; font-size: 15px; color: var(--navy); text-transform: uppercase; }
+        .tracking-card h3 { margin: 0 0 10px 0; font-size: 15px; color: var(--navy); text-transform: uppercase; text-align: left;}
         .tracking-input-group { display: flex; gap: 10px; }
         .tracking-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 14px; }
         .btn-track { background: var(--navy); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
@@ -70,7 +77,7 @@
         </div>
 
         <span class="section-title" id="sec-exp">Expéditions Spéciales</span>
-        <button onclick="sendToFirebaseLivrezon('Livraison de Colis', 'Enveloppes, documents & paquets')" class="main-card bg-navy">
+        <button onclick="voyeEmailLivrezon('Livraison de Colis', 'Enveloppes, documents & paquets')" class="main-card bg-navy">
             <div><h3 id="t-colis">Livraison de Colis</h3><p id="d-colis">Enveloppes, documents & paquets</p></div>
             <i class="fas fa-box-open"></i>
         </button>
@@ -82,12 +89,12 @@
             <div class="cat-box" onclick="openOrderModal('Pharmacies')"><i class="fas fa-pills" style="color: #2980B9;"></i><span id="cat-pha">Pharmacie</span></div>
         </div>
 
-        <button onclick="sendToFirebaseLivrezon('Conciergerie', 'Récupération de clés, dossiers, pressing')" class="main-card bg-bordeaux">
+        <button onclick="voyeEmailLivrezon('Conciergerie', 'Récupération de clés, dossiers, pressing')" class="main-card bg-bordeaux">
             <div><h3 id="t-conc">Conciergerie & Courses</h3><p id="d-conc">Récupération de clés, dossiers, pressing</p></div>
             <i class="fas fa-paper-plane"></i>
         </button>
 
-        <button onclick="sendToFirebaseLivrezon('Custom', 'Demande Personnalisée Urgent')" class="main-card bg-gold">
+        <button onclick="voyeEmailLivrezon('Custom', 'Demande Personnalisée Urgent')" class="main-card bg-gold">
             <div><h3 id="t-custom">Demande Personnalisée</h3><p id="d-custom">Tout type de livraison urgente</p></div>
             <i class="fas fa-plus-circle"></i>
         </button>
@@ -113,6 +120,7 @@
     </div>
 
     <script>
+        // CONFIG FIREBASE SÈLMAN POU TRACKING MAP LA
         const firebaseConfig = {
             apiKey: "AIzaSyCjOguIuH9o5VOu05ZKJ_nWPYKlYx-BKcc",
             authDomain: "aurisme-system.firebaseapp.com",
@@ -167,31 +175,30 @@
             document.getElementById('modalTitle').innerText = service;
             document.getElementById('choiceModal').style.display = 'flex';
             
-            // Korije URL la ak backticks ``
             document.getElementById('btnGoogle').onclick = () => {
                 window.open(`https://www.google.com/maps/search/${encodeURIComponent(service)}`);
             };
             
             document.getElementById('btnConfirmOrder').onclick = () => {
-                sendToFirebaseLivrezon(service, `Achat/Course: ${service}`);
+                voyeEmailLivrezon(service, `Achat/Course: ${service}`);
             };
         }
 
-        async function sendToFirebaseLivrezon(service, details) {
-            try {
-                await db.collection("komand").add({
-                    service: "Livraison",
-                    tip_livrezon: service,
-                    detay: details,
-                    dat: new Date().toLocaleString(),
-                    estati: "nouvo"
+        // NOUVO FONKSYON EMAILJS POU LIVREZON
+        function voyeEmailLivrezon(service, details) {
+            const params = {
+                nom_kliyan: "Kliyan Livraison",
+                sevis_chwazi: "Livraison - " + service,
+                message: "Detay: " + details + "\nDat: " + new Date().toLocaleString()
+            };
+
+            emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
+                .then(function() {
+                    alert("Kòmand livrezon ou an voye ak siksè!");
+                    closeModal();
+                }, function(err) {
+                    alert("Erè: " + JSON.stringify(err));
                 });
-                alert("Kòmand ou an voye ak siksè!");
-                closeModal();
-            } catch (e) { 
-                console.error(e);
-                alert("Erè nan voye kòmand."); 
-            }
         }
 
         async function trackOrder() {
@@ -208,7 +215,6 @@
 
             setTimeout(() => map.invalidateSize(), 300);
 
-            // Koute chanjman nan Firestore
             db.collection("orders_tracking").doc(id).onSnapshot(doc => {
                 if (doc.exists) {
                     const d = doc.data();
@@ -239,5 +245,4 @@
         };
     </script>
 </body>
-            </html>
-        
+</html>
