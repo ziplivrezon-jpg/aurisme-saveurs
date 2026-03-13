@@ -9,7 +9,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
       (function(){
-          emailjs.init("-QYhlIQKH8q-aZkZa"); // ID piblik ou
+          emailjs.init("-QYhlIQKH8q-aZkZa");
       })();
     </script>
 
@@ -64,6 +64,9 @@
             <label id="lbl-name-moto">Nom Complet :</label>
             <input type="text" id="moto-client-name" class="input-field" placeholder="Votre nom">
 
+            <label id="lbl-phone-moto">Numéro de Téléphone :</label>
+            <input type="tel" id="moto-client-phone" class="input-field" placeholder="Ex: +509 3xxx xxxx">
+
             <label id="lbl-route">Votre Itinéraire / Zone :</label>
             <select class="zone-select" id="zone-list">
                 <option value="Non spécifiée" id="opt-choose">-- Choisir un trajet --</option>
@@ -76,6 +79,12 @@
                     <option value="Tabarre">Tabarre</option>
                 </optgroup>
             </select>
+
+            <label id="lbl-moto-color">Couleur de la Moto :</label>
+            <input type="text" id="moto-color" class="input-field" placeholder="Ex: Rouge et Noir">
+
+            <label id="lbl-driver-name">Nom du Chauffeur (si connu) :</label>
+            <input type="text" id="moto-driver" class="input-field" placeholder="Nom du chauffeur">
 
             <label id="lbl-pay-moto">Mode de Paiement :</label>
             <select class="zone-select" id="moto-payment">
@@ -90,7 +99,7 @@
             </button>
 
             <button onclick="shareTrip('Moto')" class="btn-action btn-share">
-                <i class="fas fa-user-shield"></i> <span id="btn-share-moto">PARTAGER À MA FAMILLE</span>
+                <i class="fas fa-user-shield"></i> <span id="btn-share-moto">PARTAGER À MA FANMI</span>
             </button>
         </div>
 
@@ -102,6 +111,9 @@
 
             <label id="lbl-name-nav">Nom Complet :</label>
             <input type="text" id="nav-client-name" class="input-field" placeholder="Votre nom">
+
+            <label id="lbl-phone-nav">Numéro de Téléphone :</label>
+            <input type="tel" id="nav-client-phone" class="input-field" placeholder="Ex: +509 3xxx xxxx">
 
             <label id="lbl-nav-type">Type de Réservation :</label>
             <select class="zone-select" id="navette-type">
@@ -123,7 +135,7 @@
             </button>
 
             <button onclick="shareTrip('Navette')" class="btn-action btn-share">
-                <i class="fas fa-user-shield"></i> <span id="btn-share-nav">PARTAGER À MA FAMILLE</span>
+                <i class="fas fa-user-shield"></i> <span id="btn-share-nav">PARTAGER À MA FANMI</span>
             </button>
         </div>
 
@@ -144,7 +156,9 @@
                 motoT: "TAXI MOTO SÉCURISÉ", navT: "NAVETTE AÉROPORT",
                 btnM: "COMMANDER MOTO", btnN: "RÉSERVER LA NAVETTE",
                 btnS: "PARTAGER À MA FAMILLE",
-                lName: "Nom Complet :", success: "Demande envoyée avec succès !",
+                lName: "Nom Complet :", lPhone: "Numéro de Téléphone :",
+                lColor: "Couleur de la Moto :", lDriver: "Nom du Chauffeur :",
+                success: "Demande envoyée avec succès !",
                 shareMsgM: "Je suis en route avec Aurisme Taxi Moto vers: ",
                 shareMsgN: "Je prends une Navette Aurisme (Aéroport). Type: "
             },
@@ -153,7 +167,9 @@
                 motoT: "SECURE MOTO TAXI", navT: "AIRPORT SHUTTLE",
                 btnM: "ORDER MOTO", btnN: "BOOK SHUTTLE",
                 btnS: "SHARE WITH FAMILY",
-                lName: "Full Name:", success: "Request sent successfully!",
+                lName: "Full Name:", lPhone: "Phone Number:",
+                lColor: "Moto Color:", lDriver: "Driver Name:",
+                success: "Request sent successfully!",
                 shareMsgM: "I am on my way with Aurisme Taxi Moto to: ",
                 shareMsgN: "I am taking an Aurisme Shuttle (Airport). Type: "
             },
@@ -162,7 +178,9 @@
                 motoT: "TAKSI MOTO AN SEKIRITE", navT: "NAVÈT EYÈPÒT",
                 btnM: "KOMANDE MOTO", btnN: "REZÈVE NAVÈT LA",
                 btnS: "PATAJE AK FANMI M",
-                lName: "Non Konplè :", success: "Demand lan voye byen pwòp!",
+                lName: "Non Konplè :", lPhone: "Nimewo Telefòn :",
+                lColor: "Koulè Moto a :", lDriver: "Non Chofè a :",
+                success: "Demand lan voye byen pwòp!",
                 shareMsgM: "Mwen nan wout ak Aurisme Taxi Moto pou m ale: ",
                 shareMsgN: "Mwen pran yon Navèt Aurisme (Eyèpòt). Tip: "
             }
@@ -177,8 +195,14 @@
             document.getElementById('btn-nav').innerText = t.btnN;
             document.getElementById('btn-share-moto').innerText = t.btnS;
             document.getElementById('btn-share-nav').innerText = t.btnS;
+            
             document.getElementById('lbl-name-moto').innerText = t.lName;
             document.getElementById('lbl-name-nav').innerText = t.lName;
+            document.getElementById('lbl-phone-moto').innerText = t.lPhone;
+            document.getElementById('lbl-phone-nav').innerText = t.lPhone;
+            document.getElementById('lbl-moto-color').innerText = t.lColor;
+            document.getElementById('lbl-driver-name').innerText = t.lDriver;
+
             localStorage.setItem('aurisme_moto_lang', lang);
         }
 
@@ -188,32 +212,51 @@
 
             if(type === 'Moto') {
                 const name = document.getElementById('moto-client-name').value;
+                const phone = document.getElementById('moto-client-phone').value;
                 const zone = document.getElementById('zone-list').value;
+                const color = document.getElementById('moto-color').value;
+                const driver = document.getElementById('moto-driver').value;
                 const pay = document.getElementById('moto-payment').value;
-                if(!name || zone === "Non spécifiée") { alert("SVP ranpli enfòmasyon yo"); return; }
+
+                if(!name || !phone || zone === "Non spécifiée") { 
+                    alert(lang === 'ht' ? "Ranpli Non, Telefòn ak Zòn nan souple" : "SVP remplissez le Nom, Téléphone et la Zone"); 
+                    return; 
+                }
                 
                 params = {
                     nom_kliyan: name,
                     sevis_chwazi: "Taxi Moto Aurisme",
-                    message: `📍 Itinéraire: ${zone}\n💳 Paiement: ${pay}`
+                    message: `📞 Tel: ${phone}\n📍 Zone: ${zone}\n🎨 Couleur: ${color}\n👤 Chauffeur: ${driver}\n💳 Paiement: ${pay}`
                 };
             } else {
                 const name = document.getElementById('nav-client-name').value;
+                const phone = document.getElementById('nav-client-phone').value;
                 const navType = document.getElementById('navette-type').value;
                 const vehicle = document.getElementById('vehicle-type').value;
                 const hotel = document.getElementById('hotel-info').value;
-                if(!name || !hotel) { alert("SVP ranpli enfòmasyon yo"); return; }
+
+                if(!name || !phone || !hotel) { 
+                    alert(lang === 'ht' ? "Tanpri ranpli tout bwat yo" : "SVP remplissez tous les champs"); 
+                    return; 
+                }
 
                 params = {
                     nom_kliyan: name,
                     sevis_chwazi: "Navette Aéroport Aurisme",
-                    message: `🚐 Type: ${navType}\n🚗 Véhicule: ${vehicle}\n🏨 Détails: ${hotel}`
+                    message: `📞 Tel: ${phone}\n🚐 Type: ${navType}\n🚗 Véhicule: ${vehicle}\n🏨 Détails: ${hotel}`
                 };
             }
 
             emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
                 .then(() => {
                     alert(translations[lang].success);
+                    // Reset bwat yo apre l fin voye
+                    if(type === 'Moto'){
+                        document.getElementById('moto-color').value = "";
+                        document.getElementById('moto-driver').value = "";
+                    } else {
+                        document.getElementById('hotel-info').value = "";
+                    }
                 }, (err) => {
                     alert("Erreur: " + JSON.stringify(err));
                 });
