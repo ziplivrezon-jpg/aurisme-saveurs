@@ -57,11 +57,11 @@
             border: none; font-size: 14px; color: #333; box-sizing: border-box; display: block; font-family: inherit;
         }
         
-        .btn-whatsapp { 
-            background: #25D366; color: white; border: none; padding: 18px; 
+        .btn-voye { 
+            background: var(--gold); color: var(--bordeaux); border: none; padding: 18px; 
             width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; 
             font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
         }
 
         .back-home { display: inline-block; margin: 30px 0; color: var(--bordeaux); text-decoration: none; font-weight: bold; font-size: 14px; }
@@ -118,7 +118,7 @@
             <label id="lbl-type">Type d'événement:</label>
             <select id="event-type">
                 <option value="Mariage" id="opt-m">Mariage</option>
-                <option value="Anniversaire" id="opt-a">Anniversaire</option>
+                <option value="Aniversaire" id="opt-a">Anniversaire</option>
                 <option value="Baptême" id="opt-b">Baptême / Communion</option>
                 <option value="Dîner Privé" id="opt-d">Dîner Privé</option>
                 <option value="Business" id="opt-bz">Événement d'Affaires</option>
@@ -145,8 +145,8 @@
                 <option value="Zelle / PayPal">Zelle / PayPal (Intl)</option>
             </select>
 
-            <button class="btn-whatsapp" onclick="voyeDevisEmail()">
-                <i class="fab fa-whatsapp"></i> <span id="btn-txt">OBTENIR MON DEVIS WHATSAPP</span>
+            <button class="btn-voye" onclick="voyeDevisEmail()">
+                <i class="fas fa-paper-plane"></i> <span id="btn-txt">OBTENIR MON DEVIS</span>
             </button>
         </div>
 
@@ -165,7 +165,7 @@
                 s2h: "Événements Corporatifs", s2d: "Lancements de produits, Galas, Cocktails d'affaires.",
                 formT: "Demander un Devis", lType: "Type d'événement:", lServ: "Service souhaité:",
                 lDate: "Date & Nombre d'invités:", lDesc: "Détails ou Thème choisi:", lPay: "Mode de Paiement:",
-                btn: "OBTENIR MON DEVIS WHATSAPP", back: "RETOUR À L'ACCUEIL",
+                btn: "OBTENIR MON DEVIS", back: "RETOUR À L'ACCUEIL",
                 m: "Mariage", a: "Anniversaire", b: "Baptême / Communion", d: "Dîner Privé", bz: "Affaires",
                 s1: "Décoration uniquement", s2: "Traiteur uniquement", s3: "Service Complet",
                 lName: "Nom Complet:", lPhone: "WhatsApp / Téléphone:"
@@ -180,7 +180,7 @@
                 s2h: "Corporate Events", s2d: "Product launches, Galas, Business cocktails.",
                 formT: "Request a Quote", lType: "Event Type:", lServ: "Service Needed:",
                 lDate: "Date & Number of Guests:", lDesc: "Details or Chosen Theme:", lPay: "Payment Method:",
-                btn: "GET MY WHATSAPP QUOTE", back: "BACK TO HOME",
+                btn: "GET MY QUOTE", back: "BACK TO HOME",
                 m: "Wedding", a: "Birthday", b: "Baptism / Communion", d: "Private Dinner", bz: "Business",
                 s1: "Decor only", s2: "Catering only", s3: "Full Service",
                 lName: "Full Name:", lPhone: "WhatsApp / Phone:"
@@ -195,7 +195,7 @@
                 s2h: "Fèt Konpayi", s2d: "Lansman pwodwi, Gala, Koktèl daprè.",
                 formT: "Mande yon Devis", lType: "Kalite fèt la:", lServ: "Sèvis ou bezwen:",
                 lDate: "Dat ak Konbe moun:", lDesc: "Detay oswa Tèm ou vle:", lPay: "Fason w ap peye:",
-                btn: "JWENN DEVIS MWEN SOU WHATSAPP", back: "TOUNEN NAN AKÈY",
+                btn: "JWENN DEVIS MWEN", back: "TOUNEN NAN AKÈY",
                 m: "Maryaj", a: "Anivèsè", b: "Batèm / Kominyon", d: "Dine Prive", bz: "Afè / Biznis",
                 s1: "Dekorasyon sèlman", s2: "Tretè sèlman", s3: "Sèvis Konplè",
                 lName: "Non Konplè:", lPhone: "WhatsApp / Telefòn:"
@@ -233,7 +233,6 @@
             localStorage.setItem('aurisme_deco_lang', lang);
         }
 
-        // FONKSYON POU VOYE EMAILJS + WHATSAPP
         function voyeDevisEmail() {
             const nom = document.getElementById('client-name').value;
             const phone = document.getElementById('client-phone').value;
@@ -252,7 +251,7 @@
             const params = {
                 nom_kliyan: nom,
                 sevis_chwazi: "Déco & Traiteur",
-                message: `WhatsApp: ${phone}\n` +
+                message: `WhatsApp/Tel: ${phone}\n` +
                          `Type Event: ${type}\n` +
                          `Service: ${service}\n` +
                          `Date/Moun: ${details}\n` +
@@ -262,29 +261,15 @@
 
             emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
                 .then(function() {
-                    console.log("Email voye!");
-                    bookEvent(nom, phone, type, service, details, desc, pay);
+                    alert(lang === 'ht' ? "Mèsi! Demand ou an voye ak siksè." : "Merci! Votre demande a été envoyée avec succès.");
+                    document.getElementById('event-details').value = "";
+                    document.getElementById('event-desc').value = "";
                 }, function(err) {
                     alert("Erè: " + JSON.stringify(err));
                 });
         }
 
-        function bookEvent(nom, phone, type, service, details, desc, pay) {
-            const tel = "50942017744";
-            const msg = `*DEVIS DÉCO & TRAITEUR*%0A%0A` +
-                        `👤 *Client:* ${nom}%0A` +
-                        `📞 *WhatsApp:* ${phone}%0A` +
-                        `🎉 *Event:* ${type}%0A` +
-                        `🛠️ *Service:* ${service}%0A` +
-                        `📅 *Info:* ${details}%0A` +
-                        `📝 *Theme/Desc:* ${desc}%0A` +
-                        `💳 *Pay:* ${pay}%0A%0A` +
-                        `_Via Aurisme App_`;
-
-            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
-        }
-
         window.onload = () => changeLang(localStorage.getItem('aurisme_deco_lang') || 'fr');
     </script>
 </body>
-    </html>
+</html>
