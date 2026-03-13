@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Déco & Traiteur - Aurisme</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+          emailjs.init("-QYhlIQKH8q-aZkZa");
+      })();
+    </script>
+
     <style>
         :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #fcfcfc; text-align: center; color: #333; }
 
         /* Lang Bar */
-        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; }
+        .lang-bar { background: white; padding: 10px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
         .lang-bar button { border: none; background: #f0f0f0; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--navy); font-size: 12px; }
 
         header { background: linear-gradient(rgba(128,0,0,0.9), rgba(128,0,0,0.9)), url('https://www.transparenttextures.com/patterns/cubes.png'); 
@@ -101,6 +109,12 @@
         <div class="booking-box">
             <h3 id="txt-form-title">Demander un Devis</h3>
             
+            <label id="lbl-name">Nom Complet / Non ou:</label>
+            <input type="text" id="client-name" placeholder="Ex: Marie Laurence">
+            
+            <label id="lbl-phone">WhatsApp / Téléphone:</label>
+            <input type="tel" id="client-phone" placeholder="Ex: +509 3737 0000">
+
             <label id="lbl-type">Type d'événement:</label>
             <select id="event-type">
                 <option value="Mariage" id="opt-m">Mariage</option>
@@ -131,7 +145,7 @@
                 <option value="Zelle / PayPal">Zelle / PayPal (Intl)</option>
             </select>
 
-            <button class="btn-whatsapp" onclick="bookEvent()">
+            <button class="btn-whatsapp" onclick="voyeDevisEmail()">
                 <i class="fab fa-whatsapp"></i> <span id="btn-txt">OBTENIR MON DEVIS WHATSAPP</span>
             </button>
         </div>
@@ -153,7 +167,8 @@
                 lDate: "Date & Nombre d'invités:", lDesc: "Détails ou Thème choisi:", lPay: "Mode de Paiement:",
                 btn: "OBTENIR MON DEVIS WHATSAPP", back: "RETOUR À L'ACCUEIL",
                 m: "Mariage", a: "Anniversaire", b: "Baptême / Communion", d: "Dîner Privé", bz: "Affaires",
-                s1: "Décoration uniquement", s2: "Traiteur uniquement", s3: "Service Complet"
+                s1: "Décoration uniquement", s2: "Traiteur uniquement", s3: "Service Complet",
+                lName: "Nom Complet:", lPhone: "WhatsApp / Téléphone:"
             },
             en: {
                 h1: "Decor & Catering", sub: "Turning your dreams into memorable reality",
@@ -167,7 +182,8 @@
                 lDate: "Date & Number of Guests:", lDesc: "Details or Chosen Theme:", lPay: "Payment Method:",
                 btn: "GET MY WHATSAPP QUOTE", back: "BACK TO HOME",
                 m: "Wedding", a: "Birthday", b: "Baptism / Communion", d: "Private Dinner", bz: "Business",
-                s1: "Decor only", s2: "Catering only", s3: "Full Service"
+                s1: "Decor only", s2: "Catering only", s3: "Full Service",
+                lName: "Full Name:", lPhone: "WhatsApp / Phone:"
             },
             ht: {
                 h1: "Dekò & Tretè", sub: "Reyalize rèv ou yo ak yon fason espesyal",
@@ -181,7 +197,8 @@
                 lDate: "Dat ak Konbe moun:", lDesc: "Detay oswa Tèm ou vle:", lPay: "Fason w ap peye:",
                 btn: "JWENN DEVIS MWEN SOU WHATSAPP", back: "TOUNEN NAN AKÈY",
                 m: "Maryaj", a: "Anivèsè", b: "Batèm / Kominyon", d: "Dine Prive", bz: "Afè / Biznis",
-                s1: "Dekorasyon sèlman", s2: "Tretè sèlman", s3: "Sèvis Konplè"
+                s1: "Dekorasyon sèlman", s2: "Tretè sèlman", s3: "Sèvis Konplè",
+                lName: "Non Konplè:", lPhone: "WhatsApp / Telefòn:"
             }
         };
 
@@ -197,6 +214,8 @@
             document.getElementById('s1-h').innerText = t.s1h; document.getElementById('s1-d').innerText = t.s1d;
             document.getElementById('s2-h').innerText = t.s2h; document.getElementById('s2-d').innerText = t.s2d;
             document.getElementById('txt-form-title').innerText = t.formT;
+            document.getElementById('lbl-name').innerText = t.lName;
+            document.getElementById('lbl-phone').innerText = t.lPhone;
             document.getElementById('lbl-type').innerText = t.lType;
             document.getElementById('lbl-serv').innerText = t.lServ;
             document.getElementById('lbl-date').innerText = t.lDate;
@@ -205,7 +224,6 @@
             document.getElementById('btn-txt').innerText = t.btn;
             document.getElementById('txt-back').innerHTML = `<i class="fas fa-arrow-left"></i> ${t.back}`;
             
-            // Dropdowns
             document.getElementById('opt-m').innerText = t.m; document.getElementById('opt-a').innerText = t.a;
             document.getElementById('opt-b').innerText = t.b; document.getElementById('opt-d').innerText = t.d;
             document.getElementById('opt-bz').innerText = t.bz;
@@ -215,21 +233,47 @@
             localStorage.setItem('aurisme_deco_lang', lang);
         }
 
-        function bookEvent() {
-            const tel = "50942017744";
-            const lang = localStorage.getItem('aurisme_deco_lang') || 'fr';
+        // FONKSYON POU VOYE EMAILJS + WHATSAPP
+        function voyeDevisEmail() {
+            const nom = document.getElementById('client-name').value;
+            const phone = document.getElementById('client-phone').value;
             const type = document.getElementById('event-type').value;
             const service = document.getElementById('service-needed').value;
             const details = document.getElementById('event-details').value;
             const desc = document.getElementById('event-desc').value;
             const pay = document.getElementById('deco-payment').value;
-            
-            if(!details || !desc) {
-                alert(lang === 'ht' ? "Tanpri bay detay sou fèt la." : "Veuillez donner des détails sur l'événement.");
+            const lang = localStorage.getItem('aurisme_deco_lang') || 'fr';
+
+            if(!nom || !phone || !details || !desc) {
+                alert(lang === 'ht' ? "Tanpri ranpli tout bwat yo." : "Veuillez remplir tous les champs.");
                 return;
             }
 
+            const params = {
+                nom_kliyan: nom,
+                sevis_chwazi: "Déco & Traiteur",
+                message: `WhatsApp: ${phone}\n` +
+                         `Type Event: ${type}\n` +
+                         `Service: ${service}\n` +
+                         `Date/Moun: ${details}\n` +
+                         `Détails: ${desc}\n` +
+                         `Paiement: ${pay}`
+            };
+
+            emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
+                .then(function() {
+                    console.log("Email voye!");
+                    bookEvent(nom, phone, type, service, details, desc, pay);
+                }, function(err) {
+                    alert("Erè: " + JSON.stringify(err));
+                });
+        }
+
+        function bookEvent(nom, phone, type, service, details, desc, pay) {
+            const tel = "50942017744";
             const msg = `*DEVIS DÉCO & TRAITEUR*%0A%0A` +
+                        `👤 *Client:* ${nom}%0A` +
+                        `📞 *WhatsApp:* ${phone}%0A` +
                         `🎉 *Event:* ${type}%0A` +
                         `🛠️ *Service:* ${service}%0A` +
                         `📅 *Info:* ${details}%0A` +
@@ -243,4 +287,5 @@
         window.onload = () => changeLang(localStorage.getItem('aurisme_deco_lang') || 'fr');
     </script>
 </body>
-</html>
+    </html>
+    
