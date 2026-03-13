@@ -49,8 +49,8 @@
         
         select, input, textarea { width: 100%; padding: 12px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
         
-        .btn-whatsapp { 
-            background: #25D366; color: white; border: none; padding: 16px; 
+        .btn-voye { 
+            background: var(--gold); color: var(--bordeaux); border: none; padding: 16px; 
             width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; 
             font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px;
         }
@@ -95,11 +95,11 @@
         <div class="order-box">
             <h3 id="txt-order-title" style="color: var(--bordeaux); margin-top: 0; text-align: center;">VOTRE COMMANDE</h3>
             
-            <div class="section-label" id="sec-info-client">Enfòmasyon Kliyan</div>
-            <label id="lbl-client-name">Votre Nom / Non ou:</label>
+            <div class="section-label" id="sec-info-client">Coordonnées</div>
+            <label id="lbl-client-name">Votre Nom:</label>
             <input type="text" id="client-name" placeholder="Ex: Jean Marie">
-            <label id="lbl-client-phone">WhatsApp / Téléphone:</label>
-            <input type="tel" id="client-phone" placeholder="Ex: +509 1234 5678">
+            <label id="lbl-client-phone">Email / Téléphone:</label>
+            <input type="text" id="client-contact" placeholder="Ex: marie@email.com / +509...">
 
             <div class="section-label" id="sec-gateau">Gâteaux</div>
             <label id="lbl-type">Type de Gâteau:</label>
@@ -156,8 +156,8 @@
             </select>
             <div class="tourist-note" id="txt-note">* International clients: Zelle/PayPal available on request.</div>
             
-            <button class="btn-whatsapp" onclick="voyeKòmand()">
-                <i class="fab fa-whatsapp"></i> <span id="btn-txt">ENVOYER LA COMMANDE</span>
+            <button class="btn-voye" onclick="voyeKòmand()">
+                <i class="fas fa-envelope"></i> <span id="btn-txt">ENVOYER LA COMMANDE</span>
             </button>
         </div>
 
@@ -175,7 +175,7 @@
                 d_type: "Choisir une Douceur:", d_qty: "Quantité:", desc: "Inscriptions / Détails:",
                 method: "Mode de Paiement:", btn: "ENVOYER LA COMMANDE", back: "RETOUR À L'ACCUEIL",
                 vip: "🌟 Espace Client VIP", login: "Se Connecter", note: "* Clients Internationaux: Zelle/PayPal disponible sur demande.",
-                clientInfo: "COORDONNÉES", clientName: "Votre Nom:", clientPhone: "WhatsApp / Téléphone:"
+                clientInfo: "COORDONNÉES", clientName: "Votre Nom:", clientPhone: "Email / Téléphone:"
             },
             en: {
                 header: "OUR CAKES", sub: "Handcrafted custom pastry",
@@ -186,7 +186,7 @@
                 d_type: "Choose a Sweet:", d_qty: "Quantity:", desc: "Customization / Details:",
                 method: "Payment Method:", btn: "SEND ORDER", back: "BACK TO HOME",
                 vip: "🌟 VIP Customer Space", login: "Log In", note: "* International Clients: Zelle/PayPal available on request.",
-                clientInfo: "CUSTOMER DETAILS", clientName: "Full Name:", clientPhone: "WhatsApp / Phone:"
+                clientInfo: "CUSTOMER DETAILS", clientName: "Full Name:", clientPhone: "Email / Phone:"
             },
             ht: {
                 header: "GATO NOU YO", sub: "Gato atizanal sou mezi",
@@ -197,7 +197,7 @@
                 d_type: "Chwazi yon Dousè:", d_qty: "Kantite:", desc: "Detay / Sa w vle ekri:",
                 method: "Fason w ap peye:", btn: "VOYE KÒMAND LAN", back: "TOUNEN NAN PAJ AKÈY",
                 vip: "🌟 Espas Kliyan VIP", login: "Konekte", note: "* Pou kliyan lòt bò dlo: Zelle/PayPal disponib si w mande sa.",
-                clientInfo: "ENFÒMASYON OU", clientName: "Non ou:", clientPhone: "WhatsApp / Telefòn:"
+                clientInfo: "ENFÒMASYON OU", clientName: "Non ou:", clientPhone: "Email / Telefòn:"
             }
         };
 
@@ -223,12 +223,9 @@
             document.getElementById('txt-back').innerHTML = `<i class="fas fa-arrow-left"></i> ${t.back}`;
             document.getElementById('login-btn').innerText = t.login;
             document.getElementById('txt-note').innerText = t.note;
-            
-            // Tradiksyon pati enfòmasyon kliyan
             document.getElementById('sec-info-client').innerText = t.clientInfo;
             document.getElementById('lbl-client-name').innerText = t.clientName;
             document.getElementById('lbl-client-phone').innerText = t.clientPhone;
-
             localStorage.setItem('aurisme_lang', lang);
         }
 
@@ -237,7 +234,6 @@
             const vipInfo = document.getElementById('vip-info');
             const loginBtn = document.getElementById('login-btn');
             const lang = localStorage.getItem('aurisme_lang') || 'fr';
-
             if (user && user !== "null") {
                 vipInfo.innerHTML = `👑 ${lang === 'ht' ? 'Byenvini' : 'Bienvenue'}, <b>${user}</b> <i class="fas fa-sign-out-alt logout-icon" onclick="logoutVIP()"></i>`;
                 loginBtn.style.display = 'none';
@@ -261,10 +257,9 @@
             updateVIP();
         }
 
-        // FONKSYON POU VOYE EMAIL AK WHATSAPP
         function voyeKòmand() {
             const nom = document.getElementById('client-name').value;
-            const phone = document.getElementById('client-phone').value;
+            const contact = document.getElementById('client-contact').value;
             const type = document.getElementById('cake-type').value;
             const size = document.getElementById('cake-size').value;
             const v_type = document.getElementById('viennoiserie-type').value;
@@ -273,22 +268,22 @@
             const d_qty = document.getElementById('douceur-qty').value;
             const desc = document.getElementById('cake-desc').value;
             const payment = document.getElementById('pato-payment').value;
+            const lang = localStorage.getItem('aurisme_lang') || 'fr';
 
-            if (!nom || !phone) {
-                alert("Tanpri mete non ou ak nimewo WhatsApp ou.");
+            if (!nom || !contact) {
+                alert(lang === 'ht' ? "Tanpri mete non ou ak kontak ou." : "Veuillez entrer votre nom et votre contact.");
                 return;
             }
 
             if (type === "Aucun" && v_type === "Aucune" && d_type === "Aucune") {
-                alert("Tanpri chwazi omwen yon pwodwi.");
+                alert(lang === 'ht' ? "Tanpri chwazi omwen yon pwodwi." : "Veuillez choisir au moins un produit.");
                 return;
             }
 
-            // Prepare done pou EmailJS
             const params = {
                 nom_kliyan: nom,
                 sevis_chwazi: "Pâtisserie",
-                message: `WhatsApp: ${phone}\n` +
+                message: `Contact: ${contact}\n` +
                          `Gâteau: ${type} (${size})\n` +
                          `Viennoiserie: ${v_type} (Qté: ${v_qty})\n` +
                          `Douceur: ${d_type} (Qté: ${d_qty})\n` +
@@ -296,32 +291,12 @@
                          `Paiement: ${payment}`
             };
 
-            // Voye Email an premye
             emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
                 .then(function() {
-                    console.log("Email voye!");
-                    // Si email la pati, nou louvri WhatsApp la kounye a
-                    sendWhatsApp(nom, phone, type, size, v_type, v_qty, d_type, d_qty, desc, payment);
+                    alert(lang === 'ht' ? "Mèsi! Kòmand ou an voye ak siksè." : "Merci! Votre commande a été envoyée avec succès.");
                 }, function(err) {
-                    alert("Erè nan voye imèl: " + JSON.stringify(err));
+                    alert("Erreur: " + JSON.stringify(err));
                 });
-        }
-
-        function sendWhatsApp(nom, phone, type, size, v_type, v_qty, d_type, d_qty, desc, payment) {
-            const tel = "50942017744";
-            let msg = `*COMMANDE PÂTISSERIE - AURISME*%0A%0A` +
-                        `👤 *Client:* ${nom}%0A` +
-                        `📞 *WhatsApp:* ${phone}%0A`;
-            
-            if(type !== "Aucun") { msg += `🎂 *Gâteau:* ${type} (${size})%0A`; }
-            if(v_type !== "Aucune") { msg += `🥐 *Viennoiserie:* ${v_type} (Qté: ${v_qty || 1})%0A`; }
-            if(d_type !== "Aucune") { msg += `🍩 *Douceur:* ${d_type} (Qté: ${d_qty || 1})%0A`; }
-
-            msg += `📝 *Détails:* ${desc}%0A` +
-                   `💳 *Paiement:* ${payment}%0A%0A` +
-                   `_Sent via Aurisme App_`;
-
-            window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
         }
 
         window.onload = function() {
