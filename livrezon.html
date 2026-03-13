@@ -76,6 +76,12 @@
             </div>
         </div>
 
+        <div class="tracking-card" style="border-left-color: var(--navy); margin-bottom: 15px;">
+            <h3 style="color: var(--navy); font-size: 14px;" id="txt-client-info">👤 VOS COORDONNÉES</h3>
+            <input type="text" id="client-name" class="tracking-input" placeholder="Votre Nom" style="margin-bottom: 10px; width: 100%; box-sizing: border-box;">
+            <input type="tel" id="client-phone" class="tracking-input" placeholder="WhatsApp / Téléphone" style="width: 100%; box-sizing: border-box;">
+        </div>
+
         <span class="section-title" id="sec-exp">Expéditions Spéciales</span>
         <button onclick="voyeEmailLivrezon('Livraison de Colis', 'Enveloppes, documents & paquets')" class="main-card bg-navy">
             <div><h3 id="t-colis">Livraison de Colis</h3><p id="d-colis">Enveloppes, documents & paquets</p></div>
@@ -120,7 +126,6 @@
     </div>
 
     <script>
-        // CONFIG FIREBASE SÈLMAN POU TRACKING MAP LA
         const firebaseConfig = {
             apiKey: "AIzaSyCjOguIuH9o5VOu05ZKJ_nWPYKlYx-BKcc",
             authDomain: "aurisme-system.firebaseapp.com",
@@ -143,9 +148,9 @@
         });
 
         const translations = {
-            fr: { header: "Logistique & Livraison", trackT: "🔎 Suivi de colis", trackB: "Suivre", secExp: "Expéditions", secAchat: "Achats", tColis: "Colis", dColis: "Documents & Paquets", catRes: "Restaurant", catMkt: "Marché", catPha: "Pharmacie", tConc: "Conciergerie", dConc: "Courses diverses", tCust: "Personnalisé", dCust: "Sur mesure", modalSub: "Continuer ?", btnG: "Maps", btnW: "Commander", cancel: "Annuler", search: "Recherche...", noId: "ID Introuvable" },
-            ht: { header: "Lojistik & Livrezon", trackT: "🔎 Swiv koli", trackB: "Swiv li", secExp: "Expdisyon", secAchat: "Achat", tColis: "Koli", dColis: "Pake & Dokiman", catRes: "Restoran", catMkt: "Mache", catPha: "Famasi", tConc: "Konsyejeri", dConc: "Komisyon", tCust: "Spesyal", dCust: "Sou mezi", modalSub: "Kijan ou vle kontinye ?", btnG: "Maps", btnW: "Kòmande", cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID" },
-            en: { header: "Logistics & Delivery", trackT: "🔎 Track Package", trackB: "Track", secExp: "Shipping", secAchat: "Shopping", tColis: "Package", dColis: "Docs & Parcels", catRes: "Restaurant", catMkt: "Market", catPha: "Pharmacy", tConc: "Concierge", dConc: "Errands", tCust: "Custom", dCust: "Tailor-made", modalSub: "How to continue?", btnG: "Maps", btnW: "Order", cancel: "Cancel", search: "Searching...", noId: "ID Not Found" }
+            fr: { header: "Logistique & Livraison", trackT: "🔎 Suivi de colis", trackB: "Suivre", secExp: "Expéditions", secAchat: "Achats", tColis: "Colis", dColis: "Documents & Paquets", catRes: "Restaurant", catMkt: "Marché", catPha: "Pharmacie", tConc: "Conciergerie", dConc: "Courses diverses", tCust: "Personnalisé", dCust: "Sur mesure", modalSub: "Continuer ?", btnG: "Maps", btnW: "Commander", cancel: "Annuler", search: "Recherche...", noId: "ID Introuvable", cInfo: "👤 VOS COORDONNÉES", pName: "Votre Nom", pPhone: "WhatsApp / Téléphone" },
+            ht: { header: "Lojistik & Livrezon", trackT: "🔎 Swiv koli", trackB: "Swiv li", secExp: "Expdisyon", secAchat: "Achat", tColis: "Koli", dColis: "Pake & Dokiman", catRes: "Restoran", catMkt: "Mache", catPha: "Famasi", tConc: "Konsyejeri", dConc: "Komisyon", tCust: "Spesyal", dCust: "Sou mezi", modalSub: "Kijan ou vle kontinye ?", btnG: "Maps", btnW: "Kòmande", cancel: "Anile", search: "N ap chache...", noId: "Nou pa jwenn ID", cInfo: "👤 ENFÒMASYON OU", pName: "Non ou", pPhone: "WhatsApp / Telefòn" },
+            en: { header: "Logistics & Delivery", trackT: "🔎 Track Package", trackB: "Track", secExp: "Shipping", secAchat: "Shopping", tColis: "Package", dColis: "Docs & Parcels", catRes: "Restaurant", catMkt: "Market", catPha: "Pharmacy", tConc: "Concierge", dConc: "Errands", tCust: "Custom", dCust: "Tailor-made", modalSub: "How to continue?", btnG: "Maps", btnW: "Order", cancel: "Cancel", search: "Searching...", noId: "ID Not Found", cInfo: "👤 YOUR DETAILS", pName: "Full Name", pPhone: "WhatsApp / Phone" }
         };
 
         function changeLang(lang) {
@@ -168,6 +173,11 @@
             document.getElementById('txt-google').innerText = t.btnG;
             document.getElementById('txt-wa').innerText = t.btnW;
             document.getElementById('txt-cancel').innerText = t.cancel;
+            // Tradiksyon bwat enfòmasyon
+            document.getElementById('txt-client-info').innerText = t.cInfo;
+            document.getElementById('client-name').placeholder = t.pName;
+            document.getElementById('client-phone').placeholder = t.pPhone;
+            
             localStorage.setItem('aurisme_lang', lang);
         }
 
@@ -184,17 +194,25 @@
             };
         }
 
-        // NOUVO FONKSYON EMAILJS POU LIVREZON
         function voyeEmailLivrezon(service, details) {
+            const name = document.getElementById('client-name').value;
+            const phone = document.getElementById('client-phone').value;
+
+            // Verifikasyon si kliyan an ranpli enfòmasyon yo
+            if (!name || !phone) {
+                alert("Tanpri mete non ou ak nimewo telefòn ou anlè a anvan.");
+                return;
+            }
+
             const params = {
-                nom_kliyan: "Kliyan Livraison",
+                nom_kliyan: name,
                 sevis_chwazi: "Livraison - " + service,
-                message: "Detay: " + details + "\nDat: " + new Date().toLocaleString()
+                message: "Kliyan: " + name + "\nTelefòn/WA: " + phone + "\nDetay: " + details + "\nDat: " + new Date().toLocaleString()
             };
 
             emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
                 .then(function() {
-                    alert("Kòmand livrezon ou an voye ak siksè!");
+                    alert("Mèsi " + name + "! Kòmand livrezon ou an voye ak siksè.");
                     closeModal();
                 }, function(err) {
                     alert("Erè: " + JSON.stringify(err));
