@@ -1,210 +1,357 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sòl Aurisme Prestige</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sòl Aurisme Prestige</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    <style>
-        :root { --bordeaux: #800000; --gold: #DAA520; --navy: #003366; --light-gold: #fdf5e6; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f8f9fa; text-align: center; padding-top: 70px; }
-        
-        .lang-bar { position: fixed; top: 0; width: 100%; background: white; padding: 12px 0; display: flex; justify-content: center; gap: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
-        .lang-btn { border: 1px solid #ddd; background: white; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s; }
-        .lang-btn.active { background: var(--bordeaux); color: white; border-color: var(--bordeaux); }
+<style>
+:root {
+    --bordeaux: #800000;
+    --gold: #DAA520;
+    --navy: #003366;
+    --light-gold: #fdf5e6;
+}
 
-        header { background-color: var(--bordeaux); color: white; padding: 25px; border-bottom: 5px solid var(--gold); }
-        .logo-container img { width: 85px; height: 85px; border-radius: 50%; border: 3px solid var(--gold); background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        
-        .container { padding: 20px; max-width: 480px; margin: auto; text-align: left; }
-        .box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); margin-bottom: 25px; border-top: 6px solid var(--gold); }
-        
-        h3 { margin-top: 0; color: var(--navy); font-size: 19px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
-        label { font-size: 13px; font-weight: 700; display: block; margin-top: 15px; color: #444; }
-        input, select { width: 100%; padding: 14px; margin-top: 6px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; transition: 0.3s; }
-        
-        .summary { background: var(--light-gold); border: 1px dashed var(--gold); padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 14px; color: var(--bordeaux); display: none; }
+* { box-sizing: border-box; margin:0; padding:0; }
 
-        .btn-send { background: var(--bordeaux); color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 12px rgba(128, 0, 0, 0.3); }
-        .btn-send:hover { transform: translateY(-2px); background: #600000; }
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--navy); font-weight: bold; font-size: 14px; margin-bottom: 20px; }
-    </style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    text-align: center;
+    padding-top: 70px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.lang-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.lang-btn {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 7px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.lang-btn.active {
+    background: var(--bordeaux);
+    color: #fff;
+    border-color: var(--bordeaux);
+}
+
+header {
+    background-color: var(--bordeaux);
+    color: #fff;
+    padding: 25px 15px;
+    border-bottom: 5px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+}
+
+h1 { font-size: 22px; }
+
+.container { max-width: 480px; margin: auto; padding: 20px; text-align: left; }
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+    transition: 0.2s;
+}
+.btn-back:hover { color: var(--bordeaux); }
+
+.box {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    border-top: 6px solid var(--gold);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+h3 {
+    font-size: 18px;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    margin-top: 15px;
+    color: #444;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    transition: 0.3s;
+}
+input:focus, select:focus {
+    border-color: var(--bordeaux);
+    outline: none;
+    box-shadow: 0 0 6px rgba(128,0,0,0.2);
+}
+
+.summary {
+    background: linear-gradient(90deg, #fff7e6, #fdf5e6);
+    border: 2px solid var(--gold);
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--bordeaux);
+    display: none;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.progress-container {
+    background-color: #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 12px;
+    margin-top: 10px;
+}
+#progress-bar {
+    height: 100%;
+    background-color: var(--bordeaux);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.btn-send {
+    background: linear-gradient(135deg, #800000, #DAA520);
+    color: #fff;
+    border: none;
+    padding: 18px;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(128,0,0,0.4);
+    transition: 0.3s;
+}
+.btn-send:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(128,0,0,0.5);
+}
+
+@media(max-width: 500px){
+    h1 { font-size: 20px; }
+    .box { padding: 20px 15px; }
+    input, select { font-size: 14px; }
+    .btn-send { font-size: 16px; padding: 16px; }
+}
+</style>
 </head>
 <body>
 
-    <div class="lang-bar">
-        <button id="btn-fr" class="lang-btn active" onclick="setLanguage('fr', this)">FR</button>
-        <button id="btn-en" class="lang-btn" onclick="setLanguage('en', this)">EN</button>
-        <button id="btn-ht" class="lang-btn" onclick="setLanguage('ht', this)">HT</button>
+<div class="lang-bar">
+    <button id="btn-fr" class="lang-btn active" onclick="setLanguage('fr', this)">FR</button>
+    <button id="btn-en" class="lang-btn" onclick="setLanguage('en', this)">EN</button>
+    <button id="btn-ht" class="lang-btn" onclick="setLanguage('ht', this)">HT</button>
+</div>
+
+<header>
+    <div class="logo-container"><img src="Logo.png" alt="Logo"></div>
+    <h1 id="t-header">Sòl Aurisme Prestige</h1>
+</header>
+
+<div class="container">
+    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> <span id="t-home">Accueil</span></a>
+
+    <div class="box">
+        <h3 id="t-reg-title"><i class="fas fa-user-edit"></i> 1. Inscription</h3>
+        <label id="l-name">Nom Complet :</label>
+        <input type="text" id="u-name" placeholder="Ex: Jean Philippe">
+        
+        <label id="l-tel">WhatsApp :</label>
+        <input type="tel" id="u-tel" placeholder="+509">
+        
+        <label id="l-id">NIF / CIN :</label>
+        <input type="text" id="u-id" placeholder="000-000-000-0">
     </div>
 
-    <header>
-        <div class="logo-container"><img src="Logo.png" alt="Logo"></div>
-        <h1 id="t-header">Sòl Aurisme Prestige</h1>
-    </header>
+    <div class="box">
+        <h3 id="t-sol-title"><i class="fas fa-piggy-bank"></i> 2. Détails du Sòl</h3>
+        
+        <label id="l-service">Sèvis :</label>
+        <select id="u-service">
+            <option value="Buffet Complet" id="opt1">Buffet Complet</option>
+            <option value="Traiteur Simple" id="opt2">Traiteur Simple</option>
+            <option value="Gato Maryaj Prestige" id="opt3">Gato Maryaj Prestige</option>
+            <option value="Gato Maryaj Simple" id="opt4">Gato Maryaj Simple</option>
+            <option value="Gato Graduation" id="opt7">Gato Graduation</option>
+            <option value="Décoration Luxe" id="opt10">Décoration Luxe</option>
+        </select>
 
-    <div class="container">
-        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> <span id="t-home">Accueil</span></a>
+        <label id="l-total">Montant Total du Sòl (Gdes) :</label>
+        <input type="number" id="u-total" oninput="calculateSol()" placeholder="...">
 
-        <div class="box">
-            <h3 id="t-reg-title"><i class="fas fa-user-edit"></i> 1. Inscription</h3>
-            <label id="l-name">Nom Complet :</label>
-            <input type="text" id="u-name" placeholder="Ex: Jean Philippe">
-            
-            <label id="l-tel">WhatsApp :</label>
-            <input type="tel" id="u-tel" placeholder="+509">
-            
-            <label id="l-id">NIF / CIN :</label>
-            <input type="text" id="u-id" placeholder="000-000-000-0">
-        </div>
+        <label id="l-pay">Versement par période (Gdes) :</label>
+        <input type="number" id="u-pay" oninput="calculateSol()" placeholder="...">
 
-        <div class="box">
-            <h3 id="t-sol-title"><i class="fas fa-piggy-bank"></i> 2. Détails du Sòl</h3>
-            
-            <label id="l-service">Sèvis :</label>
-            <select id="u-service">
-                <option value="Buffet Complet" id="opt1">Buffet Complet</option>
-                <option value="Traiteur Simple" id="opt2">Traiteur Simple</option>
-                <option value="Gato Maryaj Prestige" id="opt3">Gato Maryaj Prestige</option>
-                <option value="Gato Maryaj Simple" id="opt4">Gato Maryaj Simple</option>
-                <option value="Gato Graduation" id="opt7">Gato Graduation</option>
-                <option value="Décoration Luxe" id="opt10">Décoration Luxe</option>
-            </select>
+        <label id="l-freq">Fréquence :</label>
+        <select id="u-freq" onchange="calculateSol()">
+            <option value="Semaine" id="f1">Chaque Semaine</option>
+            <option value="15 jours" id="f2">Chaque 15 jours</option>
+            <option value="Mois" id="f3">Chaque Mois</option>
+        </select>
 
-            <label id="l-total">Montant Total du Sòl (Gdes) :</label>
-            <input type="number" id="u-total" oninput="calculateSol()" placeholder="...">
-
-            <label id="l-pay">Versement par période (Gdes) :</label>
-            <input type="number" id="u-pay" oninput="calculateSol()" placeholder="...">
-
-            <label id="l-freq">Fréquence :</label>
-            <select id="u-freq" onchange="calculateSol()">
-                <option value="Semaine" id="f1">Chaque Semaine</option>
-                <option value="15 jours" id="f2">Chaque 15 jours</option>
-                <option value="Mois" id="f3">Chaque Mois</option>
-            </select>
-
-            <div id="sol-summary" class="summary">
-                <i class="fas fa-info-circle"></i> <span id="summary-text"></span>
+        <!-- Summary Vizyèl ak progress bar -->
+        <div id="sol-summary" class="summary">
+            <i class="fas fa-info-circle"></i> <span id="summary-text"></span>
+            <div class="progress-container">
+                <div id="progress-bar"></div>
             </div>
-
-            <button class="btn-send" onclick="sendData()">
-                <i class="fab fa-whatsapp"></i> <span id="t-btn">S'INSCRIRE</span>
-            </button>
         </div>
+
+        <button class="btn-send" onclick="sendData()">
+            <i class="fab fa-whatsapp"></i> <span id="t-btn">S'INSCRIRE</span>
+        </button>
     </div>
+</div>
 
 <script>
-    const translations = {
-        fr: {
-            header: "Sòl Aurisme Prestige", home: "Accueil", reg: "1. Inscription", 
-            sol: "2. Détails du Sòl", name: "Nom Complet :", tel: "WhatsApp :", 
-            id: "NIF / CIN :", serv: "Service :", total: "Montant Total (Gdes) :", 
-            pay: "Versement (Gdes) :", freq: "Fréquence :", btn: "S'INSCRIRE AU SÒL",
-            res: "Votre plan durera environ ", f1: "Chaque Semaine", f2: "Chaque 15 jours", f3: "Chaque Mois"
-        },
-        en: {
-            header: "Aurisme Prestige Savings", home: "Home", reg: "1. Registration", 
-            sol: "2. Savings Details", name: "Full Name:", tel: "WhatsApp:", 
-            id: "ID (NIF/CIN):", serv: "Service:", total: "Total Amount (Gdes):", 
-            pay: "Payment (Gdes):", freq: "Frequency:", btn: "REGISTER NOW",
-            res: "Your plan will last about ", f1: "Weekly", f2: "Every 15 days", f3: "Monthly"
-        },
-        ht: {
-            header: "Sòl Aurisme Prestige", home: "Akèy", reg: "1. Enskripsyon", 
-            sol: "2. Detay Sòl la", name: "Non Konplè :", tel: "WhatsApp :", 
-            id: "NIF / CIN :", serv: "Sèvis :", total: "Montan Total (Gdes) :", 
-            pay: "Vèsman (Gdes) :", freq: "Frekans :", btn: "ENSKRI NAN SÒL LA",
-            res: "Plan ou a ap dire anviwon ", f1: "Chak Semèn", f2: "Chak 15 jou", f3: "Chak Mwa"
-        }
-    };
+// Traductions
+const translations = {
+    fr: { header:"Sòl Aurisme Prestige", home:"Accueil", reg:"1. Inscription", sol:"2. Détails du Sòl", name:"Nom Complet :", tel:"WhatsApp :", id:"NIF / CIN :", serv:"Service :", total:"Montant Total (Gdes) :", pay:"Versement (Gdes) :", freq:"Fréquence :", btn:"S'INSCRIRE AU SÒL", res:"Votre plan durera environ ", f1:"Chaque Semaine", f2:"Chaque 15 jours", f3:"Chaque Mois" },
+    en: { header:"Aurisme Prestige Savings", home:"Home", reg:"1. Registration", sol:"2. Savings Details", name:"Full Name:", tel:"WhatsApp:", id:"ID (NIF/CIN):", serv:"Service:", total:"Total Amount (Gdes):", pay:"Payment (Gdes):", freq:"Frequency:", btn:"REGISTER NOW", res:"Your plan will last about ", f1:"Weekly", f2:"Every 15 days", f3:"Monthly" },
+    ht: { header:"Sòl Aurisme Prestige", home:"Akèy", reg:"1. Enskripsyon", sol:"2. Detay Sòl la", name:"Non Konplè :", tel:"WhatsApp :", id:"NIF / CIN :", serv:"Sèvis :", total:"Montan Total (Gdes) :", pay:"Vèsman (Gdes) :", freq:"Frekans :", btn:"ENSKRI NAN SÒL LA", res:"Plan ou a ap dire anviwon ", f1:"Chak Semèn", f2:"Chak 15 jou", f3:"Chak Mwa" }
+};
 
-    function setLanguage(lang, btn) {
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        localStorage.setItem('aurisme_lang', lang);
-        
-        const t = translations[lang];
-        document.getElementById('t-header').innerText = t.header;
-        document.getElementById('t-home').innerText = t.home;
-        document.getElementById('t-reg-title').innerText = t.reg;
-        document.getElementById('t-sol-title').innerText = t.sol;
-        document.getElementById('l-name').innerText = t.name;
-        document.getElementById('l-tel').innerText = t.tel;
-        document.getElementById('l-id').innerText = t.id;
-        document.getElementById('l-service').innerText = t.serv;
-        document.getElementById('l-total').innerText = t.total;
-        document.getElementById('l-pay').innerText = t.pay;
-        document.getElementById('l-freq').innerText = t.freq;
-        document.getElementById('t-btn').innerText = t.btn;
-        document.getElementById('f1').innerText = t.f1;
-        document.getElementById('f2').innerText = t.f2;
-        document.getElementById('f3').innerText = t.f3;
-        
-        calculateSol();
-    }
+function setLanguage(lang, btn){
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    localStorage.setItem('aurisme_lang', lang);
+    const t = translations[lang];
+    document.getElementById('t-header').innerText=t.header;
+    document.getElementById('t-home').innerText=t.home;
+    document.getElementById('t-reg-title').innerText=t.reg;
+    document.getElementById('t-sol-title').innerText=t.sol;
+    document.getElementById('l-name').innerText=t.name;
+    document.getElementById('l-tel').innerText=t.tel;
+    document.getElementById('l-id').innerText=t.id;
+    document.getElementById('l-service').innerText=t.serv;
+    document.getElementById('l-total').innerText=t.total;
+    document.getElementById('l-pay').innerText=t.pay;
+    document.getElementById('l-freq').innerText=t.freq;
+    document.getElementById('t-btn').innerText=t.btn;
+    document.getElementById('f1').innerText=t.f1;
+    document.getElementById('f2').innerText=t.f2;
+    document.getElementById('f3').innerText=t.f3;
+    calculateSol();
+}
 
-    function calculateSol() {
-        const total = parseFloat(document.getElementById('u-total').value);
-        const pay = parseFloat(document.getElementById('u-pay').value);
-        const summary = document.getElementById('sol-summary');
-        const text = document.getElementById('summary-text');
-        const lang = localStorage.getItem('aurisme_lang') || 'fr';
-        
-        if (total > 0 && pay > 0) {
-            const rounds = Math.ceil(total / pay);
-            const freq = document.getElementById('u-freq').options[document.getElementById('u-freq').selectedIndex].text;
-            summary.style.display = "block";
-            text.innerText = translations[lang].res + rounds + " " + freq.toLowerCase() + ".";
-        } else {
-            summary.style.display = "none";
-        }
-    }
-
-    // FIREBASE
-    const firebaseConfig = { apiKey: "AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ", authDomain: "aurisme-saveurs.firebaseapp.com", projectId: "aurisme-saveurs", storageBucket: "aurisme-saveurs.appspot.com", messagingSenderId: "365315354512", appId: "1:365315354512:web:7f6d49480a4237f3944630" };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    async function sendData() {
-        const nom = document.getElementById('u-name').value;
-        const tel_client = document.getElementById('u-tel').value;
-        const nif_cin = document.getElementById('u-id').value || "N/A";
-        const serv = document.getElementById('u-service').value;
-        const total = document.getElementById('u-total').value;
-        const peman = document.getElementById('u-pay').value;
-        const freq = document.getElementById('u-freq').options[document.getElementById('u-freq').selectedIndex].text;
-
-        if(!nom || !total || !peman) {
-            alert("Tanpri ranpli Non, Montan Total ak Vèsman!");
-            return;
-        }
-
-        const d = { nom, tel_client, nif_cin, serv, total, peman, freq, dat: new Date().toLocaleString() };
-
-        try {
-            // Sove nan Firebase
-            await db.collection("sol_inscriptions").add(d);
-            
-            // Louvri WhatsApp ak nimewo 50942017744 la
-            const waNum = "50942017744";
-            const waMsg = `*NOUVEL ENSKRIPSYON SÒL*\n\n👤 *Non:* ${nom}\n📞 *WhatsApp:* ${tel_client}\n🆔 *ID:* ${nif_cin}\n🎁 *Sèvis:* ${serv}\n💰 *Montan Total:* ${total} Gdes\n📅 *Vèsman:* ${peman} Gdes\n🔄 *Frekans:* ${freq}`;
-            
-            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(waMsg)}`);
-        } catch(e) {
-            console.error(e);
-            alert("Gen yon erè nan sistèm nan. Verifye koneksyon w.");
-        }
-    }
-
-    window.onload = () => {
-        const savedLang = localStorage.getItem('aurisme_lang') || 'fr';
-        setLanguage(savedLang, document.getElementById('btn-' + savedLang));
-    };
-</script>
-</body>
-    </html>
+// --- Nouvo calculateSol() ak peryòd deja peye, ki rete + progress bar ---
+function calculateSol() {
+    const total=parseFloat(document.getElementById('u-total').value);
+    const pay=parseFloat(document.getElementById('u-pay').value);
+    const summary=document.getElementById('sol-summary');
+    const text=document.getElementById('summary-text');
+    const lang=localStorage.getItem('aurisme_lang')||'fr';
     
+    if(total>0 && pay>0){
+        const rounds=Math.ceil(total/pay);
+        const freq=document.getElementById('u-freq').options[document.getElementById('u-freq').selectedIndex].text;
+
+        const paidPeriods=Math.min(Math.floor(pay/total*rounds)+1, rounds);
+        const remainingPeriods=rounds-paidPeriods;
+
+        summary.style.display="block";
+        text.innerText=`${translations[lang].res}${rounds} (${paidPeriods} deja peye, ${remainingPeriods} rete) ${freq.toLowerCase()}.`;
+
+        const progress=Math.min((pay/total)*100,100);
+        document.getElementById('progress-bar').style.width=progress+"%";
+    }else{
+        summary.style.display="none";
+        document.getElementById('progress-bar').style.width="0%";
+    }
+}
+
+// FIREBASE
+const firebaseConfig={apiKey:"AIzaSyAkvQekoI6G-yJw4df_ItkWjUrKTBgmSpQ",authDomain:"aurisme-saveurs.firebaseapp.com",projectId:"aurisme-saveurs",storageBucket:"aurisme-saveurs.appspot.com",messagingSenderId:"365315354512",appId:"1:365315354512:web:7f6d49480a4237f3944630"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+
+async function sendData(){
+    const nom=document.getElementById('u-name').value;
+    const tel_client=document.getElementById('u-tel').value;
+    const nif_cin=document.getElementById('u-id').value||"N/A";
+    const serv=document.getElementById('u-service').value;
+    const total=document.getElementById('u-total').value;
+    const peman=document.getElementById('u-pay').value;
+    const freq=document.getElementById('u-freq').options[document.getElementById('u-freq').selectedIndex].text;
+
+    if(!nom || !total || !peman){ alert("Tanpri ranpli Non, Montan Total ak Vèsman!"); return; }
+
+    const d={nom,tel_client,nif_cin,serv,total,peman,freq,dat:new Date().toLocaleString()};
+    try{
+        await db.collection("sol_inscriptions").add(d);
+        const waNum="50942017744";
+        const waMsg=`*NOUVEL ENSKRIPSYON SÒL*\n\n👤 *Non:* ${nom}\n📞 *WhatsApp:* ${tel_client}\n🆔 *ID:* ${nif_cin}\n🎁 *Sèvis:* ${serv}\n💰 *Montan Total:* ${total} Gdes\n📅 *Vèsman:* ${peman} Gdes\n🔄 *Frekans:* ${freq}`;
+        window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(waMsg)}`);
+    }catch(e){ console.error(e); alert("Gen yon erè nan sistèm nan. Verifye koneksyon w."); }
+}
+
+window.onload=()=>{ const savedLang=localStorage.getItem('aurisme_lang')||'fr'; setLanguage(savedLang,document.getElementById('btn-'+savedLang)); };
+</script>
+
+</body>
+</html>
