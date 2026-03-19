@@ -135,7 +135,17 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 <div class="footer-info">
     <p>📧 gâteaux.friandise@gmail.com | 📞 +509 4201-7744</p>
     <p><strong>📍 Péguy-ville, Rue Aguallo</strong></p>
-    <iframe src="https://www.google.com/maps/embed" width="100%" height="250" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+    
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.561492194553!2d-72.28585938509373!3d18.513576987413695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb9e0f6071e21b7%3A0x6b772c5b364379a!2sP%C3%A9tion-Ville%2C%20Haiti!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
+        width="100%" 
+        height="250" 
+        style="border:0; border-radius:20px;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    
     <br><br>
     <a href="privacy.html" id="t-priv" style="color:var(--navy); font-weight:bold; text-decoration:none;">🔒 Règleman sou Konfidansyalite</a>
     <p id="t-tech" style="font-size: 10px; color: #999; margin-top: 15px;">Sekirize pa Aurisme Tech</p>
@@ -268,7 +278,6 @@ function voyeEmailJS(serviceType) {
         message: "Produits: " + selected + "\nAutres: " + othersList
     };
 
-    // SERVICE ID KORIJE EGZAKTEMAN JAN OU MANDEL LA
     emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
         .then(function() {
             alert("Merci! Votre commande a été envoyée avec succès.");
