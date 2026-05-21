@@ -94,6 +94,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         <a href="sol.html" class="plan-btn-link" id="t-plan-btn">PATISIPE</a>
     </div>
 
+    <!-- Sèvis Sipèmache -->
     <div class="collapsible-box">
         <button class="collapsible-btn" onclick="toggleBox('box-super')"><span id="t-sup">🛒 Sèvis Sipèmache</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-super" class="collapsible-content">
@@ -105,7 +106,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
             </select>
             <input type="text" id="market-name-other" placeholder="Si se yon lòt mache, ekri non l isit la...">
             
-            <label id="lbl-prod-aur">Pwodwi Aurisme (Koche & Kantite):</label>
+            <label id="lbl-prod-aur">Pwodwi Alimentaires (Koche & Kantite):</label>
             <div class="product-list-container" id="aurisme-list"></div>
             
             <textarea id="market-others-list" placeholder="Lis lòt pwodwi ou bezwen yo..."></textarea>
@@ -113,6 +114,7 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         </div>
     </div>
 
+    <!-- Pwodwi Alimentaire en Gros -->
     <div class="collapsible-box" style="border-left-color: var(--navy);">
         <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">📦 Pwodwi Alimentaire en Gros</span> <i class="fas fa-chevron-down"></i></button>
         <div id="box-ti" class="collapsible-content">
@@ -154,18 +156,11 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 <script>
 let currentLang = 'ht';
 
-// Lis Pwodwi Aurisme pou Sipèmache
-const products = {
-    ht: ["Gato ti bòl", "Gato 12\"", "Palmier", "Sacristain", "Kokonat", "Cookies", "Lang bèf", "Pate", "Cupcakes", "Cookies rezen"],
-    fr: ["Gâteau ti bol", "Gâteau 12\"", "Palmier", "Sacristain", "Coconuts", "Cookies", "Langue de boeufs", "Pâtés", "Cupcakes", "Cookies raisin"],
-    en: ["Small Bowl Cake", "12\" Cake", "Palmier", "Sacristain", "Coconuts", "Cookies", "Beef Tongue Pastry", "Patties", "Cupcakes", "Raisin Cookies"]
-};
-
-// Lis Pwodwi Alimentaires en Gros sèlman (Koulye a li korije nèt)
-const wholesaleProducts = {
-    ht: ["Diri (Sak)", "Lwil (Bwèt)", "Sik (Sak)", "Pwa (Sak)", "Farinn (Sak)", "Spageti (Bwèt)", "Lèt an poud (Bwat)", "Sòs Tomat (Bwèt)", "Sardinn / Sosis (Bwèt)", "Sèl (Sak)"],
-    fr: ["Riz (Sac)", "Huile (Caisse)", "Sucre (Sac)", "Haricots (Sac)", "Farine (Sac)", "Spaghetti (Caisse)", "Lait en poudre (Boîte)", "Sauce Tomate (Caisse)", "Sardines / Saucisses (Caisse)", "Sel (Sac)"],
-    en: ["Rice (Bag)", "Oil (Case)", "Sugar (Bag)", "Beans (Bag)", "Flour (Bag)", "Spaghetti (Case)", "Powdered Milk (Tin)", "Tomato Paste (Case)", "Canned Meat / Sardines (Case)", "Salt (Bag)"]
+// Lis Pwodwi Alimentaires yo nèt kounye a (Pa gen patisri ankò)
+const foodProducts = {
+    ht: ["Riz / Diri (Sak)", "Sucre / Sik (Sak)", "Farine / Farinn (Sak)", "Huile / Lwil (Bwèt)", "Pois / Pwa (Sak)", "Spaghetti / Spageti (Bwèt)", "Lait en poudre / Lèt (Bwat)", "Sauce Tomate / Sos Tomat (Bwèt)", "Sardines / Sardinn (Bwèt)", "Sel / Sèl (Sak)"],
+    fr: ["Riz (Sac)", "Sucre (Sac)", "Farine (Sac)", "Huile (Caisse)", "Haricots (Sac)", "Spaghetti (Caisse)", "Lait en poudre (Boîte)", "Sauce Tomate (Caisse)", "Sardines (Caisse)", "Sel (Sac)"],
+    en: ["Rice (Bag)", "Sugar (Bag)", "Flour (Bag)", "Oil (Case)", "Beans (Bag)", "Spaghetti (Case)", "Powdered Milk (Tin)", "Tomato Paste (Case)", "Sardines (Case)", "Salt (Bag)"]
 };
 
 const translations = {
@@ -174,11 +169,11 @@ const translations = {
         v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDER",
         liv: "LIVRAISON", tax: "TAXI MOTO", aca: "ACADÉMIE", pat: "PÂTISSERIE", dec: "DÉCO & TRAITEUR", gal: "GALERIE",
         plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
-        sup: "🛒 Service Supermarché", res: "📦 Produits Alimentaires en Gros", lbl_m: "Choisir Marché:", opt_o: "Et autres",
+        sup: "🛒 Service Supermarché", res: "📦 Produits Alimentaire en Gros", lbl_m: "Choisir Marché:", opt_o: "Et autres",
         m_ph: "Si c'est un autre marché, écrivez son nom ici...", p_list: "Liste des autres produits dont vous avez besoin...",
-        lbl_p_a: "Produits Aurisme (Cochez & Quantité):", btn_s: "COMMANDER",
+        lbl_p_a: "Produits Alimentaires (Cochez & Quantité):", btn_s: "COMMANDER",
         n_ph: "Nom et Téléphone", lbl_p_g: "Produits Alimentaires (Cochez & Quantité):", 
-        ti_ph: "Liste des autres produits alimentaires en gros dont vous avez besoin...", btn_r: "COMMANDER",
+        ti_ph: "Liste des autres produits alimentaire en gros dont vous avez besoin...", btn_r: "COMMANDER",
         priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
     },
     en: { 
@@ -186,11 +181,11 @@ const translations = {
         v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER NOW",
         liv: "DELIVERY", tax: "MOTO TAXI", aca: "ACADEMY", pat: "PASTRY", dec: "DECO & CATERING", gal: "GALLERY",
         plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
-        sup: "🛒 Supermarket Service", res: "📦 Wholesale Grocery Products", lbl_m: "Select Market:", opt_o: "Others",
+        sup: "🛒 Supermarket Service", res: "📦 Produits Alimentaire en Gros", lbl_m: "Select Market:", opt_o: "Others",
         m_ph: "If it's another market, write its name here...", p_list: "List other products you need...",
-        lbl_p_a: "Aurisme Products (Check & Qty):", btn_s: "ORDER",
-        n_ph: "Name and Phone", lbl_p_g: "Wholesale Grocery (Check & Qty):", 
-        ti_ph: "List other wholesale grocery products you need...", btn_r: "ORDER",
+        lbl_p_a: "Food Products (Check & Qty):", btn_s: "ORDER",
+        n_ph: "Name and Phone", lbl_p_g: "Food Products (Check & Qty):", 
+        ti_ph: "List other wholesale food products you need...", btn_r: "ORDER",
         priv: "🔒 Privacy Policy", tech: "Secured by Aurisme Tech"
     },
     ht: { 
@@ -200,7 +195,7 @@ const translations = {
         plan_t: "Planifye ak Aurisme", plan_d: "Prepare evènman ou yo epi peye dousman.", plan_b: "PATISIPE",
         sup: "🛒 Sèvis Sipèmache", res: "📦 Pwodwi Alimentaire en Gros", lbl_m: "Chwazi Mache:", opt_o: "Ak lòt ankò",
         m_ph: "Si se yon lòt mache, ekri non l isit la...", p_list: "Lis lòt pwodwi ou bezwen yo...",
-        lbl_p_a: "Pwodwi Aurisme (Koche & Kantite):", btn_s: "KOMANDE",
+        lbl_p_a: "Pwodwi Alimentaires (Koche & Kantite):", btn_s: "KOMANDE",
         n_ph: "Non ak Telefòn ou", lbl_p_g: "Pwodwi Alimentaires (Koche & Kantite):", 
         ti_ph: "Lis lòt pwodwi alimentaire ou bezwen an gwo yo...", btn_r: "KOMANDE",
         priv: "🔒 Règleman sou Konfidansyalite", tech: "Sekirize pa Aurisme Tech"
@@ -213,21 +208,19 @@ function toggleBox(id) {
 }
 
 function renderProducts(lang) {
-    // Rend Pwodwi Aurisme yo pou Sipèmache
-    let listAurisme = products[lang];
-    let htmlAurisme = '';
-    listAurisme.forEach((p, i) => {
-        htmlAurisme += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
+    let list = foodProducts[lang];
+    let htmlSuper = '';
+    let htmlGros = '';
+    
+    list.forEach((p, i) => {
+        // Pou Sipèmache
+        htmlSuper += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
+        // Pou Pwodwi en Gros
+        htmlGros += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="ct-${i}"><label for="ct-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
     });
-    document.getElementById('aurisme-list').innerHTML = htmlAurisme;
-
-    // Rend Pwodwi Alimentaires en gros sèlman nan bwat pa l la
-    let listWholesale = wholesaleProducts[lang];
-    let htmlWholesale = '';
-    listWholesale.forEach((p, i) => {
-        htmlWholesale += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="ct-${i}"><label for="ct-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
-    });
-    document.getElementById('ti-machann-list').innerHTML = htmlWholesale;
+    
+    document.getElementById('aurisme-list').innerHTML = htmlSuper;
+    document.getElementById('ti-machann-list').innerHTML = htmlGros;
 }
 
 function changeLanguage(lang) {
@@ -316,4 +309,3 @@ window.onload = function() {
 </script>
 </body>
 </html>
- 
