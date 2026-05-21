@@ -6,6 +6,7 @@
 <title>Aurisme Saveurs et Services</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+<!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script type="text/javascript">
   (function(){
@@ -14,44 +15,158 @@
 </script>
 
 <style>
-:root{--bordeaux:#800000;--gold:#DAA520;--navy:#003366;--vetiver-green:#1b4d3e;}
-body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:#f8f8f8;text-align:center;}
+:root {
+    --bordeaux: #800000;
+    --gold: #DAA520;
+    --navy: #003366;
+    --vetiver-green: #1b4d3e;
+}
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f8f8;
+    text-align: center;
+}
 
-.promo-banner { background: var(--vetiver-green); color: white; overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 15px; font-weight: bold; border-bottom: 3px solid var(--gold); }
-.promo-scroll { display: inline-block; padding-left: 100%; animation: scroll-text 15s linear infinite; }
-@keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-.promo-banner a { color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 2px 8px; margin-left: 10px; border-radius: 5px; text-transform: uppercase; font-size: 12px; }
+/* Banner defilan */
+.promo-banner { 
+    background: var(--vetiver-green); 
+    color: white; 
+    overflow: hidden; 
+    white-space: nowrap; 
+    padding: 10px 0; 
+    font-size: 15px; 
+    font-weight: bold; 
+    border-bottom: 3px solid var(--gold); 
+}
+.promo-scroll { 
+    display: inline-block; 
+    padding-left: 100%; 
+    animation: scroll-text 20s linear infinite; 
+}
+@keyframes scroll-text { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-100%); } 
+}
+.promo-banner a { 
+    color: var(--gold); 
+    text-decoration: none; 
+    border: 1px solid var(--gold); 
+    padding: 2px 8px; 
+    margin-left: 10px; 
+    border-radius: 5px; 
+    text-transform: uppercase; 
+    font-size: 12px; 
+}
 
-.lang-bar-fixed{position:sticky; top:0; background:white; padding:10px 0; display:flex; justify-content:center; z-index:9999; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
-.lang-bar-fixed button{margin:0 8px; padding:8px 15px; border:none; border-radius:20px; cursor:pointer; background:#eee; color:var(--navy); font-weight:bold; font-size:14px;}
+/* Bouton Lang yo */
+.lang-bar-fixed {
+    position: sticky; 
+    top: 0; 
+    background: white; 
+    padding: 10px 0; 
+    display: flex; 
+    justify-content: center; 
+    z-index: 9999; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.lang-bar-fixed button {
+    margin: 0 8px; 
+    padding: 8px 15px; 
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    background: #eee; 
+    color: var(--navy); 
+    font-weight: bold; 
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+.lang-bar-fixed button:hover {
+    background: #ddd;
+}
 
-header{background:var(--bordeaux); color:white; padding:30px 20px; border-bottom:4px solid var(--gold);}
-.logo-container img{width:100px; height:100px; border-radius:50%; border:3px solid var(--gold); background:white; object-fit:cover; cursor: default;}
+header { background: var(--bordeaux); color: white; padding: 30px 20px; border-bottom: 4px solid var(--gold); }
+.logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold); background: white; object-fit: cover; }
 
-.menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:20px;}
-.menu-card{background:white; padding:25px 10px; border-radius:20px; text-align:center; text-decoration:none; color:var(--navy); font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.1); border-bottom:4px solid var(--gold); display:flex; flex-direction:column; align-items:center;}
-.menu-card i{font-size:35px; color:var(--bordeaux); margin-bottom:10px;}
+/* Grid Menu */
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px; }
+.menu-card { 
+    background: white; 
+    padding: 25px 10px; 
+    border-radius: 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    color: var(--navy); 
+    font-weight: bold; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+    border-bottom: 4px solid var(--gold); 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    transition: transform 0.2s;
+}
+.menu-card:active { transform: scale(0.98); }
+.menu-card i { font-size: 35px; color: var(--bordeaux); margin-bottom: 10px; }
 
-.plan-box { background: #fffcf2; border: 1px solid var(--gold); padding: 12px 15px; border-radius: 15px; margin: 15px 10px; display: flex; justify-content: space-between; align-items: center; border-left: 6px solid var(--gold); text-align: left; box-shadow: 0 3px 8px rgba(0,0,0,0.05);}
-.plan-btn-link { background: var(--gold); color: var(--bordeaux); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 13px;}
+/* Planifye bwat */
+.plan-box { 
+    background: #fffcf2; 
+    border: 1px solid var(--gold); 
+    padding: 12px 15px; 
+    border-radius: 15px; 
+    margin: 15px 10px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-left: 6px solid var(--gold); 
+    text-align: left; 
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+.plan-btn-link { 
+    background: var(--gold); 
+    color: var(--bordeaux); 
+    text-decoration: none; 
+    padding: 8px 14px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    font-size: 13px;
+}
 
-.collapsible-box{background:white; border-radius:20px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin:20px 10px; overflow:hidden; border-left:5px solid var(--bordeaux);}
-.collapsible-btn{background:white; width:100%; padding:20px; border:none; text-align:left; font-size:16px; font-weight:bold; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
-.collapsible-content{display:none; padding:15px; text-align:left;}
+/* Stil Akòdeyon (Collapsible) */
+.collapsible-box { background: white; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.05); margin: 20px 10px; overflow: hidden; border-left: 5px solid var(--bordeaux); }
+.collapsible-btn { 
+    background: white; 
+    width: 100%; 
+    padding: 20px; 
+    border: none; 
+    text-align: left; 
+    font-size: 16px; 
+    font-weight: bold; 
+    color: var(--navy); 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.collapsible-content { display: none; padding: 15px; text-align: left; }
 
-.product-list-container { max-height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 10px;}
-.product-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: white; padding: 8px; border-radius: 8px; border-bottom: 1px solid #eee;}
-.product-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer;}
-.product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
-.product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500;}
+/* Lis Pwodwi yo ak Checkbox */
+.product-list-container { max-height: 250px; overflow-y: auto; background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 10px; }
+.product-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: white; padding: 8px; border-radius: 8px; border-bottom: 1px solid #eee; }
+.product-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+.product-item input[type="number"] { width: 55px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+.product-item label { flex: 1; margin-left: 10px; font-size: 14px; font-weight: 500; cursor: pointer; }
 
-input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box;}
-.btn-order{background-color:var(--bordeaux); color:white; border:none; padding:16px; width:100%; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;}
+input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; }
+.btn-order { background-color: var(--bordeaux); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+.btn-order:disabled { background-color: #ccc; cursor: not-allowed; }
 
 .ranking-box { background: white; margin: 20px 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 .ranking-stars { color: var(--gold); font-size: 18px; margin-bottom: 5px; }
 
-.footer-info{background:#eee; padding:25px; border-radius:20px; margin:30px 10px; font-size:13px;}
+.footer-info { background: #eee; padding: 25px; border-radius: 20px; margin: 30px 10px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -114,15 +229,15 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
         </div>
     </div>
 
-    <!-- Pwodwi Alimentaire en Gros -->
+    <!-- Bwat Pwodwi Alimantè an Gwo (Ansyen Ti Machann lan) -->
     <div class="collapsible-box" style="border-left-color: var(--navy);">
-        <button class="collapsible-btn" onclick="toggleBox('box-ti')" style="color: var(--navy);"><span id="t-res">📦 Pwodwi Alimentaire en Gros</span> <i class="fas fa-chevron-down"></i></button>
-        <div id="box-ti" class="collapsible-content">
-            <input type="text" id="ti-name" placeholder="Non ak Telefòn ou">
+        <button class="collapsible-btn" onclick="toggleBox('box-gros')" style="color: var(--navy);"><span id="t-res">📦 Pwodwi Alimentaire en Gros</span> <i class="fas fa-chevron-down"></i></button>
+        <div id="box-gros" class="collapsible-content">
+            <input type="text" id="gros-name" placeholder="Non ak Telefòn ou">
             <label id="lbl-prod-gros">Pwodwi Alimentaires (Koche & Kantite):</label>
-            <div class="product-list-container" id="ti-machann-list"></div>
+            <div class="product-list-container" id="gros-alim-list"></div>
             
-            <textarea id="ti-others-list" placeholder="Lis lòt pwodwi alimentaire ou bezwen an gwo yo..."></textarea>
+            <textarea id="gros-others-list" placeholder="Lis lòt pwodwi alimentaire ou bezwen an gwo yo..."></textarea>
             <button class="btn-order" style="background:var(--navy);" id="btn-res" onclick="voyeEmailJS('Vente en Gros')">COMMANDER</button>
         </div>
     </div>
@@ -156,11 +271,11 @@ input, select, textarea{width:100%; padding:12px; margin:10px 0; border:1px soli
 <script>
 let currentLang = 'ht';
 
-// Lis Pwodwi Alimentaires yo nèt kounye a (Pa gen patisri ankò)
+// Lis Pwodwi Alimantè yo (Diri, Lwil, Farin, Sik, Pwa...)
 const foodProducts = {
-    ht: ["Riz / Diri (Sak)", "Sucre / Sik (Sak)", "Farine / Farinn (Sak)", "Huile / Lwil (Bwèt)", "Pois / Pwa (Sak)", "Spaghetti / Spageti (Bwèt)", "Lait en poudre / Lèt (Bwat)", "Sauce Tomate / Sos Tomat (Bwèt)", "Sardines / Sardinn (Bwèt)", "Sel / Sèl (Sak)"],
-    fr: ["Riz (Sac)", "Sucre (Sac)", "Farine (Sac)", "Huile (Caisse)", "Haricots (Sac)", "Spaghetti (Caisse)", "Lait en poudre (Boîte)", "Sauce Tomate (Caisse)", "Sardines (Caisse)", "Sel (Sac)"],
-    en: ["Rice (Bag)", "Sugar (Bag)", "Flour (Bag)", "Oil (Case)", "Beans (Bag)", "Spaghetti (Case)", "Powdered Milk (Tin)", "Tomato Paste (Case)", "Sardines (Case)", "Salt (Bag)"]
+    ht: ["Riz / Diri (Sak)", "Huile / Lwil (Bwèt)", "Farine / Farinn (Sak)", "Sucre / Sik (Sak)", "Pois / Pwa (Sak)", "Spaghetti / Spageti (Bwèt)", "Lait en poudre / Lèt (Bwat)", "Sauce Tomate / Sos Tomat (Bwèt)", "Sardines / Sardinn (Bwèt)", "Sel / Sèl (Sak)"],
+    fr: ["Riz (Sac)", "Huile (Caisse)", "Farine (Sac)", "Sucre (Sac)", "Haricots (Sac)", "Spaghetti (Caisse)", "Lait en poudre (Boîte)", "Sauce Tomate (Caisse)", "Sardines (Caisse)", "Sel (Sac)"],
+    en: ["Rice (Bag)", "Oil (Case)", "Flour (Bag)", "Sugar (Bag)", "Beans (Bag)", "Spaghetti (Case)", "Powdered Milk (Tin)", "Tomato Paste (Case)", "Sardines (Case)", "Salt (Bag)"]
 };
 
 const translations = {
@@ -169,11 +284,11 @@ const translations = {
         v_text: "VETIHKAM : Le bon PARFUM VÉTIVER d'Haïti", v_btn: "COMMANDER",
         liv: "LIVRAISON", tax: "TAXI MOTO", aca: "ACADÉMIE", pat: "PÂTISSERIE", dec: "DÉCO & TRAITEUR", gal: "GALERIE",
         plan_t: "Planifiez avec Aurisme", plan_d: "Préparez vos événements et payez petit à petit.", plan_b: "PARTICIPER",
-        sup: "🛒 Service Supermarché", res: "📦 Produits Alimentaire en Gros", lbl_m: "Choisir Marché:", opt_o: "Et autres",
+        sup: "🛒 Service Supermarché", res: "📦 Produits Alimentaires en Gros", lbl_m: "Choisir Marché:", opt_o: "Et autres",
         m_ph: "Si c'est un autre marché, écrivez son nom ici...", p_list: "Liste des autres produits dont vous avez besoin...",
         lbl_p_a: "Produits Alimentaires (Cochez & Quantité):", btn_s: "COMMANDER",
         n_ph: "Nom et Téléphone", lbl_p_g: "Produits Alimentaires (Cochez & Quantité):", 
-        ti_ph: "Liste des autres produits alimentaire en gros dont vous avez besoin...", btn_r: "COMMANDER",
+        ti_ph: "Liste des autres produits alimentaires en gros dont vous avez besoin...", btn_r: "COMMANDER",
         priv: "🔒 Politique de Confidentialité", tech: "Sécurisé par Aurisme Tech"
     },
     en: { 
@@ -181,7 +296,7 @@ const translations = {
         v_text: "VETIHKAM: Best Haitian VETIVER", v_btn: "ORDER NOW",
         liv: "DELIVERY", tax: "MOTO TAXI", aca: "ACADEMY", pat: "PASTRY", dec: "DECO & CATERING", gal: "GALLERY",
         plan_t: "Plan with Aurisme", plan_d: "Prepare your events and pay slowly.", plan_b: "JOIN NOW",
-        sup: "🛒 Supermarket Service", res: "📦 Produits Alimentaire en Gros", lbl_m: "Select Market:", opt_o: "Others",
+        sup: "🛒 Supermarket Service", res: "📦 Wholesale Food Products", lbl_m: "Select Market:", opt_o: "Others",
         m_ph: "If it's another market, write its name here...", p_list: "List other products you need...",
         lbl_p_a: "Food Products (Check & Qty):", btn_s: "ORDER",
         n_ph: "Name and Phone", lbl_p_g: "Food Products (Check & Qty):", 
@@ -213,14 +328,14 @@ function renderProducts(lang) {
     let htmlGros = '';
     
     list.forEach((p, i) => {
-        // Pou Sipèmache
+        // Pou Sipèmache (id kòmanse ak c-)
         htmlSuper += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="c-${i}"><label for="c-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
-        // Pou Pwodwi en Gros
-        htmlGros += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="ct-${i}"><label for="ct-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
+        // Pou Pwodwi en Gros (id kòmanse ak cg-)
+        htmlGros += `<div class="product-item"><input type="checkbox" class="prod-check" value="${p}" id="cg-${i}"><label for="cg-${i}">${p}</label><input type="number" class="prod-qty" value="1" min="1"></div>`;
     });
     
     document.getElementById('aurisme-list').innerHTML = htmlSuper;
-    document.getElementById('ti-machann-list').innerHTML = htmlGros;
+    document.getElementById('gros-alim-list').innerHTML = htmlGros;
 }
 
 function changeLanguage(lang) {
@@ -246,54 +361,63 @@ function changeLanguage(lang) {
     document.getElementById('market-others-list').placeholder = t.p_list;
     document.getElementById('lbl-prod-aur').innerText = t.lbl_p_a;
     document.getElementById('btn-sup').innerText = t.btn_s;
-    document.getElementById('ti-name').placeholder = t.n_ph;
+    document.getElementById('gros-name').placeholder = t.n_ph;
     document.getElementById('super-name').placeholder = t.n_ph;
     document.getElementById('lbl-prod-gros').innerText = t.lbl_p_g;
-    document.getElementById('ti-others-list').placeholder = t.ti_ph;
+    document.getElementById('gros-others-list').placeholder = t.ti_ph;
     document.getElementById('btn-res').innerText = t.btn_r;
     document.getElementById('t-priv').innerText = t.priv;
     document.getElementById('t-tech').innerText = t.tech;
     
     renderProducts(lang);
     const promoHTML = `🌿 ${t.v_text} 🌿 <a href="#">${t.v_btn}</a>`;
-    document.getElementById('promo-content').innerHTML = promoHTML + "   " + promoHTML;
+    document.getElementById('promo-content').innerHTML = promoHTML + " &nbsp;&nbsp;&nbsp;&nbsp; " + promoHTML;
 }
 
 function voyeEmailJS(serviceType) {
-    let btnId = (serviceType === 'Supermarché') ? 'btn-sup' : 'btn-res';
+    let isSuper = (serviceType === 'Supermarché');
+    let btnId = isSuper ? 'btn-sup' : 'btn-res';
     let btn = document.getElementById(btnId);
     let originalText = btn.innerText;
-    btn.innerText = "Ap voye...";
+    
+    btn.innerText = (currentLang === 'en') ? "Sending..." : (currentLang === 'fr' ? "Envoi..." : "Ap voye...");
     btn.disabled = true;
 
     let selected = "";
-    let listId = (serviceType === 'Supermarché') ? 'aurisme-list' : 'ti-machann-list';
-    let textListId = (serviceType === 'Supermarché') ? 'market-others-list' : 'ti-others-list';
+    let listId = isSuper ? 'aurisme-list' : 'gros-alim-list';
+    let textListId = isSuper ? 'market-others-list' : 'gros-others-list';
     let container = document.getElementById(listId);
     let checks = container.querySelectorAll('.prod-check');
     let qtys = container.querySelectorAll('.prod-qty');
     
-    let finalMarket = (serviceType === 'Supermarché') ? (document.getElementById('market-name-other').value || document.getElementById('market-select').value) : "Vente en Gros";
-    let name = (serviceType === 'Supermarché') ? document.getElementById('super-name').value : document.getElementById('ti-name').value;
-    let othersList = document.getElementById(textListId).value;
+    let finalMarket = isSuper ? (document.getElementById('market-name-other').value || document.getElementById('market-select').value) : "Vente en Gros";
+    let nameField = isSuper ? document.getElementById('super-name') : document.getElementById('gros-name');
+    let othersListField = document.getElementById(textListId);
 
     checks.forEach((c, i) => { 
         if(c.checked) selected += c.value + " (" + qtys[i].value + "), "; 
     });
 
     const params = {
-        nom_kliyan: name || "Client Aurisme",
+        nom_kliyan: nameField.value || "Client Aurisme",
         sevis_chwazi: serviceType + " - " + finalMarket,
-        message: "Produits: " + selected + "\nAutres: " + othersList
+        message: "Produits: " + selected + "\nAutres: " + othersListField.value
     };
 
     emailjs.send("Aurisme-Saveurs", "template_lahimq8", params)
         .then(function() {
-            alert("Merci! Votre commande a été envoyée avec succès.");
+            alert(currentLang === 'en' ? "Thank you! Your order has been submitted." : "Mèsi! Kòmand ou an voye avèk siksè.");
+            
+            // Netwaye fòm nan apre mesaj la fin voye
+            nameField.value = "";
+            othersListField.value = "";
+            if(isSuper) document.getElementById('market-name-other').value = "";
+            checks.forEach((c, i) => { c.checked = false; qtys[i].value = "1"; });
+            
             btn.innerText = originalText;
             btn.disabled = false;
         }, function(err) {
-            alert("Erreur: " + JSON.stringify(err));
+            alert("Error: " + JSON.stringify(err));
             btn.innerText = originalText;
             btn.disabled = false;
         });
@@ -309,3 +433,4 @@ window.onload = function() {
 </script>
 </body>
 </html>
+ 
